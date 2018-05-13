@@ -1,0 +1,26 @@
+@CHARSET "UTF-8";
+.ans_div {
+	display:none;
+	position:relative;
+	height:24px;
+	overflow:hidden;
+	cursor: pointer;
+	color: #E6F644;
+}
+.ans_a,.ans_a:HOVER,.ans_a:VISITED {
+	text-decoration: none;
+	display:block;
+	color: #E6F644;
+}
+.ans_author {
+	font-weight:normal;
+	font-size:9pt;
+}
+.slide-group{
+	position:absolute; 
+	top:0px; 
+	left:0px;
+	padding-left: 0px;
+}
+
+

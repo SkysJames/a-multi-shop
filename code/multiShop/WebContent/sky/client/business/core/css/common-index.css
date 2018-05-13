@@ -1,0 +1,248 @@
+@CHARSET "UTF-8";
+h1, h2, h3 {
+    font-weight: normal;
+}
+a {
+	text-decoration: none!important;
+}
+ul li {
+	list-style: none;
+}
+
+.more-container {
+	width: 100%;
+	margin: 0px;
+	margin-top: 50px;
+	border-top: 1px solid #e6e6e6;
+}
+.module-container {
+	width: 96%;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+.module-header {
+	width: 100%;
+    text-align: center;
+}
+.module-header .module-head {
+	font-size: 26px;
+    color: #333;
+    line-height: 35px;
+    margin: 15px 0;
+}
+.module-header .module-subhead {
+	font-size: 16px;
+    color: #666;
+}
+.module-subhead ul {
+	
+}
+.module-subhead ul li {
+	display: inline-block;
+	vertical-align: middle;
+	list-style: none;
+}
+.module-subhead ul li a {
+	margin: 0 5px;
+    color: #666;
+}
+.module-subhead ul li a:hover {
+	color: #24b727;
+}
+.module-content {
+	clear: both;
+    overflow: hidden;
+    margin-top: 25px;
+    text-align: left;
+}
+.module-content dl {
+	display: inline-block;
+	vertical-align: top;
+	width: 31%;
+    margin: 15px 1.1%;
+	color: #666;
+}
+.module-content dd {
+	width: 100%;
+	height: 220px;
+	margin: 0px;
+	margin-bottom: 10px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center top;
+	transition: box-shadow 218ms;
+}
+.module-content dd:hover {
+	box-shadow: 0px 1px 5px rgba(50,50,50,0.75);
+}
+.module-content dd a {
+	display: block;
+    width: 100%;
+    height: 100%;
+}
+.module-content dt {
+	width: 100%;
+	text-align: left;
+	line-height: 26px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.module-title {
+	margin: 0px;
+	color: #222;
+	font-size: 16px;
+	font-weight: normal;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer;
+}
+.module-title:hover,.module-title:active {
+	color: #24b727;
+}
+.module-text {
+	font-size: 12px;
+}
+.module-linked {
+	color: #24b727;
+}
+.module-linked:hover {
+	color: #24b727;
+	text-shadow: 0 0 0 #24b727;
+}
+.module-return {
+	background: #24b727;
+    width: 160px;
+    height: 50px;
+    color: #fff;
+    font-size: 18px;
+    line-height: 50px;
+    margin: 30px auto;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 2px;
+    -moz-transition: all 0.3s ease-in-out;
+	-webkit-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+}
+.module-return:hover,.module-return:active {
+	color: #fff;
+	background: #1ea721;
+}
+
+.item-detail {
+	margin: 0px;
+	width: 100%;
+}
+.detail-container {
+	width: 100%;
+}
+.detail-middle {
+	margin: 0 auto;
+	width: 800px;
+}
+.detail-header {
+	width: 100%;
+	height: 50px;
+    border-bottom: 1px solid #e9e9e9;
+    color: #3b3b3b;
+    font-size: 14px;
+    text-align: center;
+    line-height: 50px;
+}
+.detail-header-left {
+	float: left;
+}
+.detail-header-left strong {
+	font-weight: normal;
+    margin-right: 20px;
+}
+.detail-header-right {
+	float: right;
+}
+.detail-header-right a {
+	color: #555;
+}
+.detail-header-right a:hover,.detail-header-right a:active {
+	color: #24b727;
+}
+.detail-con {
+	margin-top: 35px;
+}
+.detail-pic {
+	width: 100%;
+	margin: 0px;
+	margin-bottom: 10px;
+}
+.detail-pic dl {
+	display: inline-block;
+	vertical-align: top;
+	width: 31%;
+    margin: 15px 1.1%;
+	color: #666;
+}
+.detail-pic dl dd {
+	width: 100%;
+	margin: 0px;
+}
+.detail-pic dl dd img {
+	width: 100%;
+}
+
+
+.common-pager {
+	float: right;
+	margin-right: 15px;
+}
+
+
+@media screen and (max-width: 1000px) {
+	.detail-middle {
+		width: 760px;
+	}
+}
+@media screen and (max-width: 760px) {
+	.module-container {
+		margin-top: 45px;
+	}
+	.module-header .module-head {
+		font-size: 22px;
+	    line-height: 30px;
+	}
+	.module-header .module-subhead {
+		font-size: 14px;
+	}
+	.module-content dl {
+		width: 45%;
+    		margin: 15px 2.5%;
+	}
+	.module-return {
+		width: 100%;
+		font-size: 20px;
+	}
+	
+	.detail-middle {
+		width: 90%;
+	}
+	.detail-pic dl {
+		width: 45%;
+    		margin: 15px 2.5%;
+	}
+}
+@media screen and (max-width: 470px) {
+	.module-content dl {
+	    width: 100%;
+	    margin: 10px auto;
+	    float: none;
+	}
+	
+	.detail-header .detail-middle {
+		font-size: 12px;
+	}
+	.detail-pic dl {
+		width: 100%;
+	    margin: 10px auto;
+	}
+}
+

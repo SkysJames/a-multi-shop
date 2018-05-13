@@ -1,0 +1,101 @@
+<!-- dialog -->
+<div class="modal fade" id="personPanelId" tabindex="-1" role="dialog" aria-labelledby="personPanelLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content" style="width: 100%;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" data-ng-click="toggleEdit(false)">&times;</button>
+				<ul class="person-lists">
+					<li data-ng-class="{'active':currentPanel==panelIdObj.person}" data-ng-click="togglePanel('person')">用户信息</li>
+					<li data-ng-class="{'active':currentPanel==panelIdObj.password}" data-ng-click="togglePanel('password')">修改密码</li>
+				</ul>
+			</div>
+			
+			<form data-ng-show="currentPanel==panelIdObj.person" data-ng-submit="savePerson();">
+				<div class="modal-body">
+					<table class="person-table">
+						<tr>
+							<td class="person-right-label">用户ID：</td>
+							<td>
+								<span>{{$root.currentUser.id}}</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="person-right-label">用户名称：</td>
+							<td data-ng-class="{'person-input' : isEdit}">
+								<span data-ng-show="!isEdit">{{$root.currentUser.name}}</span>
+								<input data-ng-show="isEdit" data-ng-model="editUser.name" required="required" placeholder="请输入您的用户名称">
+							</td>
+						</tr>
+						<tr>
+							<td class="person-right-label">部门：</td>
+							<td>
+								<span>{{$root.currentUser.department.name}}</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="person-right-label">登录IP：</td>
+							<td>
+								<span>{{$root.currentUser.loginIp}}</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="person-right-label">登录时间：</td>
+							<td>
+								<span>{{$root.currentUser.loginTime|formatDate}}</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="person-right-label person-right-remark">备注：</td>
+							<td data-ng-class="{'person-input' : isEdit}">
+								<span data-ng-show="!isEdit" data-ng-class="{'person-remark-none' : $root.currentUser.remark==null}">
+									{{$root.currentUser.remark==null?"暂无备注信息":$root.currentUser.remark}}
+								</span>
+								<textarea data-ng-show="isEdit" rows="4" cols="" data-ng-model="editUser.remark" placeholder="请输入您的备注信息"></textarea>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="modal-footer">
+					<span class="wait-tag" data-ng-show="savePersonWait"><i class="fa fa-gear fa-spin"></i>&nbsp;请&nbsp;稍&nbsp;候&nbsp;.&nbsp;.&nbsp;.&nbsp;.&nbsp;.&nbsp;.</span>
+					<button type="submit" class="btn btn-primary" data-ng-disabled="savePersonWait" data-ng-show="isEdit">保 存</button>
+					<button type="button" class="btn btn-info" data-ng-show="isEdit" data-ng-click="toggleEdit(false)">取消</button>
+					<button type="button" class="btn btn-primary" data-ng-show="!isEdit" data-ng-click="showEditPerson()">编辑</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" data-ng-click="toggleEdit(false)">关 闭</button>
+				</div>
+			</form>
+			
+			<form data-ng-show="currentPanel==panelIdObj.password" data-ng-submit="savePassword();">
+				<div class="modal-body">
+					<table class="person-table">
+						<tr>
+							<td class="person-right-label">旧密码：</td>
+							<td class="person-input">
+								<input type="password" data-ng-model="passwd.oldPasswd" required="required" placeholder="请输入旧密码">
+							</td>
+						</tr>
+						<tr>
+							<td class="person-right-label">新密码：</td>
+							<td class="person-input">
+								<input type="password" data-ng-model="passwd.newPasswd" required="required" placeholder="请输入新密码">
+							</td>
+						</tr>
+						<tr>
+							<td class="person-right-label">确认：</td>
+							<td class="person-input">
+								<input type="password" data-ng-model="passwd.confirmPasswd" required="required" placeholder="确认新密码">
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="modal-footer">
+					<span class="wait-tag" data-ng-show="savePasswordWait"><i class="fa fa-gear fa-spin"></i>&nbsp;请&nbsp;稍&nbsp;候&nbsp;.&nbsp;.&nbsp;.&nbsp;.&nbsp;.&nbsp;.</span>
+					<button type="submit" class="btn btn-primary" data-ng-disabled="savePasswordWait">保 存</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" data-ng-click="toggleEdit(false)">关 闭</button>
+				</div>
+			</form>
+			
+		</div>
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
