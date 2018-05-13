@@ -1,0 +1,49 @@
+<div class="departmentManageId">
+	<div class="common-content" data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.DEPARTMENT_INDEX)">
+		<form class="common-search" data-ng-submit="getDepartmentList()">
+			<div class="common-box">
+				<label>模糊搜索：</label>
+				<div class="common-input">
+					<input class="search-input" type="search" data-ng-model="condition.keywords" placeholder="部门名称和备注" />
+					<button class="common-btn" type="submit" title="搜索">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+		<div class="common-tools">
+			<button class="btn btn-primary" data-ng-click="triggerPanel($root.panelContants.DEPARTMENT_SAVE)">添加</button>
+		</div>
+		<div class="common-div">
+			<table class="common-table">
+				<tr class="common-table-header">
+					<th>序号</th>
+					<th>部门名称</th>
+					<th>备注</th>
+					<th>操作</th>
+				</tr>
+				<tbody class="common-table-content" data-ng-show="!isLoadingDepartment">
+					<tr class="common-table-row" data-ng-repeat="department in departmentList">
+						<td>{{$index + 1}}</td>
+						<td title="{{department.name|showBlankValue}}">{{department.name|showBlankValue}}</td>
+						<td title="{{department.remark|showBlankValue}}">{{department.remark|showBlankValue}}</td>
+						<td>
+							<a href="javascript:void(0)" data-ng-click="triggerPanel($root.panelContants.DEPARTMENT_EDIT, department)">编辑</a>
+							<a href="javascript:void(0)" data-ng-click="deleteDepartment(department)">删除</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<loading-panel data-ng-show="isLoadingDepartment" font-size="18"></loading-panel>
+			<nodata-panel data-ng-show="!isLoadingDepartment && departmentList.length==0" font-size="18"></nodata-panel>
+		</div>
+		<common-pager class="common-pager" page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
+			total-rows="condition.totalCount" to-page-call-back="getDepartmentList(pageNo)"></common-pager>
+	</div>
+	
+	<!-- 部门保存面板 start -->
+	<department-manage-save data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.DEPARTMENT_SAVE) || 
+		$root.isCurrentPanel($root.currentPanel, $root.panelContants.DEPARTMENT_EDIT)" department="departmentSave" get-department-list="getDepartmentList()"></department-manage-save>
+	<!-- 部门保存面板 end -->
+	
+</div>

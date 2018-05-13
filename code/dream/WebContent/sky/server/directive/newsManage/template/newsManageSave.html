@@ -1,0 +1,42 @@
+<div class="common-content">
+	<div class="common-save-row">
+		<div class="common-save-label">新闻名称：</div>
+		<div class="common-save-value">
+			<input class="common-save-input" type="text" placeholder="新闻名称" data-ng-model="news.name">
+			<span class="need-tab">*</span>
+		</div>
+	</div>
+	
+	<div class="common-save-row">
+		<div class="common-save-label">新闻类型：</div>
+		<div class="common-save-value">
+			<select class="common-save-select" ui-select2 data-ng-model="news.newsType">
+			　　<option data-ng-repeat="item in newsTypeList" value="{{item}}">{{item | stringNewsType}}</option>
+			</select>
+			<span class="need-tab">*</span>
+		</div>
+	</div>
+	
+	<div class="common-save-row">
+		<div class="common-save-label">新闻图片：</div>
+		<div class="common-save-value">
+			<image-dropzone dropzone-id="newsSavePicId" image-path-list="news.picPathList"></image-dropzone>
+		</div>
+	</div>
+	
+	<div class="common-save-row">
+		<div class="common-save-label">新闻内容：</div>
+		<div class="common-save-value">
+			<textarea id="newsCon" class="common-save-textarea" data-ng-model="news.content"></textarea>
+		</div>
+	</div>
+	
+	<div class="common-save-bottom">
+		<button class="btn btn-default" data-ng-click="$root.returnPanel()">返回</button>
+		<button class="btn btn-primary" data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.SAVE_PANEL)" 
+			data-ng-disabled="isLoadingSave" data-ng-click="saveNews(news)">保存</button>
+		<button class="btn btn-primary" data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.EDIT_PANEL)" 
+			data-ng-disabled="isLoadingSave" data-ng-click="editNews(news)">保存</button>
+	</div>
+	
+</div>

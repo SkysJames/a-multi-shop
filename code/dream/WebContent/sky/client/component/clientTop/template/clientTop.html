@@ -1,0 +1,24 @@
+<div class="client-top">
+	<div class="ct-container">
+		<div class="ct-sysname">{{systemName}}</div>
+		<div class="ct-container-right">
+			<div class="ct-navbar">
+				<ul>
+					<li data-ng-repeat="nav in clientNavs" data-ng-click="triggerPage(nav.url)"
+						data-ng-class="{'active':currentNav.id==nav.id}">{{nav.name}}</li>
+				</ul>
+			</div>
+			<div class="ct-toggle">
+				<a href="javascript:void(0);" data-ng-click="toggleNavbar()"><i class="fa fa-bars"></i></a>
+			</div>
+		</div>
+	</div>
+	
+	<div class="ct-toggle-navbar" data-ng-class="{'click':isShowNav}">
+		<ul>
+			<li data-ng-repeat="nav in clientNavs" data-ng-click="triggerPage(nav.url)"
+				data-ng-class="{'active':currentNav.id==nav.id}">{{nav.name}}</li>
+		</ul>
+	</div>
+</div>
+

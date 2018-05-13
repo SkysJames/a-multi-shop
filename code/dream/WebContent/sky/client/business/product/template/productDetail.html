@@ -1,0 +1,49 @@
+<!-- 产品详情 start -->
+<div class="detail-container">
+	<div class="detail-header">
+		<div class="detail-middle">
+			<div class="detail-header-left">
+				<strong>类型：{{currentItem.proType | stringProType}}</strong>
+				<strong>时间：{{currentItem.createTime | formatDate}}</strong>
+			</div>
+			<div class="detail-header-right">
+				<a href="javascript:void(0);" data-ng-click="$root.selectedItem(null)"><i class="fa fa-arrow-circle-left"></i>返回列表</a>
+			</div>
+		</div>
+	</div>
+	
+	<div class="detail-con detail-middle">
+		<div class="detail-pic">
+  			<dl data-ng-repeat="item in currentItem.picPathList">
+  				<dd>
+  					<img alt="暂无图片" data-ng-src="{{item|getImgUrl}}">
+  				</dd>
+  			</dl>
+  		</div>
+  		<div data-ng-bind-html="sce.trustAsHtml(currentItem.description)"></div>
+	</div>
+	
+	<div class="more-container">
+		<div class="module-container">
+	  		<div class="module-header">
+		  		<div class="module-head">更多产品</div>
+	  		</div>
+	  		<div class="module-content">
+	  			<dl data-ng-repeat="item in productList">
+	  				<dd style="background-image: url({{item.picPathList[0]|getImgUrl}})">
+	  					<a href="javascript:void(0)" title="{{item.name|showBlankValue}}" data-ng-click="$root.selectedItem(item)"></a>
+	  				</dd>
+	  				<dt class="module-title" title="{{item.name | showBlankValue}}" data-ng-click="$root.selectedItem(item)">
+	  					{{item.name | showBlankValue}}
+	  				</dt>
+	  				<dt class="module-text">{{item.proType | stringProType}}&nbsp;&nbsp;{{item.createTime | formatDate}}</dt>
+	  				<dt class="module-text">{{item.description}}</dt>
+	  				<dt class="module-text"><a class="module-linked" href="javascript:void(0)" data-ng-click="$root.selectedItem(item)">查看详情</a></dt>
+	  			</dl>
+	  		</div>
+	  		<div class="module-return" data-ng-click="$root.selectedItem(null)">返回全部产品</div>
+	  	</div>
+	</div>
+	
+</div>
+<!-- 产品详情 end -->

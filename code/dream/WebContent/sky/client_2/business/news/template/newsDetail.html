@@ -1,0 +1,39 @@
+<!-- 新闻详情 start -->
+<div class="detail-container">
+	<div class="detail-header">
+		<div class="detail-header-left">
+			<strong>栏目：{{currentItem.newsType | stringNewsType}}</strong>
+			<strong>时间：{{currentItem.createTime | formatDate}}</strong>
+		</div>
+		<div class="detail-header-right">
+			<a href="javascript:void(0);" data-ng-click="$root.selectedItem(null)"><i class="fa fa-arrow-circle-left"></i>返回列表</a>
+		</div>
+	</div>
+	
+	<div class="detail-con detail-middle">
+		<div class="detail-pic">
+  			<dl data-ng-repeat="item in currentItem.picPathList">
+  				<dd>
+  					<img alt="暂无图片" data-ng-src="{{item|getImgUrl}}">
+  				</dd>
+  			</dl>
+  		</div>
+  		<div data-ng-bind-html="sce.trustAsHtml(currentItem.content)"></div>
+	</div>
+	
+	<div class="more-container">
+		<div class="more-title">
+			<span>相关文章</span>
+		</div>
+		<div class="more-list">
+			<ul>
+				<li data-ng-repeat="item in newsList" data-ng-click="$root.selectedItem(item)">
+					<div class="more-left" title="{{item.newsType | stringNewsType}}：{{item.name | showBlankValue}}">{{item.newsType | stringNewsType}}：{{item.name | showBlankValue}}</div>
+					<div class="more-right">{{item.createTime | formatDate}}</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+</div>
+<!-- 新闻详情 end -->

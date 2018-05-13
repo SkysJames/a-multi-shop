@@ -1,0 +1,52 @@
+<!-- 消息公告 start -->
+<div id="{{ansId}}" class="ans_div" data-ng-click="openAnsWin()">
+	<ul class="slide-group">
+		<li class="slide" style="display:block">
+			<i class="fa fa-volume-up"></i>
+			公告消息共 
+			<span>
+				<b class="badge" style="background-color: #428bca;">{{indexAns.length}}</b>
+			</span>
+			条
+		</li>
+		<li data-ng-repeat="ans in indexAns" class="slide" style="display:block">
+			<a data-ng-show="ans.title != '短信模块故障,请及时修复!'" class="ans_a">{{plus($index,1)}}. {{ans.title}} 
+				<span class="ans_author">({{ans.authorName}} {{ans.anoceDtStr}})</span>
+			</a>
+			<a data-ng-show="ans.title == '短信模块故障,请及时修复!'" class="ans_a"> 
+				<span><strong>{{plus($index,1)}}. {{ans.title}}</strong></span> 
+				<span class="ans_author">({{ans.authorName}} {{ans.anoceDtStr}})</span>
+			</a>
+		</li>      
+	</ul>
+</div>
+
+<div class="modal fade" id="{{ansWinId}}" tabindex="-1"
+	role="dialog" aria-labelledby="ansMsgWinLabel"
+	aria-hidden="true" data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content" style="width:685px">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="ansMsgWinLabel" >公告消息</h4>
+			</div>
+
+			<div class="modal-body"style="height:500px;overflow-y:scroll;">
+				<form style="padding-top: 10px;margin-bottom:0px" class="form-inline" >
+					<div data-ng-repeat="anoce in indexAns" class="system-notice-tip" >
+						<h1>{{anoce.title}}</h1>
+						<h2>
+							<span class="system-notice-creator">发布人：{{anoce.authorName}}</span>
+							<span class="system-notice-createtime">发布时间：{{anoce.anoceDtStr}}</span>
+							<span class="system-notice-endtime">到期时间：{{anoce.expDtStr}}</span>
+						</h2>
+						<p data-ng-bind-html="sce.trustAsHtml(anoce.content)" style="font-size:normal;padding-left:37px">
+						</p>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 消息公告 end -->

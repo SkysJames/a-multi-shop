@@ -1,0 +1,25 @@
+<div class="common-content">
+	<div class="common-save-row">
+		<div class="common-save-label">部门名称：</div>
+		<div class="common-save-value">
+			<input class="common-save-input" type="text" placeholder="部门名称" data-ng-model="department.name">
+			<span class="need-tab">*</span>
+		</div>
+	</div>
+	
+	<div class="common-save-row">
+		<div class="common-save-label">备注：</div>
+		<div class="common-save-value">
+			<textarea class="common-save-textarea" rows="6" cols="" placeholder="备注" data-ng-model="department.remark"></textarea>
+		</div>
+	</div>
+	
+	<div class="common-save-bottom">
+		<button class="btn btn-default" data-ng-click="$root.returnPanel()">返回</button>
+		<button class="btn btn-primary" data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.DEPARTMENT_SAVE)" 
+			data-ng-disabled="isLoadingSave" data-ng-click="saveDepartment(department)">保存</button>
+		<button class="btn btn-primary" data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.DEPARTMENT_EDIT)" 
+			data-ng-disabled="isLoadingSave" data-ng-click="editDepartment(department)">保存</button>
+	</div>
+	
+</div>

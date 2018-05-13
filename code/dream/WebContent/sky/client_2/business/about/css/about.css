@@ -1,0 +1,99 @@
+@CHARSET "UTF-8";
+.about-who {
+	width: 100%;
+    margin-top: -20px;
+}
+.about-service {
+	width: 100%;
+	background-color: #f6f6f6;
+	padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.about-content {
+	width: 995px;
+    margin: 0px auto;
+    text-align: left;
+}
+.about-title {
+	text-align: center;
+}
+.about-title h1 {
+	font-size: 28px;
+    color: #333;
+    text-align: center;
+    margin-top: 70px;
+}
+.about-title span {
+    font-size: 16px;
+    color: #666;
+}
+.about-content p {
+	margin: 0px auto;
+    line-height: 30px;
+    font-size: 14px;
+    color: #333;
+    margin-top: 20px;
+}
+
+.about-bottom {
+	width: 96%;
+    margin: 60px auto 60px auto;
+    text-align: left;
+}
+.about-bottom dl {
+	display: inline-block;
+    vertical-align: top;
+	width: 31%;
+    margin: 0 1.1%;
+    text-align: center;
+}
+.about-bottom dl dd {
+	margin-left: 0px;
+	margin-bottom: 10px;
+}
+.about-bottom dl dd img {
+	border: 0;
+    vertical-align: bottom;
+    max-width: 100%;
+}
+.about-bottom dl dt {
+	
+}
+.about-bottom-title {
+	font-size: 18px;
+    font-weight: normal;
+    line-height: 32px;
+    color: #333;
+}
+.about-bottom-content {
+	font-size: 14px;
+	font-weight: normal;
+    color: #333;
+    line-height: 26px;
+}
+
+@media screen and (max-width: 1200px) {
+	.about-content {
+		width: 90%;
+	}
+	.about-bottom {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 760px) {
+	.about-bottom dl {
+		width: 45%;
+    		margin: 15px 2.5%;
+	}
+}
+
+@media screen and (max-width: 470px) {
+	.about-bottom dl {
+		width: 100%;
+    		margin: 15px auto 30px auto;
+	}
+}
+
+

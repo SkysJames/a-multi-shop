@@ -1,0 +1,66 @@
+<div class="oplogManageId">
+	<div class="common-header">
+		<div class="header-title">
+			<i class="fa fa-calendar"></i>&nbsp;<span>日志管理</span>
+		</div>
+	</div>
+	<div class="common-content">
+		<form class="common-search" data-ng-submit="getOplogList()">
+			<div class="common-box">
+				<label>模糊搜索：</label>
+				<div class="common-input">
+					<input class="search-input" type="search" data-ng-model="condition.keywords" placeholder="日志详情" />
+					<button class="common-btn" type="submit" title="搜索">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+			</div>
+			<div class="common-box">
+				<label>操作时间：</label>
+				<div class="common-input" title="选择时间段">
+					<input id="searchDateRangeId" class="search-input" type="text" placeholder="开始时间&nbsp;~&nbsp;结束时间" 
+						 date-range-picker options="dateRangePickerOptions" data-ng-model="rangeDate" /> 
+					<button class="common-btn" type="button" title="选择时间" data-ng-click="showSearchDateRange();">
+						<i class="fa fa-calendar"></i>
+					</button>
+				</div>
+			</div>
+			<div class="common-box">
+				<label>日志类型：</label>
+				<div class="common-input">
+					<select class="search-select" ui-select2 data-ng-model="condition.opType" data-ng-change="getOplogList()">
+						<option value="">全部</option>
+						<option data-ng-repeat="item in opTypeList" value="{{item.value}}">{{item.value}}</option>
+					</select>
+				</div>
+			</div>
+		</form>
+		<div class="common-div">
+			<table class="common-table">
+				<tr class="common-table-header">
+					<th>序号</th>
+					<th>操作时间</th>
+					<th>操作用户</th>
+					<th>操作类型</th>
+					<th>操作详情</th>
+					<th>操作IP</th>
+				</tr>
+				<tbody class="common-table-content" data-ng-show="!isLoadingOplog">
+					<tr class="common-table-row" data-ng-repeat="oplog in oplogList">
+						<td>{{$index + 1}}</td>
+						<td>{{oplog.opTime|formatDate}}</td>
+						<td>{{oplog.userName|showBlankValue}}</td>
+						<td>{{oplog.opType|showBlankValue}}</td>
+						<td>{{oplog.opDetail|showBlankValue}}</td>
+						<td>{{oplog.opIp|showBlankValue}}</td>
+					</tr>
+				</tbody>
+			</table>
+			<loading-panel data-ng-show="isLoadingOplog" font-size="18"></loading-panel>
+			<nodata-panel data-ng-show="!isLoadingOplog && oplogList.length==0" font-size="18"></nodata-panel>
+		</div>
+		<common-pager class="common-pager" page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
+			total-rows="condition.totalCount" to-page-call-back="getOplogList(pageNo)"></common-pager>
+	</div>
+	
+</div>

@@ -1,0 +1,42 @@
+<div class="common-content">
+	<div class="common-save-row">
+		<div class="common-save-label">产品名称：</div>
+		<div class="common-save-value">
+			<input class="common-save-input" type="text" placeholder="产品名称" data-ng-model="product.name">
+			<span class="need-tab">*</span>
+		</div>
+	</div>
+	
+	<div class="common-save-row">
+		<div class="common-save-label">产品类型：</div>
+		<div class="common-save-value">
+			<select class="common-save-select" ui-select2 data-ng-model="product.proType">
+			　　<option data-ng-repeat="item in proTypeList" value="{{item}}">{{item | stringProType}}</option>
+			</select>
+			<span class="need-tab">*</span>
+		</div>
+	</div>
+	
+	<div class="common-save-row">
+		<div class="common-save-label">产品图片：</div>
+		<div class="common-save-value">
+			<image-dropzone dropzone-id="productSavePicId" image-path-list="product.picPathList"></image-dropzone>
+		</div>
+	</div>
+	
+	<div class="common-save-row">
+		<div class="common-save-label">产品描述：</div>
+		<div class="common-save-value">
+			<textarea id="productCon" class="common-save-textarea" data-ng-model="product.description"></textarea>
+		</div>
+	</div>
+	
+	<div class="common-save-bottom">
+		<button class="btn btn-default" data-ng-click="$root.returnPanel()">返回</button>
+		<button class="btn btn-primary" data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.SAVE_PANEL)" 
+			data-ng-disabled="isLoadingSave" data-ng-click="saveProduct(product)">保存</button>
+		<button class="btn btn-primary" data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.EDIT_PANEL)" 
+			data-ng-disabled="isLoadingSave" data-ng-click="editProduct(product)">保存</button>
+	</div>
+	
+</div>

@@ -1,0 +1,95 @@
+<div class="common-content">
+	<div class="common-save-row">
+		<div class="common-save-label">用户ID：</div>
+		<div class="common-save-value" data-ng-if="$root.isCurrentPanel($root.currentPanel, $root.panelContants.SAVE_PANEL)">
+			<input class="common-save-input" type="text" placeholder="用户ID" data-ng-model="user.id">
+			<span class="need-tab">*</span>
+		</div>
+		<div class="common-save-value" data-ng-if="$root.isCurrentPanel($root.currentPanel, $root.panelContants.EDIT_PANEL)">
+			{{user.id}}
+		</div>
+	</div>
+	<div class="common-save-row">
+		<div class="common-save-label">用户名称：</div>
+		<div class="common-save-value">
+			<input class="common-save-input" type="text" placeholder="用户名称" data-ng-model="user.name">
+			<span class="need-tab">*</span>
+		</div>
+	</div>
+	
+	<div class="common-save-row">
+		<div class="common-save-label">密码：</div>
+		<div class="common-save-value">
+			<input class="common-save-input" type="password" placeholder="密码" data-ng-model="user.passwd">
+			<span class="need-tab">*</span>
+		</div>
+	</div>
+	
+	<div class="common-save-row">
+		<div class="common-save-label">用户状态：</div>
+		<div class="common-save-value">
+			<div class="radio">
+				<label>
+					<input type="radio" value="1" data-ng-model="user.userStatus">启用
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" value="0" data-ng-model="user.userStatus">禁用
+				</label>
+			</div>
+			<span class="need-tab">*</span>
+		</div>
+	</div>
+	
+	<div class="common-save-row">
+		<div class="common-save-label">用户部门：</div>
+		<div class="common-save-value">
+			<select class="common-save-select" ui-select2 data-ng-model="user.departmentId">
+			　　<option data-ng-repeat="item in departmentAll" value="{{item.id}}">{{item.name}}</option>
+			</select>
+			<span class="need-tab">*</span>
+		</div>
+	</div>
+	
+	<div class="common-save-row">
+		<div class="common-save-label">备注：</div>
+		<div class="common-save-value">
+			<textarea class="common-save-textarea" rows="6" cols="" placeholder="备注信息" data-ng-model="user.remark"></textarea>
+		</div>
+	</div>
+	
+	<div class="common-save-row">
+		<div class="common-save-label">用户角色：</div>
+		<div class="common-save-value">
+			<select class="common-save-textarea" ui-select2 multiple data-ng-model="user.rightGroupIdList">
+			　　<option data-ng-repeat="item in rightGroupAll" value="{{item.id}}">{{item.name}}</option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="common-save-row">
+		<div class="common-save-label">权限：</div>
+		<div class="common-save-value">
+			<div class="common-save-right" data-ng-repeat="typeRight in typeRightList">
+				<div class="header">{{typeRight.name}}</div>
+				<div class="content">
+					<div class="checkbox" data-ng-repeat="right in typeRight.rightList">
+						<label>
+							<input type="checkbox" data-ng-model="right.checked">{{right.name}}
+						</label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="common-save-bottom">
+		<button class="btn btn-default" data-ng-click="$root.returnPanel()">返回</button>
+		<button class="btn btn-primary" data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.SAVE_PANEL)" 
+			data-ng-disabled="isLoadingSave" data-ng-click="saveUser(user)">保存</button>
+		<button class="btn btn-primary" data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.EDIT_PANEL)" 
+			data-ng-disabled="isLoadingSave" data-ng-click="editUser(user)">保存</button>
+	</div>
+	
+</div>

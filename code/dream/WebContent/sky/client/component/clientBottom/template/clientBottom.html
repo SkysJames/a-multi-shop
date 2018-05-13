@@ -1,0 +1,41 @@
+<div id="clientBottomId" class="client-bottom">
+	<div class="cb-container">
+		<div class="cb-content">
+			<div class="cb-left">
+				<div class="cb-sysname">{{systemName}}</div>
+				<div class="cb-subname">专注用户体验设计与开发</div>
+			</div>
+			<div class="cb-middle">
+				<ul>
+					<li><div class="header">动态</div></li>
+					<li data-ng-repeat="item in newsTypes"><a data-ng-click="triggerPage(clientNavs.c_news.url+'?type='+item)" href="javascript:void(0)">{{item | stringNewsType}}</a></li>
+				</ul>
+				<ul>
+					<li><div class="header">产品</div></li>
+					<li data-ng-repeat="item in proTypes"><a data-ng-click="triggerPage(clientNavs.d_product.url+'?type='+item)" href="javascript:void(0)">{{item | stringProType}}</a></li>
+				</ul>
+			</div>
+			<div class="cb-right">
+				<ul>
+					<li><div class="header">商务合作</div></li>
+					<li>邮箱：{{email|showBlankValue}}</li>
+					<li>手机：{{telephone|showBlankValue}}</li>
+					<li>电话：{{phone|showBlankValue}}</li>
+					<li>Q&nbsp;Q：{{qq|showBlankValue}}<a href="{{qqContactUrl}}" target="_blank"><i class="sky-icon qq"></i>点击交谈</a></li>
+					<li>地址：{{companyAddress|showBlankValue}}</li>
+				</ul>
+			</div>
+		</div>
+		<div class="cb-footer">
+			<p>
+				友情链接：
+				<a href="http://www.adashuo.com/" target="_blank">创业找项目</a>
+				<a href="http://www.sucai58.com/" target="_blank">建站素材</a>
+				<a href="http://www.baidu.com/" target="_blank">百度一下</a>
+				<a href="http://www.zhangguizi.com/" target="_blank">掌柜子</a>
+				<a href="http://www.yiyongtong.com/" target="_blank">微信小程序开发</a>
+			</p>
+			<p>Copyright © {{copyRight}} {{companyName}} 版权所有 备案号：{{companyRecord}} </p>
+		</div>
+	</div>
+</div>

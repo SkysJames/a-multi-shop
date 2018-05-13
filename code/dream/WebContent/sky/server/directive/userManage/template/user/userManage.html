@@ -1,0 +1,102 @@
+<div class="userManageId">
+	<div class="common-header">
+		<div class="header-title">
+			<i class="fa fa-users"></i>&nbsp;<span title="返回用户管理" data-ng-click="triggerPanel($root.panelContants.INDEX_PANEL)">用户管理</span>
+			<div class="second-title" data-ng-show="$root.currentPanel.indexOf($root.panelContants.SAVE_PANEL) > -1">-&nbsp;新增</div>
+			<div class="second-title" data-ng-show="$root.currentPanel.indexOf($root.panelContants.EDIT_PANEL) > -1">-&nbsp;编辑</div>
+			
+			<div class="second-title" data-ng-click="triggerPanel($root.panelContants.DEPARTMENT_INDEX)"
+				data-ng-show="$root.currentPanel.indexOf($root.panelContants.DEPARTMENT_INDEX) > -1" title="返回部门管理">-&nbsp;部门管理</div>
+			<div class="second-title" data-ng-show="$root.currentPanel.indexOf($root.panelContants.DEPARTMENT_SAVE) > -1">-&nbsp;新增</div>
+			<div class="second-title" data-ng-show="$root.currentPanel.indexOf($root.panelContants.DEPARTMENT_EDIT) > -1">-&nbsp;编辑</div>
+			
+			<div class="second-title" data-ng-click="triggerPanel($root.panelContants.RIGHT_GROUP_INDEX)"
+				data-ng-show="$root.currentPanel.indexOf($root.panelContants.RIGHT_GROUP_INDEX) > -1" title="返回角色管理">-&nbsp;角色管理</div>
+			<div class="second-title" data-ng-show="$root.currentPanel.indexOf($root.panelContants.RIGHT_GROUP_SAVE) > -1">-&nbsp;新增</div>
+			<div class="second-title" data-ng-show="$root.currentPanel.indexOf($root.panelContants.RIGHT_GROUP_EDIT) > -1">-&nbsp;编辑</div>
+		</div>
+	</div>
+	<div class="common-content" data-ng-show="$root.currentPanel==$root.panelContants.INDEX_PANEL">
+		<form class="common-search" data-ng-submit="getUserList()">
+			<div class="common-box">
+				<label>模糊搜索：</label>
+				<div class="common-input">
+					<input class="search-input" type="search" data-ng-model="condition.keywords" placeholder="用户名称和备注" />
+					<button class="common-btn" type="submit" title="搜索">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+			</div>
+			<div class="common-box">
+				<label>登陆时间：</label>
+				<div class="common-input" title="选择时间段">
+					<input id="searchDateRangeId" class="search-input" type="text" placeholder="开始时间&nbsp;~&nbsp;结束时间" 
+						 date-range-picker options="dateRangePickerOptions" data-ng-model="rangeDate" /> 
+					<button class="common-btn" type="button" title="选择时间" data-ng-click="showSearchDateRange();">
+						<i class="fa fa-calendar"></i>
+					</button>
+				</div>
+				<a href="javascript:void(0)" class="common-clear-date" data-ng-click="clearDate()">清空</a>
+			</div>
+			<div class="common-box">
+				<label>用户状态：</label>
+				<div class="common-input">
+					<select class="search-select" data-ng-model="condition.userStatus" data-ng-change="getUserList()">
+						<option data-ng-repeat="item in userStatusList" value="{{item.status}}">{{item.statusName}}</option>
+					</select>
+				</div>
+			</div>
+		</form>
+		<div class="common-tools">
+			<button class="btn btn-primary" data-ng-click="triggerPanel($root.panelContants.SAVE_PANEL)">添加</button>
+			<button class="btn btn-primary" data-ng-click="triggerPanel($root.panelContants.DEPARTMENT_INDEX)">部门管理</button>
+			<button class="btn btn-primary" data-ng-click="triggerPanel($root.panelContants.RIGHT_GROUP_INDEX)">角色管理</button>
+		</div>
+		<div class="common-div">
+			<table class="common-table">
+				<tr class="common-table-header">
+					<th>序号</th>
+					<th>用户名称</th>
+					<th>用户状态</th>
+					<th>登陆IP</th>
+					<th>登陆时间</th>
+					<th>备注</th>
+					<th>操作</th>
+				</tr>
+				<tbody class="common-table-content" data-ng-show="!isLoadingUser">
+					<tr class="common-table-row" data-ng-repeat="user in userList">
+						<td>{{$index + 1}}</td>
+						<td title="{{user.name|showBlankValue}}">{{user.name|showBlankValue}}</td>
+						<td title="{{user.userStatus|stringUserStatus}}">{{user.userStatus|stringUserStatus}}</td>
+						<td title="{{user.loginIp|showBlankValue}}">{{user.loginIp|showBlankValue}}</td>
+						<td title="{{user.loginTime|formatDate}}">{{user.loginTime|formatDate}}</td>
+						<td title="{{user.remark|showBlankValue}}">{{user.remark|showBlankValue}}</td>
+						<td>
+							<a href="javascript:void(0)" data-ng-click="triggerPanel($root.panelContants.EDIT_PANEL, user)">编辑</a>
+							<a href="javascript:void(0)" data-ng-click="deleteUser(user)">删除</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<loading-panel data-ng-show="isLoadingUser" font-size="18"></loading-panel>
+			<nodata-panel data-ng-show="!isLoadingUser && userList.length==0" font-size="18"></nodata-panel>
+		</div>
+		<common-pager class="common-pager" page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
+			total-rows="condition.totalCount" to-page-call-back="getUserList(pageNo)"></common-pager>
+	</div>
+	
+	<!-- 用户保存面板 start -->
+	<user-manage-save data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.SAVE_PANEL) 
+		|| $root.isCurrentPanel($root.currentPanel, $root.panelContants.EDIT_PANEL)" 
+		user="userSave" type-right-list="typeRightList" get-user-list="getUserList()"></user-manage-save>
+	<!-- 用户保存面板 end -->
+	
+	<!-- 部门管理面板 -->
+	<department-manage data-ng-if="$root.currentPanel.indexOf($root.panelContants.DEPARTMENT_INDEX) > -1"></department-manage>
+	<!-- 部门管理面板 -->
+	
+	<!-- 角色管理面板 -->
+	<right-group-manage data-ng-if="$root.currentPanel.indexOf($root.panelContants.RIGHT_GROUP_INDEX) > -1"></right-group-manage>
+	<!-- 角色管理面板 -->
+	
+</div>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+			http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context-4.3.xsd
+			http://www.springframework.org/schema/tx 
+			http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+			http://www.springframework.org/schema/aop 
+			http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+			
+	    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	    	
+			<property name="dataSource" ref="dataSource"/>
+			
+			<property name="packagesToScan" value="com.sky.business.*"></property>
+					
+			<property name="hibernateProperties">
+				<props>
+					<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+					<prop key="hibernate.connection.provider_class">org.hibernate.connection.DatasourceConnectionProvider</prop>
+					
+					<prop key="hibernate.hbm2ddl.auto">false</prop>
+					<prop key="hibernate.transaction.flush_before_completion">true</prop>
+					
+					<!-- 已在log4j中打印sql -->
+					<!-- 是否打印sql语句 -->
+					<prop key="hibernate.show_sql">false</prop>
+					<!-- 是否格式化打印的sql语句 -->
+					<prop key="hibernate.format_sql">false</prop>
+					<prop key="hibernate.order_updates">true</prop>
+					<prop key="hibernate.bytecode.use_reflection_optimizer">true</prop>
+					<prop key="hibernate.jdbc.use_get_generated_keys">true</prop>
+	
+					<prop key="hibernate.use_identifer_rollback">true</prop>
+					<prop key="hibernate.max_fetch_depth">3</prop>
+					<prop key="hibernate.default_batch_fetch_size">16</prop>
+					
+					<!--jdbc.fetch_size是指Hibernate每次从数据库中取出并放到JDBC的Statement中的记录条数。
+					Fetch Size设的越大，读数据库的次数越少，速度越快，Fetch Size越小，读数据库的次数越多，速度越慢-->
+					<prop key="hibernate.jdbc.fetch_size">50</prop>
+					
+					<!--jdbc.batch_size是指Hibernate批量插入,删除和更新时每次操作的记录数。
+					Batch Size越大，批量操作的向数据库发送Sql的次数越少，速度就越快，同样耗用内存就越大-->
+					<prop key="hibernate.jdbc.batch_size">25</prop>
+					
+					<!-- 使用hibernate自带的事物管理策略 -->
+					<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
+					<!--jdbc.use_scrollable_resultset是否允许Hibernate用JDBC的可滚动的结果集。对分页的结果集。对分页时的设置非常有帮助-->
+					<prop key="jdbc.use_scrollable_resultset">false</prop>
+
+	
+					<!-- 开启二级缓存 -->
+			        <prop key="hibernate.cache.use_second_level_cache">true</prop>
+			        <!-- 启动"查询缓存"如果想缓存使用findall()、list()、Iterator()、createCriteria()、createQuery()等方法获得的数据结果集,必须配置此项-->  
+			        <prop key="hibernate.cache.use_query_cache">true</prop>
+			        <!-- 高速缓存提供程序 -->  
+			        <prop key="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory</prop>
+			        <!-- Hibernate4以后都封装到org.hibernate.cache.ehcache.EhCacheRegionFactory -->
+			        
+			        <!-- 强制Hibernate以更人性化的格式将数据存入二级缓存 -->
+			        <prop key="hibernate.cache.use_structured_entries">true</prop>
+			        
+			        <!-- Hibernate将收集有助于性能调节的统计数据 -->
+			        <prop key="hibernate.generate_statistics">true</prop>
+			        
+				</props>
+			</property>
+		</bean>
+	
+		<bean id="transactionManager4Hibernate" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+			<property name="sessionFactory" ref="sessionFactory"/>
+			<!-- <property name="autodetectDataSource" value="false"/> -->
+		</bean>
+		
+		<bean id="baseHibernateDao" class="com.sky.business.common.dao.impl.BaseHibernateDaoImpl">
+		</bean>
+		
+		<!-- 将所有中标的接口实现类增加事物处理功能 -->
+		<tx:annotation-driven transaction-manager="transactionManager4Hibernate"/>
+		
+		<tx:advice id="hibernateTxAdvice" transaction-manager="transactionManager4Hibernate">
+			<tx:attributes>
+				<tx:method name="get*" read-only="true"/>
+				<tx:method name="find*" read-only="true"/>
+				<tx:method name="list*" read-only="true"/>
+				<tx:method name="create*" read-only="true"/>
+				<tx:method name="*"/>
+			</tx:attributes>
+		</tx:advice>
+		
+		<aop:config>
+			<aop:pointcut id="transactionpointcut"
+				expression="execution(* com.sky.business.*.service.impl.*.*(..))" />
+			
+			<aop:pointcut id="baseDaopointcut"
+				expression="execution(* com.sky.business.common.dao.impl.*.*(..))" />
+
+			<aop:advisor pointcut-ref="transactionpointcut"
+				advice-ref="hibernateTxAdvice" />
+				
+			<aop:advisor pointcut-ref="baseDaopointcut"
+				advice-ref="hibernateTxAdvice" />
+		</aop:config>
+		<!-- 将所有中标的接口实现类增加事物处理功能 end -->
+		
+</beans>
+

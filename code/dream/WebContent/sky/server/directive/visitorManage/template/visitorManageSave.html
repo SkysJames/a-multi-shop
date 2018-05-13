@@ -1,0 +1,45 @@
+<div class="common-content">
+	<div class="common-save-row">
+		<div class="common-save-label">访客IP：</div>
+		<div class="common-save-value">
+			{{visitor.ip|showBlankValue}}
+		</div>
+	</div>
+	
+	<div class="common-save-row">
+		<div class="common-save-label">访问状态：</div>
+		<div class="common-save-value">
+			<div class="radio">
+				<label>
+					<input type="radio" value="1" data-ng-model="visitor.status">允许
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" value="0" data-ng-model="visitor.status">禁止
+				</label>
+			</div>
+		</div>
+	</div>
+	
+	<div class="common-save-row">
+		<div class="common-save-label">访问次数：</div>
+		<div class="common-save-value">
+			{{visitor.visitedTimes}}
+		</div>
+	</div>
+	
+	<div class="common-save-row">
+		<div class="common-save-label">备注：</div>
+		<div class="common-save-value">
+			<textarea class="common-save-textarea" rows="6" cols="" placeholder="备注信息" data-ng-model="visitor.remark"></textarea>
+		</div>
+	</div>
+	
+	<div class="common-save-bottom">
+		<button class="btn btn-default" data-ng-click="$root.returnPanel()">返回</button>
+		<button class="btn btn-primary" data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.EDIT_PANEL)" 
+			data-ng-disabled="isLoadingSave" data-ng-click="editVisitor(visitor)">保存</button>
+	</div>
+	
+</div>

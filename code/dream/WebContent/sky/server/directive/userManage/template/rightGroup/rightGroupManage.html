@@ -1,0 +1,50 @@
+<div class="rightGroupManageId">
+	<div class="common-content" data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.RIGHT_GROUP_INDEX)">
+		<form class="common-search" data-ng-submit="getRightGroupList()">
+			<div class="common-box">
+				<label>模糊搜索：</label>
+				<div class="common-input">
+					<input class="search-input" type="search" data-ng-model="condition.keywords" placeholder="角色名称" />
+					<button class="common-btn" type="submit" title="搜索">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+			</div>
+		</form>
+		<div class="common-tools">
+			<button class="btn btn-primary" data-ng-click="triggerPanel($root.panelContants.RIGHT_GROUP_SAVE)">添加</button>
+		</div>
+		<div class="common-div">
+			<table class="common-table">
+				<tr class="common-table-header">
+					<th>序号</th>
+					<th>角色名称</th>
+					<th>角色权限</th>
+					<th>操作</th>
+				</tr>
+				<tbody class="common-table-content" data-ng-show="!isLoadingRightGroup">
+					<tr class="common-table-row" data-ng-repeat="rightGroup in rightGroupList">
+						<td>{{$index + 1}}</td>
+						<td title="{{rightGroup.name|showBlankValue}}">{{rightGroup.name|showBlankValue}}</td>
+						<td title="{{rightGroup.rightList|showRightName}}">{{rightGroup.rightList|showRightName}}</td>
+						<td>
+							<a href="javascript:void(0)" data-ng-click="triggerPanel($root.panelContants.RIGHT_GROUP_EDIT, rightGroup)">编辑</a>
+							<a href="javascript:void(0)" data-ng-click="deleteRightGroup(rightGroup)">删除</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<loading-panel data-ng-show="isLoadingRightGroup" font-size="18"></loading-panel>
+			<nodata-panel data-ng-show="!isLoadingRightGroup && rightGroupList.length==0" font-size="18"></nodata-panel>
+		</div>
+		<common-pager class="common-pager" page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
+			total-rows="condition.totalCount" to-page-call-back="getRightGroupList(pageNo)"></common-pager>
+	</div>
+	
+	<!-- 角色保存面板 start -->
+	<right-group-manage-save data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.RIGHT_GROUP_SAVE) || 
+		$root.isCurrentPanel($root.currentPanel, $root.panelContants.RIGHT_GROUP_EDIT)" right-group="rightGroupSave" 
+		type-right-list="typeRightList" get-right-group-list="getRightGroupList()"></right-group-manage-save>
+	<!-- 角色保存面板 end -->
+	
+</div>

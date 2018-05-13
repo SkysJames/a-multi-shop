@@ -1,0 +1,115 @@
+<div class="newsManageId">
+	<div class="common-header">
+		<div class="header-title">
+			<i class="fa fa-newspaper-o"></i>&nbsp;<span data-ng-click="triggerPanel($root.panelContants.INDEX_PANEL)">新闻管理</span>
+			<div class="second-title" data-ng-show="$root.currentPanel.indexOf($root.panelContants.SAVE_PANEL) > -1">-&nbsp;新增</div>
+			<div class="second-title" data-ng-show="$root.currentPanel.indexOf($root.panelContants.EDIT_PANEL) > -1">-&nbsp;编辑</div>
+		</div>
+	</div>
+	<div class="common-content" data-ng-show="$root.currentPanel==$root.panelContants.INDEX_PANEL">
+		<form class="common-search" data-ng-submit="getNewsList()">
+			<div class="common-box">
+				<label>模糊搜索：</label>
+				<div class="common-input">
+					<input class="search-input" type="search" data-ng-model="condition.keywords" placeholder="名称和新闻内容" />
+					<button class="common-btn" type="submit" title="搜索">
+						<i class="fa fa-search"></i>
+					</button>
+				</div>
+			</div>
+			<div class="common-box">
+				<label>更新时间：</label>
+				<div class="common-input" title="选择时间段">
+					<input id="searchDateRangeId" class="search-input" type="text" placeholder="开始时间&nbsp;~&nbsp;结束时间" 
+						 date-range-picker options="dateRangePickerOptions" data-ng-model="rangeDate" /> 
+					<button class="common-btn" type="button" title="选择时间" data-ng-click="showSearchDateRange();">
+						<i class="fa fa-calendar"></i>
+					</button>
+				</div>
+				<a href="javascript:void(0)" class="common-clear-date" data-ng-click="clearDate()">清空</a>
+			</div>
+			<div class="common-box">
+				<label>新闻类型：</label>
+				<div class="common-input">
+					<select class="search-select" data-ng-model="condition.newsType" data-ng-change="getNewsList()">
+						<option value="-1">全部</option>
+						<option data-ng-repeat="item in newsTypeList" value="{{item}}">{{item | stringNewsType}}</option>
+					</select>
+				</div>
+			</div>
+		</form>
+		<div class="common-tools">
+			<button class="btn btn-primary" data-ng-click="triggerPanel($root.panelContants.SAVE_PANEL)">添加</button>
+		</div>
+		<div class="common-div">
+			<loading-panel data-ng-show="isLoadingNews" font-size="18"></loading-panel>
+			
+			<nodata-panel data-ng-show="newsList.length==0" font-size="18"></nodata-panel>
+		
+			<div class="common-row" data-ng-repeat="news in newsList">
+				<div class="common-row-left">
+					<div class="common-image" data-ng-if="news.picPathList && news.picPathList.length>0" data-ng-click="showImagePanel(news.picPathList)">
+						<img alt="暂无图片" data-ng-src="{{news.picPathList[0]}}">
+					</div>
+					<div class="common-image common-image-no" data-ng-if="!news.picPathList || news.picPathList.length==0">
+						<div class="no-image">暂无图片</div>
+					</div>
+				</div>
+				<div class="common-row-right">
+					<div class="common-row-header">
+						<div class="common-row-tools">
+							<a href="javascript:void(0)" 
+								data-ng-click="triggerPanel($root.panelContants.EDIT_PANEL, news)">编辑</a>
+							<a href="javascript:void(0)" 
+								data-ng-click="deleteNews(news)">删除</a>
+						</div>
+						<div class="common-row-index">{{$index + 1}}</div>
+						<div class="common-row-name" title="{{news.name|showBlankValue}}">{{news.name|showBlankValue}}</div>
+					</div>
+					<div class="common-row-row">
+						<div class="common-row-box">
+							<div class="common-label">新闻类型：</div>
+							<div class="common-value" title="{{news.newsType|stringNewsType}}">{{news.newsType|stringNewsType}}</div>
+						</div>
+						<div class="common-row-box">
+							<div class="common-label">新闻内容：</div>
+							<div class="common-value" title="{{news.content|showBlankValue}}">{{news.content|showBlankValue}}</div>
+						</div>
+					</div>
+					<div class="common-row-row">
+						<div class="common-row-box">
+							<div class="common-label">创建用户：</div>
+							<div class="common-value" title="{{news.createUser|showBlankValue}}">{{news.createUser|showBlankValue}}</div>
+						</div>
+						<div class="common-row-box">
+							<div class="common-label">创建时间：</div>
+							<div class="common-value" title="{{news.createTime|formatDate}}">{{news.createTime|formatDate}}</div>
+						</div>
+					</div>
+					<div class="common-row-row">
+						<div class="common-row-box">
+							<div class="common-label">更新用户：</div>
+							<div class="common-value" title="{{news.updateUser|showBlankValue}}">{{news.updateUser|showBlankValue}}</div>
+						</div>
+						<div class="common-row-box">
+							<div class="common-label">更新时间：</div>
+							<div class="common-value" title="{{news.updateTime|formatDate}}">{{news.updateTime|formatDate}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<common-pager class="common-pager" page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
+			total-rows="condition.totalCount" to-page-call-back="getNewsList(pageNo)"></common-pager>
+	</div>
+	
+	<!-- 新闻保存面板 start -->
+	<news-manage-save data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.SAVE_PANEL) 
+		|| $root.isCurrentPanel($root.currentPanel, $root.panelContants.EDIT_PANEL)" 
+		news="newsSave" get-news-list="getNewsList()"></news-manage-save>
+	<!-- 新闻保存面板 end -->
+	
+	<!-- 图片展示面板 start -->
+	<image-panel image-panel-id="{{imagePanelId}}" image-path-list="imagePathList"></image-panel>
+	<!-- 图片展示面板 end -->
+</div>
