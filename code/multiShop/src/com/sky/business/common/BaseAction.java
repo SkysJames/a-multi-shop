@@ -76,7 +76,7 @@ public class BaseAction extends ActionSupport implements ServletRequestAware, Se
 	
 	protected void isNull(Object obj) throws Exception {
 		if(obj == null){
-			throw new ServiceException(CodeMescContants.CodeContants.NULL_ERROR,CodeMescContants.MessageContants.NULL_ERROR);
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_SPREAD_NULL,CodeMescContants.MessageContants.ERROR_SPREAD_NULL);
 		}
 	}
 	

@@ -8,13 +8,18 @@ package com.sky.contants;
 public final class FileContants {
 	
 	/**
-	 * 新闻文件名
-	 */
-	public static final String NEWS_FILE = "news";
-	
-	/**
 	 * 产品文件名
 	 */
 	public static final String PRODUCT_FILE = "product";
+	
+	/**
+	 * 评论文件名
+	 */
+	public static final String EVALUATE_FILE = "evaluate";
+	
+	/**
+	 * 店铺文件名
+	 */
+	public static final String SHOP_FILE = "shop";
 	
 }

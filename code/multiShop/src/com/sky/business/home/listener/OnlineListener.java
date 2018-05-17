@@ -13,7 +13,7 @@ import com.sky.business.common.vo.LoginUser;
 import com.sky.business.system.entity.User;
 import com.sky.business.system.service.UserService;
 import com.sky.business.visitor.entity.Visitor;
-import com.sky.contants.EntityContants;
+import com.sky.contants.UserContants;
 import com.sky.util.BeanDefinedLocator;
 
 public class OnlineListener implements HttpSessionListener {
@@ -42,7 +42,7 @@ public class OnlineListener implements HttpSessionListener {
 				User user = userService.findByID(User.class, loginUser.getUserId());
 				if(user != null){
 					user.setLogoutTime(new Timestamp(new Date().getTime()));
-					user.setLoginStatus(EntityContants.UserContants.LoginStatus.OFFLINE);
+					user.setLoginStatus(UserContants.LoginStatus.OFFLINE);
 					userService.update(user);
 				}
 			}

@@ -4,7 +4,6 @@ import java.util.Map;
 
 import com.sky.business.common.service.BaseService;
 import com.sky.business.common.vo.LoginUser;
-import com.sky.business.common.vo.Pager;
 import com.sky.business.system.entity.User;
 
 /**
@@ -13,13 +12,6 @@ import com.sky.business.system.entity.User;
  *
  */
 public interface UserService extends BaseService {
-	
-	/**
-	 * 根据一定的条件获取用户列表
-	 * @param condition
-	 * @return
-	 */
-	public Pager pagedList(Map<String, Object> condition) throws Exception;
 	
 	/**
 	 * 检验是否登录后台系统成功
@@ -32,10 +24,9 @@ public interface UserService extends BaseService {
 	/**
 	 * 修改用户信息
 	 * @param editUser
-	 * @param loginUser
 	 * @throws Exception
 	 */
-	public void edit(Map<String,Object> editUser,LoginUser loginUser) throws Exception;
+	public void edit(Map<String,Object> editUser) throws Exception;
 	
 	/**
 	 * 添加用户

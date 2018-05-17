@@ -17,7 +17,7 @@ import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.sky.business.visitor.entity.Visitor;
 import com.sky.business.visitor.service.VisitorService;
-import com.sky.contants.EntityContants;
+import com.sky.contants.VisitorContants;
 import com.sky.util.IpProcessUtil;
 
 /**
@@ -52,7 +52,7 @@ public class VisitorInterceptor extends AbstractInterceptor {
 			//判断数据库中是否已存在该访客
 			if(visitor != null){
 				//判断该访客的状态是否可用
-				if(visitor.getStatus() != EntityContants.VisitorContants.Status.USING){
+				if(visitor.getStatus() != VisitorContants.Status.USING){
 					return result;
 				}
 				
@@ -68,7 +68,7 @@ public class VisitorInterceptor extends AbstractInterceptor {
 				visitor = new Visitor();
 				visitor.setId(UUID.randomUUID().toString());
 				visitor.setIp(ipAdress);
-				visitor.setStatus(EntityContants.VisitorContants.Status.USING);
+				visitor.setStatus(VisitorContants.Status.USING);
 				visitor.setCreateTime(new Timestamp(new Date().getTime()));
 				visitor.setVisitedTime(new Timestamp(new Date().getTime()));
 				visitor.setVisitedTimes(1);

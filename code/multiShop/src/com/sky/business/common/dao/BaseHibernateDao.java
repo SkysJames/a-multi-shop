@@ -160,6 +160,17 @@ public interface BaseHibernateDao {
 	public <T> Criteria createCriteria(Class<T> entityClass, String orderBy, boolean isAsc, Criterion... criterions);
 
 	/**
+	 * 根据hql查询,直接使用HibernateTemplate的find函数.统计数据量
+	 * 
+	 * @param values
+	 *            可变参数,见{@link #createQuery(String,Object...)}
+	 * @param hql
+	 * @param values
+	 * @return
+	 */
+	public Integer count(String hql, Object... values);
+	
+	/**
 	 * 根据hql查询,直接使用HibernateTemplate的find函数.
 	 * 
 	 * @param values

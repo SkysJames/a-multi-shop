@@ -2,6 +2,7 @@ package com.sky.business.common.service.impl;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import com.sky.business.common.dao.BaseDao;
 import com.sky.business.common.service.BaseService;
+import com.sky.business.common.vo.Pager;
+import com.sky.util.CommonMethodUtil;
 
 @Service("baseService")
 public class BaseServiceImpl implements BaseService {
@@ -96,6 +99,29 @@ public class BaseServiceImpl implements BaseService {
 		}else{
 			return null;
 		}
+	}
+	
+	@Override
+	public <T> Pager pagedList(Class<T> entity, Map<String, Object> condition) throws Exception {
+		Integer pageNo = Pager.DEFAULT_CURRENT_PAGE;
+		Integer pageSize = Pager.DEFAULT_PAGE_SIZE;
+		
+		if(condition.containsKey("pageNo") && condition.containsKey("pageSize")) {
+			pageNo = CommonMethodUtil.getIntegerByObject(condition.get("pageNo"));
+			pageSize = CommonMethodUtil.getIntegerByObject(condition.get("pageSize"));
+		}
+		
+		return baseDao.pagedList(entity, condition, pageNo, pageSize);
+	}
+	
+	@Override
+	public <T> List getList(Class<T> entity, Map<String, Object> condition) throws Exception {
+		return baseDao.getList(entity, condition);
+	}
+	
+	@Override
+	public <T> Integer getCount(Class<T> entity, final Map<String, Object> condition) throws Exception {
+		return baseDao.getCount(entity, condition);
 	}
 
 }

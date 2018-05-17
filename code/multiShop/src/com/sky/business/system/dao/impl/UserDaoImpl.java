@@ -1,6 +1,5 @@
 package com.sky.business.system.dao.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -9,9 +8,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.sky.business.common.dao.impl.BaseDaoImpl;
-import com.sky.business.common.vo.Pager;
 import com.sky.business.system.dao.UserDao;
-import com.sky.contants.EntityContants.UserContants;
+import com.sky.contants.UserContants;
 import com.sky.util.CommonMethodUtil;
 import com.sky.util.DateUtil;
 
@@ -63,19 +61,4 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 		return hqlBuffer;
 	}
 	
-	@Override
-	public Pager pagedList(final Map<String, Object> condition, int pageNo, int pageSize) {
-		StringBuffer hqlBuffer = new StringBuffer("from User where 1=1");
-		List<Object> values = new ArrayList<Object>();
-		
-		//封装hql语句
-		hqlBuffer = this.getPackageHql(hqlBuffer, values, condition);
-		
-		log.info("用户信息，分页查询hql：" + hqlBuffer.toString() + ", 条件：" + values);
-		
-		Pager pager = this.getBaseHibernateDao().pagedQuery(hqlBuffer.toString(), pageNo, pageSize, values.toArray());
-		
-		return pager;
-	}
-
 }

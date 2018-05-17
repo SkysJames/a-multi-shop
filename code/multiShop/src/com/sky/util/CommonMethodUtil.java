@@ -2,8 +2,8 @@ package com.sky.util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -32,6 +32,31 @@ public class CommonMethodUtil {
 				in = (int)((double)object);
 			}else if(object instanceof Float){
 				in = (int)((float)object);
+			}else if(object instanceof BigDecimal){
+				in = ((BigDecimal)object).intValue();
+			}
+		}
+		
+		return in;
+	}
+	
+	/**
+	 * 将object转为BigDecimal类型
+	 * @param object
+	 * @return
+	 */
+	public static BigDecimal getBigDecimalByObject(Object object){
+		BigDecimal in = null;
+		
+		if(object!=null){
+			if(object instanceof BigDecimal){
+				in = (BigDecimal)object;
+			}else if(object instanceof String){
+				in = new BigDecimal((String)object);
+			}else if(object instanceof Double){
+				in = new BigDecimal((Double)object);
+			}else if(object instanceof Float){
+				in = new BigDecimal((Float)object);
 			}
 		}
 		

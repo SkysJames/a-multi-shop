@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 
 import com.sky.business.common.service.impl.BaseServiceImpl;
 import com.sky.business.common.vo.LoginUser;
-import com.sky.business.common.vo.Pager;
 import com.sky.business.common.vo.ServiceException;
 import com.sky.business.system.dao.UserDao;
 import com.sky.business.system.entity.User;
 import com.sky.business.system.service.UserService;
 import com.sky.contants.CodeMescContants;
-import com.sky.contants.EntityContants;
+import com.sky.contants.RightGroupContants;
+import com.sky.contants.UserContants;
 import com.sky.util.CommonMethodUtil;
 
 /**
@@ -32,30 +32,17 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	private UserDao userDao;
 	
 	@Override
-	public Pager pagedList(Map<String, Object> condition) throws Exception {
-		Integer pageNo = Pager.DEFAULT_CURRENT_PAGE;
-		Integer pageSize = Pager.DEFAULT_PAGE_SIZE;
-		
-		if(condition.containsKey("pageNo") && condition.containsKey("pageSize")) {
-			pageNo = CommonMethodUtil.getIntegerByObject(condition.get("pageNo"));
-			pageSize = CommonMethodUtil.getIntegerByObject(condition.get("pageSize"));
-		}
-		
-		return userDao.pagedList(condition, pageNo, pageSize);
-	}
-
-	@Override
 	public LoginUser checkForLogin(LoginUser loginUser) throws Exception {
 		
 		//验证数据库中是否存在该用户
 		User user = this.findByID(User.class, loginUser.getUserId());
 		if(user == null){
-			throw new ServiceException(CodeMescContants.CodeContants.USER_INEXIST,CodeMescContants.MessageContants.USER_INEXIST);
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_INEXIST,CodeMescContants.MessageContants.ERROR_INEXIST);
 		}
 		
 		//验证用户的密码是否正确
 		if(!(user.getPasswd().equals(loginUser.getUserPwd()))){
-			throw new ServiceException(CodeMescContants.CodeContants.LOGIN_USER_ERROR,CodeMescContants.MessageContants.LOGIN_USER_ERROR);
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON, "用户名密码错误");
 		}
 //		//验证md5加密后的密码是否正确
 //		String pwdMd5 = EncryptArithmeticUtil.md5EncryptAll(loginUser.getUserPwd().getBytes("UTF-8"));
@@ -65,16 +52,23 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 //		}
 		
 		//验证用户的状态是否为启用状态
-		if(user.getUserStatus() != EntityContants.UserContants.UserStatus.USING){
-			throw new ServiceException(CodeMescContants.CodeContants.LOGIN_USER_STATIC, CodeMescContants.MessageContants.LOGIN_USER_STATIC);
+		if(user.getUserStatus() != UserContants.UserStatus.USING){
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON, "该用户已被禁用");
 		}
 		
 		user.setLoginIp(loginUser.getUserIp());
-		user.setLoginStatus(EntityContants.UserContants.LoginStatus.ONLINE);
+		user.setLoginStatus(UserContants.LoginStatus.ONLINE);
 		user.setLoginTime(new Timestamp(new Date().getTime()));
 		
 		loginUser.setLoginTime(user.getLoginTime());
 		loginUser.setUsername(user.getName());
+		loginUser.setShopId(user.getShopId());
+		loginUser.setShop(user.getShop());
+		loginUser.setQq(user.getQq());
+		loginUser.setWechat(user.getWechat());
+		loginUser.setTelephone(user.getTelephone());
+		loginUser.setRightgroups(user.getRightgroups());
+		loginUser.setAllRights(user.getAllRights());
 		
 		this.update(user);
 		
@@ -84,11 +78,11 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	
 
 	@Override
-	public void edit(Map<String,Object> editUser, LoginUser loginUser) throws Exception {
+	public void edit(Map<String,Object> editUser) throws Exception {
 		//查找数据库中是否存在该用户
 		User user = this.findByID(User.class, (String)editUser.get("id"));
 		if(user == null){
-			throw new ServiceException(CodeMescContants.CodeContants.USER_INEXIST, CodeMescContants.MessageContants.USER_INEXIST);
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_INEXIST, CodeMescContants.MessageContants.ERROR_INEXIST);
 		}
 		
 		if(editUser.containsKey("name")){
@@ -106,13 +100,22 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		if(editUser.containsKey("userStatus")){
 			user.setUserStatus(CommonMethodUtil.getIntegerByObject(editUser.get("userStatus")));
 		}
-		if(editUser.containsKey("departmentId")){
-			user.setDepartmentId((String)editUser.get("departmentId"));
+		if(editUser.containsKey("shopId")){
+			user.setShopId((String)editUser.get("shopId"));
+		}
+		if(editUser.containsKey("qq")){
+			user.setQq((String)editUser.get("qq"));
+		}
+		if(editUser.containsKey("wechat")){
+			user.setWechat((String)editUser.get("wechat"));
+		}
+		if(editUser.containsKey("telephone")){
+			user.setTelephone((String)editUser.get("telephone"));
 		}
 		if(editUser.containsKey("rights")){
 			user.setRights((String)editUser.get("rights"));
 		}
-		if(editUser.containsKey("rights")){
+		if(editUser.containsKey("rightgroups")){
 			user.setRightgroups((String)editUser.get("rightgroups"));
 		}
 		
@@ -125,7 +128,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		//查找数据库中是否存在该用户
 		User hasUser = this.findByID(User.class, (String)user.get("id"));
 		if(hasUser != null){
-			throw new ServiceException(CodeMescContants.CodeContants.USER_EXIST,CodeMescContants.MessageContants.USER_EXIST);
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_EXIST,CodeMescContants.MessageContants.ERROR_EXIST);
 		}
 		
 		//md5加密密码
@@ -135,15 +138,35 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		User newUser = new User();
 		newUser.setId((String)user.get("id"));
 		newUser.setCreateTime(new Timestamp(new Date().getTime()));
-		newUser.setUserStatus(EntityContants.UserContants.UserStatus.USING);
-		newUser.setLoginStatus(EntityContants.UserContants.LoginStatus.OFFLINE);
+		newUser.setUserStatus(UserContants.UserStatus.USING);
+		newUser.setLoginStatus(UserContants.LoginStatus.OFFLINE);
 		newUser.setName((String)user.get("name"));
 		newUser.setPasswd((String)user.get("passwd"));
-		newUser.setRemark((String)user.get("remark"));
-		newUser.setUserStatus(CommonMethodUtil.getIntegerByObject(user.get("userStatus")));
-		newUser.setDepartmentId((String)user.get("departmentId"));
-		newUser.setRights((String)user.get("rights"));
-		newUser.setRightgroups((String)user.get("rightgroups"));
+		
+		if(user.containsKey("remark")){
+			newUser.setRemark((String)user.get("remark"));
+		}
+		if(user.containsKey("userStatus")){
+			newUser.setUserStatus(CommonMethodUtil.getIntegerByObject(user.get("userStatus")));
+		}
+		if(user.containsKey("shopId")){
+			newUser.setShopId((String)user.get("shopId"));
+		}
+		if(user.containsKey("qq")){
+			newUser.setQq((String)user.get("qq"));
+		}
+		if(user.containsKey("wechat")){
+			newUser.setWechat((String)user.get("wechat"));
+		}
+		if(user.containsKey("telephone")){
+			newUser.setTelephone((String)user.get("telephone"));
+		}
+		if(user.containsKey("rights")){
+			newUser.setRights((String)user.get("rights"));
+		}
+		if(user.containsKey("rightgroups")){
+			newUser.setRightgroups((String)user.get("rightgroups"));
+		}
 		
 		this.save(newUser);
 		return newUser;
@@ -155,10 +178,16 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		//查找数据库中是否存在该用户
 		User user = this.findByID(User.class, userId);
 		if(user == null){
-			throw new ServiceException(CodeMescContants.CodeContants.USER_INEXIST, CodeMescContants.MessageContants.USER_INEXIST);
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_INEXIST, CodeMescContants.MessageContants.ERROR_INEXIST);
 		}
 		
-		this.delete(user);
+		if(StringUtils.isNotBlank(loginUser.getRightgroups())) {
+			//该用户为管理员用户，或者为被删除用户的店长，才可以删除
+			if(loginUser.getRightgroups().indexOf(RightGroupContants.RIGHT_GROUP_ADMIN)>-1
+					|| (loginUser.getRightgroups().indexOf(RightGroupContants.RIGHT_GROUP_SHOPKEEPER)>-1 && loginUser.getShopId().equals(user.getShopId()))) {
+				this.delete(user);
+			}
+		}
 	}
 
 	@Override
@@ -166,7 +195,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		//查找数据库中是否存在该用户
 		User user = this.findByID(User.class, (String)editUser.get("id"));
 		if(user == null){
-			throw new ServiceException(CodeMescContants.CodeContants.USER_INEXIST, CodeMescContants.MessageContants.USER_INEXIST);
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_INEXIST, CodeMescContants.MessageContants.ERROR_INEXIST);
 		}
 		
 		if(editUser.containsKey("name")) {
@@ -188,12 +217,12 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		//验证数据库中是否存在该用户
 		User user = this.findByID(User.class, userId);
 		if(user == null){
-			throw new ServiceException(CodeMescContants.CodeContants.USER_INEXIST,CodeMescContants.MessageContants.USER_INEXIST);
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_INEXIST,CodeMescContants.MessageContants.ERROR_INEXIST);
 		}
 		
 		//验证用户的旧密码是否正确
 		if(!(user.getPasswd().equals(oldPasswd))){
-			throw new ServiceException(CodeMescContants.CodeContants.USER_PASSWD,CodeMescContants.MessageContants.USER_PASSWD);
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON,"密码错误");
 		}
 //		//验证md5加密后用户的旧密码是否正确
 //		String oldPwdMd5 = EncryptArithmeticUtil.md5EncryptAll(oldPasswd.getBytes("UTF-8"));

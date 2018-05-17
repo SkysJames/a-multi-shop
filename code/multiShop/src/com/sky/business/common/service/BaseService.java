@@ -2,6 +2,9 @@ package com.sky.business.common.service;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
+
+import com.sky.business.common.vo.Pager;
 
 /**
  * 基础数据处理服务
@@ -93,5 +96,26 @@ public interface BaseService {
 	 * @return
 	 */
 	public List getPropertyByID(String table, String outputProperty, String inputProperty, Object inputValue);
+	
+	/**
+	 * 根据一定的条件分页获取列表
+	 * @param condition
+	 * @return
+	 */
+	public <T> Pager pagedList(Class<T> entity, Map<String, Object> condition) throws Exception;
+	
+	/**
+	 * 根据一定的条件获取列表
+	 * @param condition
+	 * @return
+	 */
+	public <T> List getList(Class<T> entity, Map<String, Object> condition) throws Exception;
+	
+	/**
+	 * 根据一定的条件获取数量
+	 * @param condition
+	 * @return
+	 */
+	public <T> Integer getCount(Class<T> entity, Map<String, Object> condition) throws Exception;
 	
 }

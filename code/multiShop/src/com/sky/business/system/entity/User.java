@@ -12,7 +12,8 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.sky.business.system.service.DepartmentService;
+import com.sky.business.shop.entity.Shop;
+import com.sky.business.shop.service.ShopService;
 import com.sky.business.system.service.RightGroupService;
 import com.sky.business.system.service.RightService;
 import com.sky.util.BeanDefinedLocator;
@@ -26,32 +27,73 @@ import com.sky.util.BeanDefinedLocator;
 public class User implements java.io.Serializable {
 
     // Fields    
+	@Id 
+    @Column(name="ID", unique=true, nullable=false, length=36)
 	private String id;
+	
+	@Column(name="NAME", nullable=false, length=100)
 	private String name;
+	
+	@Column(name="PASSWD", length=64)
 	private String passwd;
-	private String departmentId;
+	
+	@Column(name="SHOP_ID", length=36)
+	private String shopId;
+	
+	@Column(name="RIGHTS", length=4000)
 	private String rights;
+	
+	@Column(name="RIGHTGROUPS", length=4000)
 	private String rightgroups;
+	
+	@Column(name="USER_STATUS", nullable=false)
 	private Integer userStatus;
+	
+	@Column(name="LOGIN_STATUS", nullable=false)
 	private Integer loginStatus;
+	
+	@Column(name="LOGIN_IP", length=40)
 	private String loginIp;
+	
+	@Column(name="LOGIN_TIME", length=19)
 	private Timestamp loginTime;
+	
+	@Column(name="LOGOUT_TIME", length=19)
 	private Timestamp logoutTime;
+	
+	@Column(name="REMARK", length=4000)
 	private String remark;
+	
+	@Column(name="CREATE_TIME", length=19)
 	private Timestamp createTime;
 	
-	//该用户拥有的所有权限（包括角色的权限）
+	@Column(name="QQ", length=36)
+	private String qq;
+	
+	@Column(name="WECHAT", length=36)
+	private String wechat;
+	
+	@Column(name="TELEPHONE", length=36)
+	private String telephone;
+	
+	//店铺名称
+	@Transient
+	private Shop shop;
+	
+	//该用户拥有的所有权限字符串（包括角色的权限）
+	@Transient
 	private String allRights;
-	//部门名称
-	private Department department;
+	
 	//角色列表
+	@Transient
 	private List<RightGroup> rightgroupList;
+	
 	//权限列表
+	@Transient
 	private List<Right> rightList;
 
+	
     // Property accessors
-    @Id 
-    @Column(name="ID", unique=true, nullable=false, length=36)
     public String getId() {
         return this.id;
     }
@@ -60,7 +102,6 @@ public class User implements java.io.Serializable {
         this.id = id;
     }
     
-    @Column(name="NAME", nullable=false, length=100)
     public String getName() {
         return this.name;
     }
@@ -69,7 +110,6 @@ public class User implements java.io.Serializable {
         this.name = name;
     }
     
-    @Column(name="PASSWD", length=64)
     public String getPasswd() {
         return this.passwd;
     }
@@ -78,16 +118,6 @@ public class User implements java.io.Serializable {
         this.passwd = passwd;
     }
     
-    @Column(name="DEPARTMENT_ID", length=36)
-    public String getDepartmentId() {
-        return this.departmentId;
-    }
-    
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
-    }
-    
-    @Column(name="RIGHTS", length=4000)
     public String getRights() {
 		return rights;
 	}
@@ -96,7 +126,6 @@ public class User implements java.io.Serializable {
 		this.rights = rights;
 	}
 
-	@Column(name="RIGHTGROUPS", length=4000)
 	public String getRightgroups() {
 		return rightgroups;
 	}
@@ -105,7 +134,6 @@ public class User implements java.io.Serializable {
 		this.rightgroups = rightgroups;
 	}
 
-	@Column(name="USER_STATUS", nullable=false)
     public Integer getUserStatus() {
         return this.userStatus;
     }
@@ -114,7 +142,6 @@ public class User implements java.io.Serializable {
         this.userStatus = userStatus;
     }
     
-    @Column(name="LOGIN_STATUS", nullable=false)
     public Integer getLoginStatus() {
         return this.loginStatus;
     }
@@ -123,7 +150,6 @@ public class User implements java.io.Serializable {
         this.loginStatus = loginStatus;
     }
     
-    @Column(name="LOGIN_IP", length=40)
     public String getLoginIp() {
         return this.loginIp;
     }
@@ -132,7 +158,6 @@ public class User implements java.io.Serializable {
         this.loginIp = loginIp;
     }
     
-    @Column(name="LOGIN_TIME", length=19)
     public Timestamp getLoginTime() {
         return this.loginTime;
     }
@@ -141,7 +166,6 @@ public class User implements java.io.Serializable {
         this.loginTime = loginTime;
     }
     
-    @Column(name="LOGOUT_TIME", length=19)
     public Timestamp getLogoutTime() {
         return this.logoutTime;
     }
@@ -150,7 +174,6 @@ public class User implements java.io.Serializable {
         this.logoutTime = logoutTime;
     }
     
-    @Column(name="REMARK", length=4000)
     public String getRemark() {
         return this.remark;
     }
@@ -159,7 +182,6 @@ public class User implements java.io.Serializable {
         this.remark = remark;
     }
     
-    @Column(name="CREATE_TIME", length=19)
     public Timestamp getCreateTime() {
         return this.createTime;
     }
@@ -168,7 +190,38 @@ public class User implements java.io.Serializable {
         this.createTime = createTime;
     }
 
-    @Transient
+	public String getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
+	}
+
+	public String getQq() {
+		return qq;
+	}
+
+	public void setQq(String qq) {
+		this.qq = qq;
+	}
+
+	public String getWechat() {
+		return wechat;
+	}
+
+	public void setWechat(String wechat) {
+		this.wechat = wechat;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
 	public String getAllRights() {
 	    	try {
 		    	if (null == allRights) {
@@ -206,24 +259,23 @@ public class User implements java.io.Serializable {
 		this.allRights = allRights;
 	}
 
-	@Transient
-	public Department getDepartment() {
+	public Shop getShop() {
 		try {
-		    	if (null == department) {
-		    		DepartmentService departmentService = (DepartmentService)BeanDefinedLocator.getInstance().getBean("departmentService");
+		    	if (null == shop) {
+		    		ShopService shopService = (ShopService)BeanDefinedLocator.getInstance().getBean("shopService");
 		    		
-		    		if(null != departmentId){
-		    			department = departmentService.findByID(Department.class, departmentId);
+		    		if(null != shopId){
+		    			shop = shopService.findByID(Shop.class, shopId);
 		    		}
 			}
 	    	} catch (Exception e) {
 	    		e.printStackTrace();
 	    	}
-		return department;
+		return shop;
 	}
 
-	public void setDepartment(Department department) {
-		this.department = department;
+	public void setShop(Shop shop) {
+		this.shop = shop;
 	}
 
 	@Transient
@@ -247,7 +299,6 @@ public class User implements java.io.Serializable {
 		this.rightgroupList = rightgroupList;
 	}
 
-	@Transient
 	public List<Right> getRightList() {
 		try {
 		    	if (null == rightList) {

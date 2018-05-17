@@ -124,6 +124,7 @@ create table tb_type
     ID              varchar(36) primary key comment '主键ID',
     NAME            varchar(100) not null comment '类型名称',
     TABLE_NAME		varchar(36) comment '表名称，tb_shop - 店铺类型；tb_product - 商品类型',
+    PARENT_ID       varchar(36) comment '父类型ID',
     SORT	        integer comment '排序'
 );
 
@@ -138,7 +139,7 @@ create table tb_shop
     NAME            varchar(300) not null comment '店铺名称',
     POPULARITY		integer default 0 comment '人气值',
     RECOMMEND       integer default 0 comment '是否上推荐栏，0 - 不推荐，大于0则推荐，且数值越大则排序越前',
-    SHOP_TYPE		varchar(36) comment '店铺类型',
+    SHOP_TYPE		varchar(100) comment '店铺类型',
     ADD_TIME        datetime comment '入驻时间，即通过验证的时间',
     OVER_TIME       datetime comment '到期时间',
     SERVICE			varchar(4000) comment '客服用户ID，多个以,隔开',
@@ -146,6 +147,9 @@ create table tb_shop
     PICTURE			varchar(4000) comment '相关轮播图片路径，多个以,隔开',
     DESCRIPTION     text comment '店铺描述',
     MARK			decimal(2,1) comment '店铺评分，最高5分，所有评价分的平均值',
+    ADDRESS         varchar(4000) comment '店铺所在地址',
+    LONGITUDE       double(9,6) comment '店铺所在地，经度',
+    LATITUDE        double(9,6) comment '店铺所在地，纬度',
     STATUS			integer default 0 comment '状态：0-禁用；1-申请待验证；2-启用'
 );
 
@@ -240,8 +244,9 @@ create table tb_prohistory
     TYPE            integer comment '类型，1-历史浏览类型；2-收藏类型',
     OBJ_ID          varchar(36) comment '对象ID',
     TABLE_NAME      varchar(36) comment '表名称，tb_shop - 店铺收藏；tb_product - 商品收藏/历史；tb_bbstopic - 帖子（主帖）收藏/历史',                
-    USER_ID         varchar(36) comment '用户ID',               
-    CREATE_TIME     datetime comment '创建时间',
+    USER_ID         varchar(36) comment '用户ID',    
+    CREATE_TIME     datetime comment '创建时间',           
+    UPDATE_TIME     datetime comment '更新时间',
     HREF     		varchar(4000) comment '对象链接'
 );
 alter table tb_prohistory add index idx_tb_prohistory_tn_ui(TABLE_NAME,USER_ID);
@@ -253,13 +258,13 @@ alter table tb_prohistory add index idx_tb_prohistory_tn_ui(TABLE_NAME,USER_ID);
 DROP TABLE IF EXISTS tb_report;
 create table tb_report
 (
-    ID              varchar(36) primary key comment '主键ID',     
-    MES_ID          varchar(36) comment '消息ID',
+    ID              varchar(36) primary key comment '主键ID',
     OBJ_ID          varchar(36) comment '举报对象ID',
     TABLE_NAME      varchar(36) comment '表名称',
     USER_ID         varchar(36) comment '用户ID',  
     CONTENT         text comment '举报内容',
-    CREATE_TIME     datetime comment '创建时间'
+    CREATE_TIME     datetime comment '创建时间',
+    STATUS          integer default 0 not null comment '状态：0 - 未发送；1 - 已发送未接收；2 - 已接收'
 );
 
 
@@ -271,9 +276,7 @@ DROP TABLE IF EXISTS tb_bbssection;
 CREATE TABLE `tb_bbssection` (
   `ID` varchar(32) COLLATE utf8_bin NOT NULL COMMENT '主键ID',
   `NAME` varchar(32) COLLATE utf8_bin NOT NULL COMMENT '版块名称',
-  `PROFILE` varchar(128) COLLATE utf8_bin COMMENT '简介',
-  `CLICK_COUNT` int(16) DEFAULT '0' COMMENT '点击数',
-  `TOPIC_COUNT` int(8) DEFAULT '0' COMMENT '发帖数',
+  `BRIEF` varchar(600) COLLATE utf8_bin COMMENT '简介',
   `HEADPIC`     varchar(4000) comment '头像图片路径',
   `CREATE_TIME` datetime COMMENT '创建时间',
   PRIMARY KEY (`ID`)

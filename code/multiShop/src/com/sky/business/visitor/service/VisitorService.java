@@ -3,8 +3,6 @@ package com.sky.business.visitor.service;
 import java.util.Map;
 
 import com.sky.business.common.service.BaseService;
-import com.sky.business.common.vo.Pager;
-import com.sky.business.visitor.entity.Visitor;
 
 /**
  * 访客Service接口
@@ -12,14 +10,6 @@ import com.sky.business.visitor.entity.Visitor;
  *
  */
 public interface VisitorService extends BaseService {
-	
-	/**
-	 * 根据一定的条件获取访客列表
-	 * @param condition
-	 * @return
-	 * @throws Exception
-	 */
-	public Pager pagedList(Map<String, Object> condition) throws Exception;
 	
 	/**
 	 * 修改访客信息

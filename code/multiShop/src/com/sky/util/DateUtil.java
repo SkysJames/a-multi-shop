@@ -19,6 +19,11 @@ public class DateUtil {
 	private static Logger logger = Logger.getLogger(DateUtil.class);
 	
 	/**
+	 * 默认时间字符串格式
+	 */
+	public static final String DEFAULT_DATE_PATTERN = "yyyy-MM-dd HH:mm:ss";
+	
+	/**
 	 * 将日期字符串转换成日期类对象
 	 * @param date
 	 * @return
@@ -103,6 +108,16 @@ public class DateUtil {
 	}
 	
 	/**
+	 * 将日期字符串转换成毫秒
+	 * @param date
+	 * @return
+	 * @throws Exception
+	 */
+	public static long convertStr2MilliTime(String date) {
+		return convertStr2Date(date).getTime();
+	}
+	
+	/**
 	 * 将日期字符串转换指定格式的日期字符串
 	 * @param date 日期字符串
 	 * @param fromFmt 原日期格式
@@ -130,6 +145,13 @@ public class DateUtil {
 		return fmtDate;
 	}
 	
+	/**
+	 * 将日期字符串转换指定格式的日期字符串
+	 * @param date
+	 * @param toFmt
+	 * @return
+	 * @throws Exception
+	 */
 	public static String convertDateStr(String date, String toFmt) throws Exception {
 		String fromFmt = null;
 		
@@ -190,6 +212,18 @@ public class DateUtil {
 		}
 		
 		return convertDateStr(date, fromFmt, toFmt);
+	}
+	
+	/**
+	 * 将毫秒级的long时间，转换成指定格式的字符串
+	 * @param time
+	 * @param toFmt
+	 * @return
+	 * @throws Exception
+	 */
+	public static String convertDateStr(long milliTime, String toFmt) throws Exception {
+		SimpleDateFormat toSdf = new SimpleDateFormat(toFmt);
+		return toSdf.format(new Date(milliTime));
 	}
 	
 	/**

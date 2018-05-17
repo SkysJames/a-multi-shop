@@ -36,11 +36,10 @@ public class RightAction extends BaseAction {
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	public String list() throws Exception {
+	public String paged() throws Exception {
 		try{
 			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
-			pager = rightService.pagedList(condition);
-			logger.info("查询权限列表");
+			pager = rightService.pagedList(Right.class, condition);
 			
 			resultMap.put("pager", pager);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
@@ -51,48 +50,27 @@ public class RightAction extends BaseAction {
 			resultMap.put(EntityContants.ResultMapContants.MESSAGE, e.getErrorMsg());
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getStackTrace(e));
-			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.RIGHT_ERROR);
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.RIGHT_ERROR);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
 		}
 		return RESULT_MAP;
 	}
 	
 	/**
-	 * 获取权限总数量
+	 * 获取所有权限列表
 	 * @return
 	 */
-	public String getTotalcount(){
+	public String getAllRightList(){
 		try{
-			Integer rightCount = rightService.countAll(Right.class);
-			logger.info("获取权限总数量");
+			List<Right> allRightList = rightService.findAll(Right.class, "id", true);
 			
-			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取权限总数量");
-			resultMap.put("rightCount", rightCount);
-		} catch (Exception e) {
-			logger.error(ExceptionUtils.getStackTrace(e));
-			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.RIGHT_ERROR);
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.RIGHT_ERROR);
-		}
-		return RESULT_MAP;
-	}
-	
-	/**
-	 * 获取所有权限列表（已经分好类）
-	 * @return
-	 */
-	public String getTypeRightList(){
-		try{
-			List<Map<String, Object>> typeRightList = rightService.getTypeRightList();
-			logger.info("获取所有权限列表（已经分好类）");
-			
-			resultMap.put("typeRightList", typeRightList);
+			resultMap.put("allRightList", allRightList);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
 			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取所有权限列表");
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getStackTrace(e));
-			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.RIGHT_ERROR);
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.RIGHT_ERROR);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
 		}
 		return RESULT_MAP;
 	}

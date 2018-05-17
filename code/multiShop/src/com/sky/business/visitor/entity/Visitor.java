@@ -20,6 +20,7 @@ public class Visitor  implements java.io.Serializable {
 
      private String id;
      private String ip;
+     private String shopId;
      private Integer status;
      private String remark;
      private Integer visitedTimes;
@@ -34,17 +35,19 @@ public class Visitor  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public Visitor(String id, String ip, Integer status, Integer visitedTimes) {
+    public Visitor(String id, String ip, String shopId, Integer status, Integer visitedTimes) {
         this.id = id;
         this.ip = ip;
+        this.shopId = shopId;
         this.status = status;
         this.visitedTimes = visitedTimes;
     }
     
     /** full constructor */
-    public Visitor(String id, String ip, Integer status, String remark, Integer visitedTimes, Timestamp createTime, Timestamp visitedTime) {
+    public Visitor(String id, String ip, String shopId, Integer status, String remark, Integer visitedTimes, Timestamp createTime, Timestamp visitedTime) {
         this.id = id;
         this.ip = ip;
+        this.shopId = shopId;
         this.status = status;
         this.remark = remark;
         this.visitedTimes = visitedTimes;
@@ -55,9 +58,7 @@ public class Visitor  implements java.io.Serializable {
    
     // Property accessors
     @Id 
-    
     @Column(name="ID", unique=true, nullable=false, length=36)
-
     public String getId() {
         return this.id;
     }
@@ -67,7 +68,6 @@ public class Visitor  implements java.io.Serializable {
     }
     
     @Column(name="IP", nullable=false, length=40)
-
     public String getIp() {
         return this.ip;
     }
@@ -77,7 +77,6 @@ public class Visitor  implements java.io.Serializable {
     }
     
     @Column(name="STATUS", nullable=false)
-
     public Integer getStatus() {
         return this.status;
     }
@@ -87,7 +86,6 @@ public class Visitor  implements java.io.Serializable {
     }
     
     @Column(name="REMARK", length=4000)
-
     public String getRemark() {
         return this.remark;
     }
@@ -97,7 +95,6 @@ public class Visitor  implements java.io.Serializable {
     }
     
     @Column(name="VISITED_TIMES", nullable=false)
-
     public Integer getVisitedTimes() {
         return this.visitedTimes;
     }
@@ -107,7 +104,6 @@ public class Visitor  implements java.io.Serializable {
     }
     
     @Column(name="CREATE_TIME", length=19)
-
     public Timestamp getCreateTime() {
         return this.createTime;
     }
@@ -117,7 +113,6 @@ public class Visitor  implements java.io.Serializable {
     }
     
     @Column(name="VISITED_TIME", length=19)
-
     public Timestamp getVisitedTime() {
         return this.visitedTime;
     }
@@ -125,13 +120,14 @@ public class Visitor  implements java.io.Serializable {
     public void setVisitedTime(Timestamp visitedTime) {
         this.visitedTime = visitedTime;
     }
-   
 
+    @Column(name="SHOP_ID", length=36)
+	public String getShopId() {
+		return shopId;
+	}
 
-
-
-
-
-
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
+	}
 
 }

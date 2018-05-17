@@ -90,8 +90,8 @@ public class HomeAction extends BaseAction {
 			return INPUT;
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getStackTrace(e));
-			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.LOGIN_ERROR);
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.LOGIN_ERROR);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
 			return INPUT;
 		}
 		

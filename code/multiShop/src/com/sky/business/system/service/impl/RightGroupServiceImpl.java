@@ -5,17 +5,14 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.sky.business.common.service.impl.BaseServiceImpl;
-import com.sky.business.common.vo.Pager;
 import com.sky.business.common.vo.ServiceException;
 import com.sky.business.system.dao.RightGroupDao;
 import com.sky.business.system.entity.RightGroup;
 import com.sky.business.system.service.RightGroupService;
 import com.sky.contants.CodeMescContants;
-import com.sky.util.CommonMethodUtil;
 
 /**
  * 角色Service类
@@ -28,61 +25,47 @@ public class RightGroupServiceImpl extends BaseServiceImpl implements RightGroup
 	@Resource(name = "rightGroupDao")
 	private RightGroupDao rightGroupDao;
 	
-	
 	@Override
-	public Pager pagedList(Map<String, Object> condition) throws Exception {
-		Integer pageNo = Pager.DEFAULT_CURRENT_PAGE;
-		Integer pageSize = Pager.DEFAULT_PAGE_SIZE;
-		
-		if(condition.containsKey("pageNo") && condition.containsKey("pageSize")) {
-			pageNo = CommonMethodUtil.getIntegerByObject(condition.get("pageNo"));
-			pageSize = CommonMethodUtil.getIntegerByObject(condition.get("pageSize"));
-		}
-		
-		return rightGroupDao.pagedList(condition, pageNo, pageSize);
-	}
-
-	@Override
-	public void edit(Map<String,Object> editRightGroup) throws Exception {
+	public void edit(Map<String,Object> editObj) throws Exception {
 		//查找数据库中是否存在该角色
-		RightGroup rightGroup = this.findByID(RightGroup.class, (String)editRightGroup.get("id"));
+		RightGroup rightGroup = this.findByID(RightGroup.class, (String)editObj.get("id"));
 		if(rightGroup == null){
-			throw new ServiceException(CodeMescContants.CodeContants.RIGHTGROUP_INEXIST, CodeMescContants.MessageContants.RIGHTGROUP_INEXIST);
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_INEXIST, CodeMescContants.MessageContants.ERROR_INEXIST);
 		}
 		
-		if(editRightGroup.containsKey("name")){
-			rightGroup.setName((String)editRightGroup.get("name"));
+		if(editObj.containsKey("name")){
+			rightGroup.setName((String)editObj.get("name"));
 		}
-		if(editRightGroup.containsKey("rights")){
-			rightGroup.setRights((String)editRightGroup.get("rights"));
+		if(editObj.containsKey("rights")){
+			rightGroup.setRights((String)editObj.get("rights"));
 		}
 		
 		this.update(rightGroup);
 	}
 	
 	@Override
-	public RightGroup add(Map<String,Object> rightGroup) throws Exception {
-		RightGroup newRightGroup = new RightGroup();
-		newRightGroup.setId(UUID.randomUUID().toString());
+	public RightGroup add(Map<String,Object> addObj) throws Exception {
+		RightGroup rightGroup = new RightGroup();
+		rightGroup.setId(UUID.randomUUID().toString());
 		
-		if(rightGroup.containsKey("name")){
-			newRightGroup.setName((String)rightGroup.get("name"));
+		if(addObj.containsKey("name")){
+			rightGroup.setName((String)addObj.get("name"));
 		}
-		if(rightGroup.containsKey("rights")){
-			newRightGroup.setRights((String)rightGroup.get("rights"));
+		if(addObj.containsKey("rights")){
+			rightGroup.setRights((String)addObj.get("rights"));
 		}
 		
-		this.save(newRightGroup);
-		return newRightGroup;
+		this.save(rightGroup);
+		return rightGroup;
 		
 	}
 	
 	@Override
-	public void delete(String rightGroupId) throws Exception {
+	public void delete(String id) throws Exception {
 		//查找数据库中是否存在该角色
-		RightGroup rightGroup = this.findByID(RightGroup.class, rightGroupId);
+		RightGroup rightGroup = this.findByID(RightGroup.class, id);
 		if(rightGroup == null){
-			throw new ServiceException(CodeMescContants.CodeContants.RIGHTGROUP_INEXIST, CodeMescContants.MessageContants.RIGHTGROUP_INEXIST);
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_INEXIST, CodeMescContants.MessageContants.ERROR_INEXIST);
 		}
 		
 		this.delete(rightGroup);

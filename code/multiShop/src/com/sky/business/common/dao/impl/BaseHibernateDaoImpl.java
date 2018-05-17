@@ -199,6 +199,19 @@ public class BaseHibernateDaoImpl extends Hibernate4DaoSupport implements BaseHi
 		return find(queryString, new Object[]{value});
 	}
 
+	@Override
+	public Integer count(final String queryString, final Object... values) throws DataAccessException {
+		Query queryObject = getHibernateSession().createQuery(queryString);
+		if (values != null) {
+			for (int i = 0; i < values.length; i++) {
+				queryObject.setParameter(i, values[i]);
+			}
+		}
+		
+		Integer count = ((Long) queryObject.iterate().next()).intValue();
+		return count;
+	}
+	
 	@SuppressWarnings("rawtypes")
 	@Override
 	public List find(final String queryString, final Object... values) throws DataAccessException {

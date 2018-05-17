@@ -30,28 +30,27 @@ public class VisitorAction extends BaseAction {
 	private VisitorService visitorService;
 	
 	/**
-	 * 访客列表
+	 * 分页获取访客列表
 	 * @return
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	public String list() throws Exception {
+	public String paged() throws Exception {
 		try{
 			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
-			pager = visitorService.pagedList(condition);
-			logger.info("查询访客列表");
+			pager = visitorService.pagedList(Visitor.class, condition);
 			
 			resultMap.put("pager", pager);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取访客列表");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功分页获取访客列表");
 		} catch (ServiceException e) {
 			logger.error(e);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, e.getErrorCode());
 			resultMap.put(EntityContants.ResultMapContants.MESSAGE, e.getErrorMsg());
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getStackTrace(e));
-			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.VISITOR_ERROR);
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.VISITOR_ERROR);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
 		}
 		return RESULT_MAP;
 	}
@@ -74,8 +73,8 @@ public class VisitorAction extends BaseAction {
 			resultMap.put(EntityContants.ResultMapContants.MESSAGE, e.getErrorMsg());
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getStackTrace(e));
-			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.VISITOR_ERROR);
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.VISITOR_ERROR);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
 		}
 		return RESULT_MAP;
 	}
@@ -98,8 +97,8 @@ public class VisitorAction extends BaseAction {
 			resultMap.put(EntityContants.ResultMapContants.MESSAGE, e.getErrorMsg());
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getStackTrace(e));
-			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.VISITOR_ERROR);
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.VISITOR_ERROR);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
 		}
 		return RESULT_MAP;
 	}
@@ -118,8 +117,8 @@ public class VisitorAction extends BaseAction {
 			resultMap.put("visitorCount", visitorCount);
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getStackTrace(e));
-			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.VISITOR_ERROR);
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.VISITOR_ERROR);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
 		}
 		return RESULT_MAP;
 	}

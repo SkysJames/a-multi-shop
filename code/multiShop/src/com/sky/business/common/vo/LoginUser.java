@@ -3,6 +3,8 @@ package com.sky.business.common.vo;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.sky.business.shop.entity.Shop;
+
 /**
  * 登录用户
  * @author Sky James
@@ -18,14 +20,28 @@ public class LoginUser implements Serializable {
 
     private String userPwd;
     
-    private Integer userLevel;
+    private String shopId;
+    
+    private Shop shop;
+    
+    private String qq;
+    
+    private String wechat;
+    
+    private String telephone;
+    
+    //该用户拥有的所有角色
+    private String rightgroups;
+    
+    //该用户拥有的所有权限（包括角色的权限）
+    private String allRights;
     
     //登录IP
     private String userIp;
     
     //登录时间
     private Timestamp loginTime;
-
+    
     public LoginUser() {
 	}
     
@@ -76,19 +92,60 @@ public class LoginUser implements Serializable {
 		return loginTime;
 	}
 
-	public Integer getUserLevel() {
-		return userLevel;
+	public String getShopId() {
+		return shopId;
 	}
 
-	public void setUserLevel(Integer userLevel) {
-		this.userLevel = userLevel;
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
 	}
 
-	@Override
-	public String toString() {
-		return "LoginUser [userId=" + userId + ", username=" + username
-				+ ", userPwd=" + userPwd + ", userIp=" + userIp
-				+ ", loginTime=" + loginTime + "]";
+	public String getQq() {
+		return qq;
+	}
+
+	public void setQq(String qq) {
+		this.qq = qq;
+	}
+
+	public String getWechat() {
+		return wechat;
+	}
+
+	public void setWechat(String wechat) {
+		this.wechat = wechat;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+
+	public Shop getShop() {
+		return shop;
+	}
+
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
+
+	public String getAllRights() {
+		return allRights;
+	}
+
+	public void setAllRights(String allRights) {
+		this.allRights = allRights;
+	}
+
+	public String getRightgroups() {
+		return rightgroups;
+	}
+
+	public void setRightgroups(String rightgroups) {
+		this.rightgroups = rightgroups;
 	}
 
 }

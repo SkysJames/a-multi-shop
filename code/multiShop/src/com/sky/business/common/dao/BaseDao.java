@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import com.sky.business.common.vo.Pager;
+
 /**
  * dao层基础类的接口
  * @author xiefeiye
@@ -98,5 +100,28 @@ public interface BaseDao {
 	 * @return
 	 */
 	public List getPropertyByID(String table, String outputProperty, String inputProperty, Object inputValue);
+	
+	/**
+	 * hibernate 根据条件分页获取列表
+	 * @param condition
+	 * @param pageNo
+	 * @param pageSize
+	 * @return
+	 */
+	public <T> Pager pagedList(Class<T> entity, final Map<String, Object> condition, int pageNo, int pageSize);
+	
+	/**
+	 * hibernate 根据一定的条件获取列表
+	 * @param condition
+	 * @return
+	 */
+	public <T> List getList(Class<T> entity, final Map<String, Object> condition);
+	
+	/**
+	 * hibernate 根据一定的条件获取数量
+	 * @param condition
+	 * @return
+	 */
+	public <T> Integer getCount(Class<T> entity, final Map<String, Object> condition);
 	
 }
