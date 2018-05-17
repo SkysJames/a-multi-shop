@@ -18,7 +18,7 @@ import com.sky.business.system.dao.RightGroupDao;
 public class RightGroupDaoImpl extends BaseDaoImpl implements RightGroupDao {
 
 	@Override
-	protected StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
+	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
 		String sort = "name asc";
 		
 		//排序

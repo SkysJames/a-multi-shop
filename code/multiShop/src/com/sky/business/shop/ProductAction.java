@@ -11,6 +11,7 @@ import org.apache.struts2.convention.annotation.InterceptorRefs;
 import com.sky.business.common.BaseAction;
 import com.sky.business.common.vo.LoginUser;
 import com.sky.business.common.vo.ServiceException;
+import com.sky.business.shop.dao.ProductDao;
 import com.sky.business.shop.entity.Product;
 import com.sky.business.shop.service.ProductService;
 import com.sky.contants.CodeMescContants;
@@ -30,6 +31,9 @@ public class ProductAction extends BaseAction {
 	@Resource(name = "productService")
 	private ProductService productService;
 	
+	@Resource(name = "productDao")
+	private ProductDao productDao;
+	
 	/**
 	 * 分页获取产品列表
 	 * @return
@@ -39,7 +43,7 @@ public class ProductAction extends BaseAction {
 	public String paged() throws Exception {
 		try{
 			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
-			pager = productService.pagedList(Product.class, condition);
+			pager = productService.pagedList(productDao, Product.class, condition);
 			
 			resultMap.put("pager", pager);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");

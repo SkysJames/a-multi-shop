@@ -21,7 +21,7 @@ import com.sky.util.DateUtil;
 public class ProductDaoImpl extends BaseDaoImpl implements ProductDao {
 
 	@Override
-	protected StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
+	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
 		String sort = "updateTime desc";
 		
 		//排序

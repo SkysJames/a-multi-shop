@@ -21,7 +21,7 @@ import com.sky.util.DateUtil;
 public class VisitorDaoImpl extends BaseDaoImpl implements VisitorDao {
 
 	@Override
-	protected StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
+	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
 		String sort = "visitedTime desc";
 		
 		//排序

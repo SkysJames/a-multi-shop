@@ -19,7 +19,7 @@ import com.sky.util.CommonMethodUtil;
 public class ShopDaoImpl extends BaseDaoImpl implements ShopDao {
 
 	@Override
-	protected StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
+	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
 		String sort = "popularity desc";
 		
 		//排序

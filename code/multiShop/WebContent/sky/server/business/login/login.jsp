@@ -6,9 +6,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 pageContext.setAttribute("contextPath", request.getContextPath());
 
+String contextPath = request.getContextPath();
+
 String systemName = SysParameterUtil.getStringValue("system_name", "");
 pageContext.setAttribute("systemName", systemName);
 %>
+
+<script type="text/javascript">
+var $contextPath = '<%=contextPath%>';
+</script>
 
 <!DOCTYPE HTML>
 <html>

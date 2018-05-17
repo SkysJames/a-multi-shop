@@ -31,7 +31,7 @@ public class ProhistoryServiceImpl extends BaseServiceImpl implements Prohistory
 	
 	@Override
 	public void saveOrUpdate(Map<String,Object> obj) throws Exception {
-		List list = this.getList(Prohistory.class, obj);
+		List list = this.getList(prohistoryDao, Prohistory.class, obj);
 		Prohistory prohistory = null;
 		Timestamp nowstamp = new Timestamp(Calendar.getInstance().getTimeInMillis());
 		

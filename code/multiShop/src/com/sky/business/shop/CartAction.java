@@ -10,6 +10,7 @@ import org.apache.struts2.convention.annotation.InterceptorRefs;
 
 import com.sky.business.common.BaseAction;
 import com.sky.business.common.vo.ServiceException;
+import com.sky.business.shop.dao.CartDao;
 import com.sky.business.shop.entity.Cart;
 import com.sky.business.shop.service.CartService;
 import com.sky.contants.CodeMescContants;
@@ -29,6 +30,9 @@ public class CartAction extends BaseAction {
 	@Resource(name = "cartService")
 	private CartService cartService;
 	
+	@Resource(name = "cartDao")
+	private CartDao cartDao;
+	
 	/**
 	 * 分页获取购物车列表
 	 * @return
@@ -38,7 +42,7 @@ public class CartAction extends BaseAction {
 	public String paged() throws Exception {
 		try{
 			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
-			pager = cartService.pagedList(Cart.class, condition);
+			pager = cartService.pagedList(cartDao, Cart.class, condition);
 			
 			resultMap.put("pager", pager);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");

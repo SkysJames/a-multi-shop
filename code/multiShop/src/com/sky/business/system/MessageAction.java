@@ -10,6 +10,7 @@ import org.apache.struts2.convention.annotation.InterceptorRefs;
 
 import com.sky.business.common.BaseAction;
 import com.sky.business.common.vo.ServiceException;
+import com.sky.business.system.dao.MessageDao;
 import com.sky.business.system.entity.Message;
 import com.sky.business.system.service.MessageService;
 import com.sky.contants.CodeMescContants;
@@ -29,6 +30,9 @@ public class MessageAction extends BaseAction {
 	@Resource(name = "messageService")
 	private MessageService messageService;
 	
+	@Resource(name = "messageDao")
+	private MessageDao messageDao;
+	
 	/**
 	 * 分页获取消息列表
 	 * @return
@@ -38,7 +42,7 @@ public class MessageAction extends BaseAction {
 	public String paged() throws Exception {
 		try{
 			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
-			pager = messageService.pagedList(Message.class, condition);
+			pager = messageService.pagedList(messageDao, Message.class, condition);
 			
 			resultMap.put("pager", pager);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
@@ -131,7 +135,7 @@ public class MessageAction extends BaseAction {
 	public String getCount(){
 		try{
 			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
-			Integer count = messageService.getCount(Message.class, condition);
+			Integer count = messageService.getCount(messageDao, Message.class, condition);
 			
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
 			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取消息数量");

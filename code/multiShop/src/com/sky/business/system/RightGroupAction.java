@@ -11,6 +11,7 @@ import org.apache.struts2.convention.annotation.InterceptorRefs;
 
 import com.sky.business.common.BaseAction;
 import com.sky.business.common.vo.ServiceException;
+import com.sky.business.system.dao.RightGroupDao;
 import com.sky.business.system.entity.RightGroup;
 import com.sky.business.system.service.RightGroupService;
 import com.sky.contants.CodeMescContants;
@@ -30,6 +31,9 @@ public class RightGroupAction extends BaseAction {
 	@Resource(name = "rightGroupService")
 	private RightGroupService rightGroupService;
 	
+	@Resource(name = "rightGroupDao")
+	private RightGroupDao rightGroupDao;
+	
 	/**
 	 * 分页获取角色列表
 	 * @return
@@ -39,7 +43,7 @@ public class RightGroupAction extends BaseAction {
 	public String paged() throws Exception {
 		try{
 			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
-			pager = rightGroupService.pagedList(RightGroup.class, condition);
+			pager = rightGroupService.pagedList(rightGroupDao, RightGroup.class, condition);
 			
 			resultMap.put("pager", pager);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");

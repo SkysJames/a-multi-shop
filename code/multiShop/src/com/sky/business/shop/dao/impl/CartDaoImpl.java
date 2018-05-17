@@ -19,7 +19,7 @@ import com.sky.util.CommonMethodUtil;
 public class CartDaoImpl extends BaseDaoImpl implements CartDao {
 
 	@Override
-	protected StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
+	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
 		String sort = "updateTime desc";
 		
 		//排序

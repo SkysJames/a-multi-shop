@@ -1,8 +1,5 @@
 package com.sky.business.common.dao.impl;
 
-import java.util.List;
-import java.util.Map;
-
 import javax.annotation.PostConstruct;
 
 import org.apache.commons.logging.Log;
@@ -31,17 +28,6 @@ public abstract class AbstractBaseDao {
 		baseHibernateDao = (BaseHibernateDao) BeanDefinedLocator.getInstance().getBean(BaseHibernateDao.class);
 	}
 
-	/**
-	 * 封装查询语句hql
-	 * @param hqlBuffer
-	 * @param values
-	 * @param condition
-	 */
-	protected StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
-		return hqlBuffer;
-	}
-	
-	
 	protected BaseHibernateDao getBaseHibernateDao() {
 		return baseHibernateDao;
 	}

@@ -102,7 +102,7 @@ public class BaseServiceImpl implements BaseService {
 	}
 	
 	@Override
-	public <T> Pager pagedList(Class<T> entity, Map<String, Object> condition) throws Exception {
+	public <T> Pager pagedList(BaseDao dao, Class<T> entity, Map<String, Object> condition) throws Exception {
 		Integer pageNo = Pager.DEFAULT_CURRENT_PAGE;
 		Integer pageSize = Pager.DEFAULT_PAGE_SIZE;
 		
@@ -111,17 +111,17 @@ public class BaseServiceImpl implements BaseService {
 			pageSize = CommonMethodUtil.getIntegerByObject(condition.get("pageSize"));
 		}
 		
-		return baseDao.pagedList(entity, condition, pageNo, pageSize);
+		return baseDao.pagedList(dao, entity, condition, pageNo, pageSize);
 	}
 	
 	@Override
-	public <T> List getList(Class<T> entity, Map<String, Object> condition) throws Exception {
-		return baseDao.getList(entity, condition);
+	public <T> List getList(BaseDao dao, Class<T> entity, Map<String, Object> condition) throws Exception {
+		return baseDao.getList(dao, entity, condition);
 	}
 	
 	@Override
-	public <T> Integer getCount(Class<T> entity, final Map<String, Object> condition) throws Exception {
-		return baseDao.getCount(entity, condition);
+	public <T> Integer getCount(BaseDao dao, Class<T> entity, final Map<String, Object> condition) throws Exception {
+		return baseDao.getCount(dao, entity, condition);
 	}
 
 }

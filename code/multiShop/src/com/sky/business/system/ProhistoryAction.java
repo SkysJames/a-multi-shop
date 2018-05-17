@@ -10,6 +10,7 @@ import org.apache.struts2.convention.annotation.InterceptorRefs;
 
 import com.sky.business.common.BaseAction;
 import com.sky.business.common.vo.ServiceException;
+import com.sky.business.system.dao.ProhistoryDao;
 import com.sky.business.system.entity.Prohistory;
 import com.sky.business.system.service.ProhistoryService;
 import com.sky.contants.CodeMescContants;
@@ -29,6 +30,9 @@ public class ProhistoryAction extends BaseAction {
 	@Resource(name = "prohistoryService")
 	private ProhistoryService prohistoryService;
 	
+	@Resource(name = "prohistoryDao")
+	private ProhistoryDao prohistoryDao;
+	
 	/**
 	 * 分页获取收藏夹/历史记录列表
 	 * @return
@@ -38,7 +42,7 @@ public class ProhistoryAction extends BaseAction {
 	public String paged() throws Exception {
 		try{
 			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
-			pager = prohistoryService.pagedList(Prohistory.class, condition);
+			pager = prohistoryService.pagedList(prohistoryDao, Prohistory.class, condition);
 			
 			resultMap.put("pager", pager);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");

@@ -21,7 +21,7 @@ import com.sky.util.DateUtil;
 public class MessageDaoImpl extends BaseDaoImpl implements MessageDao {
 
 	@Override
-	protected StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
+	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
 		String sort = "sendTime desc";
 		
 		//排序

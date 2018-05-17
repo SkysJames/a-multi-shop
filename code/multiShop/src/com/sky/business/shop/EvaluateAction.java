@@ -9,8 +9,8 @@ import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 
 import com.sky.business.common.BaseAction;
-import com.sky.business.common.vo.LoginUser;
 import com.sky.business.common.vo.ServiceException;
+import com.sky.business.shop.dao.EvaluateDao;
 import com.sky.business.shop.entity.Evaluate;
 import com.sky.business.shop.service.EvaluateService;
 import com.sky.contants.CodeMescContants;
@@ -30,6 +30,9 @@ public class EvaluateAction extends BaseAction {
 	@Resource(name = "evaluateService")
 	private EvaluateService evaluateService;
 	
+	@Resource(name = "evaluateDao")
+	private EvaluateDao evaluateDao;
+	
 	/**
 	 * 分页获取评论列表
 	 * @return
@@ -39,7 +42,7 @@ public class EvaluateAction extends BaseAction {
 	public String paged() throws Exception {
 		try{
 			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
-			pager = evaluateService.pagedList(Evaluate.class, condition);
+			pager = evaluateService.pagedList(evaluateDao, Evaluate.class, condition);
 			
 			resultMap.put("pager", pager);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");

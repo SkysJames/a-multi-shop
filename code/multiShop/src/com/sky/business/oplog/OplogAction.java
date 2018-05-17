@@ -10,6 +10,7 @@ import org.apache.struts2.convention.annotation.InterceptorRefs;
 
 import com.sky.business.common.BaseAction;
 import com.sky.business.common.vo.ServiceException;
+import com.sky.business.oplog.dao.OplogDao;
 import com.sky.business.oplog.entity.Oplog;
 import com.sky.business.oplog.service.OplogService;
 import com.sky.contants.CodeMescContants;
@@ -29,6 +30,9 @@ public class OplogAction extends BaseAction {
 	@Resource(name = "oplogService")
 	private OplogService oplogService;
 	
+	@Resource(name = "oplogDao")
+	private OplogDao oplogDao;
+	
 	/**
 	 * 分页获取日志操作列表
 	 * @return
@@ -37,7 +41,7 @@ public class OplogAction extends BaseAction {
 	public String paged() throws Exception {
 		try{
 			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
-			pager = oplogService.pagedList(Oplog.class, condition);
+			pager = oplogService.pagedList(oplogDao, Oplog.class, condition);
 			
 			resultMap.put("pager", pager);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");

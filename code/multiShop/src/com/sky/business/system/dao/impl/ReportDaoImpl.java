@@ -19,7 +19,7 @@ import com.sky.util.CommonMethodUtil;
 public class ReportDaoImpl extends BaseDaoImpl implements ReportDao {
 
 	@Override
-	protected StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
+	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
 		String sort = "createTime desc";
 		
 		//排序

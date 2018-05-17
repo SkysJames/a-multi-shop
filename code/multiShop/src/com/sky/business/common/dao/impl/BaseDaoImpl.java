@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.sky.business.common.dao.BaseDao;
 import com.sky.business.common.vo.Pager;
+import com.sky.util.BeanDefinedLocator;
 
 @Service("baseDao")
 public class BaseDaoImpl extends AbstractBaseDao implements BaseDao {
-	
 	@Override
 	public void delete(Object entity) {
 		this.getBaseHibernateDao().delete(entity);
@@ -101,12 +101,12 @@ public class BaseDaoImpl extends AbstractBaseDao implements BaseDao {
 	}
 	
 	@Override
-	public <T> Pager pagedList(Class<T> entity, final Map<String, Object> condition, int pageNo, int pageSize) {
+	public <T> Pager pagedList(BaseDao dao, Class<T> entity, final Map<String, Object> condition, int pageNo, int pageSize) {
 		StringBuffer hqlBuffer = new StringBuffer("from ").append(entity.getName()).append(" where 1=1");
 		List<Object> values = new ArrayList<Object>();
 		
 		//封装hql语句
-		hqlBuffer = getPackageHql(hqlBuffer, values, condition);
+		hqlBuffer = dao.getPackageHql(hqlBuffer, values, condition);
 		
 		Pager pager = this.getBaseHibernateDao().pagedQuery(hqlBuffer.toString(), pageNo, pageSize, values.toArray());
 		
@@ -114,12 +114,12 @@ public class BaseDaoImpl extends AbstractBaseDao implements BaseDao {
 	}
 	
 	@Override
-	public <T> List getList(Class<T> entity, final Map<String, Object> condition) {
+	public <T> List getList(BaseDao dao, Class<T> entity, final Map<String, Object> condition) {
 		StringBuffer hqlBuffer = new StringBuffer("from ").append(entity.getName()).append(" where 1=1");
 		List<Object> values = new ArrayList<Object>();
 		
 		//封装hql语句
-		hqlBuffer = getPackageHql(hqlBuffer, values, condition);
+		hqlBuffer = dao.getPackageHql(hqlBuffer, values, condition);
 		
 		List list = this.getBaseHibernateDao().find(hqlBuffer.toString(), values);
 		
@@ -127,23 +127,21 @@ public class BaseDaoImpl extends AbstractBaseDao implements BaseDao {
 	}
 	
 	@Override
-	public <T> Integer getCount(Class<T> entity, final Map<String, Object> condition) {
+	public <T> Integer getCount(BaseDao dao, Class<T> entity, final Map<String, Object> condition) {
 		StringBuffer hqlBuffer = new StringBuffer("select count(*) from ").append(entity.getName()).append(" where 1=1");
 		List<Object> values = new ArrayList<Object>();
 		
 		//封装hql语句
-		hqlBuffer = getPackageHql(hqlBuffer, values, condition);
+		hqlBuffer = dao.getPackageHql(hqlBuffer, values, condition);
 		
 		Integer count = this.getBaseHibernateDao().count(hqlBuffer.toString(), values);
-		
+		 
 		return count;
 	}
 	
-	/**
-	 * 封装查询语句hql
-	 */
-	protected StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
+	@Override
+	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
 		return hqlBuffer;
-	}
+	};
 	
 }

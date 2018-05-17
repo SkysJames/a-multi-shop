@@ -23,7 +23,7 @@ import com.sky.util.CommonMethodUtil;
 @Service("typeService")
 public class TypeServiceImpl extends BaseServiceImpl implements TypeService {
 
-	@Resource(name = "typetDao")
+	@Resource(name = "typeDao")
 	private TypeDao typeDao;
 	
 	@Override

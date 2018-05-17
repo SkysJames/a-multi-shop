@@ -11,8 +11,8 @@ import org.apache.struts2.convention.annotation.InterceptorRefs;
 import com.sky.business.common.BaseAction;
 import com.sky.business.common.vo.LoginUser;
 import com.sky.business.common.vo.ServiceException;
+import com.sky.business.system.dao.AnnounceDao;
 import com.sky.business.system.entity.Announce;
-import com.sky.business.system.entity.User;
 import com.sky.business.system.service.AnnounceService;
 import com.sky.contants.CodeMescContants;
 import com.sky.contants.EntityContants;
@@ -31,6 +31,9 @@ public class AnnounceAction extends BaseAction {
 	@Resource(name = "announceService")
 	private AnnounceService announceService;
 	
+	@Resource(name = "announceDao")
+	private AnnounceDao announceDao;
+	
 	/**
 	 * 分页获取公告列表
 	 * @return
@@ -40,7 +43,7 @@ public class AnnounceAction extends BaseAction {
 	public String paged() throws Exception {
 		try{
 			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
-			pager = announceService.pagedList(Announce.class, condition);
+			pager = announceService.pagedList(announceDao, Announce.class, condition);
 			
 			resultMap.put("pager", pager);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");

@@ -22,7 +22,7 @@ import com.sky.util.DateUtil;
 public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 
 	@Override
-	protected StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
+	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
 		String sort = "createTime asc";
 		int userStatus = UserContants.UserStatus.USING;
 		

@@ -18,7 +18,7 @@ import com.sky.business.system.dao.TypeDao;
 public class TypeDaoImpl extends BaseDaoImpl implements TypeDao {
 
 	@Override
-	protected StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
+	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
 		String sort = "sort asc";
 		
 		//类型的表名

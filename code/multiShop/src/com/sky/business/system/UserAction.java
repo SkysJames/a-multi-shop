@@ -11,6 +11,7 @@ import org.apache.struts2.convention.annotation.InterceptorRefs;
 import com.sky.business.common.BaseAction;
 import com.sky.business.common.vo.LoginUser;
 import com.sky.business.common.vo.ServiceException;
+import com.sky.business.system.dao.UserDao;
 import com.sky.business.system.entity.User;
 import com.sky.business.system.service.UserService;
 import com.sky.contants.CodeMescContants;
@@ -30,6 +31,9 @@ public class UserAction extends BaseAction {
 	@Resource(name = "userService")
 	private UserService userService;
 	
+	@Resource(name = "userDao")
+	private UserDao userDao;
+	
 	public String userId;
 	
 	public String oldPasswd;
@@ -45,7 +49,7 @@ public class UserAction extends BaseAction {
 	public String paged() throws Exception {
 		try{
 			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
-			pager = userService.pagedList(User.class, condition);
+			pager = userService.pagedList(userDao, User.class, condition);
 			
 			resultMap.put("pager", pager);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");

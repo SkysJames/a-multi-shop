@@ -1,40 +1,42 @@
-package com.sky.business.visitor;
+package com.sky.business.system;
 
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
+import org.apache.struts2.convention.annotation.Result;
 
 import com.sky.business.common.BaseAction;
 import com.sky.business.common.vo.ServiceException;
-import com.sky.business.visitor.dao.VisitorDao;
-import com.sky.business.visitor.entity.Visitor;
-import com.sky.business.visitor.service.VisitorService;
+import com.sky.business.system.dao.TypeDao;
+import com.sky.business.system.entity.Typet;
+import com.sky.business.system.service.TypeService;
 import com.sky.contants.CodeMescContants;
 import com.sky.contants.EntityContants;
 import com.sky.util.JsonUtil;
 
 /**
- * 访客管理
+ * 类型管理
  * @author Sky James
  *
  */
 @InterceptorRefs({@InterceptorRef("serverStack"),@InterceptorRef("baseStack")})
-public class VisitorAction extends BaseAction {
+public class TypeAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
 
-	@Resource(name = "visitorService")
-	private VisitorService visitorService;
+	@Resource(name = "typeService")
+	private TypeService typeService;
 	
-	@Resource(name = "visitorDao")
-	private VisitorDao visitorDao;
+	@Resource(name = "typeDao")
+	private TypeDao typeDao;
 	
 	/**
-	 * 分页获取访客列表
+	 * 分页获取类型列表
 	 * @return
 	 * @throws Exception
 	 */
@@ -42,11 +44,11 @@ public class VisitorAction extends BaseAction {
 	public String paged() throws Exception {
 		try{
 			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
-			pager = visitorService.pagedList(visitorDao, Visitor.class, condition);
+			pager = typeService.pagedList(typeDao, Typet.class, condition);
 			
 			resultMap.put("pager", pager);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功分页获取访客列表");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取类型列表");
 		} catch (ServiceException e) {
 			logger.error(e);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, e.getErrorCode());
@@ -60,17 +62,16 @@ public class VisitorAction extends BaseAction {
 	}
 	
 	/**
-	 * 编辑访客
+	 * 编辑类型
 	 * @return
 	 */
 	public String edit(){
 		try{
-			Map<String,Object> visitor = JsonUtil.getJsonToMap(conditionJson);
-			visitorService.edit(visitor);
-			logger.info("编辑访客");
+			Map<String,Object> type = JsonUtil.getJsonToMap(conditionJson);
+			typeService.edit(type);
 			
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功修改访客");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功修改类型");
 		} catch (ServiceException e) {
 			logger.error(e);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, e.getErrorCode());
@@ -84,17 +85,39 @@ public class VisitorAction extends BaseAction {
 	}
 	
 	/**
-	 * 根据访客的ID删除访客
+	 * 添加类型
+	 * @return
+	 */
+	public String save(){
+		try{
+			Map<String,Object> type = JsonUtil.getJsonToMap(conditionJson);
+			typeService.add(type);
+			
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功添加类型");
+		} catch (ServiceException e) {
+			logger.error(e);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, e.getErrorCode());
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, e.getErrorMsg());
+		} catch (Exception e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
+		}
+		return RESULT_MAP;
+	}
+	
+	/**
+	 * 根据类型的ID删除
 	 * @return
 	 */
 	public String delete(){
 		try{
-			Map<String,Object> visitor = JsonUtil.getJsonToMap(conditionJson);
-			visitorService.delete((String)visitor.get("id"));
-			logger.info("删除访客");
+			Map<String,Object> type = JsonUtil.getJsonToMap(conditionJson);
+			typeService.delete((String)type.get("id"));
 			
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功删除访客");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功删除类型");
 		} catch (ServiceException e) {
 			logger.error(e);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, e.getErrorCode());
@@ -108,17 +131,17 @@ public class VisitorAction extends BaseAction {
 	}
 	
 	/**
-	 * 获取访客总数量
+	 * 获取类型数量
 	 * @return
 	 */
-	public String getTotalcount(){
+	public String getCount(){
 		try{
-			Integer visitorCount = visitorService.countAll(Visitor.class);
-			logger.info("获取访客总数量");
+			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
+			Integer count = typeService.getCount(typeDao, Typet.class, condition);
 			
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取访客总数量");
-			resultMap.put("visitorCount", visitorCount);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取消息数量");
+			resultMap.put("count", count);
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getStackTrace(e));
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
@@ -126,7 +149,7 @@ public class VisitorAction extends BaseAction {
 		}
 		return RESULT_MAP;
 	}
-
+	
 	//Getters and Setters
 	
 	@Override

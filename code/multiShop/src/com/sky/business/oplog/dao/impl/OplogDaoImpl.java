@@ -20,7 +20,7 @@ import com.sky.util.DateUtil;
 public class OplogDaoImpl extends BaseDaoImpl implements OplogDao {
 
 	@Override
-	protected StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
+	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
 		String sort = "opTime desc";
 		
 		//排序

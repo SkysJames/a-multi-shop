@@ -195,7 +195,7 @@ public class Shop implements Serializable {
 	}
 
 	public String getOverTimeString() {
-		if(StringUtils.isBlank(overTimeString)) {
+		if(this.overTime!=null && StringUtils.isBlank(overTimeString)) {
 			try {
 				overTimeString = DateUtil.convertDateStr(this.overTime.getTime(), DateUtil.DEFAULT_DATE_PATTERN);
 			} catch (Exception e) {

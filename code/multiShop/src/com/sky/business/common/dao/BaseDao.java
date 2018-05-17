@@ -108,20 +108,29 @@ public interface BaseDao {
 	 * @param pageSize
 	 * @return
 	 */
-	public <T> Pager pagedList(Class<T> entity, final Map<String, Object> condition, int pageNo, int pageSize);
+	public <T> Pager pagedList(BaseDao dao, Class<T> entity, final Map<String, Object> condition, int pageNo, int pageSize);
 	
 	/**
 	 * hibernate 根据一定的条件获取列表
 	 * @param condition
 	 * @return
 	 */
-	public <T> List getList(Class<T> entity, final Map<String, Object> condition);
+	public <T> List getList(BaseDao dao, Class<T> entity, final Map<String, Object> condition);
 	
 	/**
 	 * hibernate 根据一定的条件获取数量
 	 * @param condition
 	 * @return
 	 */
-	public <T> Integer getCount(Class<T> entity, final Map<String, Object> condition);
+	public <T> Integer getCount(BaseDao dao, Class<T> entity, final Map<String, Object> condition);
+	
+	/**
+	 * 封装查询语句hql
+	 * @param hqlBuffer
+	 * @param values
+	 * @param condition
+	 * @return
+	 */
+	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition);
 	
 }
