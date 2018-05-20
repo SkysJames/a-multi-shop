@@ -24,7 +24,7 @@
 <!-- 初始化全局参数 -->
 <script type="text/javascript">
 var $contextPath = '${ contextPath }';//上下文地址
-var $currentUserId = '${ loginUser.userId }';//当前登录用户ID
+var $currentUser = JSON.parse('${ JsonUtil.toJson(loginUser) }');//当前登录用户
 var $opTypeMap = JSON.parse('${ opTypeMap }');//日志类型map
 </script>
 

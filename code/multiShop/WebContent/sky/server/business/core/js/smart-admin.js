@@ -1301,7 +1301,7 @@ function drawBreadCrumb() {
 	
 	//console.log("breadcrumb")
 	$.bread_crumb.empty();
-	$.bread_crumb.append($("<li>Home</li>"));
+	$.bread_crumb.append($("<li>后台系统</li>"));
 	nav_elems.each(function() {
 		$.bread_crumb.append($("<li></li>").html($.trim($(this).clone().children(".badge").remove().end().text())));
 		// update title when breadcrumb is finished...

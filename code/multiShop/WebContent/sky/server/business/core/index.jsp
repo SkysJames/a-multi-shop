@@ -189,13 +189,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		</div>
 		<!-- END RIBBON -->
-
+		
+		<!-- 路由模块 start -->
 		<ng-view></ng-view> 
-<!-- 		<!-- MAIN CONTENT --> -->
-<!-- 		<div id="content"> -->
-
-<!-- 		</div> -->
-<!-- 		<!-- END MAIN CONTENT --> -->
+		<!-- 路由模块 end -->
 
 	</div>
 	<!-- END MAIN PANEL -->

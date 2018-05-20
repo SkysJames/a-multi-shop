@@ -15463,7 +15463,6 @@ time.icon span {
 .select2-container .select2-choice {
 	display: block;
 	height: 32px;
-	padding: 0 0 0 8px;
 	overflow: hidden;
 	position: relative;
 	border: 1px solid #ccc;
@@ -16261,7 +16260,6 @@ body {
 	overflow: hidden;
 	background: url(../img/mybg.png) #fff;
 	direction: ltr;
-	line-height: normal;
 }
 
 a:hover,a:active,a:focus,button,button:active,button:focus,object,embed,input::-moz-focus-inner {
@@ -18543,7 +18541,6 @@ img.away {
 	background: #454545;
 	color: #A8A8A8;
 	text-align: center;
-	padding: 2px;
 	width: 36px;
 	height: 28px;
 	display: block;

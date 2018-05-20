@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import com.sky.business.visitor.dao.VisitorDao;
 import com.sky.business.visitor.entity.Visitor;
 import com.sky.business.visitor.service.VisitorService;
 import com.sky.contants.VisitorContants;
@@ -33,8 +34,11 @@ public class VisitorInterceptor extends AbstractInterceptor {
 	
 	private static final Logger logger = Logger.getLogger(VisitorInterceptor.class);
 	
-	@Resource
+	@Resource(name = "visitorService")
 	private VisitorService visitorService;
+	
+	@Resource(name = "visitorDao")
+	private VisitorDao visitorDao;
 	
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
@@ -45,7 +49,6 @@ public class VisitorInterceptor extends AbstractInterceptor {
 		HttpSession session = request.getSession();
 		
 		String ipAdress = IpProcessUtil.getIpAddr(request);
-//		Visitor visitor = (Visitor) session.getAttribute("visitor");
 		Visitor visitor = visitorService.findByUnique(Visitor.class, "ip", ipAdress);
 		
 		try{

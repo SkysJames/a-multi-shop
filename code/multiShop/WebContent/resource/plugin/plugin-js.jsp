@@ -17,10 +17,6 @@
 <!-- dropzone图片上传工具 -->
 <%@include file="/resource/plugin/dropzone/dropzone-js.jsp" %>
 
-<!-- smart-controls -->
-<%@include file="/resource/plugin/smart-controls/smart-grid/smart-grid-js.jsp" %>
-<%@include file="/resource/plugin/smart-controls/smart-notification/smart-notification-js.jsp" %>
-
 <!-- daterangepicker日期选择器 -->
 <%@include file="/resource/plugin/daterangepicker/daterangepicker-js.jsp" %>
 

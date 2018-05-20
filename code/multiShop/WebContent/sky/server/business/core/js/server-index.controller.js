@@ -53,9 +53,7 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 	 * 初始化函数
 	 */
 	$scope.initFunc = function(){
-		//初始化浏览器大小监控，当浏览器的大小发生变化时调用
-		$(window).resize(function(){
-		});
+		console.log($currentUser);
 	};
 	$document.ready($scope.initFunc);
 	

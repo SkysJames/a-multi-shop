@@ -33,7 +33,7 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 					common.triggerFailMesg('请选择搜索的时间段!','');
 					return;
 				}
-				$scope.getOplogList();
+				$scope.pagedOplogList();
 			}, 100);
 		},
 	};
@@ -58,6 +58,9 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 			$scope.condition.pageNo = 1;
 		}
 		
+		//获取过滤条件字符串
+		$scope.getFilterText();
+		
 		$scope.isLoadingOplog = true;
 		serverIndexHttpService.pagedOplogList($scope.condition)
 		.then(function(response){
@@ -73,6 +76,29 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 		},function(err){
 			console.log(err);
 		});
+	};
+	
+	/**
+	 * 获取过滤条件字符串
+	 */
+	$scope.getFilterText = function(){
+		$scope.filterText = "";
+		if($scope.condition){
+			if(""!=$scope.condition.keywords){
+				$scope.filterText += "模糊搜索（" + $scope.condition.keywords + "）+ "
+			}
+			if(""!=$scope.condition.opTimeA && ""!=$scope.condition.opTimeZ){
+				$scope.filterText += "操作时间（" + $scope.condition.opTimeA + "~" + $scope.condition.opTimeZ + "）+ "
+			}
+			if(""!=$scope.condition.opType){
+				$scope.filterText += "日志类型（" + $scope.condition.opType + "）+ "
+			}
+		}
+		
+		if($scope.filterText.length > 0){
+			$scope.filterText = $scope.filterText.substring(0, $scope.filterText.length-2);
+		}
+		
 	};
 	
 	/**

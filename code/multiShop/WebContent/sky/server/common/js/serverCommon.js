@@ -102,6 +102,8 @@ var serverCommon = {
 			$('nav li.active').removeClass("active");
 			// match the url and add the active class
 			$('nav li:has(a[href="' + url + '"])').addClass("active");
+			//导航标题
+			drawBreadCrumb();
 		},
 		
 		/**

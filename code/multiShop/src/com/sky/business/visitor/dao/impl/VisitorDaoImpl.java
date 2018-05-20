@@ -29,6 +29,13 @@ public class VisitorDaoImpl extends BaseDaoImpl implements VisitorDao {
 			sort = (String)condition.get("sort");
 		}
 		
+		//店铺ID
+		if(condition.containsKey("shopId") && StringUtils.isNotBlank((String)condition.get("shopId"))){
+			String shopId = (String)condition.get("shopId");
+			hqlBuffer.append(" and shopId = ?");
+			values.add(shopId);
+		}
+		
 		//关键字
 		if(condition.containsKey("keywords") && StringUtils.isNotBlank((String)condition.get("keywords"))){
 			String keywords = (String)condition.get("keywords");

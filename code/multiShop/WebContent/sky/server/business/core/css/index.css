@@ -1,1 +1,35 @@
 @CHARSET "UTF-8";
+.breadcrumb>li {
+	text-shadow: none;
+}
+
+.select2-container .select2-choice .select2-arrow b {
+	background: none;
+}
+.select2-chosen, .select2-choice > span:first-child, .select2-container .select2-choices .select2-search-field input {
+	padding: 0px 12px;
+}
+
+.index-container {
+	padding: 10px 14px;
+    position: relative;
+    left: 0;
+}
+
+.common-form {
+	margin-bottom: 15px;
+}
+.common-form .input-group {
+	width: 410px;
+	margin-bottom: 10px;
+}
+.common-form .input-group label {
+	margin-bottom: 0px;
+	line-height: 32px;
+}
+.common-form .input-group .input-group-btn {
+	display: inherit;
+}
+.common-form .input-group select {
+	
+}

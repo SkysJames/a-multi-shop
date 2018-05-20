@@ -7,6 +7,7 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 			pageSize		: 10,	//每页数据量
 			totalCount	: 0,		//数据总量
 			pageCount	: 0,		//总页码数
+			shopId		: $currentUser.shopId,
 			status		: common.visitorContants.status.USING,
 	};
 	
@@ -19,8 +20,8 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 			if(data.statusCode=="200" && data.pager){
 				$scope.visitorList = data.pager.resultList;
 				$scope.visitorCondition.totalCount = data.pager.totalCount;
-				$scope.isLoadingVisitor = false;
 			}
+			$scope.isLoadingVisitor = false;
 		},function(err){
 			console.log(err);
 		});

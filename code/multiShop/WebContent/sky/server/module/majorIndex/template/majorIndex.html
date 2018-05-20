@@ -1,37 +1,66 @@
 <div class="index-container" data-ng-controller="majorIndexCtrl">
-	<div class="common-header">
-		<div class="header-title">
-			<i class="fa fa-home"></i><span>&nbsp;首页</span>
+	
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark">
+				主页
+			</h1>
 		</div>
 	</div>
-	<div class="common-content">
-		<div class="major-slogan">
-			欢迎您，<span>{{$root.currentUser.name}}</span>！
+	
+	<!-- widget grid -->
+	<section id="widget-grid" class="">
+		<!-- row -->
+		<div class="row">
+			<!-- NEW WIDGET START -->
+			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<!-- Widget ID (each widget will need unique ID)-->
+				<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0" data-widget-editbutton="false">
+					<header>
+<!-- 						<span class="widget-icon">访客总数：</span> -->
+						<h2>访客总数：{{visitorCondition.totalCount}}</h2>
+					</header>
+	
+					<!-- widget div-->
+					<div>
+						<!-- widget content -->
+						<div class="widget-body">
+							<div class="table-responsive">
+							
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th>最近访问时间</th>
+											<th>访客IP</th>
+											<th>访问次数</th>
+											<th>首访时间</th>
+											<th>备注</th>
+										</tr>
+									</thead>
+									<tbody data-ng-show="!isLoadingVisitor">
+										<tr data-ng-repeat="visitor in visitorList">
+											<td>{{visitor.visitedTime|formatDate}}</td>
+											<td>{{visitor.ip|showBlankValue}}</td>
+											<td>{{visitor.visitedTimes}}</td>
+											<td>{{visitor.createTime|formatDate}}</td>
+											<td>{{visitor.remark|showBlankValue}}</td>
+										</tr>
+									</tbody>
+								</table>
+								
+								<loading-panel data-ng-show="isLoadingVisitor" font-size="18"></loading-panel>
+								<nodata-panel data-ng-show="!isLoadingVisitor && visitorList.length==0" font-size="18"></nodata-panel>
+							</div>
+						</div>
+						<!-- end widget content -->
+					</div>
+					<!-- end widget div -->
+				</div>
+				<!-- end widget -->
+			</article>
+			<!-- WIDGET END -->
 		</div>
-		<div class="major-second">
-			访客总数：<span>{{visitorCondition.totalCount}}</span>
-		</div>
-		<div class="common-div">
-			<table class="common-table">
-				<tr class="common-table-header">
-					<th>最近访问时间</th>
-					<th>访客IP</th>
-					<th>访问次数</th>
-					<th>首访时间</th>
-					<th>备注</th>
-				</tr>
-				<tbody class="common-table-content" data-ng-show="!isLoadingVisitor">
-					<tr class="common-table-row" data-ng-repeat="visitor in visitorList">
-						<td>{{visitor.visitedTime|formatDate}}</td>
-						<td>{{visitor.ip|showBlankValue}}</td>
-						<td>{{visitor.visitedTimes}}</td>
-						<td>{{visitor.createTime|formatDate}}</td>
-						<td>{{visitor.remark|showBlankValue}}</td>
-					</tr>
-				</tbody>
-			</table>
-			<loading-panel data-ng-show="isLoadingVisitor" font-size="18"></loading-panel>
-			<nodata-panel data-ng-show="!isLoadingVisitor && visitorList.length==0" font-size="18"></nodata-panel>
-		</div>
-	</div>
+		<!-- end row -->
+	</section>
+	<!-- end widget grid -->
 </div>
