@@ -33,6 +33,8 @@ public class ShopAction extends BaseAction {
 	@Resource(name = "shopDao")
 	private ShopDao shopDao;
 	
+	private String shopId;
+	
 	/**
 	 * 分页获取店铺列表
 	 * @return
@@ -127,9 +129,27 @@ public class ShopAction extends BaseAction {
 		return RESULT_MAP;
 	}
 	
+	/**
+	 * 根据店铺ID获取店铺信息
+	 * @return
+	 * @throws Exception
+	 */
+	public String getShopById() throws Exception {
+		try{
+			Shop shop = shopService.findByID(Shop.class, shopId);
+			
+			resultMap.put("shop", shop);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取店铺信息");
+		} catch (Exception e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
+		}
+		return RESULT_MAP;
+	}
 
 	//Getters and Setters
-	
 	@Override
 	public Map<String, Object> getResultMap() {
 		return resultMap;
@@ -143,6 +163,14 @@ public class ShopAction extends BaseAction {
 	@Override
 	public void setConditionJson(String conditionJson) {
 		this.conditionJson = conditionJson;
+	}
+
+	public String getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
 	}
 
 }

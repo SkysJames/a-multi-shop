@@ -46,7 +46,7 @@
 				<param name="namespace">/home</param>
 			</result>
  			
-  			<result name="error">/sky/common/error.jsp</result>
+  			<result name="error">/sky/common/core/error.jsp</result>
  			
 			<result name="json" type="json"></result>
 			

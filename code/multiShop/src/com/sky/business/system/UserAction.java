@@ -163,8 +163,7 @@ public class UserAction extends BaseAction {
 	 */
 	public String getUserById() throws Exception {
 		try{
-			User user = JsonUtil.getJsonToJavaBean(conditionJson, User.class);
-			user = userService.findByID(User.class, userId);
+			User user = userService.findByID(User.class, userId);
 			
 			resultMap.put("user", user);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");

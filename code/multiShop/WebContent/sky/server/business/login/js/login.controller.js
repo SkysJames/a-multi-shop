@@ -13,20 +13,4 @@ angular.module('loginApp',[])
 	};
 	$document.ready(initFunc);
 	
-	var conditionJson = JSON.stringify({
-		name	: 'jjkk'
-	});
-	var tempData = {
-			'conditionJson'		: conditionJson,
-	};
-	
-	$.ajax({
-        type: "POST",
-        url: $contextPath + "/system/type!save",
-        data: $.param(tempData,true),
-        success: function (data) {
-            console.log(data);
-        }
-    });
-	
 }]);

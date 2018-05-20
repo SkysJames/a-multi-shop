@@ -7,122 +7,209 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML>
 <html>
   <head>
-    <base href="<%=basePath%>">
-    
-	<%@ include file="/sky/common/server.inc.jsp"%>
     
     <title>${systemName }管理系统</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
+    <!-- 导入系统图标 -->
+    <link rel="icon" href="${systemIcon }" type="image/x-icon">
+    
+    <!-- 后台基本css -->
+	<%@ include file="/sky/server/common/server.inc-css.jsp"%>
+	<!-- smartadmin css -->
+	<link rel="stylesheet" href="${contextPath }/sky/server/business/core/css/smart-admin.css" />
     <!-- 导入相应的css -->
-	<link rel="stylesheet" href="${ contextPath }/sky/server/business/core/css/index.css" />
-	
-	<!-- 导入相应的js -->
-	<script type="text/javascript" src="${ contextPath }/sky/server/business/core/js/server-index.controller.js"></script>
+	<link rel="stylesheet" href="${contextPath }/sky/server/business/core/css/index.css" />
   </head>
   
   <body class="server-index" data-ng-app="serverIndexApp" data-ng-controller="serverIndexCtrl">
-  	<!-- 背景 -->
-  	<canvas id="server-canvas"></canvas>
-  	
-  	<!-- 主页头部 -->
-  	<div class="index-header">
-  		<div class="header-headline">
-  			${systemName }管理系统
-  		</div>
-  		
-  		<!-- 登录时间 -->
-  		<div class="header-time">
-  			登录时间：
-  			{{$root.currentUser.loginTime|formatDate}}
-  		</div>
-  		
-  		<!-- 登录用户 -->
-  		<div class="header-setting">
-  			<div class="dropdown">
-				<a href="javascript:void(0);" class="dropdown-toggle setting-menu" data-toggle="dropdown">
-					<i class="fa fa-user"></i>&nbsp;{{$root.currentUser.name}}
-					<span class="caret header-caret"></span>
-				</a>
-				<ul class="dropdown-menu header-dropdown-menu" aria-labelledby="dropdownMenu1">
-					<li><a href="javascript:void(0);" data-ng-click="showPersonPanel();"><i class="fa fa-user-circle"></i>&nbsp;个人信息</a></li>
-					<li class="divider"></li>
-					<li><a href="${contextPath}/home/home-logout"><i class="fa fa-power-off"></i>&nbsp;退出</a></li>
-				</ul>
+  	<!-- HEADER -->
+	<header id="header">
+		<div id="logo-group">
+			<!-- PLACE YOUR LOGO HERE -->
+			<span id="logo"> 
+				<img src="${systemLogo }" alt="SmartAdmin"> 
+				${systemName }管理系统
+			</span>
+			<!-- END LOGO PLACEHOLDER -->
+		</div>
+
+		<!-- pulled right: nav area -->
+		<div class="pull-right">
+
+			<!-- collapse menu button -->
+			<div id="hide-menu" class="btn-header pull-right">
+				<span> <a href="javascript:void(0);" title="隐藏左导航"><i class="fa fa-reorder"></i></a> </span>
 			</div>
-  		</div>
-  	</div>
-  	
-  	<!-- 主页主体部分 -->
-  	<div class="index-container" data-ng-class="{'hide-left': isHideLeft}">
-  		<!-- 主体部分的左部导航 -->
-  		<div class="index-left">
-  			<ul class="left-menu">
-  				<li data-ng-click="toggleDetailPanel()">
-		  			<i data-ng-show="isHideLeft" class="fa fa-arrow-circle-right" title="展开列表"></i>
-		  			<i data-ng-show="!isHideLeft" class="fa fa-arrow-circle-left" title="收缩列表"></i>
-		  			<span data-ng-show="!isHideLeft">&nbsp;收缩列表</span>
-  				</li>
-  				<li data-ng-class="{'selected': currentNav.id==$root.navObj.index.id}" data-ng-click="$root.showDetailPanel($root.navObj.index)">
-  					<i class="fa fa-home" title="首页"></i>
-  					<span data-ng-show="!isHideLeft">&nbsp;首页</span>
-  				</li>
-  				<li data-ng-class="{'spreaded': $root.navObj.system.spreaded}">
-  					<div data-ng-class="{'nav_selected': currentNav.parent==$root.navObj.system.id}" data-ng-click="toggleSecondNav($root.navObj.system)">
-	  					<i class="fa fa-cubes" title="系统管理"></i>
-	  					<span data-ng-show="!isHideLeft">&nbsp;系统管理</span>
-	  					<i class="fa" data-ng-class="{'fa-chevron-up': $root.navObj.system.spreaded, 'fa-chevron-down': !$root.navObj.system.spreaded}"></i>
-  					</div>
-  					<ul class="second-menu">
-  						<li data-ng-class="{'selected': currentNav.id==$root.navObj.system.secondNav.system_basic.id}" data-ng-click="$root.showDetailPanel($root.navObj.system.secondNav.system_basic)">
-  							<span>&nbsp;基本信息</span>
-  						</li>
-  						<li data-ng-class="{'selected': currentNav.id==$root.navObj.system.secondNav.system_basic.id}" data-ng-click="$root.showDetailPanel($root.navObj.system.secondNav.system_about)">
-  							<span>&nbsp;关于我们</span>
-  						</li>
-  					</ul>
-  				</li>
-  				<li data-ng-if="$root.currentUser.allRights.indexOf('product_manage') > -1" 
-  					data-ng-class="{'selected': currentNav.id==$root.navObj.product.id}" data-ng-click="$root.showDetailPanel($root.navObj.product)">
-  					<i class="fa fa-cubes" title="产品管理"></i>
-  					<span data-ng-show="!isHideLeft">&nbsp;产品管理</span>
-  				</li>
-  				<li data-ng-if="$root.currentUser.allRights.indexOf('news_manage') > -1"
-  					data-ng-class="{'selected': currentNav.id==$root.navObj.news.id}" data-ng-click="$root.showDetailPanel($root.navObj.news)">
-  					<i class="fa fa-newspaper-o" title="新闻管理"></i>
-  					<span data-ng-show="!isHideLeft">&nbsp;新闻管理</span>
-  				</li>
-  				<li data-ng-if="$root.currentUser.allRights.indexOf('visitor_manage') > -1" 
-  					data-ng-class="{'selected': currentNav.id==$root.navObj.visitor.id}" data-ng-click="$root.showDetailPanel($root.navObj.visitor)">
-  					<i class="fa fa-laptop" title="访客管理"></i>
-  					<span data-ng-show="!isHideLeft">&nbsp;访客管理</span>
-  				</li>
-  				<li data-ng-if="$root.currentUser.allRights.indexOf('user_manage') > -1" 
-  					data-ng-class="{'selected': currentNav.id==$root.navObj.user.id}" data-ng-click="$root.showDetailPanel($root.navObj.user)">
-  					<i class="fa fa-users" title="用户管理"></i>
-  					<span data-ng-show="!isHideLeft">&nbsp;用户管理</span>
-  				</li>
-  				<li data-ng-if="$root.currentUser.allRights.indexOf('oplog_manage') > -1" 
-  					data-ng-class="{'selected': currentNav.id==$root.navObj.oplog.id}" data-ng-click="$root.showDetailPanel($root.navObj.oplog)">
-  					<i class="fa fa-calendar" title="日志管理"></i>
-  					<span data-ng-show="!isHideLeft">&nbsp;日志管理</span>
-  				</li>
-  			</ul>
-  		</div>
-  		
-  		<!-- 主体部分的具体内容 -->
-  		<div class="index-content">
-  			<major-index data-ng-if="currentNav.id==$root.navObj.index.id"></major-index>
-  			<news-manage data-ng-if="currentNav.id==$root.navObj.news.id"></news-manage>
-  			<product-manage data-ng-if="currentNav.id==$root.navObj.product.id"></product-manage>
-  			<visitor-manage data-ng-if="currentNav.id==$root.navObj.visitor.id"></visitor-manage>
-  			<oplog-manage data-ng-if="currentNav.id==$root.navObj.oplog.id"></oplog-manage>
-  			<user-manage data-ng-if="currentNav.id==$root.navObj.user.id"></user-manage>
-  		</div>
-  	</div>
-  	
-  	<!-- 个人信息 -->
-  	<person-panel></person-panel>
+			<!-- end collapse menu -->
+
+			<!-- logout button -->
+			<div id="logout" class="btn-header transparent pull-right">
+				<span> <a href="${contextPath}/home/server-logout" title="退出" data-logout-msg="您确定要退出系统吗？"><i class="fa fa-sign-out"></i></a> </span>
+			</div>
+			<!-- end logout button -->
+
+			<!-- fullscreen button -->
+			<div id="fullscreen" class="btn-header transparent pull-right">
+				<span> <a href="javascript:void(0);" onclick="launchFullscreen(document.documentElement);" title="满屏"><i class="fa fa-arrows-alt"></i></a> </span>
+			</div>
+			<!-- end fullscreen button -->
+
+		</div>
+		<!-- end pulled right: nav area -->
+
+	</header>
+	<!-- END HEADER -->
+	
+	
+	<!-- Left panel : Navigation area -->
+	<!-- Note: This width of the aside area can be adjusted through LESS variables -->
+	<aside id="left-panel">
+
+		<!-- User info -->
+		<div class="login-info">
+			<span>
+				<a href="javascript:void(0);">
+					<img src="${contextPath }/sky/server/business/core/img/user.jpeg" alt="me" /> 
+					<span>${loginUser.username }</span>
+				</a> 
+			</span>
+		</div>
+		<!-- end user info -->
+
+		<nav>
+			<ul>
+				<li class="">
+					<a href="#/majorIndex" title="主页"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">主页</span></a>
+				</li>
+<!-- 				<li> -->
+<!-- 					<a href="javascript:void(0);"><i class="fa fa-lg fa-fw fa-inbox"></i> <span class="menu-item-parent">系统管理</span><span class="badge pull-right inbox-badge">14</span></a> -->
+<!-- 				</li> -->
+				<li>
+					<a href="ajax/table.html"><i class="fa fa-lg fa-fw fa-inbox"></i> <span class="menu-item-parent">系统管理</span></a>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-lg fa-fw fa-comments-o"></i> <span class="menu-item-parent">消息管理</span></a>
+					<ul>
+						<li>
+							<a href="ajax/table.html">消息列表</a>
+						</li>
+						<li>
+							<a href="ajax/table.html">举报列表</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#/oplog"><i class="fa fa-lg fa-fw fa-calendar"></i> <span class="menu-item-parent">日志管理</span></a>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-lg fa-fw fa-pencil-square-o"></i> <span class="menu-item-parent">Forms</span></a>
+					<ul>
+						<li>
+							<a href="ajax/form-elements.html">Smart Form Elements</a>
+						</li>
+						<li>
+							<a href="ajax/form-templates.html">Smart Form Layouts</a>
+						</li>
+						<li>
+							<a href="ajax/validation.html">Smart Form Validation</a>
+						</li>
+						<li>
+							<a href="ajax/bootstrap-forms.html">Bootstrap Form Elements</a>
+						</li>
+						<li>
+							<a href="ajax/plugins.html">Form Plugins</a>
+						</li>
+						<li>
+							<a href="ajax/wizard.html">Wizards</a>
+						</li>
+						<li>
+							<a href="ajax/other-editors.html">Bootstrap Editors</a>
+						</li>
+						<li>
+							<a href="ajax/dropzone.html">Dropzone <span class="badge pull-right inbox-badge bg-color-yellow">new</span></a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="ajax/calendar.html"><i class="fa fa-lg fa-fw fa-calendar"><em>3</em></i> <span class="menu-item-parent">Calendar</span></a>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-lg fa-fw fa-file"></i> <span class="menu-item-parent">Other Pages</span></a>
+					<ul>
+						<li>
+							<a href="ajax/forum.html">Forum Layout</a>
+						</li>
+						<li>
+							<a href="ajax/profile.html">Profile</a>
+						</li>
+						<li>
+							<a href="ajax/timeline.html">Timeline</a>
+						</li>
+					</ul>	
+				</li>
+			</ul>
+		</nav>
+		<span class="minifyme"> <i class="fa fa-arrow-circle-left hit"></i> </span>
+
+	</aside>
+	<!-- END NAVIGATION -->
+	
+	
+	<!-- MAIN PANEL -->
+	<div id="main" role="main">
+
+		<!-- RIBBON -->
+		<div id="ribbon">
+
+			<span class="ribbon-button-alignment"> 
+				<span id="refresh" class="btn btn-ribbon" 
+					data-title="refresh"  rel="tooltip" data-placement="right" 
+					data-original-title="<i class='text-warning fa fa-warning'></i> 注意，重置所有的页面缓存" data-html="true">
+						<i class="fa fa-refresh"></i>
+				</span> 
+			</span>
+
+			<!-- breadcrumb -->
+			<ol class="breadcrumb">
+				<!-- This is auto generated -->
+			</ol>
+			<!-- end breadcrumb -->
+
+			<!-- You can also add more buttons to the
+			ribbon for further usability
+
+			Example below:
+
+			<span class="ribbon-button-alignment pull-right">
+			<span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
+			<span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
+			<span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
+			</span> -->
+
+		</div>
+		<!-- END RIBBON -->
+
+		<ng-view></ng-view> 
+<!-- 		<!-- MAIN CONTENT --> -->
+<!-- 		<div id="content"> -->
+
+<!-- 		</div> -->
+<!-- 		<!-- END MAIN CONTENT --> -->
+
+	</div>
+	<!-- END MAIN PANEL -->
+	
   	
   </body>
+  
+  <!-- 后台基本js -->
+  <%@ include file="/sky/server/common/server.inc-js.jsp"%>
+  
+  <!-- smartadmin js -->
+  <script type="text/javascript" src="${contextPath }/sky/server/business/core/js/smart-admin.js"></script>
+  
+  <!-- 导入相应的js -->
+  <script type="text/javascript" src="${contextPath }/sky/server/business/core/js/server-index.controller.js"></script>
+	
 </html>

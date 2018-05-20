@@ -12,25 +12,17 @@ String systemName = SysParameterUtil.getStringValue("system_name", "");
 pageContext.setAttribute("systemName", systemName);
 %>
 
-<script type="text/javascript">
-var $contextPath = '<%=contextPath%>';
-</script>
-
 <!DOCTYPE HTML>
 <html>
   <head>
-    <base href="<%=basePath%>">
-    
-	<%@ include file="/resource/plugin/plugin-lib.jsp"%>
     
     <title>${systemName }管理系统</title>
     
+    <!-- 插件css -->
+	<%@ include file="/resource/plugin/plugin-css.jsp"%>
     <!-- 导入相应css -->
-	<link rel="stylesheet" type="text/css" href="sky/server/business/login/css/login.css" />
+	<link rel="stylesheet" type="text/css" href="${contextPath}/sky/server/business/login/css/login.css" />
 	
-    <!-- 导入相应js -->
-	<script type="text/javascript" src="sky/server/business/login/js/login.controller.js"></script>
-
   </head>
   
   <body class="login-body" data-ng-app="loginApp" data-ng-controller="loginCtrl">
@@ -39,13 +31,13 @@ var $contextPath = '<%=contextPath%>';
 	    	${systemName }管理系统
 	    </div>
 	    <div class="login-content">
-	    	<form action="${contextPath}/home/home-login" method="post">
+	    	<form action="${contextPath}/home/server-login" method="post">
 	    		<div class="login-error">
-				    <c:if test="${resultMap.message != null}">
-				    	<i class="fa fa-remove"></i>
-				    	<span>${resultMap.message}</span>
-				    </c:if>
-			    </div>
+			    <c:if test="${resultMap.message != null}">
+			    	<i class="fa fa-remove"></i>
+			    	<span>${resultMap.message}</span>
+			    </c:if>
+		    </div>
 	    		<div class="input-group">
 					<span class="input-group-span">帐号</span>
 					<input type="text" class="form-control input-group-in" name="loginUser.userId" placeholder="用户名" required>
@@ -61,4 +53,10 @@ var $contextPath = '<%=contextPath%>';
 	    </div>
     </div>
   </body>
+  
+  <!-- 插件js -->
+  <%@ include file="/resource/plugin/plugin-js.jsp"%>
+  <!-- 导入相应js -->
+  <script type="text/javascript" src="${contextPath}/sky/server/business/login/js/login.controller.js"></script>
+  
 </html>

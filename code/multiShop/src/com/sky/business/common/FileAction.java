@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.Result;
 import org.apache.struts2.convention.annotation.Results;
 
@@ -20,6 +22,7 @@ import com.sky.util.StorageLocationUtil;
 @Results({
 	@Result(name="fileMap",type="json",params={"includeProperties","fileMap.*,success,msg"})
 })
+@InterceptorRefs({@InterceptorRef("serverStack"),@InterceptorRef("baseStack")})
 public class FileAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
 	private boolean success = true;

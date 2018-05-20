@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 各个实体类的属性标识
+ * 公共实体类的属性标识
  * @author Sky James
  *
  */
@@ -43,26 +43,32 @@ public class EntityContants {
 			/**
 			 * 前台展示action
 			 */
-			actionMaps.put("show-index", "展示首页");
+			actionMaps.put("client-index", "前台首页");
 			
 			/**
 			 * 后台action
 			 */
-			actionMaps.put("home-index", "后台首页");
-			actionMaps.put("home-logout", "后台退出");
-			actionMaps.put("home-login", "登录");
+			actionMaps.put("server-index", "后台首页");
+			actionMaps.put("server-logout", "系统退出");
+			actionMaps.put("server-login", "登录");
 			actionMaps.put("user", "用户管理");
-			actionMaps.put("department", "部门管理");
+			actionMaps.put("type", "类型管理");
+			actionMaps.put("prohistory", "收藏/历史记录管理");
+			actionMaps.put("announce", "公告管理");
+			actionMaps.put("message", "消息管理");
+			actionMaps.put("report", "举报管理");
+			actionMaps.put("shop", "店铺管理");
+			actionMaps.put("evaluate", "评价管理");
+			actionMaps.put("cart", "购物车管理");
+			actionMaps.put("product", "商品管理");
 			actionMaps.put("right-group", "角色管理");
 			actionMaps.put("right", "权限管理");
 			actionMaps.put("visitor", "访客管理");
 			actionMaps.put("oplog", "日志管理");
-			actionMaps.put("news", "新闻管理");
-			actionMaps.put("product", "产品管理");
 			
 			methodMaps.put("index", "进入主页面");
 			methodMaps.put("logout", "退出了登录");
-			methodMaps.put("save", "执行添加保存操作");
+			methodMaps.put("save", "执行添加操作");
 			methodMaps.put("edit", "执行修改操作");
 			methodMaps.put("delete", "执行删除操作");
 			methodMaps.put("list", "执行查询操作");

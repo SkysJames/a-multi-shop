@@ -5,6 +5,10 @@ Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('forum_name', 'system', '论坛名称', 0, '论坛名称', 1);
 
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
+ Values ('system_icon', 'system', '', 0, '多商铺平台图标的url', 0);
+Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
+ Values ('forum_icon', 'system', '', 0, '论坛图标的url', 0);
+Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('system_logo', 'system', '', 0, '多商铺平台logo的url', 0);
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('forum_logo', 'system', '', 0, '论坛logo的url', 0);
