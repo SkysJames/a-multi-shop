@@ -48,10 +48,6 @@ public class AnnounceAction extends BaseAction {
 			resultMap.put("pager", pager);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
 			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取公告列表");
-		} catch (ServiceException e) {
-			logger.error(e);
-			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, e.getErrorCode());
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, e.getErrorMsg());
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getStackTrace(e));
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);

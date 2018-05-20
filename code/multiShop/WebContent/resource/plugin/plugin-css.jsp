@@ -19,6 +19,9 @@
 <!-- daterangepicker日期选择器 -->
 <%@include file="/resource/plugin/daterangepicker/daterangepicker-css.jsp" %>
 
+<!-- smart-notification消息提醒框架 -->
+<%@include file="/resource/plugin/smart-notification/smart-notification-css.jsp" %>
+
 <!-- kindeditor -->
 <%@include file="/resource/plugin/kindeditor/kindeditor-css.jsp" %>
 

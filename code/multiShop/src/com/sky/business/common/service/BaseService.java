@@ -99,24 +99,31 @@ public interface BaseService {
 	public List getPropertyByID(String table, String outputProperty, String inputProperty, Object inputValue);
 	
 	/**
-	 * 根据一定的条件分页获取列表
+	 * hibernate 根据一定的条件获取唯一对象
 	 * @param condition
 	 * @return
 	 */
-	public <T> Pager pagedList(BaseDao dao, Class<T> entity, Map<String, Object> condition) throws Exception;
+	public <T> T getUnique(Class<T> entity, final Map<String, Object> condition);
 	
 	/**
-	 * 根据一定的条件获取列表
+	 * hibernate 根据一定的条件分页获取列表
 	 * @param condition
 	 * @return
 	 */
-	public <T> List getList(BaseDao dao, Class<T> entity, Map<String, Object> condition) throws Exception;
+	public <T> Pager pagedList(BaseDao dao, Class<T> entity, Map<String, Object> condition);
 	
 	/**
-	 * 根据一定的条件获取数量
+	 * hibernate 根据一定的条件获取列表
 	 * @param condition
 	 * @return
 	 */
-	public <T> Integer getCount(BaseDao dao, Class<T> entity, Map<String, Object> condition) throws Exception;
+	public <T> List getList(BaseDao dao, Class<T> entity, Map<String, Object> condition);
+	
+	/**
+	 * hibernate 根据一定的条件获取数量
+	 * @param condition
+	 * @return
+	 */
+	public <T> Integer getCount(BaseDao dao, Class<T> entity, Map<String, Object> condition);
 	
 }

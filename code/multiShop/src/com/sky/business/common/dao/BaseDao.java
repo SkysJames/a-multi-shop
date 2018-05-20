@@ -102,6 +102,13 @@ public interface BaseDao {
 	public List getPropertyByID(String table, String outputProperty, String inputProperty, Object inputValue);
 	
 	/**
+	 * hibernate 根据一定的条件获取唯一对象
+	 * @param condition
+	 * @return
+	 */
+	public <T> T getUnique(Class<T> entity, final Map<String, Object> condition);
+	
+	/**
 	 * hibernate 根据条件分页获取列表
 	 * @param condition
 	 * @param pageNo

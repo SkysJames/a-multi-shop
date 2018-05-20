@@ -2,14 +2,15 @@ package com.sky.business.common.dao.impl;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
 import com.sky.business.common.dao.BaseDao;
 import com.sky.business.common.vo.Pager;
-import com.sky.util.BeanDefinedLocator;
 
 @Service("baseDao")
 public class BaseDaoImpl extends AbstractBaseDao implements BaseDao {
@@ -100,6 +101,31 @@ public class BaseDaoImpl extends AbstractBaseDao implements BaseDao {
 		return this.getBaseJdbcDao().getResultByJdbc(sqlBuffer.toString(), values.toArray());
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public <T> T getUnique(Class<T> entity, final Map<String, Object> condition) {
+		StringBuffer hqlBuffer = new StringBuffer("from ").append(entity.getName()).append(" where 1=1");
+		List<Object> values = new ArrayList<Object>();
+		T obj = null;
+		
+		if(condition != null && !condition.isEmpty()) {
+			Set<String> keySet = condition.keySet();
+			Iterator<String> iterator = keySet.iterator();
+			while(iterator.hasNext()) {
+				String key = iterator.next();
+				hqlBuffer.append(" and ").append(key).append(" = ? ");
+				values.add(condition.get(key));
+			}
+		}
+		
+		List<T> list = this.getBaseHibernateDao().find(hqlBuffer.toString(), values.toArray());
+		if(list.size() > 0) {
+			obj = list.get(0);
+		}
+		
+		return obj;
+	}
+	
 	@Override
 	public <T> Pager pagedList(BaseDao dao, Class<T> entity, final Map<String, Object> condition, int pageNo, int pageSize) {
 		StringBuffer hqlBuffer = new StringBuffer("from ").append(entity.getName()).append(" where 1=1");
@@ -113,6 +139,7 @@ public class BaseDaoImpl extends AbstractBaseDao implements BaseDao {
 		return pager;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Override
 	public <T> List getList(BaseDao dao, Class<T> entity, final Map<String, Object> condition) {
 		StringBuffer hqlBuffer = new StringBuffer("from ").append(entity.getName()).append(" where 1=1");
@@ -121,7 +148,7 @@ public class BaseDaoImpl extends AbstractBaseDao implements BaseDao {
 		//封装hql语句
 		hqlBuffer = dao.getPackageHql(hqlBuffer, values, condition);
 		
-		List list = this.getBaseHibernateDao().find(hqlBuffer.toString(), values);
+		List list = this.getBaseHibernateDao().find(hqlBuffer.toString(), values.toArray());
 		
 		return list;
 	}
@@ -134,7 +161,7 @@ public class BaseDaoImpl extends AbstractBaseDao implements BaseDao {
 		//封装hql语句
 		hqlBuffer = dao.getPackageHql(hqlBuffer, values, condition);
 		
-		Integer count = this.getBaseHibernateDao().count(hqlBuffer.toString(), values);
+		Integer count = this.getBaseHibernateDao().count(hqlBuffer.toString(), values.toArray());
 		 
 		return count;
 	}

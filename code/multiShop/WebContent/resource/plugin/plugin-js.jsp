@@ -20,6 +20,9 @@
 <!-- daterangepicker日期选择器 -->
 <%@include file="/resource/plugin/daterangepicker/daterangepicker-js.jsp" %>
 
+<!-- smart-notification消息提醒框架 -->
+<%@include file="/resource/plugin/smart-notification/smart-notification-js.jsp" %>
+
 <!-- lodash -->
 <%@include file="/resource/plugin/lodash/lodash-js.jsp" %>
 

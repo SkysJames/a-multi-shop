@@ -41,6 +41,7 @@
 }
 
 .login-content .input-group {
+	margin: 0 auto;
 	margin-bottom:30px;
 }
 
@@ -62,12 +63,17 @@
     display: inline-block;
 }
 .input-group-in {
-	height: auto!important;
-	border-left: none!important;
-	border-top-left-radius: 0px!important;
+    display: inline-block!important;
+    vertical-align: middle!important;
+	width: 232px!important;
+    height: auto!important;
+    border-left: none!important;
+    border-top-left-radius: 0px!important;
     border-bottom-left-radius: 0px!important;
-    margin-bottom: 2px!important;
+    margin-bottom: 4px!important;
     padding: 8px 10px !important;
+    line-height: 20px;
+    float: none!important;
 }
 .input-group-btn {
 	color: #ffffff;
@@ -75,6 +81,7 @@
 	border: none;
 	height: 36px;
 	width: 277px;
+	font-size: inherit;
 }
 .input-group-btn:HOVER {
 	color: #ffffff;
