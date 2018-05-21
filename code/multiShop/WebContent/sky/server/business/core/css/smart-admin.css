@@ -21655,3 +21655,10 @@ img.away {
 	-o-animation-fill-mode: both;
 	animation-fill-mode: both
 }
+
+.select2-container .select2-choice .select2-arrow b {
+	background: none;
+}
+.select2-chosen, .select2-choice > span:first-child, .select2-container .select2-choices .select2-search-field input {
+	padding: 0px 12px;
+}

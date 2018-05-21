@@ -22,7 +22,7 @@ import com.sky.util.StorageLocationUtil;
 @Results({
 	@Result(name="fileMap",type="json",params={"includeProperties","fileMap.*,success,msg"})
 })
-@InterceptorRefs({@InterceptorRef("serverStack"),@InterceptorRef("baseStack")})
+@InterceptorRefs({@InterceptorRef("serverLoginStack")})
 public class FileAction extends BaseAction {
 	private static final long serialVersionUID = 1L;
 	private boolean success = true;

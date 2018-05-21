@@ -1,80 +1,120 @@
-<div class="visitorManageId">
-	<div class="common-header">
-		<div class="header-title">
-			<i class="fa fa-laptop"></i>&nbsp;<span data-ng-click="triggerPanel($root.panelContants.INDEX_PANEL)">访客管理</span>
-			<div class="second-title" data-ng-show="$root.currentPanel.indexOf($root.panelContants.EDIT_PANEL) > -1">-&nbsp;编辑</div>
+<div class="index-container" data-ng-controller="visitorManageCtrl">
+	
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark">
+				访客管理
+			</h1>
 		</div>
 	</div>
-	<div class="common-content" data-ng-show="$root.currentPanel==$root.panelContants.INDEX_PANEL">
-		<form class="common-search" data-ng-submit="getVisitorList()">
-			<div class="common-box">
-				<label>模糊搜索：</label>
-				<div class="common-input">
-					<input class="search-input" type="search" data-ng-model="condition.keywords" placeholder="IP和备注信息" />
-					<button class="common-btn" type="submit" title="搜索">
-						<i class="fa fa-search"></i>
-					</button>
+	
+	<!-- widget grid -->
+	<section id="widget-grid" class="">
+		<!-- row -->
+		<div class="row">
+			<!-- NEW WIDGET START -->
+			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<!-- Widget ID (each widget will need unique ID)-->
+				<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0" data-widget-editbutton="false">
+					<header>
+						<h2 title="过滤条件：{{filterText}}">过滤条件：{{filterText}}</h2>
+					</header>
+	
+					<!-- widget div-->
+					<div>
+						<!-- widget content -->
+						<div class="widget-body">
+							
+							<!-- 过滤条件 -->
+							<form class="common-form" data-ng-submit="pagedVisitorList()">
+								<div class="input-group">
+									<label class="col-md-3 control-label">模糊搜索：</label>
+									<div class="col-md-9">
+										<input class="form-control" type="search" data-ng-model="condition.keywords" placeholder="IP和备注信息">
+										<div class="input-group-btn">
+											<button class="btn btn-default btn-primary" type="submit" title="搜索">
+												<i class="fa fa-search"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="col-md-3 control-label">访问时间：</label>
+									<div class="col-md-9" title="选择时间段">
+										<input id="searchDateRangeId" class="form-control" type="text" placeholder="开始时间&nbsp;~&nbsp;结束时间" 
+											 date-range-picker options="dateRangePickerOptions" data-ng-model="rangeDate" /> 
+										<div class="input-group-btn">
+											<button class="btn btn-default btn-primary" type="button" title="选择时间" data-ng-click="showSearchDateRange();">
+												<i class="fa fa-calendar"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="col-md-3 control-label">访问状态：</label>
+									<div class="col-md-9">
+										<select class="form-control" ui-select2 data-ng-model="condition.status" data-ng-change="pagedVisitorList()">
+											<option value="1">允许</option>
+											<option value="0">禁止</option>
+										</select>
+									</div>
+								</div>
+							</form>
+						
+							<div class="table-responsive">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th>序号</th>
+											<th>最近访问时间</th>
+											<th>访客IP</th>
+											<th>访问次数</th>
+											<th>访问状态</th>
+											<th>首访时间</th>
+											<th>备注</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody data-ng-show="!isLoadingVisitor">
+										<tr data-ng-repeat="visitor in visitorList">
+											<td>{{$index + 1}}</td>
+											<td>{{visitor.visitedTime|formatDate}}</td>
+											<td>{{visitor.ip|showBlankValue}}</td>
+											<td>{{visitor.visitedTimes}}</td>
+											<td>{{visitor.status|stringVisitorStatus}}</td>
+											<td>{{visitor.createTime|formatDate}}</td>
+											<td>{{visitor.remark|showBlankValue}}</td>
+											<td>
+												<a href="javascript:void(0)" data-ng-click="triggerPanel($root.panelContants.EDIT_PANEL, visitor)">编辑</a>
+												<a href="javascript:void(0)" data-ng-click="deleteVisitor(visitor)">删除</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+								<loading-panel data-ng-show="isLoadingVisitor" font-size="18"></loading-panel>
+								<nodata-panel data-ng-show="!isLoadingVisitor && visitorList.length==0" font-size="18"></nodata-panel>
+							</div>
+							
+							<common-pager class="common-pager" page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
+								total-rows="condition.totalCount" to-page-call-back="pagedVisitorList(pageNo)"></common-pager>
+							
+						</div>
+						<!-- end widget content -->
+					</div>
+					<!-- end widget div -->
 				</div>
-			</div>
-			<div class="common-box">
-				<label>访问时间：</label>
-				<div class="common-input" title="选择时间段">
-					<input id="searchDateRangeId" class="search-input" type="text" placeholder="开始时间&nbsp;~&nbsp;结束时间" 
-						 date-range-picker options="dateRangePickerOptions" data-ng-model="rangeDate" /> 
-					<button class="common-btn" type="button" title="选择时间" data-ng-click="showSearchDateRange();">
-						<i class="fa fa-calendar"></i>
-					</button>
-				</div>
-				<a href="javascript:void(0)" class="common-clear-date" data-ng-click="clearDate()">清空</a>
-			</div>
-			<div class="common-box">
-				<label>访问状态：</label>
-				<div class="common-input">
-					<select class="search-select" data-ng-model="condition.status" data-ng-change="getVisitorList()">
-						<option value="1">允许</option>
-						<option value="0">禁止</option>
-					</select>
-				</div>
-			</div>
-		</form>
-		<div class="common-div">
-			<table class="common-table">
-				<tr class="common-table-header">
-					<th>序号</th>
-					<th>最近访问时间</th>
-					<th>访客IP</th>
-					<th>访问次数</th>
-					<th>访问状态</th>
-					<th>首访时间</th>
-					<th>备注</th>
-					<th>操作</th>
-				</tr>
-				<tbody class="common-table-content" data-ng-show="!isLoadingVisitor">
-					<tr class="common-table-row" data-ng-repeat="visitor in visitorList">
-						<td>{{$index + 1}}</td>
-						<td>{{visitor.visitedTime|formatDate}}</td>
-						<td>{{visitor.ip|showBlankValue}}</td>
-						<td>{{visitor.visitedTimes}}</td>
-						<td>{{visitor.status|stringVisitorStatus}}</td>
-						<td>{{visitor.createTime|formatDate}}</td>
-						<td>{{visitor.remark|showBlankValue}}</td>
-						<td>
-							<a href="javascript:void(0)" data-ng-click="triggerPanel($root.panelContants.EDIT_PANEL, visitor)">编辑</a>
-							<a href="javascript:void(0)" data-ng-click="deleteVisitor(visitor)">删除</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<loading-panel data-ng-show="isLoadingVisitor" font-size="18"></loading-panel>
-			<nodata-panel data-ng-show="!isLoadingVisitor && visitorList.length==0" font-size="18"></nodata-panel>
+				<!-- end widget -->
+			</article>
+			<!-- WIDGET END -->
 		</div>
-		<common-pager class="common-pager" page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
-			total-rows="condition.totalCount" to-page-call-back="getVisitorList(pageNo)"></common-pager>
-	</div>
+		<!-- end row -->
+	</section>
+	<!-- end widget grid -->
 	
 	<!-- 访客保存面板 start -->
-	<visitor-manage-save data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.EDIT_PANEL)" 
-		visitor="visitorSave" get-visitor-list="getVisitorList()"></visitor-manage-save>
+	<visitor-manage-save data-ng-show="" 
+		visitor="visitorSave" paged-visitor-list="pagedVisitorList()"></visitor-manage-save>
 	<!-- 访客保存面板 end -->
-	
 </div>
+

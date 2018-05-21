@@ -18,19 +18,26 @@
 		<!-- 通用拦截器 -->
 		<interceptors>
  			<interceptor name="visitorInterceptor" class="com.sky.business.home.interceptor.VisitorInterceptor"></interceptor>
- 			<interceptor name="loginInterceptor" class="com.sky.business.home.interceptor.LoginInterceptor"></interceptor>
+ 			<interceptor name="clientLoginInterceptor" class="com.sky.business.home.interceptor.ClientLoginInterceptor"></interceptor>
+ 			<interceptor name="serverLoginInterceptor" class="com.sky.business.home.interceptor.ServerLoginInterceptor"></interceptor>
 			<interceptor name="loggerInterceptor" class="com.sky.business.home.interceptor.LoggerInterceptor"></interceptor>
-			
-			<interceptor-stack name="serverStack">
- 				<interceptor-ref name="loginInterceptor"></interceptor-ref> 
-			</interceptor-stack>
-			<interceptor-stack name="clientStack">
- 				<interceptor-ref name="visitorInterceptor"></interceptor-ref> 
-			</interceptor-stack>
 			
 			<interceptor-stack name="baseStack">
 				<interceptor-ref name="loggerInterceptor"></interceptor-ref>
 				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+			
+			<interceptor-stack name="visitorStack">
+ 				<interceptor-ref name="visitorInterceptor"></interceptor-ref>
+				<interceptor-ref name="baseStack"></interceptor-ref>
+			</interceptor-stack>
+			<interceptor-stack name="clientLoginStack">
+ 				<interceptor-ref name="clientLoginInterceptor"></interceptor-ref>
+				<interceptor-ref name="baseStack"></interceptor-ref>
+			</interceptor-stack>
+			<interceptor-stack name="serverLoginStack">
+ 				<interceptor-ref name="serverLoginInterceptor"></interceptor-ref> 
+ 				<interceptor-ref name="baseStack"></interceptor-ref>
 			</interceptor-stack>
 		</interceptors>
 		

@@ -21,7 +21,7 @@ import com.sky.contants.EntityContants;
  * @author Sky James
  *
  */
-@InterceptorRefs({@InterceptorRef("serverStack"),@InterceptorRef("baseStack")})
+@InterceptorRefs({@InterceptorRef("serverLoginStack")})
 public class RightAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;

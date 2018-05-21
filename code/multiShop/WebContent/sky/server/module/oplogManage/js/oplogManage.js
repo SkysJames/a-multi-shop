@@ -116,22 +116,11 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 	};
 	
 	/**
-	 * 初始化判断是否有该面板权限
-	 */
-	$scope.initHasRight = function(){
-		console.log($rootScope.currentUser);
-		if($rootScope.currentUser.allRights.indexOf('oplog_manage') < 0){
-			common.triggerFailMesg("该用户无此权限模块");
-			$rootScope.showDetailPanel($rootScope.navObj.index);
-		}
-	};
-	
-	/**
 	 * 初始化函数
 	 */
 	$scope.initFunc = function(){
-		//初始化权限
-//		$scope.initHasRight();
+		//判断当前用户是否有权限待在当前页面
+		serverCommon.hasRightStay('oplog_manage');
 		//改变当前导航指向
 		serverCommon.navChange("#/oplog");
 		//初始化日志类型列表

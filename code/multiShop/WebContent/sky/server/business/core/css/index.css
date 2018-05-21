@@ -3,13 +3,6 @@
 	text-shadow: none;
 }
 
-.select2-container .select2-choice .select2-arrow b {
-	background: none;
-}
-.select2-chosen, .select2-choice > span:first-child, .select2-container .select2-choices .select2-search-field input {
-	padding: 0px 12px;
-}
-
 .index-container {
 	padding: 10px 14px;
     position: relative;

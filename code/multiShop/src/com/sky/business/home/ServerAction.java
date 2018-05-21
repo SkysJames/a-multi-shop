@@ -103,7 +103,7 @@ public class ServerAction extends BaseAction {
 	 * @return
 	 * @throws Exception
 	 */
-	@Action(value = "server-logout",interceptorRefs = {@InterceptorRef("serverStack"),@InterceptorRef("baseStack")})
+	@Action(value = "server-logout",interceptorRefs = {@InterceptorRef("serverLoginStack")})
 	public String logout() throws Exception {
 		session.invalidate();
 		logger.info("退出系统");
@@ -114,7 +114,7 @@ public class ServerAction extends BaseAction {
 	 * 后台主页面
 	 * @return
 	 */
-	@Action(value = "server-index", results = @Result(location = "/sky/server/business/core/index.jsp"), interceptorRefs = {@InterceptorRef("serverStack"),@InterceptorRef("baseStack")})
+	@Action(value = "server-index", results = @Result(location = "/sky/server/business/core/index.jsp"), interceptorRefs = {@InterceptorRef("serverLoginStack")})
 	public String index() {
 		logger.info("进入后台系统主页面");
 		return SUCCESS;

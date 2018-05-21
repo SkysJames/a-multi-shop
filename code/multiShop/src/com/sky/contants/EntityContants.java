@@ -64,14 +64,14 @@ public class EntityContants {
 			actionMaps.put("right-group", "角色管理");
 			actionMaps.put("right", "权限管理");
 			actionMaps.put("visitor", "访客管理");
-			actionMaps.put("oplog", "日志管理");
 			
 			methodMaps.put("index", "进入主页面");
 			methodMaps.put("logout", "退出了登录");
 			methodMaps.put("save", "执行添加操作");
 			methodMaps.put("edit", "执行修改操作");
 			methodMaps.put("delete", "执行删除操作");
-			methodMaps.put("list", "执行查询操作");
+			methodMaps.put("list", "执行列表查询操作");
+			methodMaps.put("paged", "执行分页查询操作");
 		}
 	}
 	

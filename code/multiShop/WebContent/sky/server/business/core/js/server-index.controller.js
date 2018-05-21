@@ -9,6 +9,11 @@ angular.module('serverIndexApp',
 		templateUrl:$contextPath+'/sky/server/module/majorIndex/template/majorIndex.html',
 	});
 	
+	//访客管理
+	$routeProvider.when("/visitor",{
+		templateUrl:$contextPath+'/sky/server/module/visitorManage/template/visitorManage.html',
+	});
+	
 	//日志管理
 	$routeProvider.when("/oplog",{
 		templateUrl:$contextPath+'/sky/server/module/oplogManage/template/oplogManage.html',

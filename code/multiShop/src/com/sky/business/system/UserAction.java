@@ -23,7 +23,7 @@ import com.sky.util.JsonUtil;
  * @author Sky James
  *
  */
-@InterceptorRefs({@InterceptorRef("serverStack"),@InterceptorRef("baseStack")})
+@InterceptorRefs({@InterceptorRef("serverLoginStack")})
 public class UserAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
@@ -206,7 +206,6 @@ public class UserAction extends BaseAction {
 	public String editPersonPawd() throws Exception {
 		try{
 			userService.editPersonPawd(userId, oldPasswd, newPasswd);
-//			session.invalidate();//清空session，重新登录
 			
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
 			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功修改密码");

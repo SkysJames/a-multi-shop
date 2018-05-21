@@ -100,6 +100,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</ul>
 				</li>
 				<li>
+					<a href="#/visitor"><i class="fa fa-lg fa-fw fa-laptop"></i> <span class="menu-item-parent">访客管理</span></a>
+				</li>
+				<li>
 					<a href="#/oplog"><i class="fa fa-lg fa-fw fa-calendar"></i> <span class="menu-item-parent">日志管理</span></a>
 				</li>
 				<li>

@@ -52,7 +52,7 @@ public class ClientAction extends BaseAction {
 	 * 前端主页面
 	 * @return
 	 */
-	@Action(value = "client-index", results = @Result(location = "/sky/client/business/core/index.jsp"), interceptorRefs = {@InterceptorRef("clientStack"),@InterceptorRef("baseStack")})
+	@Action(value = "client-index", results = @Result(location = "/sky/client/business/core/index.jsp"), interceptorRefs = {@InterceptorRef("visitorStack")})
 	public String clientIndex() {
 		logger.info("进入前端主页面");
 		return SUCCESS;

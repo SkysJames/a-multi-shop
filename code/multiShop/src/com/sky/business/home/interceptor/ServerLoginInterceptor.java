@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.springframework.stereotype.Component;
@@ -13,19 +14,20 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 import com.sky.business.common.vo.LoginUser;
 import com.sky.business.system.entity.User;
 import com.sky.business.system.service.UserService;
+import com.sky.contants.RightContants;
 
 /**
- * 登录拦截器
+ * 后台登录拦截器
  * 对访问后台的Action进行登录拦截，如果用户未登录则拦截跳转回登录页面
  * @author Sky James
  *
  */
 @Component
-public class LoginInterceptor extends AbstractInterceptor {
+public class ServerLoginInterceptor extends AbstractInterceptor {
 
 	private static final long serialVersionUID = 677089508318175138L;
 	
-	private static final Logger logger = Logger.getLogger(LoginInterceptor.class);
+	private static final Logger logger = Logger.getLogger(ServerLoginInterceptor.class);
 	
 	@Resource
 	private UserService userService;
@@ -33,15 +35,17 @@ public class LoginInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		
-		logger.info("登录拦截器拦截");
+		logger.info("后台登录拦截器拦截");
 		String result = "login";
 		
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
 		
-		//判断用户是否登录
+		//判断用户是否登录 或者 用户是否有登陆后台的权限
 		LoginUser loginUser = (LoginUser) session.getAttribute("loginUser");
-		if(loginUser == null) {
+		if(loginUser == null 
+				|| StringUtils.isBlank(loginUser.getAllRights()) 
+				|| loginUser.getAllRights().indexOf(RightContants.BACK_MANAGE)<0) {
 			return result;
 		}
 		

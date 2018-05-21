@@ -23,7 +23,7 @@ import com.sky.util.JsonUtil;
  * @author Sky James
  *
  */
-@InterceptorRefs({@InterceptorRef("serverStack"),@InterceptorRef("baseStack")})
+@InterceptorRefs({@InterceptorRef("serverLoginStack")})
 public class ProductAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
