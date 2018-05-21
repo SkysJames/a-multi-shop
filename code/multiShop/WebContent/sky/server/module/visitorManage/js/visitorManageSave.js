@@ -4,13 +4,12 @@ angular.module('visitorManageSave',[])
 		restrict:'E',
 		scope : {
 			visitor			: "=",
-			getVisitorList	: "&",
 		},
-		templateUrl : $contextPath +"/sky/server/directive/visitorManage/template/visitorManageSave.html",
+		templateUrl : $contextPath +"/sky/server/module/visitorManage/template/visitorManageSave.html",
 		link : function(scope,element,attrs){
 			
 		},
-		controller : function($scope, $timeout, $filter, $document, serverIndexHttpService, visitorManageService){
+		controller : function($scope, $timeout, $filter, $document, serverIndexHttpService){
 			/**
 			 * 编辑保存访客
 			 */
@@ -26,8 +25,8 @@ angular.module('visitorManageSave',[])
 					var data = response.data;
 					if(data.statusCode=="200" && data.message){
 						common.triggerSuccessMesg(data.message);
-						$scope.getVisitorList();
-						$scope.$root.returnPanel();
+						$scope.$parent.pagedVisitorList();
+						$scope.$parent.togglePanel();
 					}else{
 						common.triggerFailMesg(data.message);
 					}

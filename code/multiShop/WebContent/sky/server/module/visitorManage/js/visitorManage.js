@@ -1,6 +1,8 @@
 angular.module('visitorManage.module',[])
 .controller("visitorManageCtrl",['$timeout', '$scope', '$rootScope', '$document', 'serverIndexHttpService', 
 function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
+	//是否展示保存页面
+	$scope.saveShow = false;
 	//保存的访客对象
 	$scope.visitorSave = {};
 	//访客查询条件
@@ -49,19 +51,12 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 	};
 	
 	/**
-	 * 切换面板
+	 * 切换面板，显示/隐藏编辑面板
 	 */
-	$scope.triggerPanel = function(panelContant, selectedObj){
-		//顶部标题的切换
-		$scope.$root.triggerTitle(panelContant);
-		
-		switch(panelContant){
-		case $scope.$root.panelContants.INDEX_PANEL:
-			$scope.pagedVisitorList();
-			break;
-		case $scope.$root.panelContants.EDIT_PANEL:
+	$scope.togglePanel = function(selectedObj){
+		$scope.saveShow = !$scope.saveShow;
+		if(selectedObj){
 			$scope.visitorSave = _.cloneDeep(selectedObj);
-			break;
 		}
 	};
 	

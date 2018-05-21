@@ -1,45 +1,63 @@
-<div class="common-content">
-	<div class="common-save-row">
-		<div class="common-save-label">访客IP：</div>
-		<div class="common-save-value">
-			{{visitor.ip|showBlankValue}}
-		</div>
-	</div>
-	
-	<div class="common-save-row">
-		<div class="common-save-label">访问状态：</div>
-		<div class="common-save-value">
-			<div class="radio">
-				<label>
-					<input type="radio" value="1" data-ng-model="visitor.status">允许
-				</label>
+<!-- widget grid -->
+<section id="widget-grid" data-ng-show="!saveShow">
+	<!-- row -->
+	<div class="row">
+		<!-- NEW WIDGET START -->
+		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<!-- Widget ID (each widget will need unique ID)-->
+			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+				<!-- widget content -->
+				<div class="widget-body">
+					<form class="form-horizontal">
+						<fieldset>
+							<div class="form-group">
+								<label class="col-md-2 control-label">访客IP：</label>
+								<div class="col-md-10 common-value">{{visitor.ip|showBlankValue}}</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">访问次数：</label>
+								<div class="col-md-10 common-value">{{visitor.visitedTimes}}</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">访问状态：</label>
+								<div class="col-md-10">
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="1" data-ng-model="visitor.status">
+										<span>允许</span> 
+									</label>
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="0" data-ng-model="visitor.status">
+										<span>禁止</span> 
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">备注：</label>
+								<div class="col-md-10">
+									<textarea class="form-control" rows="6" cols="" placeholder="备注信息" data-ng-model="visitor.remark"></textarea>
+								</div>
+							</div>
+						</fieldset>
+						<div class="form-actions">
+							<div class="row">
+								<div class="col-md-12">
+									<button class="btn btn-default common-save-btn" type="button" data-ng-click="$parent.togglePanel()">
+										返回
+									</button>
+									<button class="btn btn-primary common-save-btn" type="button" data-ng-disabled="isLoadingSave" data-ng-click="editVisitor(visitor)">
+										<i class="fa fa-save"></i>保存
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
 			</div>
-			<div class="radio">
-				<label>
-					<input type="radio" value="0" data-ng-model="visitor.status">禁止
-				</label>
-			</div>
-		</div>
+			<!-- end widget -->
+		</article>
+		<!-- WIDGET END -->
 	</div>
-	
-	<div class="common-save-row">
-		<div class="common-save-label">访问次数：</div>
-		<div class="common-save-value">
-			{{visitor.visitedTimes}}
-		</div>
-	</div>
-	
-	<div class="common-save-row">
-		<div class="common-save-label">备注：</div>
-		<div class="common-save-value">
-			<textarea class="common-save-textarea" rows="6" cols="" placeholder="备注信息" data-ng-model="visitor.remark"></textarea>
-		</div>
-	</div>
-	
-	<div class="common-save-bottom">
-		<button class="btn btn-default" data-ng-click="$root.returnPanel()">返回</button>
-		<button class="btn btn-primary" data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.EDIT_PANEL)" 
-			data-ng-disabled="isLoadingSave" data-ng-click="editVisitor(visitor)">保存</button>
-	</div>
-	
-</div>
+	<!-- end row -->
+</section>
+<!-- end widget grid -->
+
