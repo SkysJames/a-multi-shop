@@ -1,5 +1,5 @@
 <!-- widget grid -->
-<section id="widget-grid" data-ng-show="!saveShow">
+<section id="widget-grid">
 	<!-- row -->
 	<div class="row">
 		<!-- NEW WIDGET START -->
@@ -29,6 +29,7 @@
 										<input type="radio" class="radiobox" value="0" data-ng-model="visitor.status">
 										<span>禁止</span> 
 									</label>
+									<span class="need-tab">*</span>
 								</div>
 							</div>
 							<div class="form-group">
@@ -41,7 +42,7 @@
 						<div class="form-actions">
 							<div class="row">
 								<div class="col-md-12">
-									<button class="btn btn-default common-save-btn" type="button" data-ng-click="$parent.togglePanel()">
+									<button class="btn btn-default common-save-btn" type="button" data-ng-click="$parent.togglePanel(null)">
 										返回
 									</button>
 									<button class="btn btn-primary common-save-btn" type="button" data-ng-disabled="isLoadingSave" data-ng-click="editVisitor(visitor)">

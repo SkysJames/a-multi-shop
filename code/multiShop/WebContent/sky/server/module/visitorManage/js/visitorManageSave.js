@@ -26,7 +26,7 @@ angular.module('visitorManageSave',[])
 					if(data.statusCode=="200" && data.message){
 						common.triggerSuccessMesg(data.message);
 						$scope.$parent.pagedVisitorList();
-						$scope.$parent.togglePanel();
+						$scope.$parent.togglePanel(null);
 					}else{
 						common.triggerFailMesg(data.message);
 					}

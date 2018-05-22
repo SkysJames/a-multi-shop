@@ -16273,7 +16273,8 @@ h1,h2,h3,h4 {
 }
 
 .page-title {
-	margin: 12px 0 28px
+	margin: 12px 0 28px;
+	display: inline-block;
 }
 
 .page-title span {

@@ -1,0 +1,125 @@
+<!-- widget grid -->
+<section id="widget-grid">
+	<!-- row -->
+	<div class="row">
+		<!-- NEW WIDGET START -->
+		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<!-- Widget ID (each widget will need unique ID)-->
+			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+				<!-- widget content -->
+				<div class="widget-body">
+					<form class="form-horizontal">
+						<fieldset>
+							<legend data-ng-show="$parent.saveType=='edit'">
+								登陆IP：{{user.loginIp|showBlankValue}}&nbsp;&nbsp;&nbsp;&nbsp;
+								登陆时间：{{user.loginTime|formatDate}}
+							</legend>
+							<div class="form-group">
+								<label class="col-md-2 control-label">用户ID：</label>
+								<div class="col-md-10 common-value" data-ng-show="$parent.saveType=='edit'">{{user.id}}</div>
+								<div class="col-md-10" data-ng-show="$parent.saveType=='save'">
+									<input class="form-control" type="text" placeholder="用户ID" data-ng-model="user.id">
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">用户名称：</label>
+								<div class="col-md-10">
+									<input class="form-control" type="text" placeholder="用户名称" data-ng-model="user.name">
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">密码：</label>
+								<div class="col-md-10">
+									<input class="form-control" type="password" placeholder="密码" data-ng-model="user.passwd">
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">手机号码：</label>
+								<div class="col-md-10">
+									<input class="form-control" type="text" placeholder="手机号码" data-ng-model="user.telephone">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">QQ：</label>
+								<div class="col-md-10">
+									<input class="form-control" type="text" placeholder="QQ" data-ng-model="user.qq">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">微信：</label>
+								<div class="col-md-10">
+									<input class="form-control" type="text" placeholder="微信" data-ng-model="user.wechat">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">用户状态：</label>
+								<div class="col-md-10">
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="1" data-ng-model="user.userStatus">
+										<span>启用</span> 
+									</label>
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="0" data-ng-model="user.userStatus">
+										<span>禁用</span> 
+									</label>
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">用户角色：</label>
+								<div class="col-md-10 common-value" data-ng-show="user.rightgroups.indexOf('admin_rightgroup')>-1">
+									{{user.rightgroupList|showRightgroup}}
+								</div>
+								<div class="col-md-10" data-ng-show="user.rightgroups.indexOf('admin_rightgroup')<0">
+									<select class="form-control" ui-select2 data-ng-model="user.rightgroups">
+										<option value="">无</option>
+										<option data-ng-repeat="item in rightGroupAll" data-ng-show="item.id!='admin_rightgroup'" value="{{item.id}}">{{item.name}}</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group" data-ng-show="!user.rightgroups || user.rightgroups.indexOf('admin_rightgroup')<0">
+								<label class="col-md-2 control-label">店铺：</label>
+								<div class="col-md-10" data-ng-show="isAdminRight">
+									<select class="form-control" ui-select2 data-ng-model="user.shopId">
+										<option data-ng-repeat="item in shopAll" data-ng-show="item.id!='system'" value="{{item.id}}">{{item.name}}</option>
+									</select>
+								</div>
+								<div class="col-md-10" data-ng-show="!isAdminRight">{{user.shop|showShopName}}</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">备注：</label>
+								<div class="col-md-10">
+									<textarea class="form-control" rows="6" cols="" placeholder="备注信息" data-ng-model="user.remark"></textarea>
+								</div>
+							</div>
+						</fieldset>
+						<div class="form-actions">
+							<div class="row">
+								<div class="col-md-12">
+									<button class="btn btn-default common-save-btn" type="button" data-ng-click="$parent.togglePanel(null)">
+										返回
+									</button>
+									<button class="btn btn-primary common-save-btn" type="button" 
+										data-ng-show="$parent.saveType=='edit'" data-ng-disabled="isLoadingSave" data-ng-click="editUser(user)">
+										<i class="fa fa-save"></i>保存
+									</button>
+									<button class="btn btn-primary common-save-btn" type="button" 
+										data-ng-show="$parent.saveType=='save'" data-ng-disabled="isLoadingSave" data-ng-click="saveUser(user)">
+										<i class="fa fa-save"></i>保存
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- end widget -->
+		</article>
+		<!-- WIDGET END -->
+	</div>
+	<!-- end row -->
+</section>
+<!-- end widget grid -->

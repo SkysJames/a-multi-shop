@@ -181,6 +181,10 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			throw new ServiceException(CodeMescContants.CodeContants.ERROR_INEXIST, CodeMescContants.MessageContants.ERROR_INEXIST);
 		}
 		
+		if(userId.equals("admin")) {
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON, "管理员用户不能被删除");
+		}
+		
 		if(StringUtils.isNotBlank(loginUser.getRightgroups())) {
 			//该用户为管理员用户，或者为被删除用户的店长，才可以删除
 			if(loginUser.getRightgroups().indexOf(RightGroupContants.RIGHT_GROUP_ADMIN)>-1

@@ -116,8 +116,8 @@ public class UserAction extends BaseAction {
 	public String delete(){
 		try{
 			LoginUser loginUser = super.sessionLoginUser();
-			User user = JsonUtil.getJsonToJavaBean(conditionJson, User.class);
-			userService.delete(user.getId(), loginUser);
+			Map<String,Object> user = JsonUtil.getJsonToMap(conditionJson);
+			userService.delete((String)user.get("id"), loginUser);
 			
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
 			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功删除用户");

@@ -75,6 +75,15 @@ var common = {
 		},
 		
 		/**
+		 * 角色常量
+		 */
+		rightGroupContants	: {
+			adminRightgroup			: "admin_rightgroup",//管理员角色
+			shopkeeperRightgroup		: "shopkeeper_rightgroup",//店铺店长角色
+			salesclerkRightgroup		: "salesclerk_rightgroup",//店铺店员角色
+		},
+		
+		/**
 		 * 访客类型常量
 		 */
 		visitorContants	: {
@@ -85,42 +94,18 @@ var common = {
 		},
 		
 		/**
-		 * 新闻类型常量
+		 * 店铺类型常量
 		 */
-		newsContants		: {
-			newsType	: {
-				DEFAULT	: 0,//默认类型，公司新闻
-				E1_ART	: 1,//行业动态
-			},
+		shopContants		: {
+			shopSystem	: "system",//系统
 		},
 		
 		/**
 		 * 产品类型常量
 		 */
 		productContants	: {
-			proType	: {
-				DEFAULT		: 0,//默认类型，网页设计
-				E1_ERP		: 1,//管理系统
-				E2_COURSE	: 2,//课程设计
-				E3_WECHAT	: 3,//微信小程序
-			},
+			
 		},
-		
-		/**
-		 * 面板类型常量
-		 */
-		panelContants : {
-			INDEX_PANEL	: "INDEX_PANEL",//主面板
-			SAVE_PANEL	: "SAVE_PANEL",//添加面板
-			EDIT_PANEL	: "EDIT_PANEL",//编辑面板
-			DEPARTMENT_INDEX		: "DEPARTMENT_INDEX",//部门主面板
-			DEPARTMENT_SAVE		: "DEPARTMENT_SAVE",//部门添加面板
-			DEPARTMENT_EDIT		: "DEPARTMENT_EDIT",//部门编辑面板
-			RIGHT_GROUP_INDEX	: "RIGHT_GROUP_INDEX",//角色主面板
-			RIGHT_GROUP_SAVE		: "RIGHT_GROUP_SAVE",//角色添加面板
-			RIGHT_GROUP_EDIT		: "RIGHT_GROUP_EDIT",//角色编辑面板
-		},
-		
 		
 		/**
 		 * 公用的消息提示音
@@ -146,7 +131,7 @@ var common = {
 			content = content || '';
 			
 			if ("Notification" in window) {
-				var iconUrl = $contextPath + '/sky/common/img/';
+				var iconUrl = $contextPath + '/sky/common/core/img/';
 				var waitCloseTime = 5000; // 自动关闭时间
 				
 				if (status) {

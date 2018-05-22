@@ -4,10 +4,8 @@ angular.module('userManageSave',[])
 		restrict:'E',
 		scope : {
 			user				: "=",
-			typeRightList	: "=",
-			getUserList		: "&",
 		},
-		templateUrl : $contextPath +"/sky/server/directive/userManage/template/user/userManageSave.html",
+		templateUrl : $contextPath +"/sky/server/module/userManage/template/userManageSave.html",
 		link : function(scope,element,attrs){
 			
 		},
@@ -21,16 +19,14 @@ angular.module('userManageSave',[])
 					return;
 				}
 				
-				user = $scope.packageSaveUser(user);
-				
 				$scope.isLoadingSave = true;
 				serverIndexHttpService.saveUser(user)
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode=="200" && data.message){
 						common.triggerSuccessMesg(data.message);
-						$scope.getUserList();
-						$scope.$root.returnPanel();
+						$scope.$parent.pagedUserList();
+						$scope.$parent.togglePanel(null);
 					}else{
 						common.triggerFailMesg(data.message);
 					}
@@ -49,16 +45,14 @@ angular.module('userManageSave',[])
 					return;
 				}
 				
-				user = $scope.packageSaveUser(user);
-				
 				$scope.isLoadingSave = true;
 				serverIndexHttpService.editUser(user)
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode=="200" && data.message){
 						common.triggerSuccessMesg(data.message);
-						$scope.getUserList();
-						$scope.$root.returnPanel();
+						$scope.$parent.pagedUserList();
+						$scope.$parent.togglePanel(null);
 					}else{
 						common.triggerFailMesg(data.message);
 					}
@@ -88,37 +82,18 @@ angular.module('userManageSave',[])
 					return false;
 				}
 				
-				if(!user.departmentId || user.departmentId==""){
-					return false;
-				}
-				
-				if(!user.userStatus){
-					return false;
-				}
-				
 				return true;
 			};
 			
 			/**
-			 * 封装保存的用户对象
+			 * 获取所有店铺
 			 */
-			$scope.packageSaveUser = function(user){
-				if(user){
-					user.rights = common.getRightsByTypeRightList($scope.typeRightList);
-					user.rightgroups = common.packetListToStr(user.rightGroupIdList);
-				}
-				return user;
-			};
-			
-			/**
-			 * 获取所有部门
-			 */
-			$scope.getAllDepartmentList = function(){
-				serverIndexHttpService.getAllDepartmentList()
+			$scope.getAllShopList = function(){
+				serverIndexHttpService.getAllShopList()
 				.then(function(response){
 					var data = response.data;
-					if(data.statusCode=="200" && data.departmentAll){
-						$scope.departmentAll = data.departmentAll;
+					if(data.statusCode=="200" && data.shopAll){
+						$scope.shopAll = data.shopAll;
 					}else{
 						common.triggerFailMesg(data.message);
 					}
@@ -145,13 +120,26 @@ angular.module('userManageSave',[])
 			};
 			
 			/**
+			 * 初始化当前登陆用户的权限
+			 */
+			$scope.initCurrentRight = function(){
+				//是否为管理员权限
+				$scope.isAdminRight = false;
+				if($currentUser.rightgroups && $currentUser.rightgroups.indexOf(common.rightGroupContants.adminRightgroup)>-1){
+					$scope.isAdminRight = true;
+				}
+			};
+			
+			/**
 			 * 初始化函数
 			 */
 			$scope.initFunc = function(){
-				//获取所有部门
-				$scope.getAllDepartmentList();
+				//初始化当前登陆用户的权限
+				$scope.initCurrentRight();
 				//获取所有角色
 				$scope.getAllRightGroupList();
+				//获取所有店铺
+				$scope.getAllShopList();
 			};
 			$document.ready($scope.initFunc);
 		}

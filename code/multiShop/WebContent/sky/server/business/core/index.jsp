@@ -11,15 +11,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <title>${systemName }管理系统</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     
-    <!-- 导入系统图标 -->
-    <link rel="icon" href="${systemIcon }" type="image/x-icon">
-    
     <!-- 后台基本css -->
 	<%@ include file="/sky/server/common/server.inc-css.jsp"%>
 	<!-- smartadmin css -->
 	<link rel="stylesheet" href="${contextPath }/sky/server/business/core/css/smart-admin.css" />
     <!-- 导入相应的css -->
 	<link rel="stylesheet" href="${contextPath }/sky/server/business/core/css/index.css" />
+	
+	<!-- 导入系统图标 -->
+    <link rel="icon" href="${systemIcon }" type="image/x-icon">
   </head>
   
   <body class="server-index" data-ng-app="serverIndexApp" data-ng-controller="serverIndexCtrl">
@@ -98,6 +98,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<a href="ajax/table.html">举报列表</a>
 						</li>
 					</ul>
+				</li>
+				<li>
+					<a href="#/user"><i class="fa fa-lg fa-fw fa-users"></i> <span class="menu-item-parent">用户管理</span></a>
 				</li>
 				<li>
 					<a href="#/visitor"><i class="fa fa-lg fa-fw fa-laptop"></i> <span class="menu-item-parent">访客管理</span></a>

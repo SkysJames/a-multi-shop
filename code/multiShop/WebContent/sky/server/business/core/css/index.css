@@ -9,34 +9,8 @@
     left: 0;
 }
 
-.common-form {
-	margin-bottom: 15px;
-}
-.common-form .input-group {
-	width: 410px;
-	margin-bottom: 10px;
-}
-.common-form .input-group label {
-	margin-bottom: 0px;
-	line-height: 32px;
-}
-.common-form .input-group .input-group-btn {
-	display: inherit;
-}
-.common-form .input-group select {
-	
-}
-
-.common-clear-date {
-	position: absolute;
-    right: -70px;
-    top: 10px;
-}
-
-.common-value {
-	padding-top: 7px;
-}
-
-.common-save-btn {
-	margin-right: 5px;
+.server-tools {
+	text-align: right;
+    padding-bottom: 5px;
+    padding-top: 20px;
 }

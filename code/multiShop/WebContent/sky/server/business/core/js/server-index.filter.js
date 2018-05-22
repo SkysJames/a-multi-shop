@@ -13,36 +13,33 @@ angular.module('server-index.filter',[])
 })
 
 /**
- * 转换新闻类型为字符串
+ * 店铺名称的展示
  */
-.filter('stringNewsType',function(){
-	return function(newsType){
-		switch(newsType){
-		case 0:
-			return "公司新闻";
-		case 1:
-			return "行业动态";
+.filter('showShopName',function(){
+	return function(shop){
+		if(shop && shop.name && shop.id!=common.shopContants.shopSystem){
+			return shop.name;
+		}else{
+			return "";
 		}
-		return null;
 	};
 })
 
 /**
- * 转换产品类型为字符串
+ * 角色名称的展示
  */
-.filter('stringProType',function(){
-	return function(proType){
-		switch(proType){
-		case 0:
-			return "网页设计";
-		case 1:
-			return "管理系统";
-		case 2:
-			return "课程设计";
-		case 3:
-			return "微信小程序";
+.filter('showRightgroup',function(){
+	return function(rightgroupList){
+		var rightgroupName = "";
+		if(rightgroupList && rightgroupList.length>0){
+			for(var i=0;i<rightgroupList.length;i++){
+				rightgroupName += rightgroupList[i].name + ",";
+			}
+			if(rightgroupName.length > 0){
+				rightgroupName = rightgroupName.substring(0, rightgroupName.length-1);
+			}
 		}
-		return null;
+		return rightgroupName;
 	};
 })
 

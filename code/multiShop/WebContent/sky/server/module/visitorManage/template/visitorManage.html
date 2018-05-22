@@ -4,7 +4,7 @@
 		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
 			<h1 class="page-title txt-color-blueDark">
 				访客管理
-				<span data-ng-show="saveShow">
+				<span data-ng-show="saveType && saveType=='edit'">
 					> 编辑
 				</span>
 			</h1>
@@ -12,7 +12,7 @@
 	</div>
 	
 	<!-- widget grid -->
-	<section id="widget-grid" data-ng-show="!saveShow">
+	<section id="widget-grid" data-ng-show="!saveType">
 		<!-- row -->
 		<div class="row">
 			<!-- NEW WIDGET START -->
@@ -89,7 +89,7 @@
 											<td>{{visitor.createTime|formatDate}}</td>
 											<td>{{visitor.remark|showBlankValue}}</td>
 											<td>
-												<a href="javascript:void(0)" data-ng-click="togglePanel(visitor)">编辑</a>
+												<a href="javascript:void(0)" data-ng-click="togglePanel('edit', visitor)">编辑</a>
 												<a href="javascript:void(0)" data-ng-click="deleteVisitor(visitor)">删除</a>
 											</td>
 										</tr>
@@ -117,7 +117,7 @@
 	<!-- end widget grid -->
 	
 	<!-- 访客保存面板 start -->
-	<visitor-manage-save data-ng-show="saveShow" visitor="visitorSave"></visitor-manage-save>
+	<visitor-manage-save data-ng-show="saveType" visitor="visitorSave"></visitor-manage-save>
 	<!-- 访客保存面板 end -->
 	
 </div>

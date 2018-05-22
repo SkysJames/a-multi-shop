@@ -88,6 +88,15 @@ angular.module('server-index.httpService',[])
 	};
 	
 	/**
+	 * 获取所有的店铺列表
+	 */
+	this.getAllShopList = function(condition){
+		var tempData={};
+		var url = $contextPath + "/shop/shop!getAllList";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
 	 * 分页获取店铺列表
 	 */
 	this.pagedShopList = function(condition){
@@ -158,10 +167,7 @@ angular.module('server-index.httpService',[])
 	 * 获取所有角色列表
 	 */
 	this.getAllRightGroupList = function(condition){
-		var conditionJson = JSON.stringify(condition);
-		var tempData={
-				'conditionJson'		: conditionJson,
-		};
+		var tempData={};
 		var url = $contextPath + "/system/right-group!getAllList";
 		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
 	};

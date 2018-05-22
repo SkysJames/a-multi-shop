@@ -4,39 +4,43 @@
 	margin: 0px;
 	padding: 0px;
 }
-i.sky-icon {
-	background: url(../img/icon.png) no-repeat;
-    width: 17px;
-    height: 17px;
-    display: inline-block;
-    margin: 0px 3px 0 10px;
-    vertical-align: -2px;
+
+.common-form {
+	margin-bottom: 15px;
 }
-i.qq.sky-icon {
-	background-position: -386px -29px;
+.common-form .input-group {
+	width: 410px;
+	margin-bottom: 10px;
+}
+.common-form .input-group label {
+	margin-bottom: 0px;
+	line-height: 32px;
+}
+.common-form .input-group .input-group-btn {
+	display: inherit;
 }
 
-.wechat {
-	display: inline-block;
-	vertical-align: middle;
-	background-color: #fff;
+.common-clear-date {
+	position: absolute;
+    right: -70px;
+    top: 10px;
 }
-.wechat img {
-	width: 100px;
+
+.common-value {
+	padding-top: 7px;
 }
-.wechat-right {
-	display: inline-block;
-    vertical-align: top;
-    height: 100%;
-    margin-left: -4px;
-    padding: 18px 10px;
-    padding-bottom: 0px;
-    text-align: center;
+
+.common-save-input {
+	
 }
-.wechat-right i {
-	font-size: 35px;
-	color: #60cc34;
+
+.common-save-btn {
+	margin-right: 5px;
 }
-.wechat-right p {
-	margin: 5px 0px;
+
+.need-tab {
+	position: absolute;
+    top: 10px;
+    margin-left: 5px;
+    color: red;
 }

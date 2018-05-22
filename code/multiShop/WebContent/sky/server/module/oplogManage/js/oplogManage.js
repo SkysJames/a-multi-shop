@@ -98,7 +98,6 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 		if($scope.filterText.length > 0){
 			$scope.filterText = $scope.filterText.substring(0, $scope.filterText.length-2);
 		}
-		
 	};
 	
 	/**

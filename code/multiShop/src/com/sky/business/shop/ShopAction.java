@@ -1,5 +1,6 @@
 package com.sky.business.shop;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -137,6 +138,26 @@ public class ShopAction extends BaseAction {
 			resultMap.put("shop", shop);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
 			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取店铺信息");
+		} catch (Exception e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
+		}
+		return RESULT_MAP;
+	}
+	
+	/**
+	 * 获取所有的店铺信息
+	 * @return
+	 * @throws Exception
+	 */
+	public String getAllList() throws Exception {
+		try{
+			List<Shop> shopAll = shopService.findAll(Shop.class, "popularity", true);
+			
+			resultMap.put("shopAll", shopAll);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取所有的店铺信息");
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getStackTrace(e));
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
