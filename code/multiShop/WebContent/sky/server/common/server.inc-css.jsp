@@ -7,8 +7,8 @@
 	pageContext.setAttribute("contextPath", request.getContextPath());
 
 	//系统名称
-	String systemName = SysParameterUtil.getStringValue("system_name", "梦想蓝天");
-	pageContext.setAttribute("systemName", systemName);
+	String systemName = SysParameterUtil.getStringValue("system_name", "");
+	pageContext.setAttribute("systemName", StringUtils.isNotBlank(systemName)?systemName:"梦想蓝天");
 	
 	//系统图标
 	String systemIcon = SysParameterUtil.getStringValue("system_icon", "");
@@ -16,7 +16,7 @@
 	
 	//系统logo
 	String systemLogo = SysParameterUtil.getStringValue("system_logo", "");
-	pageContext.setAttribute("systemLogo", StringUtils.isNotBlank(systemLogo)?systemIcon:(request.getContextPath() + "/sky/common/core/img/system_logo.png"));
+	pageContext.setAttribute("systemLogo", StringUtils.isNotBlank(systemLogo)?systemLogo:(request.getContextPath() + "/sky/common/core/img/system_logo.png"));
 	
 	pageContext.setAttribute("opTypeMap", JsonUtil.toJson(EntityContants.OplogContants.actionMaps));
 	

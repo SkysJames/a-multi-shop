@@ -8,6 +8,11 @@ package com.sky.contants;
 public final class FileContants {
 	
 	/**
+	 * 系统文件名
+	 */
+	public static final String SYSTEM_FILE = "system";
+	
+	/**
 	 * 产品文件名
 	 */
 	public static final String PRODUCT_FILE = "product";

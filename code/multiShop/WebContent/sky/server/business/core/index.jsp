@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div id="logo-group">
 			<!-- PLACE YOUR LOGO HERE -->
 			<span id="logo"> 
-				<img src="${systemLogo }" alt="SmartAdmin"> 
+				<img src="${systemLogo }" alt=""> 
 				${systemName }管理系统
 			</span>
 			<!-- END LOGO PLACEHOLDER -->
@@ -82,11 +82,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li class="">
 					<a href="#/majorIndex" title="主页"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">主页</span></a>
 				</li>
-<!-- 				<li> -->
-<!-- 					<a href="javascript:void(0);"><i class="fa fa-lg fa-fw fa-inbox"></i> <span class="menu-item-parent">系统管理</span><span class="badge pull-right inbox-badge">14</span></a> -->
-<!-- 				</li> -->
 				<li>
-					<a href="ajax/table.html"><i class="fa fa-lg fa-fw fa-inbox"></i> <span class="menu-item-parent">系统管理</span></a>
+					<a href="#"><i class="fa fa-lg fa-fw fa-cogs"></i> <span class="menu-item-parent">系统管理</span></a>
+					<ul>
+						<li>
+							<a href="#/system">系统信息</a>
+						</li>
+						<li>
+							<a href="#">公告管理</a>
+						</li>
+					</ul>
 				</li>
 				<li>
 					<a href="#"><i class="fa fa-lg fa-fw fa-comments-o"></i> <span class="menu-item-parent">消息管理</span></a>

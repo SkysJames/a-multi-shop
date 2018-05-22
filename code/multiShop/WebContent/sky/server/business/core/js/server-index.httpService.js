@@ -6,6 +6,27 @@ angular.module('server-index.httpService',[])
 	$http.defaults.headers.put['X-Requested-With'] = 'XMLHttpRequest';
 	
 	/**
+	 * 获取系统信息
+	 */
+	this.getSystemInfo = function(){
+		var tempData={};
+		var url = $contextPath + "/system/system!getSystemInfo";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 保存系统信息
+	 */
+	this.saveSystemInfo = function(systemInfo){
+		var conditionJson = JSON.stringify(systemInfo);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/system!saveSystemInfo";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
 	 * 根据用户ID获取用户信息
 	 */
 	this.getUserById = function(userId){

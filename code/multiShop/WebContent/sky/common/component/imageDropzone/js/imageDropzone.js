@@ -6,15 +6,16 @@ angular.module('imageDropzone',[])
 		scope:{
 			dropzoneId		: "@",
 			imagePathList	: "=",
+			maxFiles			: "=",//上传的文件数
 		},
 		link : function(scope,element,attrs){ 
 			
 		},
 		controller : function($scope,$element,$attrs,$filter,$timeout,$document){
 			$scope.contextPath = $contextPath;
-			$scope.acceptedFiles = '.jpg,.jpeg,.bmp,.png';
-			$scope.maxFilesize = 6;
-			$scope.maxFiles	 = 5;
+			$scope.acceptedFiles = '.jpg,.jpeg,.bmp,.png,.icon';
+			$scope.maxFilesize = 10;
+			$scope.maxFiles	 = $scope.maxFiles?$scope.maxFiles:5;
 			$scope.config = {
                 url				: $contextPath + "/common/file!uploadTempFile",//必要参数，文件的上传地址
                 method			: "post",

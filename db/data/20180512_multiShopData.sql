@@ -2,16 +2,9 @@
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('system_name', 'system', '多商铺平台', 0, '系统名称', 1);
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
- Values ('forum_name', 'system', '论坛名称', 0, '论坛名称', 1);
-
-Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('system_icon', 'system', '', 0, '多商铺平台图标的url', 0);
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
- Values ('forum_icon', 'system', '', 0, '论坛图标的url', 0);
-Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('system_logo', 'system', '', 0, '多商铺平台logo的url', 0);
-Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
- Values ('forum_logo', 'system', '', 0, '论坛logo的url', 0);
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('system_picture', 'system', '', 0, '多商铺平台轮播图片的url，多个以,分隔', 0);
 
@@ -33,6 +26,13 @@ Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('qq', 'system', '888877777', 0, 'qq号码', 0);
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('service_time', 'system', '9:30-18:30', 0, '服务时间', 0);
+
+Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
+ Values ('forum_name', 'forum', '论坛名称', 0, '论坛名称', 1);
+Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
+ Values ('forum_icon', 'forum', '', 0, '论坛图标的url', 0);
+Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
+ Values ('forum_logo', 'forum', '', 0, '论坛logo的url', 0);
 
 Insert into tb_right (ID, NAME, TYPE)
  Values ('back_manage', '后台管理', 'back');
