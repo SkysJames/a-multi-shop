@@ -1,0 +1,67 @@
+<!-- widget grid -->
+<section id="widget-grid">
+	<!-- row -->
+	<div class="row">
+		<!-- NEW WIDGET START -->
+		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<!-- Widget ID (each widget will need unique ID)-->
+			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+				<!-- widget content -->
+				<div class="widget-body">
+					<form class="form-horizontal">
+						<fieldset>
+							<div class="form-group">
+								<label class="col-md-2 control-label">类型名称：</label>
+								<div class="col-md-10">
+									<input class="form-control" type="text" placeholder="类型名称" data-ng-model="typet.name">
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">父级类型：</label>
+								<div class="col-md-10" data-ng-show="$parent.saveType=='save'">
+									<select class="form-control" ui-select2 data-ng-model="typet.parentId">
+										<option value="-1">无</option>
+										<option data-ng-repeat="item in $parent.typetList" value="{{item.id}}">{{item.name}}</option>
+									</select>
+								</div>
+								<div class="col-md-10 common-value" data-ng-show="$parent.saveType=='edit'">{{typet.parentName|showBlankValue}}</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">类型排序：</label>
+								<div class="col-md-10">
+									<input class="form-control" type="number" placeholder="类型排序（数字）" data-ng-model="typet.sort">
+								</div>
+							</div>
+						</fieldset>
+						<div class="form-actions">
+							<div class="row">
+								<div class="col-md-12">
+									<button class="btn btn-default common-save-btn" type="button" data-ng-click="$parent.togglePanel(null)">
+										返回
+									</button>
+									<button class="btn btn-primary common-save-btn" type="button" 
+										data-ng-show="$parent.saveType=='edit'" data-ng-disabled="isLoadingSave" data-ng-click="editTypet(typet)">
+										<i class="fa fa-save" data-ng-show="!isLoadingSave"></i>
+										<i class="fa fa-spin spinner" data-ng-show="isLoadingSave"></i>
+										保存
+									</button>
+									<button class="btn btn-primary common-save-btn" type="button" 
+										data-ng-show="$parent.saveType=='save'" data-ng-disabled="isLoadingSave" data-ng-click="saveTypet(typet)">
+										<i class="fa fa-save" data-ng-show="!isLoadingSave"></i>
+										<i class="fa fa-spin spinner" data-ng-show="isLoadingSave"></i>
+										保存
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- end widget -->
+		</article>
+		<!-- WIDGET END -->
+	</div>
+	<!-- end row -->
+</section>
+<!-- end widget grid -->

@@ -74,6 +74,24 @@ var serverCommon = {
 		},
 		
 		/**
+		 * 初始化树形结构展示
+		 */
+		initTreeView: function(){
+			$('.tree > ul').attr('role', 'tree').find('ul').attr('role', 'group');
+			$('.tree').find('li:has(ul)').addClass('parent_li').attr('role', 'treeitem').find(' > span').attr('title', '收缩').on('click', function(e) {
+				var children = $(this).parent('li.parent_li').find(' > ul > li');
+				if (children.is(':visible')) {
+					children.hide('fast');
+					$(this).attr('title', '展开').find(' > i').removeClass().addClass('fa fa-lg fa-plus-circle');
+				} else {
+					children.show('fast');
+					$(this).attr('title', '收缩').find(' > i').removeClass().addClass('fa fa-lg fa-minus-circle');
+				}
+				e.stopPropagation();
+			});
+		},
+		
+		/**
 		 * 将滚动条滚动到指定位置，如 #id
 		 */
 		scrollTo : function(target){

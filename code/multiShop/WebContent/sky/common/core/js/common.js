@@ -94,6 +94,21 @@ var common = {
 		},
 		
 		/**
+		 * 表名常量
+		 */
+		tableContants	: {
+			TB_SHOP		: "tb_shop",//店铺表名
+			TB_PRODUCT	: "tb_product",//商品表名
+		},
+		
+		/**
+		 * 类型常量
+		 */
+		typetContants		: {
+			rootParentId		: "-1",//类型为根类型
+		},
+		
+		/**
 		 * 店铺类型常量
 		 */
 		shopContants		: {

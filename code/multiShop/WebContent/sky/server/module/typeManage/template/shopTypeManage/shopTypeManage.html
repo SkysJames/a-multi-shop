@@ -1,0 +1,79 @@
+<div class="index-container" data-ng-controller="shopTypeManageCtrl">
+	
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark">
+				店铺类型
+				<span data-ng-show="saveType && saveType=='edit'">
+					> 编辑
+				</span>
+				<span data-ng-show="saveType && saveType=='save'">
+					> 新增
+				</span>
+			</h1>
+		</div>
+		<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8 server-tools" data-ng-show="!saveType">
+			<div class="btn-group">
+				<a href="javascript:void(0);" data-toggle="tooltip" data-ng-click="togglePanel('save')"
+					data-placement="bottom" data-original-title="新增" class="btn btn-default">
+					<strong><i class="fa fa-plus fa-lg"></i></strong>
+				</a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- widget grid -->
+	<section id="widget-grid" data-ng-show="!saveType">
+		<!-- row -->
+		<div class="row">
+			<!-- NEW WIDGET START -->
+			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<!-- Widget ID (each widget will need unique ID)-->
+				<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0" data-widget-editbutton="false">
+					<header>
+						<h2>类型列表</h2>
+					</header>
+	
+					<!-- widget div-->
+					<div>
+						<!-- widget content -->
+						<div class="widget-body">
+							<div class="tree common-tree">
+								<ul>
+									<li data-ng-repeat="typet in typetList">
+										<span><i class="fa fa-lg fa-minus-circle"></i> {{typet.name|showBlankValue}}</span>
+										<div class="common-tree-tools">
+											<a href="javascript:void(0)" title="编辑" data-ng-click="togglePanel('edit', typet)"><i class="fa fa-edit"></i></a>
+											<a href="javascript:void(0)" title="删除" data-ng-click="deleteTypet(typet)"><i class="fa fa-trash"></i></a>
+										</div>
+										<ul>
+											<li data-ng-repeat="item in typet.typetList">
+												<span><i class="fa fa-lg fa-star"></i> {{item.name|showBlankValue}}</span>
+												<div class="common-tree-tools">
+													<a href="javascript:void(0)" title="编辑" data-ng-click="togglePanel('edit', item)"><i class="fa fa-edit"></i></a>
+													<a href="javascript:void(0)" title="删除" data-ng-click="deleteTypet(item)"><i class="fa fa-trash"></i></a>
+												</div>
+											</li>
+										</ul>
+									</li>
+								</ul>
+								
+								<loading-panel data-ng-show="isLoadingTypet" font-size="18"></loading-panel>
+								<nodata-panel data-ng-show="!isLoadingTypet && typetList.length==0" font-size="18"></nodata-panel>
+							</div>
+						</div>
+						<!-- end widget content -->
+					</div>
+					<!-- end widget div -->
+			</article>
+			<!-- WIDGET END -->
+		</div>
+		<!-- end row -->
+	</section>
+	<!-- end widget grid -->
+	
+	<!-- 类型保存面板 start -->
+	<shop-type-manage-save data-ng-show="saveType" typet="typetSave"></shop-type-manage-save>
+	<!-- 类型保存面板 end -->
+	
+</div>

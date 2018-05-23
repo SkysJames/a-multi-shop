@@ -19,6 +19,16 @@ angular.module('serverIndexApp',
 		templateUrl:$contextPath+'/sky/server/module/announceManage/template/announceManage.html',
 	});
 	
+	//店铺类型
+	$routeProvider.when("/shopType",{
+		templateUrl:$contextPath+'/sky/server/module/typeManage/template/shopTypeManage/shopTypeManage.html',
+	});
+	
+	//商品类型
+	$routeProvider.when("/productType",{
+		templateUrl:$contextPath+'/sky/server/module/typeManage/template/productTypeManage/productTypeManage.html',
+	});
+	
 	//用户管理
 	$routeProvider.when("/user",{
 		templateUrl:$contextPath+'/sky/server/module/userManage/template/userManage.html',

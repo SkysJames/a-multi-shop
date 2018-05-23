@@ -1,14 +1,13 @@
 package com.sky.business.system;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
-import org.apache.struts2.convention.annotation.Result;
 
 import com.sky.business.common.BaseAction;
 import com.sky.business.common.vo.ServiceException;
@@ -36,17 +35,17 @@ public class TypeAction extends BaseAction {
 	private TypeDao typeDao;
 	
 	/**
-	 * 分页获取类型列表
+	 * 获取类型列表
 	 * @return
 	 * @throws Exception
 	 */
 	@SuppressWarnings("unchecked")
-	public String paged() throws Exception {
+	public String list() throws Exception {
 		try{
 			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
-			pager = typeService.pagedList(typeDao, Typet.class, condition);
+			List<Typet> typetList = typeService.getList(typeDao, Typet.class, condition);
 			
-			resultMap.put("pager", pager);
+			resultMap.put("typetList", typetList);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
 			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取类型列表");
 		} catch (Exception e) {

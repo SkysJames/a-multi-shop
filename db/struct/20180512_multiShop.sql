@@ -123,6 +123,7 @@ create table tb_type
 (
     ID              varchar(36) primary key comment '主键ID',
     NAME            varchar(100) not null comment '类型名称',
+    SHOP_ID         varchar(36) comment '店铺ID，只有类型为tb_shop时才有值',
     TABLE_NAME		varchar(36) comment '表名称，tb_shop - 店铺类型；tb_product - 商品类型',
     PARENT_ID       varchar(36) comment '父类型ID',
     SORT	        integer comment '排序'

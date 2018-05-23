@@ -6,3 +6,4 @@
 <link rel="stylesheet" href="${ contextPath }/sky/server/module/oplogManage/css/oplogManage.css" />
 <link rel="stylesheet" href="${ contextPath }/sky/server/module/visitorManage/css/visitorManage.css" />
 <link rel="stylesheet" href="${ contextPath }/sky/server/module/userManage/css/userManage.css" />
+<link rel="stylesheet" href="${ contextPath }/sky/server/module/typeManage/css/typeManage.css" />

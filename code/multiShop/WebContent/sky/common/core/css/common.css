@@ -30,6 +30,23 @@
 	padding-top: 7px;
 }
 
+.common-tree {
+	
+}
+.common-tree ul>li>span {
+	width: 100%;
+	padding: 6px 8px;
+}
+.common-tree-tools {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+    display: inline;
+}
+.common-tree-tools a {
+	margin-right: 5px;
+}
+
 .common-save-input {
 	
 }

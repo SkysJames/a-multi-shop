@@ -28,6 +28,13 @@ public class TypeDaoImpl extends BaseDaoImpl implements TypeDao {
 			values.add(tableName);
 		}
 		
+		//店铺ID
+		if(condition.containsKey("shopId") && StringUtils.isNotBlank((String)condition.get("shopId"))){
+			String shopId = (String)condition.get("shopId");
+			hqlBuffer.append(" and shopId = ? ");
+			values.add(shopId);
+		}
+		
 		//父类型ID
 		if(condition.containsKey("parentId") && StringUtils.isNotBlank((String)condition.get("parentId"))){
 			String parentId = (String)condition.get("parentId");

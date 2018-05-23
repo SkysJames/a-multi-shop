@@ -108,6 +108,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</ul>
 				</li>
 				<li>
+					<a href="#"><i class="fa fa-lg fa-fw fa-comments-o"><em>3</em></i> <span class="menu-item-parent">店铺管理</span></a>
+					<ul>
+						<li>
+							<a href="#">店铺信息</a>
+						</li>
+						<li>
+							<a href="ajax/table.html">店铺列表<span class="badge pull-right inbox-badge bg-color-brightRed">3</span></a>
+						</li>
+						<li>
+							<a href="#">评论管理</a>
+						</li>
+						<li>
+							<a href="#">产品列表</a>
+						</li>
+						<li>
+							<a href="#/shopType">店铺类型</a>
+						</li>
+						<li>
+							<a href="#/productType">商品类型</a>
+						</li>
+					</ul>
+				</li>
+				<li>
 					<a href="#/user"><i class="fa fa-lg fa-fw fa-users"></i> <span class="menu-item-parent">用户管理</span></a>
 				</li>
 				<li>

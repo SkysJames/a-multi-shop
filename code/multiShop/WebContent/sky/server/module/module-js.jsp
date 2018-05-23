@@ -9,6 +9,11 @@
 <script src="${contextPath }/sky/server/module/visitorManage/js/visitorManageSave.js"></script>
 <script src="${contextPath }/sky/server/module/userManage/js/userManage.js"></script>
 <script src="${contextPath }/sky/server/module/userManage/js/userManageSave.js"></script>
+<script src="${contextPath }/sky/server/module/typeManage/js/typeManage.js"></script>
+<script src="${contextPath }/sky/server/module/typeManage/js/productTypeManage/productTypeManage.js"></script>
+<script src="${contextPath }/sky/server/module/typeManage/js/productTypeManage/productTypeManageSave.js"></script>
+<script src="${contextPath }/sky/server/module/typeManage/js/shopTypeManage/shopTypeManage.js"></script>
+<script src="${contextPath }/sky/server/module/typeManage/js/shopTypeManage/shopTypeManageSave.js"></script>
 <script>
 $moduleList = [
 	'majorIndex.module',
@@ -17,5 +22,6 @@ $moduleList = [
 	'oplogManage.module',
 	'visitorManage.module',
 	'userManage.module',
+	'typeManage.module',
 ];
 </script>

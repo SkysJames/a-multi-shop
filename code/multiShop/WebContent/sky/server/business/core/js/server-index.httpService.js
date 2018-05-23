@@ -157,6 +157,54 @@ angular.module('server-index.httpService',[])
 	};
 	
 	/**
+	 * 获取类型列表
+	 */
+	this.getTypetList = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/type!list";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 新增类型
+	 */
+	this.saveTypet = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/type!save";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 修改类型
+	 */
+	this.editTypet = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/type!edit";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 删除类型
+	 */
+	this.deleteTypet = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/type!delete";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
 	 * 获取所有的店铺列表
 	 */
 	this.getAllShopList = function(condition){
