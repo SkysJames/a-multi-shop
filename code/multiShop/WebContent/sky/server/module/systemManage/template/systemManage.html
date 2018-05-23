@@ -50,7 +50,10 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label">系统图标：</label>
 									<div class="col-md-10" data-ng-show="!isEdit">
-										<img data-ng-repeat="item in systemInfo.systemIconList" data-ng-src="{{item}}" alt="" class="superbox-img">
+										<div class="superbox-list" data-ng-repeat="item in systemInfo.systemIconList" data-ng-click="openNewPage(item)">
+											<img data-ng-src="{{item}}" alt="" class="superbox-img">
+										</div>
+										<div class="common-value" data-ng-if="systemInfo.systemIconList.length==0">暂无图片</div>
 									</div>
 									<div class="col-md-10" data-ng-show="isEdit">
 										<image-dropzone dropzone-id="systemInfoIconId" max-files="1" image-path-list="systemInfo.systemIconList"></image-dropzone>
@@ -59,7 +62,10 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label">系统logo：</label>
 									<div class="col-md-10" data-ng-show="!isEdit">
-										<img data-ng-repeat="item in systemInfo.systemLogoList" data-ng-src="{{item}}" alt="" class="superbox-img">
+										<div class="superbox-list" data-ng-repeat="item in systemInfo.systemLogoList" data-ng-click="openNewPage(item)">
+											<img data-ng-src="{{item}}" alt="" class="superbox-img">
+										</div>
+										<div class="common-value" data-ng-if="systemInfo.systemLogoList.length==0">暂无图片</div>
 									</div>
 									<div class="col-md-10" data-ng-show="isEdit">
 										<image-dropzone dropzone-id="systemInfoLogoId" max-files="1" image-path-list="systemInfo.systemLogoList"></image-dropzone>
@@ -68,7 +74,10 @@
 								<div class="form-group">
 									<label class="col-md-2 control-label">轮播图片：</label>
 									<div class="col-md-10" data-ng-show="!isEdit">
-										<img data-ng-repeat="item in systemInfo.systemPictureList" data-ng-src="{{item}}" alt="" class="superbox-img">
+										<div class="superbox-list" data-ng-repeat="item in systemInfo.systemPictureList" data-ng-click="openNewPage(item)">
+											<img data-ng-src="{{item}}" alt="" class="superbox-img">
+										</div>
+										<div class="common-value" data-ng-if="systemInfo.systemPictureList.length==0">暂无图片</div>
 									</div>
 									<div class="col-md-10" data-ng-show="isEdit">
 										<image-dropzone dropzone-id="systemInfoPictureId" max-files="5" image-path-list="systemInfo.systemPictureList"></image-dropzone>

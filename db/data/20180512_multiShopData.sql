@@ -41,6 +41,8 @@ Insert into tb_right (ID, NAME, TYPE)
 Insert into tb_right (ID, NAME, TYPE)
  Values ('forum_manage', '论坛管理', 'system');
 Insert into tb_right (ID, NAME, TYPE)
+ Values ('announce_manage', '公告管理', 'announce');
+Insert into tb_right (ID, NAME, TYPE)
  Values ('message_manage', '消息管理', 'message');
 Insert into tb_right (ID, NAME, TYPE)
  Values ('user_manage', '用户管理', 'user');

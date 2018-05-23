@@ -14,7 +14,7 @@ angular.module('imagePanel',[])
 			//默认的图片
 			$scope.defaultImage = {
 					index	: -1,
-					path		: $contextPath + "/sky/common/img/no_pic.jpeg",
+					path		: $contextPath + "/sky/common/core/img/no_pic.jpeg",
 			};
 			//当前显示的图片
 			$scope.currentImage = $scope.defaultImage;

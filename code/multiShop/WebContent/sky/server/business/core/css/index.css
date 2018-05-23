@@ -3,6 +3,10 @@
 	text-shadow: none;
 }
 
+nav>ul>li>a b {
+	line-height: 25px;
+}
+
 .index-container {
 	padding: 10px 14px;
     position: relative;

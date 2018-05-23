@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		<nav>
 			<ul>
-				<li class="">
+				<li>
 					<a href="#/majorIndex" title="主页"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">主页</span></a>
 				</li>
 				<li>
@@ -89,18 +89,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<a href="#/system">系统信息</a>
 						</li>
 						<li>
-							<a href="#">公告管理</a>
+							<a href="#">论坛信息</a>
 						</li>
 					</ul>
 				</li>
 				<li>
-					<a href="#"><i class="fa fa-lg fa-fw fa-comments-o"></i> <span class="menu-item-parent">消息管理</span></a>
+					<a href="#" title="公告管理"><i class="fa fa-lg fa-fw fa-bullhorn"></i> <span class="menu-item-parent">公告管理</span></a>
+				</li>
+				<li>
+					<a href="#"><i class="fa fa-lg fa-fw fa-comments-o"><em>3</em></i> <span class="menu-item-parent">消息管理</span></a>
 					<ul>
 						<li>
-							<a href="ajax/table.html">消息列表</a>
+							<a href="ajax/table.html">消息列表<span class="badge pull-right inbox-badge bg-color-brightRed">2</span></a>
 						</li>
 						<li>
-							<a href="ajax/table.html">举报列表</a>
+							<a href="ajax/table.html">举报列表<span class="badge pull-right inbox-badge bg-color-brightRed">1</span></a>
 						</li>
 					</ul>
 				</li>
@@ -112,52 +115,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</li>
 				<li>
 					<a href="#/oplog"><i class="fa fa-lg fa-fw fa-calendar"></i> <span class="menu-item-parent">日志管理</span></a>
-				</li>
-				<li>
-					<a href="#"><i class="fa fa-lg fa-fw fa-pencil-square-o"></i> <span class="menu-item-parent">Forms</span></a>
-					<ul>
-						<li>
-							<a href="ajax/form-elements.html">Smart Form Elements</a>
-						</li>
-						<li>
-							<a href="ajax/form-templates.html">Smart Form Layouts</a>
-						</li>
-						<li>
-							<a href="ajax/validation.html">Smart Form Validation</a>
-						</li>
-						<li>
-							<a href="ajax/bootstrap-forms.html">Bootstrap Form Elements</a>
-						</li>
-						<li>
-							<a href="ajax/plugins.html">Form Plugins</a>
-						</li>
-						<li>
-							<a href="ajax/wizard.html">Wizards</a>
-						</li>
-						<li>
-							<a href="ajax/other-editors.html">Bootstrap Editors</a>
-						</li>
-						<li>
-							<a href="ajax/dropzone.html">Dropzone <span class="badge pull-right inbox-badge bg-color-yellow">new</span></a>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<a href="ajax/calendar.html"><i class="fa fa-lg fa-fw fa-calendar"><em>3</em></i> <span class="menu-item-parent">Calendar</span></a>
-				</li>
-				<li>
-					<a href="#"><i class="fa fa-lg fa-fw fa-file"></i> <span class="menu-item-parent">Other Pages</span></a>
-					<ul>
-						<li>
-							<a href="ajax/forum.html">Forum Layout</a>
-						</li>
-						<li>
-							<a href="ajax/profile.html">Profile</a>
-						</li>
-						<li>
-							<a href="ajax/timeline.html">Timeline</a>
-						</li>
-					</ul>	
 				</li>
 			</ul>
 		</nav>

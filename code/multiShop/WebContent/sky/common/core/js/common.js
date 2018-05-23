@@ -317,6 +317,18 @@ var common = {
 		},
 		
 		/**
+		 * 通过url打开页面
+		 * isLocation true-本页面打开，false-新窗口打开
+		 */
+		toPage	: function(url, isLocation){
+			if(isLocation){
+				window.location.href = url;
+			}else{
+				window.open(url);
+			}
+		},
+		
+		/**
 		 * 将滚动条滚动到指定位置，如 #id
 		 */
 		scrollTo : function(target){

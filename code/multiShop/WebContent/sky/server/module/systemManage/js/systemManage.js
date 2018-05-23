@@ -3,6 +3,10 @@ angular.module('systemManage.module',[])
 function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpService){
 	//是否为编辑状态
 	$scope.isEdit = false;
+	//图片面板ID
+	$scope.imagePanelId = "systemImagePanelId";
+	//图片面板的路径列表
+	$scope.imagePathList = [];
 	
 	/**
 	 * 切换编辑状态
@@ -24,7 +28,7 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 			var data = response.data;
 			if(data.statusCode=="200" && data.systemInfo){
 				$scope.systemInfo = data.systemInfo;
-				$scope.systemInfoBak = data.systemInfo;//备份
+				$scope.systemInfoBak = _.cloneDeep($scope.systemInfo);//备份
 				
 				$scope.isLoadingSystemInfo = false;
 			}else{
@@ -53,6 +57,13 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 		},function(err){
 			console.log(err);
 		});
+	};
+	
+	/**
+	 * 打开新窗口
+	 */
+	$scope.openNewPage = function(url){
+		common.toPage(url);
 	};
 	
 	/**
