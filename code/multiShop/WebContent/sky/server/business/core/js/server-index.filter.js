@@ -13,15 +13,17 @@ angular.module('server-index.filter',[])
 })
 
 /**
- * 店铺名称的展示
+ * 店铺名称的展示，可能系统类型/论坛类型/店铺类型
  */
 .filter('showShopName',function(){
 	return function(shop){
-		if(shop && shop.name && shop.id!=common.shopContants.shopSystem){
-			return shop.name;
-		}else{
-			return "";
+		var shopName = "";
+		
+		if(shop && shop.name){
+			shopName = shop.name;
 		}
+		
+		return shopName;
 	};
 })
 
@@ -40,6 +42,19 @@ angular.module('server-index.filter',[])
 			}
 		}
 		return rightgroupName;
+	};
+})
+
+/**
+ * 转换公告状态为字符串
+ */
+.filter('stringAnnounceStatus',function(){
+	return function(status){
+		if(common.announceContants.status.USING == status){
+			return "启用";
+		}else{
+			return "禁用";
+		}
 	};
 })
 

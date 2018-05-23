@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</ul>
 				</li>
 				<li>
-					<a href="#" title="公告管理"><i class="fa fa-lg fa-fw fa-bullhorn"></i> <span class="menu-item-parent">公告管理</span></a>
+					<a href="#/announce" title="公告管理"><i class="fa fa-lg fa-fw fa-bullhorn"></i> <span class="menu-item-parent">公告管理</span></a>
 				</li>
 				<li>
 					<a href="#"><i class="fa fa-lg fa-fw fa-comments-o"><em>3</em></i> <span class="menu-item-parent">消息管理</span></a>

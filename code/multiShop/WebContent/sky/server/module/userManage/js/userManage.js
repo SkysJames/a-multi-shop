@@ -161,6 +161,23 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 	};
 	
 	/**
+	 * 获取所有店铺
+	 */
+	$scope.getAllShopList = function(){
+		serverIndexHttpService.getAllShopList()
+		.then(function(response){
+			var data = response.data;
+			if(data.statusCode=="200" && data.shopAll){
+				$scope.shopAll = data.shopAll;
+			}else{
+				common.triggerFailMesg(data.message);
+			}
+		},function(err){
+			console.log(err);
+		});
+	};
+	
+	/**
 	 * 初始化函数
 	 */
 	$scope.initFunc = function(){
@@ -168,6 +185,8 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 		serverCommon.hasRightStay('user_manage');
 		//改变当前导航指向
 		serverCommon.navChange("#/user");
+		//获取所有店铺
+		$scope.getAllShopList();
 		//获取用户列表
 		$scope.pagedUserList();
 		//令提示可用

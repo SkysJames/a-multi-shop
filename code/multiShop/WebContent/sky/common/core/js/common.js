@@ -98,6 +98,21 @@ var common = {
 		 */
 		shopContants		: {
 			shopSystem	: "system",//系统
+			shopBbs		: "bbs",//论坛
+		},
+		
+		/**
+		 * 公告类型常量
+		 */
+		announceContants	: {
+			status	: {
+				UNUSING	: 0,//状态不可用
+				USING	: 1,//状态可用
+			},
+			isOver	: {
+				UNOVER	: 0,//未过期
+				OVER		: 1,//已过期
+			},
 		},
 		
 		/**
@@ -333,6 +348,10 @@ var common = {
 		 */
 		scrollTo : function(target){
 			$("html, body").animate({scrollTop: $(target).offset().top}, {duration: 500,easing: "swing"});
+		},
+		
+		MydatePicker	: function(){
+			WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});
 		},
 		
 };

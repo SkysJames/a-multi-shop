@@ -150,7 +150,7 @@ create table tb_shop
     ADDRESS         varchar(4000) comment '店铺所在地址',
     LONGITUDE       double(9,6) comment '店铺所在地，经度',
     LATITUDE        double(9,6) comment '店铺所在地，纬度',
-    STATUS			integer default 0 comment '状态：0-禁用；1-申请待验证；2-启用'
+    STATUS			integer default 0 comment '状态：-1-实际不存在该店铺;0-禁用；1-申请待验证；2-启用'
 );
 
 

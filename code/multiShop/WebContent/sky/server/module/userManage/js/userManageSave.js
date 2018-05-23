@@ -86,23 +86,6 @@ angular.module('userManageSave',[])
 			};
 			
 			/**
-			 * 获取所有店铺
-			 */
-			$scope.getAllShopList = function(){
-				serverIndexHttpService.getAllShopList()
-				.then(function(response){
-					var data = response.data;
-					if(data.statusCode=="200" && data.shopAll){
-						$scope.shopAll = data.shopAll;
-					}else{
-						common.triggerFailMesg(data.message);
-					}
-				},function(err){
-					console.log(err);
-				});
-			};
-			
-			/**
 			 * 获取所有角色
 			 */
 			$scope.getAllRightGroupList = function(){
@@ -138,8 +121,6 @@ angular.module('userManageSave',[])
 				$scope.initCurrentRight();
 				//获取所有角色
 				$scope.getAllRightGroupList();
-				//获取所有店铺
-				$scope.getAllShopList();
 			};
 			$document.ready($scope.initFunc);
 		}

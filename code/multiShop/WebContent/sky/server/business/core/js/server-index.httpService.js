@@ -27,6 +27,54 @@ angular.module('server-index.httpService',[])
 	};
 	
 	/**
+	 * 分页获取公告列表
+	 */
+	this.pagedAnnounceList = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/announce!paged";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 新增公告
+	 */
+	this.saveAnnounce = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/announce!save";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 修改公告
+	 */
+	this.editAnnounce = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/announce!edit";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 删除公告
+	 */
+	this.deleteAnnounce = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/announce!delete";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
 	 * 根据用户ID获取用户信息
 	 */
 	this.getUserById = function(userId){

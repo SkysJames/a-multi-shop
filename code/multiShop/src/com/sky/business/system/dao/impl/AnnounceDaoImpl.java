@@ -70,7 +70,7 @@ public class AnnounceDaoImpl extends BaseDaoImpl implements AnnounceDao {
 				hqlBuffer.append(" and overTime < now() ");
 			}else {
 				//未过期
-				hqlBuffer.append(" and overTime > now() ");
+				hqlBuffer.append(" and (overTime > now() or overTime is null) ");
 			}
 		}
 		

@@ -84,7 +84,7 @@
 								<label class="col-md-2 control-label">店铺：</label>
 								<div class="col-md-10" data-ng-show="isAdminRight">
 									<select class="form-control" ui-select2 data-ng-model="user.shopId">
-										<option data-ng-repeat="item in shopAll" data-ng-show="item.id!='system'" value="{{item.id}}">{{item.name}}</option>
+										<option data-ng-repeat="item in $parent.shopAll" data-ng-show="item.id!='system' && item.id!='bbs'" value="{{item.id}}">{{item.name}}</option>
 									</select>
 								</div>
 								<div class="col-md-10" data-ng-show="!isAdminRight">{{user.shop|showShopName}}</div>

@@ -60,21 +60,21 @@ Insert into tb_right (ID, NAME, TYPE)
 Insert into tb_right (ID, NAME, TYPE)
  Values ('product_manage', '商品管理', 'shop');
 Insert into tb_right (ID, NAME, TYPE)
- Values ('shop_announce', '店铺公告', 'shop');
-Insert into tb_right (ID, NAME, TYPE)
  Values ('shop_type', '店铺分类', 'shop');
 Insert into tb_right (ID, NAME, TYPE)
  Values ('product_type', '商品分类', 'shop');
 
 Insert into tb_rightgroup (ID, NAME, RIGHTS)
- Values ('admin_rightgroup', '管理员角色', 'back_manage,system_manage,forum_manage,message_manage,user_manage,visitor_manage,oplog_manage,shop_manage,shop_list,product_manage,shop_announce,shop_type,product_type');
+ Values ('admin_rightgroup', '管理员角色', 'back_manage,system_manage,forum_manage,announce_manage,message_manage,user_manage,visitor_manage,oplog_manage,shop_manage,shop_list,product_manage,shop_type,product_type');
 Insert into tb_rightgroup (ID, NAME, RIGHTS)
- Values ('shopkeeper_rightgroup', '店长角色', 'back_manage,message_manage,user_manage,shop_manage,shop_basic,product_manage,shop_announce,product_type');
+ Values ('shopkeeper_rightgroup', '店长角色', 'back_manage,announce_manage,message_manage,user_manage,shop_manage,shop_basic,product_manage,product_type');
 Insert into tb_rightgroup (ID, NAME, RIGHTS)
- Values ('salesclerk_rightgroup', '店员角色', 'back_manage,message_manage,shop_manage,shop_basic,product_manage,shop_announce,product_type');
+ Values ('salesclerk_rightgroup', '店员角色', 'back_manage,announce_manage,message_manage,shop_manage,shop_basic,product_manage,product_type');
 
-Insert into tb_shop (ID, NAME)
- Values ('system', '系统');
+Insert into tb_shop (ID, NAME, STATUS)
+ Values ('system', '系统类型', -1);
+Insert into tb_shop (ID, NAME, STATUS)
+ Values ('bbs', '论坛类型', -1);
 Insert into tb_user (ID, NAME, PASSWD, SHOP_ID, USER_STATUS, LOGIN_STATUS, CREATE_TIME, RIGHTGROUPS)
  Values ('admin', 'admin', '123456aB', 'system', 1, 0, sysdate(), 'admin_rightgroup');
 

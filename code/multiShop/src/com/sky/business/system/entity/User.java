@@ -76,7 +76,7 @@ public class User implements java.io.Serializable {
 	@Column(name="TELEPHONE", length=36)
 	private String telephone;
 	
-	//店铺名称
+	//店铺
 	@Transient
 	private Shop shop;
 	
@@ -278,7 +278,6 @@ public class User implements java.io.Serializable {
 		this.shop = shop;
 	}
 
-	@Transient
 	public List<RightGroup> getRightgroupList() {
 		try {
 		    	if (null == rightgroupList) {

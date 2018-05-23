@@ -14,6 +14,11 @@ angular.module('serverIndexApp',
 		templateUrl:$contextPath+'/sky/server/module/systemManage/template/systemManage.html',
 	});
 	
+	//公告管理
+	$routeProvider.when("/announce",{
+		templateUrl:$contextPath+'/sky/server/module/announceManage/template/announceManage.html',
+	});
+	
 	//用户管理
 	$routeProvider.when("/user",{
 		templateUrl:$contextPath+'/sky/server/module/userManage/template/userManage.html',

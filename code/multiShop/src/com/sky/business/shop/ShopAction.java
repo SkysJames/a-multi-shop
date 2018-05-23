@@ -153,7 +153,7 @@ public class ShopAction extends BaseAction {
 	 */
 	public String getAllList() throws Exception {
 		try{
-			List<Shop> shopAll = shopService.findAll(Shop.class, "popularity", true);
+			List<Shop> shopAll = shopService.findAll(Shop.class, "addTime", true);
 			
 			resultMap.put("shopAll", shopAll);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");

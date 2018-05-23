@@ -11,6 +11,9 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.sky.business.shop.entity.Shop;
+import com.sky.business.shop.service.ShopService;
+import com.sky.util.BeanDefinedLocator;
 import com.sky.util.DateUtil;
 
 /**
@@ -57,6 +60,11 @@ public class Announce implements Serializable {
 	//过期时间字符串
 	@Transient
 	private String overTimeString;
+	
+	//店铺
+	@Transient
+	private Shop shop;
+	
 	
     // Property accessors
 	public String getId() {
@@ -140,7 +148,7 @@ public class Announce implements Serializable {
 	}
 	
 	public String getOverTimeString() {
-		if(StringUtils.isBlank(overTimeString)) {
+		if(StringUtils.isBlank(overTimeString) && this.overTime!=null) {
 			try {
 				overTimeString = DateUtil.convertDateStr(this.overTime.getTime(), DateUtil.DEFAULT_DATE_PATTERN);
 			} catch (Exception e) {
@@ -152,6 +160,25 @@ public class Announce implements Serializable {
 
 	public void setOverTimeString(String overTimeString) {
 		this.overTimeString = overTimeString;
+	}
+	
+	public Shop getShop() {
+		try {
+		    	if (null == shop) {
+		    		ShopService shopService = (ShopService)BeanDefinedLocator.getInstance().getBean("shopService");
+		    		
+		    		if(null != shopId){
+		    			shop = shopService.findByID(Shop.class, shopId);
+		    		}
+			}
+	    	} catch (Exception e) {
+	    		e.printStackTrace();
+	    	}
+		return shop;
+	}
+
+	public void setShop(Shop shop) {
+		this.shop = shop;
 	}
 
 }

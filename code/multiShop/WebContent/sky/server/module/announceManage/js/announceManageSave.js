@@ -1,11 +1,12 @@
-angular.module('userManageSave',[])
-.directive('userManageSave',function(){
+angular.module('announceManageSave',[])
+.directive('announceManageSave',function(){
 	return {
 		restrict:'E',
 		scope : {
-			user				: "=",
+			announce			: "=",
+			rangeDate		: "=",
 		},
-		templateUrl : $contextPath +"/sky/server/module/userManage/template/userManageSave.html",
+		templateUrl : $contextPath +"/sky/server/module/announceManage/template/announceManageSave.html",
 		link : function(scope,element,attrs){
 			
 		},
@@ -13,19 +14,19 @@ angular.module('userManageSave',[])
 			/**
 			 * 新增保存用户
 			 */
-			$scope.saveUser = function(user){
-				if(!$scope.isSaveUser(user)){
+			$scope.saveAnnounce = function(announce){
+				if(!$scope.isSaveAnnounce(announce)){
 					common.triggerFailMesg("*为必填项");
 					return;
 				}
 				
 				$scope.isLoadingSave = true;
-				serverIndexHttpService.saveUser(user)
+				serverIndexHttpService.saveAnnounce(announce)
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode=="200" && data.message){
 						common.triggerSuccessMesg(data.message);
-						$scope.$parent.pagedUserList();
+						$scope.$parent.pagedAnnounceList();
 						$scope.$parent.togglePanel(null);
 					}else{
 						common.triggerFailMesg(data.message);
@@ -39,19 +40,19 @@ angular.module('userManageSave',[])
 			/**
 			 * 编辑保存用户
 			 */
-			$scope.editUser = function(user){
-				if(!$scope.isSaveUser(user)){
+			$scope.editAnnounce = function(announce){
+				if(!$scope.isSaveAnnounce(announce)){
 					common.triggerFailMesg("*为必填项");
 					return;
 				}
 				
 				$scope.isLoadingSave = true;
-				serverIndexHttpService.editUser(user)
+				serverIndexHttpService.editAnnounce(announce)
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode=="200" && data.message){
 						common.triggerSuccessMesg(data.message);
-						$scope.$parent.pagedUserList();
+						$scope.$parent.pagedAnnounceList();
 						$scope.$parent.togglePanel(null);
 					}else{
 						common.triggerFailMesg(data.message);
@@ -65,58 +66,25 @@ angular.module('userManageSave',[])
 			/**
 			 * 判断该用户对象是否符合保存的条件
 			 */
-			$scope.isSaveUser = function(user){
-				if(!user){
+			$scope.isSaveAnnounce = function(announce){
+				if(!announce){
 					return false;
 				}
 				
-				if(!user.id || user.id==""){
+				//塞入过期时间
+				announce.overTimeString = $("#overTimeId").val();
+				
+				if(!announce.name || announce.name==""){
 					return false;
 				}
-				
-				if(!user.name || user.name==""){
+				if(!announce.shopId || announce.shopId==""){
 					return false;
 				}
-				
-				if(!user.passwd || user.passwd==""){
+				if(!announce.status || announce.status==""){
 					return false;
 				}
 				
 				return true;
-			};
-			
-			/**
-			 * 获取所有店铺
-			 */
-			$scope.getAllShopList = function(){
-				serverIndexHttpService.getAllShopList()
-				.then(function(response){
-					var data = response.data;
-					if(data.statusCode=="200" && data.shopAll){
-						$scope.shopAll = data.shopAll;
-					}else{
-						common.triggerFailMesg(data.message);
-					}
-				},function(err){
-					console.log(err);
-				});
-			};
-			
-			/**
-			 * 获取所有角色
-			 */
-			$scope.getAllRightGroupList = function(){
-				serverIndexHttpService.getAllRightGroupList()
-				.then(function(response){
-					var data = response.data;
-					if(data.statusCode=="200" && data.rightGroupAll){
-						$scope.rightGroupAll = data.rightGroupAll;
-					}else{
-						common.triggerFailMesg(data.message);
-					}
-				},function(err){
-					console.log(err);
-				});
 			};
 			
 			/**
@@ -136,10 +104,6 @@ angular.module('userManageSave',[])
 			$scope.initFunc = function(){
 				//初始化当前登陆用户的权限
 				$scope.initCurrentRight();
-				//获取所有角色
-				$scope.getAllRightGroupList();
-				//获取所有店铺
-				$scope.getAllShopList();
 			};
 			$document.ready($scope.initFunc);
 		}

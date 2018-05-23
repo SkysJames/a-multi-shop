@@ -1,0 +1,95 @@
+<!-- widget grid -->
+<section id="widget-grid">
+	<!-- row -->
+	<div class="row">
+		<!-- NEW WIDGET START -->
+		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<!-- Widget ID (each widget will need unique ID)-->
+			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+				<!-- widget content -->
+				<div class="widget-body">
+					<form class="form-horizontal">
+						<fieldset>
+							<legend data-ng-show="$parent.saveType=='edit'">
+								{{announce.shop|showShopName}}
+							</legend>
+							<div class="form-group">
+								<label class="col-md-2 control-label">公告名称：</label>
+								<div class="col-md-10">
+									<input class="form-control" type="text" placeholder="公告名称" data-ng-model="announce.name">
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="form-group" data-ng-show="!user.rightgroups || user.rightgroups.indexOf('admin_rightgroup')<0">
+								<label class="col-md-2 control-label">公告所属：</label>
+								<div class="col-md-10" data-ng-show="isAdminRight">
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="system" data-ng-model="announce.shopId">
+										<span>系统类型</span> 
+									</label>
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="bbs" data-ng-model="announce.shopId">
+										<span>论坛类型</span> 
+									</label>
+									<span class="need-tab">*</span>
+								</div>
+								<div class="col-md-10" data-ng-show="!isAdminRight">{{announce.shop|showShopName}}</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">公告状态：</label>
+								<div class="col-md-10">
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="1" data-ng-model="announce.status">
+										<span>启用</span> 
+									</label>
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="0" data-ng-model="announce.status">
+										<span>禁用</span> 
+									</label>
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">过期时间：</label>
+								<div class="col-md-10">
+									<input id="overTimeId" class="form-control" type="text" placeholder="过期时间" onclick="common.MydatePicker();">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">公告内容：</label>
+								<div class="col-md-10">
+									<textarea class="form-control" rows="6" cols="" placeholder="公告内容" data-ng-model="announce.content"></textarea>
+								</div>
+							</div>
+						</fieldset>
+						<div class="form-actions">
+							<div class="row">
+								<div class="col-md-12">
+									<button class="btn btn-default common-save-btn" type="button" data-ng-click="$parent.togglePanel(null)">
+										返回
+									</button>
+									<button class="btn btn-primary common-save-btn" type="button" 
+										data-ng-show="$parent.saveType=='edit'" data-ng-disabled="isLoadingSave" data-ng-click="editAnnounce(announce)">
+										<i class="fa fa-save" data-ng-show="!isLoadingSave"></i>
+										<i class="fa fa-spin spinner" data-ng-show="isLoadingSave"></i>
+										保存
+									</button>
+									<button class="btn btn-primary common-save-btn" type="button" 
+										data-ng-show="$parent.saveType=='save'" data-ng-disabled="isLoadingSave" data-ng-click="saveAnnounce(announce)">
+										<i class="fa fa-save" data-ng-show="!isLoadingSave"></i>
+										<i class="fa fa-spin spinner" data-ng-show="isLoadingSave"></i>
+										保存
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- end widget -->
+		</article>
+		<!-- WIDGET END -->
+	</div>
+	<!-- end row -->
+</section>
+<!-- end widget grid -->

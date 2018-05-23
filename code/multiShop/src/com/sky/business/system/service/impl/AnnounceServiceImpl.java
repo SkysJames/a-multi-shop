@@ -17,7 +17,6 @@ import com.sky.business.system.entity.Announce;
 import com.sky.business.system.service.AnnounceService;
 import com.sky.contants.CodeMescContants;
 import com.sky.util.CommonMethodUtil;
-import com.sky.util.DateUtil;
 
 /**
  * 消息Service类
@@ -38,6 +37,9 @@ public class AnnounceServiceImpl extends BaseServiceImpl implements AnnounceServ
 			throw new ServiceException(CodeMescContants.CodeContants.ERROR_INEXIST, CodeMescContants.MessageContants.ERROR_INEXIST);
 		}
 		
+		if(editObj.containsKey("shopId")){
+			announce.setShopId((String)editObj.get("shopId"));
+		}
 		if(editObj.containsKey("name")){
 			announce.setName((String)editObj.get("name"));
 		}
@@ -48,8 +50,7 @@ public class AnnounceServiceImpl extends BaseServiceImpl implements AnnounceServ
 			announce.setStatus(CommonMethodUtil.getIntegerByObject(editObj.get("status")));
 		}
 		if(editObj.containsKey("overTimeString")){
-			String overTimeString = (String)editObj.get("overTimeString");
-			announce.setOverTime(new Timestamp(DateUtil.convertStr2MilliTime(overTimeString)));
+			announce.setOverTime(CommonMethodUtil.getTimestampByObject(editObj.get("overTimeString")));
 		}
 		
 		announce.setUpdateUser(loginUser.getUserId());
@@ -76,8 +77,7 @@ public class AnnounceServiceImpl extends BaseServiceImpl implements AnnounceServ
 			announce.setStatus(CommonMethodUtil.getIntegerByObject(addObj.get("status")));
 		}
 		if(addObj.containsKey("overTimeString")){
-			String overTimeString = (String)addObj.get("overTimeString");
-			announce.setOverTime(new Timestamp(DateUtil.convertStr2MilliTime(overTimeString)));
+			announce.setOverTime(CommonMethodUtil.getTimestampByObject(addObj.get("overTimeString")));
 		}
 		
 		Timestamp nowstamp = new Timestamp(Calendar.getInstance().getTimeInMillis());

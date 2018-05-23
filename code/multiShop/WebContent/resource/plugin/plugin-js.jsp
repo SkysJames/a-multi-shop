@@ -10,6 +10,9 @@
 <!-- bootstrap -->
 <script type="text/javascript" src="${ contextPath }/resource/plugin/bootstrap/js/bootstrap.min.js"></script>
 
+<!-- My97DatePicker -->
+<script type="text/javascript" src="${ contextPath }/resource/plugin/My97DatePicker/WdatePicker.js"></script>
+
 <!-- angular -->
 <%@include file="/resource/plugin/angular/angular-js.jsp" %>
 <%@include file="/resource/plugin/angularui-select2/angularui-select2-js.jsp" %>

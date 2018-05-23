@@ -66,6 +66,15 @@
 									</div>
 								</div>
 								<div class="input-group">
+									<label class="col-md-3 control-label">店铺：</label>
+									<div class="col-md-9">
+										<select class="form-control" ui-select2 data-ng-model="condition.shopId" data-ng-change="pagedUserList()">
+											<option value="">全部</option>
+											<option data-ng-repeat="item in shopAll" data-ng-show="item.id!='system' && item.id!='bbs'" value="{{item.id}}">{{item.name}}</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
 									<label class="col-md-3 control-label">用户状态：</label>
 									<div class="col-md-9">
 										<select class="form-control" ui-select2 data-ng-model="condition.userStatus" data-ng-change="pagedUserList()">

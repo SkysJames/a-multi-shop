@@ -15,7 +15,7 @@ thisToday = thisToday.replace(/MM/,date.getMonth()>=9?(date.getMonth() + 1):'0' 
 thisToday = thisToday.replace(/DD/,date.getDate()>9?date.getDate().toString():'0' + date.getDate());   
 
 /**
- * 默认的日期对象
+ * 默认的日期对象（双日历）
  */
 var defaultDateRangePickerOptions = {
 	locale :{
@@ -46,5 +46,5 @@ var defaultDateRangePickerOptions = {
                 moment(thisToday+" 23:59:59"),
                 ],
 	},
-};	
+};
 </script>

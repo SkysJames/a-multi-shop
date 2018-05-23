@@ -3,6 +3,7 @@ package com.sky.util;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -61,6 +62,26 @@ public class CommonMethodUtil {
 		}
 		
 		return in;
+	}
+	
+	/**
+	 * 将object转为Timestamp类型
+	 * @param object
+	 * @return
+	 */
+	public static Timestamp getTimestampByObject(Object object){
+		Timestamp timestamp = null;
+		
+		if(object!=null){
+			
+			if(object instanceof String){
+				if(StringUtils.isNotBlank((String)object)) {
+					timestamp = new Timestamp(DateUtil.convertStr2MilliTime((String)object));
+				}
+			}
+		}
+		
+		return timestamp;
 	}
 	
 	/**

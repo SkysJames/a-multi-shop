@@ -1,0 +1,152 @@
+<div class="index-container" data-ng-controller="announceManageCtrl">
+	
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark">
+				公告管理
+				<span data-ng-show="saveType && saveType=='edit'">
+					> 编辑
+				</span>
+				<span data-ng-show="saveType && saveType=='save'">
+					> 新增
+				</span>
+			</h1>
+		</div>
+		<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8 server-tools" data-ng-show="!saveType">
+			<div class="btn-group">
+				<a href="javascript:void(0);" data-toggle="tooltip" data-ng-click="togglePanel('save')"
+					data-placement="bottom" data-original-title="新增" class="btn btn-default">
+					<strong><i class="fa fa-plus fa-lg"></i></strong>
+				</a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- widget grid -->
+	<section id="widget-grid" data-ng-show="!saveType">
+		<!-- row -->
+		<div class="row">
+			<!-- NEW WIDGET START -->
+			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<!-- Widget ID (each widget will need unique ID)-->
+				<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0" data-widget-editbutton="false">
+					<header>
+						<h2 title="过滤条件：{{filterText}}">过滤条件：{{filterText}}</h2>
+					</header>
+	
+					<!-- widget div-->
+					<div>
+						<!-- widget content -->
+						<div class="widget-body">
+							
+							<!-- 过滤条件 -->
+							<form class="common-form" data-ng-submit="pagedAnnounceList()">
+								<div class="input-group">
+									<label class="col-md-3 control-label">模糊搜索：</label>
+									<div class="col-md-9">
+										<input class="form-control" type="search" data-ng-model="condition.keywords" placeholder="公告名称和内容">
+										<div class="input-group-btn">
+											<button class="btn btn-default btn-primary" type="submit" title="搜索">
+												<i class="fa fa-search"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="col-md-3 control-label">更新时间：</label>
+									<div class="col-md-9" title="选择时间段">
+										<input id="searchDateRangeId" class="form-control" type="text" placeholder="开始时间&nbsp;~&nbsp;结束时间" 
+											 date-range-picker options="dateRangePickerOptions" data-ng-model="rangeDate" /> 
+										<div class="input-group-btn">
+											<button class="btn btn-default btn-primary" type="button" title="选择时间" data-ng-click="showSearchDateRange();">
+												<i class="fa fa-calendar"></i>
+											</button>
+										</div>
+										<a href="javascript:void(0)" class="common-clear-date" data-ng-click="clearDate()">清空</a>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="col-md-3 control-label">公告所属：</label>
+									<div class="col-md-9">
+										<select class="form-control" ui-select2 data-ng-model="condition.shopId" data-ng-change="pagedAnnounceList()">
+											<option value="">全部</option>
+											<option data-ng-repeat="item in shopAll" value="{{item.id}}">{{item.name}}</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="col-md-3 control-label">公告状态：</label>
+									<div class="col-md-9">
+										<select class="form-control" ui-select2 data-ng-model="condition.status" data-ng-change="pagedAnnounceList()">
+											<option value="1">启用</option>
+											<option value="0">禁用</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="col-md-3 control-label">是否过期：</label>
+									<div class="col-md-9">
+										<select class="form-control" ui-select2 data-ng-model="condition.isOver" data-ng-change="pagedAnnounceList()">
+											<option value="0">未过期</option>
+											<option value="1">已过期</option>
+										</select>
+									</div>
+								</div>
+							</form>
+						
+							<div class="table-responsive">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th>序号</th>
+											<th>公告名称</th>
+											<th>公告所属</th>
+											<th>状态</th>
+											<th>过期时间</th>
+											<th>更新时间</th>
+											<th>更新用户</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody data-ng-show="!isLoadingAnnounce">
+										<tr data-ng-repeat="announce in announceList">
+											<td>{{$index + 1}}</td>
+											<td title="{{announce.name|showBlankValue}}">{{announce.name|showBlankValue}}</td>
+											<td title="{{announce.shop|showShopName}}">{{announce.shop|showShopName}}</td>
+											<td title="{{announce.status|stringAnnounceStatus}}">{{announce.status|stringAnnounceStatus}}</td>
+											<td title="{{announce.overTimeString|showBlankValue}}">{{announce.overTimeString|showBlankValue}}</td>
+											<td title="{{announce.updateTime|formatDate}}">{{announce.updateTime|formatDate}}</td>
+											<td title="{{announce.updateUser|showBlankValue}}">{{announce.updateUser|showBlankValue}}</td>
+											<td>
+												<a href="javascript:void(0)" data-ng-click="togglePanel('edit', announce)">编辑</a>
+												<a href="javascript:void(0)" data-ng-click="deleteAnnounce(announce)">删除</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+								<loading-panel data-ng-show="isLoadingAnnounce" font-size="18"></loading-panel>
+								<nodata-panel data-ng-show="!isLoadingAnnounce && announceList.length==0" font-size="18"></nodata-panel>
+							</div>
+							
+							<common-pager class="common-pager" page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
+								total-rows="condition.totalCount" to-page-call-back="pagedAnnounceList(pageNo)"></common-pager>
+							
+						</div>
+						<!-- end widget content -->
+					</div>
+					<!-- end widget div -->
+				</div>
+				<!-- end widget -->
+			</article>
+			<!-- WIDGET END -->
+		</div>
+		<!-- end row -->
+	</section>
+	<!-- end widget grid -->
+	
+	<!-- 用户保存面板 start -->
+	<announce-manage-save data-ng-show="saveType" announce="announceSave"></announce-manage-save>
+	<!-- 用户保存面板 end -->
+	
+</div>
