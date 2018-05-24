@@ -27,6 +27,102 @@ angular.module('server-index.httpService',[])
 	};
 	
 	/**
+	 * 获取消息数量
+	 */
+	this.getMessageCount = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/message/message!count";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 分页获取消息列表
+	 */
+	this.pagedMessageList = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/message/message!paged";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 修改消息
+	 */
+	this.editMessage = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/message/message!edit";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 删除消息
+	 */
+	this.deleteMessage = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/message/message!delete";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 获取举报数量
+	 */
+	this.getReportCount = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/message/report!count";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 分页获取举报列表
+	 */
+	this.pagedReportList = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/message/report!paged";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 修改举报
+	 */
+	this.editReport = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/message/report!edit";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 删除举报
+	 */
+	this.deleteReport = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/message/report!delete";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
 	 * 分页获取公告列表
 	 */
 	this.pagedAnnounceList = function(obj){

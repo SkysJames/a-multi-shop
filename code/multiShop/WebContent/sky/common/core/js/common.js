@@ -94,6 +94,17 @@ var common = {
 		},
 		
 		/**
+		 * 消息常量
+		 */
+		messageContants		: {
+			status	: {
+				NOSEND		: "0",//未发送
+				NORECEIVE	: "1",//已发送未接收
+				RECEIVED		: "2",//已接收
+			}
+		},
+		
+		/**
 		 * 表名常量
 		 */
 		tableContants	: {

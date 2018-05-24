@@ -1,4 +1,11 @@
 @CHARSET "UTF-8";
+.my-hidden {
+	display: none;
+}
+.my-show {
+	display: block;
+}
+
 .breadcrumb>li {
 	text-shadow: none;
 }
@@ -17,4 +24,64 @@ nav>ul>li>a b {
 	text-align: right;
     padding-bottom: 5px;
     padding-top: 20px;
+}
+
+.chat-body {
+	height: auto;
+	overflow: auto;
+	margin-bottom: 10px;
+}
+li.message {
+	border-bottom: 1px solid #e7e7e7;
+}
+.mes-index {
+	display: inline-block;
+	vertical-align: top;
+	color: #427ce9;
+	font-size: 30px;
+	font-style: italic;
+	font-weight: bolder;
+	padding: 10px;
+	width: 5.2%;
+}
+.mes-index em {
+	font-size: 9px;
+    padding: 3px 4px;
+    position: absolute;
+    left: -16px;
+    background: #ED1C24;
+    color: #fff;
+    border-radius: 3px;
+    line-height: 8px;
+}
+.mes-text {
+	position: relative;
+	display: inline-block;
+    vertical-align: top;
+    width: 94%;
+    padding-top: 10px;
+}
+.mes-text .tips {
+    position: absolute;
+    right: 1px;
+    top: 32px;
+    color: #3276b1;
+}
+.mes-text .tips span {
+	cursor: pointer;
+	margin-left: 10px;
+}
+.mes-text .tips span:hover {
+	color: #419beb;
+}
+.mes-text .mes-content {
+	margin-top: 5px;
+	margin-bottom: 8px;
+	margin-right: 112px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.mes-text .mes-content.show-all {
+	white-space: normal;
 }

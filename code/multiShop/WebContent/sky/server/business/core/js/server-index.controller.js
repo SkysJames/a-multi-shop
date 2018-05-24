@@ -19,6 +19,16 @@ angular.module('serverIndexApp',
 		templateUrl:$contextPath+'/sky/server/module/announceManage/template/announceManage.html',
 	});
 	
+	//消息列表
+	$routeProvider.when("/message",{
+		templateUrl:$contextPath+'/sky/server/module/messageManage/template/messageManage.html',
+	});
+	
+	//举报列表
+	$routeProvider.when("/report",{
+		templateUrl:$contextPath+'/sky/server/module/reportManage/template/reportManage.html',
+	});
+	
 	//店铺类型
 	$routeProvider.when("/shopType",{
 		templateUrl:$contextPath+'/sky/server/module/typeManage/template/shopTypeManage/shopTypeManage.html',
@@ -80,10 +90,53 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 	};
 	
 	/**
+	 * 初始化未读消息的数量
+	 */
+	$scope.initMessageCount = function(){
+		var condition = {
+				toUser		: $currentUser.userId,
+				status		: common.messageContants.status.NORECEIVE,
+		};
+		serverIndexHttpService.getMessageCount(condition)
+		.then(function(response){
+			var data = response.data;
+			if(data.statusCode=="200"){
+				$scope.messageCount = data.count;
+			}else{
+				common.triggerFailMesg(data.message);
+			}
+		},function(err){
+			console.log(err);
+		});
+	};
+	
+	/**
+	 * 初始化未读举报的数量
+	 */
+	$scope.initReportCount = function(){
+		var condition = {
+				status		: common.messageContants.status.NORECEIVE,
+		};
+		serverIndexHttpService.getReportCount(condition)
+		.then(function(response){
+			var data = response.data;
+			if(data.statusCode=="200"){
+				$scope.reportCount = data.count;
+			}else{
+				common.triggerFailMesg(data.message);
+			}
+		},function(err){
+			console.log(err);
+		});
+	};
+	
+	/**
 	 * 初始化函数
 	 */
 	$scope.initFunc = function(){
 		console.log($currentUser);
+		$scope.initMessageCount();
+		$scope.initReportCount();
 	};
 	$document.ready($scope.initFunc);
 	

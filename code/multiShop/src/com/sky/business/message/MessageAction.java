@@ -34,6 +34,28 @@ public class MessageAction extends BaseAction {
 	private MessageDao messageDao;
 	
 	/**
+	 * 获取消息数量
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public String count() throws Exception {
+		try{
+			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
+			Integer count = messageService.getCount(messageDao, Message.class, condition);
+			
+			resultMap.put("count", count);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取消息数量");
+		} catch (Exception e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
+		}
+		return RESULT_MAP;
+	}
+	
+	/**
 	 * 分页获取消息列表
 	 * @return
 	 * @throws Exception

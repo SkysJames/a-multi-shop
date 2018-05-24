@@ -7,6 +7,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.sky.business.system.entity.User;
+import com.sky.business.system.service.UserService;
+import com.sky.util.BeanDefinedLocator;
 
 /**
  * 举报表
@@ -39,6 +46,9 @@ public class Report implements Serializable {
 	
 	@Column(name="STATUS")
 	private Integer status;
+	
+	@Transient
+	private String userName;
 	
     // Property accessors
 	public String getId() {
@@ -95,6 +105,19 @@ public class Report implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public String getUserName() {
+		if(StringUtils.isNotBlank(this.userId)) {
+			UserService userService = (UserService)BeanDefinedLocator.getInstance().getBean("userService");
+			User u = userService.findByID(User.class, this.userId);
+			userName = u.getName();
+		}
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 }

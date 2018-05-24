@@ -110,7 +110,8 @@ create table tb_message
     TO_USER       	varchar(36) comment '接收用户ID',
     CONTENT			varchar(4000) comment '消息内容',
     SEND_TIME       datetime not null comment '发送时间',
-    STATUS         	integer default 0 not null comment '状态：0 - 未发送；1 - 已发送未接收；2 - 已接收'
+    STATUS         	integer default 0 not null comment '状态：0 - 未发送；1 - 已发送未接收；2 - 已接收',
+    HREF     		varchar(4000) comment '对象链接'
 );
 alter table tb_message add index idx_tb_message_tu(TO_USER);
 
@@ -209,7 +210,7 @@ create table tb_cart
     PRO_NUM			integer default 1 comment '商品购买数量',
     CREATE_TIME     datetime comment '创建时间',
     UPDATE_TIME     datetime comment '更新时间',
-    STATUS          integer default 0 comment '状态：0-未完成；1-已完成'
+    STATUS          integer default 0 comment '状态：0-未提交；1-已提交未完成；2-已完成'
 );
 alter table tb_cart add index idx_tb_cart_ui_s(USER_ID,STATUS);
 

@@ -45,6 +45,8 @@ Insert into tb_right (ID, NAME, TYPE)
 Insert into tb_right (ID, NAME, TYPE)
  Values ('message_manage', '消息管理', 'message');
 Insert into tb_right (ID, NAME, TYPE)
+ Values ('report_manage', '举报管理', 'message');
+Insert into tb_right (ID, NAME, TYPE)
  Values ('user_manage', '用户管理', 'user');
 Insert into tb_right (ID, NAME, TYPE)
  Values ('visitor_manage', '访客管理', 'visitor');
@@ -65,7 +67,7 @@ Insert into tb_right (ID, NAME, TYPE)
  Values ('product_type', '商品分类', 'shop');
 
 Insert into tb_rightgroup (ID, NAME, RIGHTS)
- Values ('admin_rightgroup', '管理员角色', 'back_manage,system_manage,forum_manage,announce_manage,message_manage,user_manage,visitor_manage,oplog_manage,shop_manage,shop_list,product_manage,shop_type,product_type');
+ Values ('admin_rightgroup', '管理员角色', 'back_manage,system_manage,forum_manage,announce_manage,message_manage,report_manage,user_manage,visitor_manage,oplog_manage,shop_manage,shop_list,product_manage,shop_type,product_type');
 Insert into tb_rightgroup (ID, NAME, RIGHTS)
  Values ('shopkeeper_rightgroup', '店长角色', 'back_manage,announce_manage,message_manage,user_manage,shop_manage,shop_basic,product_manage,product_type');
 Insert into tb_rightgroup (ID, NAME, RIGHTS)

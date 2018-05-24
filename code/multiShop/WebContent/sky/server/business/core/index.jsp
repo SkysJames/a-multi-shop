@@ -97,18 +97,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<a href="#/announce" title="公告管理"><i class="fa fa-lg fa-fw fa-bullhorn"></i> <span class="menu-item-parent">公告管理</span></a>
 				</li>
 				<li>
-					<a href="#"><i class="fa fa-lg fa-fw fa-comments-o"><em>3</em></i> <span class="menu-item-parent">消息管理</span></a>
+					<a href="#"><i class="fa fa-lg fa-fw fa-comments-o"><em class="my-hidden" data-ng-class="{'my-show':(messageCount+reportCount)}">{{messageCount+reportCount}}</em></i> <span class="menu-item-parent">消息管理</span></a>
 					<ul>
 						<li>
-							<a href="ajax/table.html">消息列表<span class="badge pull-right inbox-badge bg-color-brightRed">2</span></a>
+							<a href="#/message">消息列表<span class="badge pull-right inbox-badge bg-color-brightRed my-hidden" data-ng-class="{'my-show':messageCount}">{{messageCount}}</span></a>
 						</li>
 						<li>
-							<a href="ajax/table.html">举报列表<span class="badge pull-right inbox-badge bg-color-brightRed">1</span></a>
+							<a href="#/report">举报列表<span class="badge pull-right inbox-badge bg-color-brightRed my-hidden" data-ng-class="{'my-show':reportCount}">{{reportCount}}</span></a>
 						</li>
 					</ul>
 				</li>
 				<li>
-					<a href="#"><i class="fa fa-lg fa-fw fa-comments-o"><em>3</em></i> <span class="menu-item-parent">店铺管理</span></a>
+					<a href="#"><i class="fa fa-lg fa-fw fa-cubes"><em>3</em></i> <span class="menu-item-parent">店铺管理</span></a>
 					<ul>
 						<li>
 							<a href="#">店铺信息</a>

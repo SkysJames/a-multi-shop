@@ -70,6 +70,7 @@ public class EntityContants {
 			methodMaps.put("save", "执行添加操作");
 			methodMaps.put("edit", "执行修改操作");
 			methodMaps.put("delete", "执行删除操作");
+			methodMaps.put("count", "执行数量查询操作");
 			methodMaps.put("list", "执行列表查询操作");
 			methodMaps.put("paged", "执行分页查询操作");
 		}

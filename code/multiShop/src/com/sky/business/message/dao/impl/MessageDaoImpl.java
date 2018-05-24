@@ -44,7 +44,7 @@ public class MessageDaoImpl extends BaseDaoImpl implements MessageDao {
 		}
 		
 		//消息状态
-		if(condition.containsKey("status") && null!=condition.get("status")){
+		if(condition.containsKey("status") && StringUtils.isNotBlank((String)condition.get("status"))){
 			Integer status = CommonMethodUtil.getIntegerByObject(condition.get("status"));
 			hqlBuffer.append(" and status = ? ");
 			values.add(status);

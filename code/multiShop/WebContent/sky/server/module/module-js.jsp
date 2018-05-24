@@ -14,6 +14,8 @@
 <script src="${contextPath }/sky/server/module/typeManage/js/productTypeManage/productTypeManageSave.js"></script>
 <script src="${contextPath }/sky/server/module/typeManage/js/shopTypeManage/shopTypeManage.js"></script>
 <script src="${contextPath }/sky/server/module/typeManage/js/shopTypeManage/shopTypeManageSave.js"></script>
+<script src="${contextPath }/sky/server/module/messageManage/js/messageManage.js"></script>
+<script src="${contextPath }/sky/server/module/reportManage/js/reportManage.js"></script>
 <script>
 $moduleList = [
 	'majorIndex.module',
@@ -23,5 +25,7 @@ $moduleList = [
 	'visitorManage.module',
 	'userManage.module',
 	'typeManage.module',
+	'messageManage.module',
+	'reportManage.module',
 ];
 </script>
