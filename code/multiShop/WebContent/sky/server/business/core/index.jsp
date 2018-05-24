@@ -69,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<!-- User info -->
 		<div class="login-info">
 			<span>
-				<a href="javascript:void(0);">
+				<a href="javascript:void(0);" data-ng-click="showPersonPanel()">
 					<img src="${contextPath }/sky/server/business/core/img/user.jpeg" alt="me" /> 
 					<span>${loginUser.username }</span>
 				</a> 
@@ -167,17 +167,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</ol>
 			<!-- end breadcrumb -->
 
-			<!-- You can also add more buttons to the
-			ribbon for further usability
-
-			Example below:
-
-			<span class="ribbon-button-alignment pull-right">
-			<span id="search" class="btn btn-ribbon hidden-xs" data-title="search"><i class="fa-grid"></i> Change Grid</span>
-			<span id="add" class="btn btn-ribbon hidden-xs" data-title="add"><i class="fa-plus"></i> Add</span>
-			<span id="search" class="btn btn-ribbon" data-title="search"><i class="fa-search"></i> <span class="hidden-mobile">Search</span></span>
-			</span> -->
-
 		</div>
 		<!-- END RIBBON -->
 		
@@ -188,6 +177,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<!-- END MAIN PANEL -->
 	
+	<person-panel></person-panel>
   	
   </body>
   

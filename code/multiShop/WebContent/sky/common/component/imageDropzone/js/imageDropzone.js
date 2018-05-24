@@ -13,7 +13,7 @@ angular.module('imageDropzone',[])
 		},
 		controller : function($scope,$element,$attrs,$filter,$timeout,$document){
 			$scope.contextPath = $contextPath;
-			$scope.acceptedFiles = '.jpg,.jpeg,.bmp,.png,.icon';
+			$scope.acceptedFiles = '.jpg,.jpeg,.bmp,.png,.ico,.gif';
 			$scope.maxFilesize = 10;
 			$scope.maxFiles	 = $scope.maxFiles?$scope.maxFiles:5;
 			$scope.config = {

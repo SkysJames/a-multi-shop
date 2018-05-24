@@ -135,7 +135,9 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 	 */
 	$scope.initFunc = function(){
 		console.log($currentUser);
+		//初始化未读消息的数量
 		$scope.initMessageCount();
+		//初始化未读举报的数量
 		$scope.initReportCount();
 	};
 	$document.ready($scope.initFunc);

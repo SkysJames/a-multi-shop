@@ -16,39 +16,39 @@
 						<tr>
 							<td class="person-right-label">用户ID：</td>
 							<td>
-								<span>{{$root.currentUser.id}}</span>
+								<span>{{currentUser.id}}</span>
 							</td>
 						</tr>
 						<tr>
 							<td class="person-right-label">用户名称：</td>
 							<td data-ng-class="{'person-input' : isEdit}">
-								<span data-ng-show="!isEdit">{{$root.currentUser.name}}</span>
+								<span data-ng-show="!isEdit">{{currentUser.name}}</span>
 								<input data-ng-show="isEdit" data-ng-model="editUser.name" required="required" placeholder="请输入您的用户名称">
 							</td>
 						</tr>
 						<tr>
-							<td class="person-right-label">部门：</td>
+							<td class="person-right-label">店铺：</td>
 							<td>
-								<span>{{$root.currentUser.department.name}}</span>
+								<span>{{currentUser.shop.name}}</span>
 							</td>
 						</tr>
 						<tr>
 							<td class="person-right-label">登录IP：</td>
 							<td>
-								<span>{{$root.currentUser.loginIp}}</span>
+								<span>{{currentUser.loginIp}}</span>
 							</td>
 						</tr>
 						<tr>
 							<td class="person-right-label">登录时间：</td>
 							<td>
-								<span>{{$root.currentUser.loginTime|formatDate}}</span>
+								<span>{{currentUser.loginTime|formatDate}}</span>
 							</td>
 						</tr>
 						<tr>
 							<td class="person-right-label person-right-remark">备注：</td>
 							<td data-ng-class="{'person-input' : isEdit}">
-								<span data-ng-show="!isEdit" data-ng-class="{'person-remark-none' : $root.currentUser.remark==null}">
-									{{$root.currentUser.remark==null?"暂无备注信息":$root.currentUser.remark}}
+								<span data-ng-show="!isEdit" data-ng-class="{'person-remark-none' : currentUser.remark==null}">
+									{{currentUser.remark==null?"暂无备注信息":currentUser.remark}}
 								</span>
 								<textarea data-ng-show="isEdit" rows="4" cols="" data-ng-model="editUser.remark" placeholder="请输入您的备注信息"></textarea>
 							</td>

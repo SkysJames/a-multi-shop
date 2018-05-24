@@ -40,9 +40,9 @@ angular.module('personPanel',[])
 			 * 显示编辑个人信息
 			 */
 			$scope.showEditPerson = function(){
-				$scope.editUser.id = $scope.$root.currentUser.id;
-				$scope.editUser.name = $scope.$root.currentUser.name;
-				$scope.editUser.remark = $scope.$root.currentUser.remark;
+				$scope.editUser.id = $scope.currentUser.id;
+				$scope.editUser.name = $scope.currentUser.name;
+				$scope.editUser.remark = $scope.currentUser.remark;
 				$scope.toggleEdit(true);
 			};
 			
@@ -55,7 +55,7 @@ angular.module('personPanel',[])
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode == "200"){
-						$scope.$root.getCurrentUser();//更新当前登录用户
+						$scope.initCurrentUser();//更新当前用户
 						$scope.toggleEdit(false);//关闭编辑
 						$scope.savePersonWait = false;
 						common.triggerSuccessMesg(data.message);
@@ -73,11 +73,11 @@ angular.module('personPanel',[])
 			$scope.savePassword = function(){
 				if($scope.checkPassword()){
 					$scope.savePasswordWait = true;
-					serverIndexHttpService.editPersonPawd($scope.$root.currentUser.id, $scope.passwd.oldPasswd, $scope.passwd.newPasswd)
+					serverIndexHttpService.editPersonPawd($scope.currentUser.id, $scope.passwd.oldPasswd, $scope.passwd.newPasswd)
 					.then(function(response){
 						var data = response.data;
 						if(data.statusCode == "200"){
-							$scope.$root.getCurrentUser();//更新当前登录用户
+							$scope.initCurrentUser();//更新当前用户
 							$scope.passwd = {};//清空密码
 							$scope.savePasswordWait = false;
 							common.triggerSuccessMesg(data.message);
@@ -95,7 +95,7 @@ angular.module('personPanel',[])
 			 * 检查密码是否可保存
 			 */
 			$scope.checkPassword = function(){
-				if($scope.passwd.oldPasswd != $scope.$root.currentUser.passwd){
+				if($scope.passwd.oldPasswd != $scope.currentUser.passwd){
 					common.triggerFailMesg("请输入正确的旧密码");
 					return false;
 				}
@@ -112,6 +112,32 @@ angular.module('personPanel',[])
 				
 				return true;
 			};
+			
+			/**
+			 * 初始化当前用户信息
+			 */
+			$scope.initCurrentUser = function(){
+				serverIndexHttpService.getUserById($currentUser.userId)
+				.then(function(response){
+					var data = response.data;
+					if(data.statusCode=="200"){
+						$scope.currentUser = data.user;
+					}else{
+						common.triggerFailMesg(data.message);
+					}
+				},function(err){
+					console.log(err);
+				});
+			};
+			
+			/**
+			 * 初始化函数
+			 */
+			$scope.initFunc = function(){
+				//初始化当前用户信息
+				$scope.initCurrentUser();
+			};
+			$document.ready($scope.initFunc);
 			
 		}
 	};

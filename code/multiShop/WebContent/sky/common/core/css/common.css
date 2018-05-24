@@ -26,6 +26,10 @@
     top: 10px;
 }
 
+.common-tip {
+	color: #737373;
+}
+
 .common-value {
 	padding-top: 7px;
 }

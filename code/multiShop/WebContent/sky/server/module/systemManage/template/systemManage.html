@@ -48,39 +48,45 @@
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="col-md-2 control-label">系统图标：</label>
+									<label class="col-md-2 control-label">浏览器图标：</label>
 									<div class="col-md-10" data-ng-show="!isEdit">
-										<div class="superbox-list" data-ng-repeat="item in systemInfo.systemIconList" data-ng-click="openNewPage(item)">
+										<div class="superbox-list" title="查看原图"
+											data-ng-repeat="item in systemInfo.systemIconList" data-ng-click="openNewPage(item)">
 											<img data-ng-src="{{item}}" alt="" class="superbox-img">
 										</div>
 										<div class="common-value" data-ng-if="systemInfo.systemIconList.length==0">暂无图片</div>
 									</div>
 									<div class="col-md-10" data-ng-show="isEdit">
 										<image-dropzone dropzone-id="systemInfoIconId" max-files="1" image-path-list="systemInfo.systemIconList"></image-dropzone>
+										<div class="common-tip">请上传ico,png格式的图片，建议尺寸16*16px、32*32px或64*64px</div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-2 control-label">系统logo：</label>
 									<div class="col-md-10" data-ng-show="!isEdit">
-										<div class="superbox-list" data-ng-repeat="item in systemInfo.systemLogoList" data-ng-click="openNewPage(item)">
+										<div class="superbox-list"  title="查看原图"
+											data-ng-repeat="item in systemInfo.systemLogoList" data-ng-click="openNewPage(item)">
 											<img data-ng-src="{{item}}" alt="" class="superbox-img">
 										</div>
 										<div class="common-value" data-ng-if="systemInfo.systemLogoList.length==0">暂无图片</div>
 									</div>
 									<div class="col-md-10" data-ng-show="isEdit">
 										<image-dropzone dropzone-id="systemInfoLogoId" max-files="1" image-path-list="systemInfo.systemLogoList"></image-dropzone>
+										<div class="common-tip">请上传jpg,jpeg,bmp,png,gif格式的图片，建议尺寸16*16px、32*32px或64*64px</div>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="col-md-2 control-label">轮播图片：</label>
 									<div class="col-md-10" data-ng-show="!isEdit">
-										<div class="superbox-list" data-ng-repeat="item in systemInfo.systemPictureList" data-ng-click="openNewPage(item)">
+										<div class="superbox-list"  title="查看原图"
+											data-ng-repeat="item in systemInfo.systemPictureList" data-ng-click="openNewPage(item)">
 											<img data-ng-src="{{item}}" alt="" class="superbox-img">
 										</div>
 										<div class="common-value" data-ng-if="systemInfo.systemPictureList.length==0">暂无图片</div>
 									</div>
 									<div class="col-md-10" data-ng-show="isEdit">
 										<image-dropzone dropzone-id="systemInfoPictureId" max-files="5" image-path-list="systemInfo.systemPictureList"></image-dropzone>
+										<div class="common-tip">请上传jpg,jpeg,png格式的图片，图片推荐尺寸 宽：1140px，高：450px，或 宽：1920px，高：600px</div>
 									</div>
 								</div>
 								

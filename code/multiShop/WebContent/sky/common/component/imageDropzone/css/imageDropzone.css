@@ -17,12 +17,13 @@
     height: 100px;
     min-height: 100px;
     background-color: #fff;
+    text-align: center;
 }
 .dropzone-img:first-of-type {
 	margin-right: 4px;
 }
 .dropzone-img img {
-	max-width: 100%;
+	width: 100%;
 	max-height: 100%;
 }
 .dropzone-img .bottom {

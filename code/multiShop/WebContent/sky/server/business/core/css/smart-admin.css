@@ -18053,6 +18053,7 @@ img.away {
 	border-radius: 5px 0 0 5px;
 	cursor: pointer;
 	margin-top: 5px;
+	margin-bottom: 15px;
 	font-size: 19px;
 	transition: all .1s linear 0s
 }
