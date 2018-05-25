@@ -19,13 +19,13 @@
 							</div>
 							<div class="form-group">
 								<label class="col-md-2 control-label">店铺：</label>
-								<div class="col-md-10" data-ng-show="isAdminRight && $parent.saveType=='save'">
+								<div class="col-md-10" data-ng-show="$parent.isAdminRight && $parent.saveType=='save'">
 									<select class="form-control" ui-select2 data-ng-model="typet.shopId">
 										<option data-ng-repeat="item in shopAll" data-ng-show="item.id!='system' && item.id!='bbs'" value="{{item.id}}">{{item.name}}</option>
 									</select>
 									<span class="need-tab">*</span>
 								</div>
-								<div class="col-md-10 common-value" data-ng-show="!isAdminRight || $parent.saveType=='edit'">
+								<div class="col-md-10 common-value" data-ng-show="!$parent.isAdminRight || $parent.saveType=='edit'">
 									{{typet.shopName|showBlankValue}}
 								</div>
 							</div>

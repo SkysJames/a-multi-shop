@@ -13,8 +13,8 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 			keywords		: "",
 			updateTimeA	: "",
 			updateTimeZ	: "",
-			status		: common.announceContants.status.USING,
-			isOver		: common.announceContants.isOver.UNOVER,
+			status		: "",
+			isOver		: "",
 	};
 	//日期对象
 	$scope.rangeDate = {
@@ -127,14 +127,27 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 	$scope.getFilterText = function(){
 		$scope.filterText = "";
 		if($scope.condition){
+			
+			if(""!=$scope.condition.shopId){
+				for(var i=0;i<$scope.shopAll.length;i++){
+					var s = $scope.shopAll[i];
+					if(s.id == $scope.condition.shopId){
+						$scope.filterText += "公告所属（" + s.name + "）+ ";
+					}
+				}
+			}
+
 			if(""!=$scope.condition.keywords){
-				$scope.filterText += "模糊搜索（" + $scope.condition.keywords + "）+ "
+				$scope.filterText += "模糊搜索（" + $scope.condition.keywords + "）+ ";
 			}
 			if(""!=$scope.condition.updateTimeA && ""!=$scope.condition.updateTimeZ){
-				$scope.filterText += "更新时间（" + $scope.condition.updateTimeA + "~" + $scope.condition.updateTimeZ + "）+ "
+				$scope.filterText += "更新时间（" + $scope.condition.updateTimeA + "~" + $scope.condition.updateTimeZ + "）+ ";
 			}
-			if(""!=$scope.condition.opType){
-				$scope.filterText += "公告状态（" + $filter("stringAnnounceStatus")($scope.condition.status) + "）+ "
+			if(""!=$scope.condition.status){
+				$scope.filterText += "公告状态（" + $filter("stringStatus")($scope.condition.status) + "）+ ";
+			}
+			if(""!=$scope.condition.isOver){
+				$scope.filterText += "是否过期（" + ($scope.condition.isOver=="1"?"已过期":"未过期") + "）+ ";
 			}
 		}
 		
@@ -188,8 +201,14 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 		serverCommon.hasRightStay('announce_manage');
 		//改变当前导航指向
 		serverCommon.navChange("#/announce");
-		//获取所有店铺
-		$scope.getAllShopList();
+		//初始化当前登陆用户在当前页面是否为管理员权限
+		$scope.isAdminRight = serverCommon.isAdminRight('announce_manage');
+		
+		if($scope.isAdminRight){
+			//获取所有店铺
+			$scope.getAllShopList();
+		}
+		
 		//获取公告列表
 		$scope.pagedAnnounceList();
 		//令提示可用

@@ -65,7 +65,7 @@
 										<a href="javascript:void(0)" class="common-clear-date" data-ng-click="clearDate()">清空</a>
 									</div>
 								</div>
-								<div class="input-group">
+								<div class="input-group" data-ng-show="isAdminRight">
 									<label class="col-md-3 control-label">公告所属：</label>
 									<div class="col-md-9">
 										<select class="form-control" ui-select2 data-ng-model="condition.shopId" data-ng-change="pagedAnnounceList()">
@@ -78,6 +78,7 @@
 									<label class="col-md-3 control-label">公告状态：</label>
 									<div class="col-md-9">
 										<select class="form-control" ui-select2 data-ng-model="condition.status" data-ng-change="pagedAnnounceList()">
+											<option value="">全部</option>
 											<option value="1">启用</option>
 											<option value="0">禁用</option>
 										</select>
@@ -87,6 +88,7 @@
 									<label class="col-md-3 control-label">是否过期：</label>
 									<div class="col-md-9">
 										<select class="form-control" ui-select2 data-ng-model="condition.isOver" data-ng-change="pagedAnnounceList()">
+											<option value="">全部</option>
 											<option value="0">未过期</option>
 											<option value="1">已过期</option>
 										</select>
@@ -113,7 +115,7 @@
 											<td>{{$index + 1}}</td>
 											<td title="{{announce.name|showBlankValue}}">{{announce.name|showBlankValue}}</td>
 											<td title="{{announce.shop|showShopName}}">{{announce.shop|showShopName}}</td>
-											<td title="{{announce.status|stringAnnounceStatus}}">{{announce.status|stringAnnounceStatus}}</td>
+											<td title="{{announce.status|stringStatus}}">{{announce.status|stringStatus}}</td>
 											<td title="{{announce.overTimeString|showBlankValue}}">{{announce.overTimeString|showBlankValue}}</td>
 											<td title="{{announce.updateTime|formatDate}}">{{announce.updateTime|formatDate}}</td>
 											<td title="{{announce.updateUser|showBlankValue}}">{{announce.updateUser|showBlankValue}}</td>

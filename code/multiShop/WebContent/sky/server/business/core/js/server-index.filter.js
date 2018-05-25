@@ -46,11 +46,25 @@ angular.module('server-index.filter',[])
 })
 
 /**
- * 转换公告状态为字符串
+ * 店铺推荐状态
  */
-.filter('stringAnnounceStatus',function(){
+.filter('showRecommend',function(){
+	return function(recommend){
+		if(1==recommend || "1"==recommend){
+			return "推荐";
+		}else{
+			return "普通";
+		}
+		
+	};
+})
+
+/**
+ * 转换状态为字符串
+ */
+.filter('stringStatus',function(){
 	return function(status){
-		if(common.announceContants.status.USING == status){
+		if(1==status || "1"==status){
 			return "启用";
 		}else{
 			return "禁用";
@@ -63,23 +77,10 @@ angular.module('server-index.filter',[])
  */
 .filter('stringVisitorStatus',function(){
 	return function(status){
-		if(common.visitorContants.status.USING == status){
+		if(1==status || "1"==status){
 			return "允许";
 		}else{
 			return "禁止";
-		}
-	};
-})
-
-/**
- * 转换用户状态为字符串
- */
-.filter('stringUserStatus',function(){
-	return function(status){
-		if(common.userContants.userStatus.USING == status){
-			return "启用";
-		}else{
-			return "禁用";
 		}
 	};
 })

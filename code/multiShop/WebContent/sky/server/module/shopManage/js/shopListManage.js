@@ -1,9 +1,11 @@
-angular.module('userManage.module',['userManageSave'])
-.controller("userManageCtrl",['$timeout', '$scope', '$rootScope', '$filter', '$document', 'serverIndexHttpService', 
+angular.module('shopListManage.module',['shopListManageSave'])
+.controller("shopListManageCtrl",['$timeout', '$scope', '$rootScope', '$filter', '$document', 'serverIndexHttpService', 
 function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpService){
+	//当前用户
+	$scope.currentUser = $currentUser;
 	//保存页面类型，null-不展示，'save'-添加，'edit'-编辑
 	$scope.saveType = null;
-	//用户查询条件
+	//公告查询条件
 	$scope.condition = {
 			pageNo		: 1,		//当前页码
 			pageSize		: 10,	//每页数据量
@@ -11,9 +13,10 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 			pageCount	: 1,		//总页码数
 			shopId		: $currentUser.shopId==common.shopContants.shopSystem?"":$currentUser.shopId,
 			keywords		: "",
-			loginTimeA	: "",
-			loginTimeZ	: "",
-			userStatus	: "",
+			updateTimeA	: "",
+			updateTimeZ	: "",
+			status		: "",
+			isOver		: "",
 	};
 	//日期对象
 	$scope.rangeDate = {
@@ -36,7 +39,7 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 					common.triggerFailMesg('请选择搜索的时间段!','');
 					return;
 				}
-				$scope.pagedUserList();
+				$scope.pagedAnnounceList();
 			}, 100);
 		},
 	};
@@ -54,9 +57,11 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 	$scope.togglePanel = function(saveType, selectedObj){
 		$scope.saveType = saveType;
 		if(selectedObj){
-			$scope.userSave = _.cloneDeep(selectedObj);
+			$scope.announceSave = _.cloneDeep(selectedObj);
+			$("#overTimeId").val($scope.announceSave.overTimeString);
 		}else{
-			$scope.userSave = null;
+			$scope.announceSave = null;
+			$("#overTimeId").val("");
 		}
 	};
 	
@@ -67,7 +72,7 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 		$scope.rangeDate.startDate = null;
 		$scope.rangeDate.endDate = null;
 		
-		$scope.pagedUserList();
+		$scope.pagedAnnounceList();
 	};
 	
 	/**
@@ -83,33 +88,33 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 		
 		//更新开始结束时间
 		if($scope.rangeDate.startDate && $scope.rangeDate.endDate){
-			$scope.condition.loginTimeA = $scope.rangeDate.startDate.format(DateUtil.timeFormat);
-			$scope.condition.loginTimeZ = $scope.rangeDate.endDate.format(DateUtil.timeFormat);
+			$scope.condition.updateTimeA = $scope.rangeDate.startDate.format(DateUtil.timeFormat);
+			$scope.condition.updateTimeZ = $scope.rangeDate.endDate.format(DateUtil.timeFormat);
 		}else{
-			$scope.condition.loginTimeA = "";
-			$scope.condition.loginTimeZ = "";
+			$scope.condition.updateTimeA = "";
+			$scope.condition.updateTimeZ = "";
 		}
 	};
 	
 	/**
-	 * 获取用户列表
+	 * 获取公告列表
 	 */
-	$scope.pagedUserList = function(pageNo){
+	$scope.pagedAnnounceList = function(pageNo){
 		$scope.packageCondition(pageNo);
 		
 		//获取过滤条件字符串
 		$scope.getFilterText();
 		
-		$scope.isLoadingUser = true;
-		serverIndexHttpService.pagedUserList($scope.condition)
+		$scope.isLoadingAnnounce = true;
+		serverIndexHttpService.pagedAnnounceList($scope.condition)
 		.then(function(response){
 			var data = response.data;
 			if(data.statusCode=="200" && data.pager){
-				$scope.userList = data.pager.resultList;
+				$scope.announceList = data.pager.resultList;
 				
 				$scope.condition.totalCount = data.pager.totalCount;
 				$scope.condition.pageCount = data.pager.pageCount;
-				$scope.isLoadingUser = false;
+				$scope.isLoadingAnnounce = false;
 			}else{
 				common.triggerFailMesg(data.message);
 			}
@@ -127,11 +132,11 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 			if(""!=$scope.condition.keywords){
 				$scope.filterText += "模糊搜索（" + $scope.condition.keywords + "）+ "
 			}
-			if(""!=$scope.condition.loginTimeA && ""!=$scope.condition.loginTimeZ){
-				$scope.filterText += "登陆时间（" + $scope.condition.loginTimeA + "~" + $scope.condition.loginTimeZ + "）+ "
+			if(""!=$scope.condition.updateTimeA && ""!=$scope.condition.updateTimeZ){
+				$scope.filterText += "更新时间（" + $scope.condition.updateTimeA + "~" + $scope.condition.updateTimeZ + "）+ "
 			}
-			if(""!=$scope.condition.userStatus){
-				$scope.filterText += "用户状态（" + $filter("stringStatus")($scope.condition.userStatus) + "）+ "
+			if(""!=$scope.condition.opType){
+				$scope.filterText += "公告状态（" + $filter("stringStatus")($scope.condition.status) + "）+ "
 			}
 		}
 		
@@ -141,16 +146,16 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 	};
 	
 	/**
-	 * 删除用户
+	 * 删除公告
 	 */
-	$scope.deleteUser = function(user){
-		common.triggerAlertMesg("确定要删除用户 " + user.name + "？", "", function(){}, function(){
-			serverIndexHttpService.deleteUser(user)
+	$scope.deleteAnnounce = function(announce){
+		common.triggerAlertMesg("确定要删除公告 " + announce.name + "？", "", function(){}, function(){
+			serverIndexHttpService.deleteAnnounce(announce)
 			.then(function(response){
 				var data = response.data;
 				if(data && data.statusCode=="200"){
 					common.triggerSuccessMesg(data.message);
-					$scope.pagedUserList();
+					$scope.pagedAnnounceList();
 				}else{
 					common.triggerFailMesg(data.message);
 				}
@@ -181,16 +186,20 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 	 * 初始化函数
 	 */
 	$scope.initFunc = function(){
-		//判断当前用户是否有权限待在当前页面
-		serverCommon.hasRightStay('user_manage');
+		//判断当前公告是否有权限待在当前页面
+		serverCommon.hasRightStay('announce_manage');
 		//改变当前导航指向
-		serverCommon.navChange("#/user");
+		serverCommon.navChange("#/announce");
 		//初始化当前登陆用户在当前页面是否为管理员权限
-		$scope.isAdminRight = serverCommon.isAdminRight('user_manage');
-		//获取所有店铺
-		$scope.getAllShopList();
-		//获取用户列表
-		$scope.pagedUserList();
+		$scope.isAdminRight = serverCommon.isAdminRight('announce_manage');
+		//获取公告列表
+		$scope.pagedAnnounceList();
+		
+		if($scope.isAdminRight){
+			//获取所有店铺
+			$scope.getAllShopList();
+		}
+		
 		//令提示可用
 		$('[data-toggle="tooltip"]').tooltip();
 	};

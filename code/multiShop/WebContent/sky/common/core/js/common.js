@@ -2,63 +2,6 @@
  * 公共对象
  */
 var common = {
-//		//微信二维码url
-//		wechatUrl	: "sky/common/img/wechat.png",
-//		//qq联系的Url
-//		qqContactUrl	: "http://wpa.qq.com/msgrd?v=3&uin=" + $qq + "&site=qq&menu=yes",
-		
-		/**
-		 * 前端展示页面的导航对象
-		 */
-		clientNavs	: {
-			a_index	: {
-				id	: "index",
-				name	: "首页",
-				url	: "/home/client-index",
-			},
-			b_about	: {
-				id	: "about",
-				name	: "关于我们",
-				url	: "/home/client-about",
-			},
-			c_news		: {
-				id	: "news",
-				name	: "咨询中心",
-				url	: "/home/client-news",
-			},
-			d_product	: {
-				id	: "product",
-				name	: "产品中心",
-				url	: "/home/client-product",
-			},
-			e_contact	: {
-				id	: "contact",
-				name	: "联系我们",
-				url	: "/home/client-contact",
-			},
-		},
-		
-		/**
-		 * 前端展示页面的轮播图片
-		 */
-		clientSlider	: {
-			a_index	: [
-				"sky/client/component/slideShow/img/index_1.jpg",
-				"sky/client/component/slideShow/img/index_2.jpg",
-			],
-			b_about	: [
-				"sky/client/component/slideShow/img/about_1.jpg",
-				"sky/client/component/slideShow/img/about_2.jpg",
-			],
-			c_news	: [
-				"sky/client/component/slideShow/img/news_1.jpg",
-				"sky/client/component/slideShow/img/news_2.jpg",
-			],
-			d_product: [
-				"sky/client/component/slideShow/img/product_1.jpg",
-				"sky/client/component/slideShow/img/product_2.jpg",
-			],
-		},
 		
 		/**
 		 * 用户类型常量
@@ -125,20 +68,6 @@ var common = {
 		shopContants		: {
 			shopSystem	: "system",//系统
 			shopBbs		: "bbs",//论坛
-		},
-		
-		/**
-		 * 公告类型常量
-		 */
-		announceContants	: {
-			status	: {
-				UNUSING	: 0,//状态不可用
-				USING	: 1,//状态可用
-			},
-			isOver	: {
-				UNOVER	: 0,//未过期
-				OVER		: 1,//已过期
-			},
 		},
 		
 		/**

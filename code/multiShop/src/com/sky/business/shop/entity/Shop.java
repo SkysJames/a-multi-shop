@@ -14,6 +14,9 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.sky.business.system.entity.Typet;
+import com.sky.business.system.service.TypeService;
+import com.sky.util.BeanDefinedLocator;
 import com.sky.util.DateUtil;
 
 /**
@@ -57,6 +60,9 @@ public class Shop implements Serializable {
 	@Column(name="PICTURE")
 	private String picture;
 	
+	@Column(name="BRIEF")
+	private String brief;
+	
 	@Column(name="DESCRIPTION")
 	private String description;
 	
@@ -75,6 +81,12 @@ public class Shop implements Serializable {
 	@Column(name="STATUS")
 	private Integer status;
 	
+	
+	/**
+	 * 过期时间字符串
+	 */
+	@Transient
+	private String shopTypeName;
 	
 	/**
 	 * 过期时间字符串
@@ -170,6 +182,14 @@ public class Shop implements Serializable {
 		this.picture = picture;
 	}
 
+	public String getBrief() {
+		return brief;
+	}
+
+	public void setBrief(String brief) {
+		this.brief = brief;
+	}
+
 	public String getDescription() {
 		return description;
 	}
@@ -243,6 +263,19 @@ public class Shop implements Serializable {
 
 	public void setPicPathList(List<String> picPathList) {
 		this.picPathList = picPathList;
+	}
+
+	public String getShopTypeName() {
+		if(StringUtils.isNotBlank(this.shopType)) {
+			TypeService typeService = (TypeService)BeanDefinedLocator.getInstance().getBean("typeService");
+			Typet typet = typeService.findByID(Typet.class, this.shopType);
+			shopTypeName = typet.getName();
+		}
+		return shopTypeName;
+	}
+
+	public void setShopTypeName(String shopTypeName) {
+		this.shopTypeName = shopTypeName;
 	}
 
 }

@@ -37,7 +37,7 @@ public class AnnounceDaoImpl extends BaseDaoImpl implements AnnounceDao {
 		}
 		
 		//状态
-		if(condition.containsKey("status") && null!=condition.get("status")){
+		if(condition.containsKey("status") && StringUtils.isNotBlank((String)condition.get("status"))){
 			Integer status = CommonMethodUtil.getIntegerByObject(condition.get("status"));
 			hqlBuffer.append(" and status = ? ");
 			values.add(status);
@@ -62,7 +62,7 @@ public class AnnounceDaoImpl extends BaseDaoImpl implements AnnounceDao {
 		}
 		
 		//是否过期时间
-		if(condition.containsKey("isOver") && null!=condition.get("isOver")){
+		if(condition.containsKey("isOver") && StringUtils.isNotBlank((String)condition.get("isOver"))){
 			Integer isOver = CommonMethodUtil.getIntegerByObject(condition.get("isOver"));
 			
 			if(isOver > 0) {

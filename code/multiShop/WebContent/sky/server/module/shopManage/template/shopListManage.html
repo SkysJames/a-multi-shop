@@ -1,0 +1,155 @@
+<div class="index-container" data-ng-controller="shopListManageCtrl">
+	
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark">
+				店铺列表
+				<span data-ng-show="saveType && saveType=='edit'">
+					> 编辑
+				</span>
+				<span data-ng-show="saveType && saveType=='save'">
+					> 新增
+				</span>
+			</h1>
+		</div>
+		<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8 server-tools" data-ng-show="!saveType">
+			<div class="btn-group">
+				<a href="javascript:void(0);" data-toggle="tooltip" data-ng-click="togglePanel('save')"
+					data-placement="bottom" data-original-title="新增" class="btn btn-default">
+					<strong><i class="fa fa-plus fa-lg"></i></strong>
+				</a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- widget grid -->
+	<section id="widget-grid" data-ng-show="!saveType">
+		<!-- row -->
+		<div class="row">
+			<!-- NEW WIDGET START -->
+			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<!-- Widget ID (each widget will need unique ID)-->
+				<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0" data-widget-editbutton="false">
+					<header>
+						<h2 title="过滤条件：{{filterText}}">过滤条件：{{filterText}}</h2>
+					</header>
+	
+					<!-- widget div-->
+					<div>
+						<!-- widget content -->
+						<div class="widget-body">
+							
+							<!-- 过滤条件 -->
+							<form class="common-form" data-ng-submit="pagedShopList()">
+								<div class="input-group">
+									<label class="col-md-3 control-label">模糊搜索：</label>
+									<div class="col-md-9">
+										<input class="form-control" type="search" data-ng-model="condition.keywords" placeholder="店铺名称、简介和地址">
+										<div class="input-group-btn">
+											<button class="btn btn-default btn-primary" type="submit" title="搜索">
+												<i class="fa fa-search"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="col-md-3 control-label">店铺类型：</label>
+									<div class="col-md-9">
+										<select class="form-control" ui-select2 data-ng-model="condition.shopType" data-ng-change="pagedShopList()">
+											<option value="">全部</option>
+											<option data-ng-repeat="item in typetList" value="{{item.id}}">{{item.name}}</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="col-md-3 control-label">店铺状态：</label>
+									<div class="col-md-9">
+										<select class="form-control" ui-select2 data-ng-model="condition.status" data-ng-change="pagedShopList()">
+											<option value="">全部</option>
+											<option value="2">启用</option>
+											<option value="1">待审批</option>
+											<option value="0">禁用</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="col-md-3 control-label">店铺级别：</label>
+									<div class="col-md-9">
+										<select class="form-control" ui-select2 data-ng-model="condition.recommend" data-ng-change="pagedShopList()">
+											<option value="">全部</option>
+											<option value="1">推荐</option>
+											<option value="0">普通</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="col-md-3 control-label">是否过期：</label>
+									<div class="col-md-9">
+										<select class="form-control" ui-select2 data-ng-model="condition.isOver" data-ng-change="pagedShopList()">
+											<option value="0">未过期</option>
+											<option value="1">已过期</option>
+										</select>
+									</div>
+								</div>
+							</form>
+						
+							<div class="table-responsive">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th>序号</th>
+											<th>名称</th>
+											<th>简介</th>
+											<th>地址</th>
+											<th>类型</th>
+											<th>级别</th>
+											<th>状态</th>
+											<th>入驻时间</th>
+											<th>过期时间</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody data-ng-show="!isLoadingShop">
+										<tr data-ng-repeat="shop in shopList">
+											<td>{{$index + 1}}</td>
+											<td title="{{shop.name|showBlankValue}}">{{shop.name|showBlankValue}}</td>
+											<td title="{{shop.brief|showBlankValue}}">{{shop.brief|showBlankValue}}</td>
+											<td title="{{shop.address|showBlankValue}}">{{shop.address|showBlankValue}}</td>
+											<td title="{{shop.shopTypeName|showBlankValue}}">{{shop.shopTypeName|showBlankValue}}</td>
+											<td title="{{shop.recommend|showRecommend}}">{{shop.recommend|showRecommend}}</td>
+											<td title="{{shop.status|stringStatus}}">{{shop.status|stringStatus}}</td>
+											<td title="{{shop.addTime|formatDate}}">{{shop.addTime|formatDate}}</td>
+											<td title="{{shop.overTimeString|showBlankValue}}">{{shop.overTimeString|showBlankValue}}</td>
+											<td>
+												<a href="javascript:void(0)" data-ng-click="togglePanel('edit', shop)">编辑</a>
+												<a href="javascript:void(0)" data-ng-click="deleteShop(shop)">删除</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+								<loading-panel data-ng-show="isLoadingShop" font-size="18"></loading-panel>
+								<nodata-panel data-ng-show="!isLoadingShop && shopList.length==0" font-size="18"></nodata-panel>
+							</div>
+							
+							<common-pager class="common-pager" page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
+								total-rows="condition.totalCount" to-page-call-back="pagedShopList(pageNo)"></common-pager>
+							
+						</div>
+						<!-- end widget content -->
+					</div>
+					<!-- end widget div -->
+				</div>
+				<!-- end widget -->
+			</article>
+			<!-- WIDGET END -->
+		</div>
+		<!-- end row -->
+	</section>
+	<!-- end widget grid -->
+	
+	<!-- 公告保存面板 start -->
+	<shop-list-manage-save data-ng-show="saveType" shop="shopSave"></shop-list-manage-save>
+	<!-- 公告保存面板 end -->
+	
+</div>

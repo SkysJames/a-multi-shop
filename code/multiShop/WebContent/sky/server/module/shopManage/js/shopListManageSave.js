@@ -1,11 +1,12 @@
-angular.module('productTypeManageSave',[])
-.directive('productTypeManageSave',function(){
+angular.module('announceManageSave',[])
+.directive('announceManageSave',function(){
 	return {
 		restrict:'E',
 		scope : {
-			typet			: "=",
+			announce			: "=",
+			rangeDate		: "=",
 		},
-		templateUrl : $contextPath +"/sky/server/module/typeManage/template/productTypeManage/productTypeManageSave.html",
+		templateUrl : $contextPath +"/sky/server/module/announceManage/template/announceManageSave.html",
 		link : function(scope,element,attrs){
 			
 		},
@@ -13,19 +14,19 @@ angular.module('productTypeManageSave',[])
 			/**
 			 * 新增保存用户
 			 */
-			$scope.saveTypet = function(typet){
-				if(!$scope.isSaveTypet(typet)){
+			$scope.saveAnnounce = function(announce){
+				if(!$scope.isSaveAnnounce(announce)){
 					common.triggerFailMesg("*为必填项");
 					return;
 				}
 				
 				$scope.isLoadingSave = true;
-				serverIndexHttpService.saveTypet(typet)
+				serverIndexHttpService.saveAnnounce(announce)
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode=="200" && data.message){
 						common.triggerSuccessMesg(data.message);
-						$scope.$parent.getTypetList();
+						$scope.$parent.pagedAnnounceList();
 						$scope.$parent.togglePanel(null);
 					}else{
 						common.triggerFailMesg(data.message);
@@ -39,19 +40,19 @@ angular.module('productTypeManageSave',[])
 			/**
 			 * 编辑保存用户
 			 */
-			$scope.editTypet = function(typet){
-				if(!$scope.isSaveTypet(typet)){
+			$scope.editAnnounce = function(announce){
+				if(!$scope.isSaveAnnounce(announce)){
 					common.triggerFailMesg("*为必填项");
 					return;
 				}
 				
 				$scope.isLoadingSave = true;
-				serverIndexHttpService.editTypet(typet)
+				serverIndexHttpService.editAnnounce(announce)
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode=="200" && data.message){
 						common.triggerSuccessMesg(data.message);
-						$scope.$parent.getTypetList();
+						$scope.$parent.pagedAnnounceList();
 						$scope.$parent.togglePanel(null);
 					}else{
 						common.triggerFailMesg(data.message);
@@ -65,53 +66,27 @@ angular.module('productTypeManageSave',[])
 			/**
 			 * 判断该用户对象是否符合保存的条件
 			 */
-			$scope.isSaveTypet = function(typet){
-				if(!typet){
+			$scope.isSaveAnnounce = function(announce){
+				if(!announce){
 					return false;
 				}
 				
-				typet.tableName = common.tableContants.TB_PRODUCT;
+				//塞入过期时间
+				announce.overTimeString = $("#overTimeId").val();
 				
-				if(!$scope.$parent.isAdminRight){
-					typet.shopId = $currentUser.shopId;
-				}
-				
-				if(!typet.shopId || typet.shopId==""){
+				if(!announce.name || announce.name==""){
 					return false;
 				}
-				
-				if(!typet.name || typet.name==""){
+				if(!announce.shopId || announce.shopId==""){
+					return false;
+				}
+				if(!announce.status || announce.status==""){
 					return false;
 				}
 				
 				return true;
 			};
 			
-			/**
-			 * 获取所有店铺
-			 */
-			$scope.getAllShopList = function(){
-				serverIndexHttpService.getAllShopList()
-				.then(function(response){
-					var data = response.data;
-					if(data.statusCode=="200" && data.shopAll){
-						$scope.shopAll = data.shopAll;
-					}else{
-						common.triggerFailMesg(data.message);
-					}
-				},function(err){
-					console.log(err);
-				});
-			};
-			
-			/**
-			 * 初始化函数
-			 */
-			$scope.initFunc = function(){
-				//获取所有店铺
-				$scope.getAllShopList();
-			};
-			$document.ready($scope.initFunc);
 		}
 	};
 });

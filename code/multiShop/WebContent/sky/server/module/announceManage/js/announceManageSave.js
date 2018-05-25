@@ -71,6 +71,11 @@ angular.module('announceManageSave',[])
 					return false;
 				}
 				
+				//塞入店铺ID
+				if(!$scope.$parent.isAdminRight){
+					announce.shopId = $currentUser.shopId;
+				}
+				
 				//塞入过期时间
 				announce.overTimeString = $("#overTimeId").val();
 				
@@ -87,25 +92,6 @@ angular.module('announceManageSave',[])
 				return true;
 			};
 			
-			/**
-			 * 初始化当前登陆用户的权限
-			 */
-			$scope.initCurrentRight = function(){
-				//是否为管理员权限
-				$scope.isAdminRight = false;
-				if($currentUser.rightgroups && $currentUser.rightgroups.indexOf(common.rightGroupContants.adminRightgroup)>-1){
-					$scope.isAdminRight = true;
-				}
-			};
-			
-			/**
-			 * 初始化函数
-			 */
-			$scope.initFunc = function(){
-				//初始化当前登陆用户的权限
-				$scope.initCurrentRight();
-			};
-			$document.ready($scope.initFunc);
 		}
 	};
 });

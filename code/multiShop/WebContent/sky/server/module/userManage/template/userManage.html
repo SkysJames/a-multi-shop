@@ -78,6 +78,7 @@
 									<label class="col-md-3 control-label">用户状态：</label>
 									<div class="col-md-9">
 										<select class="form-control" ui-select2 data-ng-model="condition.userStatus" data-ng-change="pagedUserList()">
+											<option value="">全部</option>
 											<option value="1">启用</option>
 											<option value="0">禁用</option>
 										</select>
@@ -96,6 +97,7 @@
 											<th>微信号</th>
 											<th>店铺</th>
 											<th>角色</th>
+											<th>状态</th>
 											<th>登陆IP</th>
 											<th>登陆时间</th>
 											<th>操作</th>
@@ -110,6 +112,7 @@
 											<td title="{{user.wechat|showBlankValue}}">{{user.wechat|showBlankValue}}</td>
 											<td title="{{user.shop|showShopName}}">{{user.shop|showShopName}}</td>
 											<td title="{{user.rightgroupList|showRightgroup}}">{{user.rightgroupList|showRightgroup}}</td>
+											<td title="{{user.userStatus|stringStatus}}">{{user.userStatus|stringStatus}}</td>
 											<td title="{{user.loginIp|showBlankValue}}">{{user.loginIp|showBlankValue}}</td>
 											<td title="{{user.loginTime|formatDate}}">{{user.loginTime|formatDate}}</td>
 											<td>

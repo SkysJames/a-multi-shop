@@ -79,12 +79,6 @@ angular.module('shopTypeManageSave',[])
 				return true;
 			};
 			
-			/**
-			 * 初始化函数
-			 */
-			$scope.initFunc = function(){
-			};
-			$document.ready($scope.initFunc);
 		}
 	};
 });

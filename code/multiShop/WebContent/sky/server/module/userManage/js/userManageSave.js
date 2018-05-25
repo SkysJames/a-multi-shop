@@ -103,26 +103,16 @@ angular.module('userManageSave',[])
 			};
 			
 			/**
-			 * 初始化当前登陆用户的权限
-			 */
-			$scope.initCurrentRight = function(){
-				//是否为管理员权限
-				$scope.isAdminRight = false;
-				if($currentUser.rightgroups && $currentUser.rightgroups.indexOf(common.rightGroupContants.adminRightgroup)>-1){
-					$scope.isAdminRight = true;
-				}
-			};
-			
-			/**
 			 * 初始化函数
 			 */
 			$scope.initFunc = function(){
-				//初始化当前登陆用户的权限
-				$scope.initCurrentRight();
-				//获取所有角色
-				$scope.getAllRightGroupList();
+				if($scope.$parent.isAdminRight){
+					//获取所有角色
+					$scope.getAllRightGroupList();
+				}
 			};
 			$document.ready($scope.initFunc);
+			
 		}
 	};
 });

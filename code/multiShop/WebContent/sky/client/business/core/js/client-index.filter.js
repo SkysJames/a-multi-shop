@@ -91,7 +91,7 @@ angular.module('client-index.filter',[])
 /**
  * 转换用户状态为字符串
  */
-.filter('stringUserStatus',function(){
+.filter('stringStatus',function(){
 	return function(status){
 		if(common.userContants.userStatus.USING == status){
 			return "启用";

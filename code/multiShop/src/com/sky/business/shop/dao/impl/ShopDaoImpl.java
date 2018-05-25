@@ -20,7 +20,7 @@ public class ShopDaoImpl extends BaseDaoImpl implements ShopDao {
 
 	@Override
 	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
-		String sort = "popularity desc";
+		String sort = "recommend,popularity desc";
 		
 		//排序
 		if(condition.containsKey("sort") && StringUtils.isNotBlank((String)condition.get("sort"))){
@@ -34,13 +34,13 @@ public class ShopDaoImpl extends BaseDaoImpl implements ShopDao {
 		}
 		
 		//是否推荐店铺
-		if(condition.containsKey("recommend") && null==condition.get("recommend")){
+		if(condition.containsKey("recommend") && StringUtils.isNotBlank((String)condition.get("recommend"))){
 			hqlBuffer.append(" and recommend = ? ");
 			values.add(CommonMethodUtil.getIntegerByObject(condition.get("recommend")));
 		}
 		
 		//店铺状态
-		if(condition.containsKey("status") && null==condition.get("status")){
+		if(condition.containsKey("status") && StringUtils.isNotBlank((String)condition.get("status"))){
 			hqlBuffer.append(" and status = ? ");
 			values.add(CommonMethodUtil.getIntegerByObject(condition.get("status")));
 		}
@@ -55,14 +55,14 @@ public class ShopDaoImpl extends BaseDaoImpl implements ShopDao {
 		//关键字
 		if(condition.containsKey("keywords") && StringUtils.isNotBlank((String)condition.get("keywords"))){
 			String keywords = (String)condition.get("keywords");
-			hqlBuffer.append(" and (name like ? or description like ? or address like ?) ");
+			hqlBuffer.append(" and (name like ? or brief like ? or address like ?) ");
 			values.add("%" + keywords + "%");
 			values.add("%" + keywords + "%");
 			values.add("%" + keywords + "%");
 		}
 		
 		//是否过期时间
-		if(condition.containsKey("isOver") && null!=condition.get("isOver")){
+		if(condition.containsKey("isOver") && StringUtils.isNotBlank((String)condition.get("isOver"))){
 			Integer isOver = CommonMethodUtil.getIntegerByObject(condition.get("isOver"));
 			
 			if(isOver > 0) {

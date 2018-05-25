@@ -24,7 +24,6 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 	@Override
 	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
 		String sort = "createTime asc";
-		int userStatus = UserContants.UserStatus.USING;
 		
 		//排序
 		if(condition.containsKey("sort") && StringUtils.isNotBlank((String)condition.get("sort"))){
@@ -32,11 +31,11 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 		}
 		
 		//用户状态
-		if(condition.containsKey("userStatus") && null!=condition.get("userStatus")){
-			userStatus = CommonMethodUtil.getIntegerByObject(condition.get("userStatus"));
+		if(condition.containsKey("userStatus") && StringUtils.isNotBlank((String)condition.get("userStatus"))){
+			Integer userStatus = CommonMethodUtil.getIntegerByObject(condition.get("userStatus"));
+			hqlBuffer.append(" and userStatus = ? ");
+			values.add(userStatus);
 		}
-		hqlBuffer.append(" and userStatus = ? ");
-		values.add(userStatus);
 		
 		//关键字
 		if(condition.containsKey("keywords") && StringUtils.isNotBlank((String)condition.get("keywords"))){

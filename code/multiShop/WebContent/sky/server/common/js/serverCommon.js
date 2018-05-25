@@ -4,6 +4,18 @@
 var serverCommon = {
 		
 		/**
+		 * 是否为管理员权限，即有某某管理权限，所属店铺为系统类型
+		 */
+		isAdminRight	: function(right){
+			if($currentUser && $currentUser.allRights && right
+					&& $currentUser.allRights.indexOf(right)>-1
+					&& $currentUser.shopId==common.shopContants.shopSystem){
+				return true;
+			}
+			return false;
+		},
+		
+		/**
 		 * 判断当前用户是否有权限待在当前页面
 		 */
 		hasRightStay	: function(right){
