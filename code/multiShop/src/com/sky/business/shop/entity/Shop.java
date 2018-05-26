@@ -15,7 +15,10 @@ import javax.persistence.Transient;
 import org.apache.commons.lang3.StringUtils;
 
 import com.sky.business.system.entity.Typet;
+import com.sky.business.system.entity.User;
 import com.sky.business.system.service.TypeService;
+import com.sky.business.system.service.UserService;
+import com.sky.contants.RightGroupContants;
 import com.sky.util.BeanDefinedLocator;
 import com.sky.util.DateUtil;
 
@@ -81,6 +84,12 @@ public class Shop implements Serializable {
 	@Column(name="STATUS")
 	private Integer status;
 	
+	@Column(name="PHONE")
+	private String phone;
+	
+	@Column(name="REMARK")
+	private String remark;
+	
 	
 	/**
 	 * 过期时间字符串
@@ -95,10 +104,22 @@ public class Shop implements Serializable {
 	private String overTimeString;
 	
 	/**
+	 * 店长
+	 */
+	@Transient
+	private User shopKeeper;
+	
+	/**
  	 * 图片path列表
  	 */
  	@Transient
  	private List<String> picPathList;
+ 	
+ 	/**
+ 	 * 客服人员列表
+ 	 */
+ 	@Transient
+	private List<User> serviceUserList;
 	
 	
     // Property accessors
@@ -253,6 +274,22 @@ public class Shop implements Serializable {
 		this.latitude = latitude;
 	}
 	
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
 	public List<String> getPicPathList() {
 		if(StringUtils.isNotBlank(picture) && null==picPathList){
 			String[] pictures = picture.split(",");
@@ -276,6 +313,37 @@ public class Shop implements Serializable {
 
 	public void setShopTypeName(String shopTypeName) {
 		this.shopTypeName = shopTypeName;
+	}
+
+	public List<User> getServiceUserList() {
+		if(StringUtils.isNotBlank(this.service)) {
+			UserService userService = (UserService)BeanDefinedLocator.getInstance().getBean("userService");
+			serviceUserList = userService.findByPropertes(User.class, "id", this.service.split(","));
+		}
+		return serviceUserList;
+	}
+
+	public void setServiceUserList(List<User> serviceUserList) {
+		this.serviceUserList = serviceUserList;
+	}
+
+	public User getShopKeeper() {
+		if(shopKeeper == null) {
+			UserService userService = (UserService)BeanDefinedLocator.getInstance().getBean("userService");
+			List<User> uList = userService.findBy(User.class, "shopId", this.id);
+			
+			for(User u : uList) {
+				if(u.getAllRights().indexOf(RightGroupContants.RIGHT_GROUP_SHOPKEEPER) > -1) {
+					shopKeeper = u;
+					break;
+				}
+			}
+		}
+		return shopKeeper;
+	}
+
+	public void setShopKeeper(User shopKeeper) {
+		this.shopKeeper = shopKeeper;
 	}
 
 }

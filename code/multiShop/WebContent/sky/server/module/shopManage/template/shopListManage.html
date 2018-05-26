@@ -57,7 +57,9 @@
 									<div class="col-md-9">
 										<select class="form-control" ui-select2 data-ng-model="condition.shopType" data-ng-change="pagedShopList()">
 											<option value="">全部</option>
-											<option data-ng-repeat="item in typetList" value="{{item.id}}">{{item.name}}</option>
+											<optgroup data-ng-repeat="typet in typetList" label="{{typet.name}}">
+												<option data-ng-repeat="item in typet.typetList" value="{{item.id}}">{{item.name}}</option>
+											</optgroup>
 										</select>
 									</div>
 								</div>
@@ -86,6 +88,7 @@
 									<label class="col-md-3 control-label">是否过期：</label>
 									<div class="col-md-9">
 										<select class="form-control" ui-select2 data-ng-model="condition.isOver" data-ng-change="pagedShopList()">
+											<option value="">全部</option>
 											<option value="0">未过期</option>
 											<option value="1">已过期</option>
 										</select>
@@ -117,7 +120,7 @@
 											<td title="{{shop.address|showBlankValue}}">{{shop.address|showBlankValue}}</td>
 											<td title="{{shop.shopTypeName|showBlankValue}}">{{shop.shopTypeName|showBlankValue}}</td>
 											<td title="{{shop.recommend|showRecommend}}">{{shop.recommend|showRecommend}}</td>
-											<td title="{{shop.status|stringStatus}}">{{shop.status|stringStatus}}</td>
+											<td data-ng-class="{'text-danger':shop.status==1}" title="{{shop.status|stringShopStatus}}">{{shop.status|stringShopStatus}}</td>
 											<td title="{{shop.addTime|formatDate}}">{{shop.addTime|formatDate}}</td>
 											<td title="{{shop.overTimeString|showBlankValue}}">{{shop.overTimeString|showBlankValue}}</td>
 											<td>

@@ -1,32 +1,31 @@
-angular.module('announceManageSave',[])
-.directive('announceManageSave',function(){
+angular.module('shopListManageSave',[])
+.directive('shopListManageSave',function(){
 	return {
 		restrict:'E',
 		scope : {
-			announce			: "=",
-			rangeDate		: "=",
+			shop			: "=",
 		},
-		templateUrl : $contextPath +"/sky/server/module/announceManage/template/announceManageSave.html",
+		templateUrl : $contextPath +"/sky/server/module/shopManage/template/shopListManageSave.html",
 		link : function(scope,element,attrs){
 			
 		},
 		controller : function($scope, $timeout, $filter, $document, serverIndexHttpService){
 			/**
-			 * 新增保存用户
+			 * 新增保存店铺
 			 */
-			$scope.saveAnnounce = function(announce){
-				if(!$scope.isSaveAnnounce(announce)){
+			$scope.saveShop = function(shop){
+				if(!$scope.isSaveShop(shop)){
 					common.triggerFailMesg("*为必填项");
 					return;
 				}
 				
 				$scope.isLoadingSave = true;
-				serverIndexHttpService.saveAnnounce(announce)
+				serverIndexHttpService.saveShop(shop)
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode=="200" && data.message){
 						common.triggerSuccessMesg(data.message);
-						$scope.$parent.pagedAnnounceList();
+						$scope.$parent.pagedShopList();
 						$scope.$parent.togglePanel(null);
 					}else{
 						common.triggerFailMesg(data.message);
@@ -38,22 +37,27 @@ angular.module('announceManageSave',[])
 			};
 			
 			/**
-			 * 编辑保存用户
+			 * 编辑保存店铺
 			 */
-			$scope.editAnnounce = function(announce){
-				if(!$scope.isSaveAnnounce(announce)){
+			$scope.editShop = function(shop){
+				if(!$scope.isSaveShop(shop)){
 					common.triggerFailMesg("*为必填项");
 					return;
 				}
 				
 				$scope.isLoadingSave = true;
-				serverIndexHttpService.editAnnounce(announce)
+				serverIndexHttpService.editShop(shop)
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode=="200" && data.message){
 						common.triggerSuccessMesg(data.message);
-						$scope.$parent.pagedAnnounceList();
+						$scope.$parent.pagedShopList();
 						$scope.$parent.togglePanel(null);
+						
+						//初始化待审批店铺的数量
+						if(angular.element($('.server-index')).scope()){
+							angular.element($('.server-index')).scope().initShopCount();
+						}
 					}else{
 						common.triggerFailMesg(data.message);
 					}
@@ -64,23 +68,29 @@ angular.module('announceManageSave',[])
 			};
 			
 			/**
-			 * 判断该用户对象是否符合保存的条件
+			 * 判断该店铺对象是否符合保存的条件
 			 */
-			$scope.isSaveAnnounce = function(announce){
-				if(!announce){
+			$scope.isSaveShop = function(shop){
+				if(!shop){
 					return false;
 				}
 				
 				//塞入过期时间
-				announce.overTimeString = $("#overTimeId").val();
+				shop.overTimeString = $("#overTimeId").val();
 				
-				if(!announce.name || announce.name==""){
+				if(!shop.name || shop.name==""){
 					return false;
 				}
-				if(!announce.shopId || announce.shopId==""){
+				if(!shop.shopType || shop.shopType==""){
 					return false;
 				}
-				if(!announce.status || announce.status==""){
+				if(null==shop.status || undefined==shop.status){
+					return false;
+				}
+				if(null==shop.recommend || undefined==shop.recommend){
+					return false;
+				}
+				if(!shop.overTimeString || shop.overTimeString==""){
 					return false;
 				}
 				

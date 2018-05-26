@@ -133,6 +133,7 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 					var s = $scope.shopAll[i];
 					if(s.id == $scope.condition.shopId){
 						$scope.filterText += "公告所属（" + s.name + "）+ ";
+						break;
 					}
 				}
 			}

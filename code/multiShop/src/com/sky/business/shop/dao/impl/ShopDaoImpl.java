@@ -39,6 +39,12 @@ public class ShopDaoImpl extends BaseDaoImpl implements ShopDao {
 			values.add(CommonMethodUtil.getIntegerByObject(condition.get("recommend")));
 		}
 		
+		//比这个状态更大的
+		if(condition.containsKey("moreStatus") && StringUtils.isNotBlank((String)condition.get("moreStatus"))){
+			hqlBuffer.append(" and status > ? ");
+			values.add(CommonMethodUtil.getIntegerByObject(condition.get("moreStatus")));
+		}
+		
 		//店铺状态
 		if(condition.containsKey("status") && StringUtils.isNotBlank((String)condition.get("status"))){
 			hqlBuffer.append(" and status = ? ");

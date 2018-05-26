@@ -36,6 +36,28 @@ public class ShopAction extends BaseAction {
 	
 	private String shopId;
 	
+	
+	/**
+	 * 获取店铺数量
+	 * @return
+	 * @throws Exception
+	 */
+	public String count() throws Exception {
+		try{
+			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
+			Integer count = shopService.getCount(shopDao, Shop.class, condition);
+			
+			resultMap.put("count", count);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取店铺数量");
+		} catch (Exception e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
+		}
+		return RESULT_MAP;
+	}
+	
 	/**
 	 * 分页获取店铺列表
 	 * @return

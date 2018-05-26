@@ -68,6 +68,12 @@ var common = {
 		shopContants		: {
 			shopSystem	: "system",//系统
 			shopBbs		: "bbs",//论坛
+			status	: {
+				INEXIST		: "-1",//不存在的店铺
+				UNUSING		: "0",//禁用
+				NOAPPEOVE	: "1",//申请待审批
+				USING		: "2",//启用
+			}
 		},
 		
 		/**

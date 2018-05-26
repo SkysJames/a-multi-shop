@@ -10,41 +10,69 @@
 				<div class="widget-body">
 					<form class="form-horizontal">
 						<fieldset>
-							<legend data-ng-show="$parent.saveType=='edit'">
-								{{announce.shop|showShopName}}
+							<legend class="text-danger" data-ng-show="$parent.saveType=='edit' && shop.status==1">
+								待审批，{{shop.name|showBlankValue}}（申请人：{{shop.shopKeeper.name|showBlankValue}}）&nbsp;&nbsp;&nbsp;&nbsp;
+								电话号码：{{shop.phone|showBlankValue}}&nbsp;&nbsp;&nbsp;&nbsp;地址：{{shop.address|showBlankValue}}<br>
+								备注：{{shop.remark|showBlankValue}}
 							</legend>
 							<div class="form-group">
-								<label class="col-md-2 control-label">公告名称：</label>
+								<label class="col-md-2 control-label">店铺名称：</label>
 								<div class="col-md-10">
-									<input class="form-control" type="text" placeholder="公告名称" data-ng-model="announce.name">
+									<input class="form-control" type="text" placeholder="店铺名称" data-ng-model="shop.name">
 									<span class="need-tab">*</span>
 								</div>
 							</div>
-							<div class="form-group" data-ng-show="!user.rightgroups || user.rightgroups.indexOf('admin_rightgroup')<0">
-								<label class="col-md-2 control-label">公告所属：</label>
-								<div class="col-md-10" data-ng-show="$parent.isAdminRight">
-									<label class="radio radio-inline">
-										<input type="radio" class="radiobox" value="system" data-ng-model="announce.shopId">
-										<span>系统类型</span> 
-									</label>
-									<label class="radio radio-inline">
-										<input type="radio" class="radiobox" value="bbs" data-ng-model="announce.shopId">
-										<span>论坛类型</span> 
-									</label>
-									<span class="need-tab">*</span>
+							<div class="form-group" data-ng-show="$parent.saveType=='edit'">
+								<label class="col-md-2 control-label">店长：</label>
+								<div class="col-md-10 common-value">
+									{{shop.shopKeeper.name|showBlankValue}}
 								</div>
-								<div class="col-md-10" data-ng-show="!$parent.isAdminRight">{{announce.shop|showShopName}}</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-2 control-label">公告状态：</label>
+								<label class="col-md-2 control-label">店铺类型：</label>
+								<div class="col-md-10">
+									<select class="form-control" ui-select2 data-ng-model="shop.shopType">
+										<optgroup data-ng-repeat="typet in $parent.typetList" label="{{typet.name}}">
+											<option data-ng-repeat="item in typet.typetList" value="{{item.id}}">{{item.name}}</option>
+										</optgroup>
+									</select>
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="form-group" data-ng-show="$parent.saveType=='edit'">
+								<label class="col-md-2 control-label">入驻时间：</label>
+								<div class="col-md-10 common-value">
+									{{shop.addTime|formatDate}}
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">店铺状态：</label>
 								<div class="col-md-10">
 									<label class="radio radio-inline">
-										<input type="radio" class="radiobox" value="1" data-ng-model="announce.status">
-										<span>启用</span> 
+										<input type="radio" class="radiobox" value="2" data-ng-model="shop.status">
+										<span>启用</span>
 									</label>
 									<label class="radio radio-inline">
-										<input type="radio" class="radiobox" value="0" data-ng-model="announce.status">
-										<span>禁用</span> 
+										<input type="radio" class="radiobox" value="1" data-ng-model="shop.status">
+										<span>待验证</span>
+									</label>
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="0" data-ng-model="shop.status">
+										<span>禁用</span>
+									</label>
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">店铺级别：</label>
+								<div class="col-md-10">
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="0" data-ng-model="shop.recommend">
+										<span>普通</span>
+									</label>
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="1" data-ng-model="shop.recommend">
+										<span>推荐</span>
 									</label>
 									<span class="need-tab">*</span>
 								</div>
@@ -53,12 +81,31 @@
 								<label class="col-md-2 control-label">过期时间：</label>
 								<div class="col-md-10">
 									<input id="overTimeId" class="form-control" type="text" placeholder="过期时间" onclick="common.MydatePicker();">
+									<span class="need-tab">*</span>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-2 control-label">公告内容：</label>
+								<label class="col-md-2 control-label">人气值：</label>
 								<div class="col-md-10">
-									<textarea class="form-control" rows="6" cols="" placeholder="公告内容" data-ng-model="announce.content"></textarea>
+									<input class="form-control" type="number" placeholder="人气值" data-ng-model="shop.popularity">
+								</div>
+							</div>
+							<div class="form-group" data-ng-show="$parent.saveType=='edit'">
+								<label class="col-md-2 control-label">电话号码：</label>
+								<div class="col-md-10 common-value">
+									{{shop.phone|showBlankValue}}
+								</div>
+							</div>
+							<div class="form-group" data-ng-show="$parent.saveType=='edit'">
+								<label class="col-md-2 control-label">店铺地址：</label>
+								<div class="col-md-10 common-value">
+									{{shop.address|showBlankValue}}
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">店铺简介：</label>
+								<div class="col-md-10">
+									<textarea class="form-control" rows="4" cols="" placeholder="店铺简介" data-ng-model="shop.brief"></textarea>
 								</div>
 							</div>
 						</fieldset>
@@ -69,13 +116,13 @@
 										返回
 									</button>
 									<button class="btn btn-primary common-save-btn" type="button" 
-										data-ng-show="$parent.saveType=='edit'" data-ng-disabled="isLoadingSave" data-ng-click="editAnnounce(announce)">
+										data-ng-show="$parent.saveType=='edit'" data-ng-disabled="isLoadingSave" data-ng-click="editShop(shop)">
 										<i class="fa fa-save" data-ng-show="!isLoadingSave"></i>
 										<i class="fa fa-spin spinner" data-ng-show="isLoadingSave"></i>
 										保存
 									</button>
 									<button class="btn btn-primary common-save-btn" type="button" 
-										data-ng-show="$parent.saveType=='save'" data-ng-disabled="isLoadingSave" data-ng-click="saveAnnounce(announce)">
+										data-ng-show="$parent.saveType=='save'" data-ng-disabled="isLoadingSave" data-ng-click="saveShop(shop)">
 										<i class="fa fa-save" data-ng-show="!isLoadingSave"></i>
 										<i class="fa fa-spin spinner" data-ng-show="isLoadingSave"></i>
 										保存

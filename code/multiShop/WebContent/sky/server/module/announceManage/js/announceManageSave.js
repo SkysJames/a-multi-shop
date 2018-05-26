@@ -4,7 +4,6 @@ angular.module('announceManageSave',[])
 		restrict:'E',
 		scope : {
 			announce			: "=",
-			rangeDate		: "=",
 		},
 		templateUrl : $contextPath +"/sky/server/module/announceManage/template/announceManageSave.html",
 		link : function(scope,element,attrs){

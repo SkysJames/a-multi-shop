@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.sky.business.common.service.impl.BaseServiceImpl;
@@ -42,15 +43,8 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		}
 		
 		if(editObj.containsKey("name")){
-			String name = (String)editObj.get("name");
-			List<Shop> shopList = this.findBy(Shop.class, "name", name);
-			
-			if(shopList!=null && shopList.size()>0) {
-				throw new ServiceException(CodeMescContants.CodeContants.ERROR_EXIST, CodeMescContants.MessageContants.ERROR_EXIST);
-			}
-			shop.setName(name);
+			shop.setName((String)editObj.get("name"));
 		}
-		
 		if(editObj.containsKey("popularity")){
 			shop.setPopularity(CommonMethodUtil.getIntegerByObject(editObj.get("popularity")));
 		}
@@ -63,7 +57,7 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		if(editObj.containsKey("service")){
 			shop.setService((String)editObj.get("service"));
 		}
-		if(editObj.containsKey("logo")){
+		if(editObj.containsKey("logo") && (editObj.get("logo") instanceof List)){
 			//图片存放的目录
 			String picPath = FileContants.PRODUCT_FILE + File.separator + (String)editObj.get("name");
 			//保存图片
@@ -77,12 +71,19 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		if(editObj.containsKey("mark")){
 			shop.setMark(CommonMethodUtil.getBigDecimalByObject(editObj.get("mark")));
 		}
+		if(editObj.containsKey("phone")){
+			shop.setPhone((String)editObj.get("phone"));
+		}
+		if(editObj.containsKey("remark")){
+			shop.setRemark((String)editObj.get("remark"));
+		}
 		if(editObj.containsKey("status")){
 			Integer beforeStatus = shop.getStatus();
 			Integer lastStatus = CommonMethodUtil.getIntegerByObject(editObj.get("status"));
 			
 			//若店铺状态，由申请待验证变为启用，则是该店铺的入驻时间
-			if(ShopContants.Status.REGISTER==beforeStatus && ShopContants.Status.USING==lastStatus) {
+			if((null==shop.getAddTime() && ShopContants.Status.USING==lastStatus)
+					|| (ShopContants.Status.REGISTER==beforeStatus && ShopContants.Status.USING==lastStatus)) {
 				shop.setAddTime(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 			}
 			shop.setStatus(lastStatus);
@@ -91,7 +92,7 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 			String overTimeString = (String)editObj.get("overTimeString");
 			shop.setOverTime(new Timestamp(DateUtil.convertStr2Date(overTimeString).getTime()));
 		}
-		if(editObj.containsKey("picPathList")) {
+		if(editObj.containsKey("picPathList") && (editObj.get("picPathList") instanceof List)) {
 			//图片存放的目录
 			String picPath = FileContants.PRODUCT_FILE + File.separator + (String)editObj.get("name");
 			//保存图片
@@ -119,8 +120,10 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 			shop.setName(name);
 		}
 		
-		if(addObj.containsKey("popularity")){
+		if(addObj.containsKey("popularity") && StringUtils.isNotBlank((String)addObj.get("popularity"))){
 			shop.setPopularity(CommonMethodUtil.getIntegerByObject(addObj.get("popularity")));
+		} else {
+			shop.setPopularity(0);
 		}
 		if(addObj.containsKey("recommend")){
 			shop.setRecommend(CommonMethodUtil.getIntegerByObject(addObj.get("recommend")));
@@ -145,12 +148,24 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		if(addObj.containsKey("mark")){
 			shop.setMark(CommonMethodUtil.getBigDecimalByObject(addObj.get("mark")));
 		}
-		if(addObj.containsKey("status")){
-			shop.setStatus(CommonMethodUtil.getIntegerByObject(addObj.get("status")));
+		if(addObj.containsKey("phone")){
+			shop.setPhone((String)addObj.get("phone"));
 		}
-		if(addObj.containsKey("overTimeString")) {
+		if(addObj.containsKey("remark")){
+			shop.setRemark((String)addObj.get("remark"));
+		}
+		if(addObj.containsKey("status")){
+			Integer lastStatus = CommonMethodUtil.getIntegerByObject(addObj.get("status"));
+			if(ShopContants.Status.USING==lastStatus) {
+				shop.setAddTime(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+			}
+			shop.setStatus(lastStatus);
+		}
+		if(addObj.containsKey("overTimeString") && StringUtils.isNotBlank((String)addObj.get("overTimeString"))) {
 			String overTimeString = (String)addObj.get("overTimeString");
 			shop.setOverTime(new Timestamp(DateUtil.convertStr2Date(overTimeString).getTime()));
+		} else {
+			shop.setOverTime(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		}
 		if(addObj.containsKey("picPathList")){
 			//图片存放的目录
@@ -168,9 +183,9 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 	
 	@Override
 	public void delete(String id) throws Exception {
-		//system店铺不能删除
-		if(ShopContants.SHOP_SYSTEM.equals(id)) {
-			throw new ServiceException("400", "初始店铺system不能删除");
+		//店铺不能删除
+		if(ShopContants.SHOP_SYSTEM.equals(id) || ShopContants.SHOP_BBS.equals(id)) {
+			throw new ServiceException("400", "初始店铺不能删除");
 		}
 		
 		//查找数据库中是否存在该店铺，不存在则删除失败

@@ -29,8 +29,8 @@ angular.module('server-index.httpService',[])
 	/**
 	 * 获取消息数量
 	 */
-	this.getMessageCount = function(obj){
-		var conditionJson = JSON.stringify(obj);
+	this.getMessageCount = function(condition){
+		var conditionJson = JSON.stringify(condition);
 		var tempData={
 				'conditionJson'		: conditionJson,
 		};
@@ -77,8 +77,8 @@ angular.module('server-index.httpService',[])
 	/**
 	 * 获取举报数量
 	 */
-	this.getReportCount = function(obj){
-		var conditionJson = JSON.stringify(obj);
+	this.getReportCount = function(condition){
+		var conditionJson = JSON.stringify(condition);
 		var tempData={
 				'conditionJson'		: conditionJson,
 		};
@@ -306,6 +306,18 @@ angular.module('server-index.httpService',[])
 	this.getAllShopList = function(condition){
 		var tempData={};
 		var url = $contextPath + "/shop/shop!getAllList";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 获取店铺息数量
+	 */
+	this.getShopCount = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/shop/shop!count";
 		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
 	};
 	

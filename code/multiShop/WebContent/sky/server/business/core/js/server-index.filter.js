@@ -73,6 +73,21 @@ angular.module('server-index.filter',[])
 })
 
 /**
+ * 转换店铺状态为字符串
+ */
+.filter('stringShopStatus',function(){
+	return function(status){
+		if(2==status || "2"==status){
+			return "启用";
+		}else if(1==status || "1"==status){
+			return "待审批";
+		}else{
+			return "禁用";
+		}
+	};
+})
+
+/**
  * 转换访客状态为字符串
  */
 .filter('stringVisitorStatus',function(){

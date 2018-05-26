@@ -140,7 +140,7 @@ create table tb_shop
     ID              varchar(36) primary key comment '主键ID',
     NAME            varchar(300) not null comment '店铺名称',
     POPULARITY		integer default 0 comment '人气值',
-    RECOMMEND       integer default 0 comment '是否上推荐栏，0 - 不推荐，1 - 推荐',
+    RECOMMEND       integer default 0 comment '是否上推荐栏，0 - 普通，1 - 推荐',
     SHOP_TYPE		varchar(100) comment '店铺类型',
     ADD_TIME        datetime comment '入驻时间，即通过验证的时间',
     OVER_TIME       datetime comment '到期时间',
@@ -153,7 +153,9 @@ create table tb_shop
     ADDRESS         varchar(4000) comment '店铺所在地址',
     LONGITUDE       double(9,6) comment '店铺所在地，经度',
     LATITUDE        double(9,6) comment '店铺所在地，纬度',
-    STATUS			integer default 0 comment '状态：-1-实际不存在该店铺;0-禁用；1-申请待验证；2-启用'
+    STATUS			integer default 0 comment '状态：-1-实际不存在该店铺;0-禁用；1-申请待验证；2-启用',
+    PHONE			varchar(600) comment '电话号码',
+    REMARK         	varchar(2000) comment '备注'
 );
 
 

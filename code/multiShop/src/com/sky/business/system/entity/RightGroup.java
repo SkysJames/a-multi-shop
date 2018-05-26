@@ -77,14 +77,10 @@ public class RightGroup  implements java.io.Serializable {
 
     @Transient
 	public List<Right> getRightList() {
-	    	try {
-		    	if (null == rightList && StringUtils.isNotBlank(rights)) {
-		    		RightService rightService = (RightService)BeanDefinedLocator.getInstance().getBean("rightService");
-				rightList = rightService.getRightListByIds(rights);
-			}
-	    	} catch (Exception e) {
-	    		e.printStackTrace();
-	    	}
+	    	if (null == rightList && StringUtils.isNotBlank(rights)) {
+	    		RightService rightService = (RightService)BeanDefinedLocator.getInstance().getBean("rightService");
+	    		rightList = rightService.findByPropertes(Right.class, "id", rights.split(","));
+		}
 		return rightList;
 	}
 

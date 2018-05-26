@@ -68,6 +68,12 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 		serverIndexHttpService.editReport(obj)
 		.then(function(response){
 			var data = response.data;
+			
+			//初始化未读举报的数量
+			if(angular.element($('.server-index')).scope()){
+				angular.element($('.server-index')).scope().initReportCount();
+			}
+			
 			if(data.statusCode!="200"){
 				common.triggerFailMesg(data.message);
 			}

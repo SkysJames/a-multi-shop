@@ -29,6 +29,11 @@ angular.module('serverIndexApp',
 		templateUrl:$contextPath+'/sky/server/module/reportManage/template/reportManage.html',
 	});
 	
+	//店铺列表
+	$routeProvider.when("/shopList",{
+		templateUrl:$contextPath+'/sky/server/module/shopManage/template/shopListManage.html',
+	});
+	
 	//店铺类型
 	$routeProvider.when("/shopType",{
 		templateUrl:$contextPath+'/sky/server/module/typeManage/template/shopTypeManage/shopTypeManage.html',
@@ -131,6 +136,27 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 	};
 	
 	/**
+	 * 初始化待审批店铺的数量
+	 */
+	$scope.initShopCount = function(){
+		var condition = {
+				status		: common.shopContants.status.NOAPPEOVE,
+		};
+		
+		serverIndexHttpService.getShopCount(condition)
+		.then(function(response){
+			var data = response.data;
+			if(data.statusCode=="200"){
+				$scope.shopCount = data.count;
+			}else{
+				common.triggerFailMesg(data.message);
+			}
+		},function(err){
+			console.log(err);
+		});
+	};
+	
+	/**
 	 * 初始化函数
 	 */
 	$scope.initFunc = function(){
@@ -139,6 +165,8 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 		$scope.initMessageCount();
 		//初始化未读举报的数量
 		$scope.initReportCount();
+		//初始化待审批店铺的数量
+		$scope.initShopCount();
 	};
 	$document.ready($scope.initFunc);
 	

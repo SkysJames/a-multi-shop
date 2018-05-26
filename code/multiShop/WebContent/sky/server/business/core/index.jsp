@@ -108,13 +108,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</ul>
 				</li>
 				<li>
-					<a href="#"><i class="fa fa-lg fa-fw fa-cubes"><em>3</em></i> <span class="menu-item-parent">店铺管理</span></a>
+					<a href="#"><i class="fa fa-lg fa-fw fa-cubes"><em class="my-hidden" data-ng-class="{'my-show':shopCount}">{{shopCount}}</em></i> <span class="menu-item-parent">店铺管理</span></a>
 					<ul>
 						<li>
 							<a href="#">店铺信息</a>
 						</li>
 						<li>
-							<a href="ajax/table.html">店铺列表<span class="badge pull-right inbox-badge bg-color-brightRed">3</span></a>
+							<a href="#/shopList">店铺列表<span class="badge pull-right inbox-badge bg-color-brightRed my-hidden" data-ng-class="{'my-show':shopCount}">{{shopCount}}</span></a>
 						</li>
 						<li>
 							<a href="#">评论管理</a>

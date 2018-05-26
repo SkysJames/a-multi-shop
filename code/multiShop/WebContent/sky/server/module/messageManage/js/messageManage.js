@@ -69,6 +69,12 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 		serverIndexHttpService.editMessage(obj)
 		.then(function(response){
 			var data = response.data;
+			
+			//初始化未读消息的数量
+			if(angular.element($('.server-index')).scope()){
+				angular.element($('.server-index')).scope().initMessageCount();
+			}
+			
 			if(data.statusCode!="200"){
 				common.triggerFailMesg(data.message);
 			}
