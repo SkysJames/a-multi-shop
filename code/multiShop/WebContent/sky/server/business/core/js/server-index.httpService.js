@@ -27,6 +27,54 @@ angular.module('server-index.httpService',[])
 	};
 	
 	/**
+	 * 获取评论数量
+	 */
+	this.getEvaluateCount = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/shop/evaluate!count";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 分页获取评论列表
+	 */
+	this.pagedEvaluateList = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/shop/evaluate!paged";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 修改评论
+	 */
+	this.editEvaluate = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/shop/evaluate!edit";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 删除评论
+	 */
+	this.deleteEvaluate = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/shop/evaluate!delete";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
 	 * 获取消息数量
 	 */
 	this.getMessageCount = function(condition){

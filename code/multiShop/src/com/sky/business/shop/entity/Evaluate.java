@@ -14,6 +14,12 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.sky.business.shop.service.ShopService;
+import com.sky.business.system.entity.User;
+import com.sky.business.system.service.UserService;
+import com.sky.contants.TableContants;
+import com.sky.util.BeanDefinedLocator;
+
 /**
  * 评价
  * @author Sky James
@@ -44,7 +50,7 @@ public class Evaluate implements Serializable {
 	private String content;
 	
 	@Column(name="CREATE_TIME")
-	private Timestamp creatTime;
+	private Timestamp createTime;
 	
 	@Column(name="PICTURE")
 	private String picture;
@@ -57,6 +63,12 @@ public class Evaluate implements Serializable {
  	 */
  	@Transient
  	private List<String> picPathList;
+ 	
+ 	@Transient
+ 	private String userName;
+ 	
+ 	@Transient
+ 	private String objName;
 	
 	
     // Property accessors
@@ -108,12 +120,12 @@ public class Evaluate implements Serializable {
 		this.content = content;
 	}
 
-	public Timestamp getCreatTime() {
-		return creatTime;
+	public Timestamp getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreatTime(Timestamp creatTime) {
-		this.creatTime = creatTime;
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
 	}
 
 	public String getPicture() {
@@ -142,6 +154,32 @@ public class Evaluate implements Serializable {
 
 	public void setPicPathList(List<String> picPathList) {
 		this.picPathList = picPathList;
+	}
+
+	public String getUserName() {
+		if(StringUtils.isNotBlank(this.userId)) {
+			UserService userService = (UserService)BeanDefinedLocator.getInstance().getBean("userService");
+			User u = userService.findByID(User.class, this.userId);
+			userName = u.getName();
+		}
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getObjName() {
+		if(StringUtils.isNotBlank(this.tableName) && TableContants.TABLE_SHOP.equals(this.tableName)) {
+			ShopService shopService = (ShopService)BeanDefinedLocator.getInstance().getBean("shopService");
+			Shop s = shopService.findByID(Shop.class, this.objId);
+			objName = s.getName();
+		}
+		return objName;
+	}
+
+	public void setObjName(String objName) {
+		this.objName = objName;
 	}
 
 }

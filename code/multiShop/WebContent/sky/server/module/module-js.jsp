@@ -14,6 +14,7 @@
 <script src="${contextPath }/sky/server/module/typeManage/js/productTypeManage/productTypeManageSave.js"></script>
 <script src="${contextPath }/sky/server/module/typeManage/js/shopTypeManage/shopTypeManage.js"></script>
 <script src="${contextPath }/sky/server/module/typeManage/js/shopTypeManage/shopTypeManageSave.js"></script>
+<script src="${contextPath }/sky/server/module/evaluateManage/js/evaluateManage.js"></script>
 <script src="${contextPath }/sky/server/module/messageManage/js/messageManage.js"></script>
 <script src="${contextPath }/sky/server/module/reportManage/js/reportManage.js"></script>
 <script src="${contextPath }/sky/server/module/shopManage/js/shopManage.js"></script>
@@ -28,6 +29,7 @@ $moduleList = [
 	'visitorManage.module',
 	'userManage.module',
 	'typeManage.module',
+	'evaluateManage.module',
 	'messageManage.module',
 	'reportManage.module',
 	'shopManage.module',

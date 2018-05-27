@@ -61,6 +61,9 @@ li.message {
     width: 94%;
     padding-top: 10px;
 }
+.mes-text>a.username {
+	text-decoration: none!important;
+}
 .mes-text .tips {
     position: absolute;
     right: 1px;

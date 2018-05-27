@@ -31,6 +31,7 @@ public class EvaluateServiceImpl extends BaseServiceImpl implements EvaluateServ
 	@Resource(name = "evaluateDao")
 	private EvaluateDao evaluateDao;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void edit(Map<String,Object> editObj) throws Exception {
 		//查找数据库中是否存在
@@ -65,8 +66,6 @@ public class EvaluateServiceImpl extends BaseServiceImpl implements EvaluateServ
 			
 			evaluate.setPicture(picture);
 		}
-		
-		evaluate.setCreatTime(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		
 		this.update(evaluate);
 	}
@@ -103,7 +102,7 @@ public class EvaluateServiceImpl extends BaseServiceImpl implements EvaluateServ
 			evaluate.setPicture(picture);
 		}
 		
-		evaluate.setCreatTime(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+		evaluate.setCreateTime(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		
 		this.save(evaluate);
 		return evaluate;

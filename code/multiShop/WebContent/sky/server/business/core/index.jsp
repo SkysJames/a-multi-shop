@@ -108,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</ul>
 				</li>
 				<li data-ng-if="currentUser.allRights.indexOf('shop_manage')>-1">
-					<a href="#"><i class="fa fa-lg fa-fw fa-cubes"><em class="my-hidden" data-ng-class="{'my-show':shopCount}">{{shopCount}}</em></i> <span class="menu-item-parent">店铺管理</span></a>
+					<a href="#"><i class="fa fa-lg fa-fw fa-cubes"><em class="my-hidden" data-ng-class="{'my-show':(shopCount + evaluateCount)}">{{shopCount + evaluateCount}}</em></i> <span class="menu-item-parent">店铺管理</span></a>
 					<ul>
 						<li data-ng-if="currentUser.allRights.indexOf('shop_basic')>-1">
 							<a href="#/shopBasic">店铺信息</a>
@@ -117,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<a href="#/shopList">店铺列表<span class="badge pull-right inbox-badge bg-color-brightRed my-hidden" data-ng-class="{'my-show':shopCount}">{{shopCount}}</span></a>
 						</li>
 						<li>
-							<a href="#">评论管理</a>
+							<a href="#/evaluate">店铺评论<span class="badge pull-right inbox-badge bg-color-brightRed my-hidden" data-ng-class="{'my-show':evaluateCount}">{{evaluateCount}}</span></a>
 						</li>
 						<li>
 							<a href="#">产品列表</a>

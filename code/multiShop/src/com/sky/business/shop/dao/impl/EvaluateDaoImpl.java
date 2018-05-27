@@ -48,11 +48,11 @@ public class EvaluateDaoImpl extends BaseDaoImpl implements EvaluateDao {
 		//评分
 		if(condition.containsKey("mark") && StringUtils.isNotBlank((String)condition.get("mark"))){
 			hqlBuffer.append(" and mark = ? ");
-			values.add((String)condition.get("mark"));
+			values.add(CommonMethodUtil.getBigDecimalByObject((String)condition.get("mark")));
 		}
 		
 		//评价状态
-		if(condition.containsKey("status") && null==condition.get("status")){
+		if(condition.containsKey("status") && StringUtils.isNotBlank((String)condition.get("status"))){
 			hqlBuffer.append(" and status = ? ");
 			values.add(CommonMethodUtil.getIntegerByObject(condition.get("status")));
 		}

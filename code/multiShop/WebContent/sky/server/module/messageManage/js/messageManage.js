@@ -3,7 +3,6 @@ angular.module('messageManage.module',[])
 function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpService){
 	//是否详细面板
 	$scope.isDetail = false;
-	$scope.mesStatus = common.messageContants.status;
 	//消息查询条件
 	$scope.condition = {
 			pageNo		: 1,		//当前页码

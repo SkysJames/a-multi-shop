@@ -39,6 +39,12 @@ angular.module('serverIndexApp',
 		templateUrl:$contextPath+'/sky/server/module/shopManage/template/shopListManage.html',
 	});
 	
+	//评论列表
+	$routeProvider.when("/evaluate",{
+		templateUrl:$contextPath+'/sky/server/module/evaluateManage/template/evaluateManage.html',
+	});
+
+	
 	//店铺类型
 	$routeProvider.when("/shopType",{
 		templateUrl:$contextPath+'/sky/server/module/typeManage/template/shopTypeManage/shopTypeManage.html',
@@ -73,6 +79,10 @@ angular.module('serverIndexApp',
 .controller("serverIndexCtrl",['$timeout', '$scope', '$rootScope', '$document', 'serverIndexHttpService', 
 function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 	$scope.currentUser = $currentUser;
+	$scope.evaluateCount = 0;
+	$scope.messageCount = 0;
+	$scope.reportCount = 0;
+	$scope.shopCount = 0;
 	
 	/**
 	 * 初始化编辑框
@@ -98,6 +108,28 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 			backdrop : true,
 			keyboard : false,
 			show	 : true,
+		});
+	};
+	
+	/**
+	 * 初始化未读评论的数量
+	 */
+	$scope.initEvaluateCount = function(){
+		var condition = {
+				tableName	: common.tableContants.TB_SHOP,
+				objId		: $currentUser.shopId,
+				status		: common.messageContants.status.NORECEIVE,
+		};
+		serverIndexHttpService.getEvaluateCount(condition)
+		.then(function(response){
+			var data = response.data;
+			if(data.statusCode=="200"){
+				$scope.evaluateCount = data.count;
+			}else{
+				common.triggerFailMesg(data.message);
+			}
+		},function(err){
+			console.log(err);
 		});
 	};
 	
@@ -182,6 +214,9 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 		if($scope.isAdminRight){
 			//初始化待审批店铺的数量
 			$scope.initShopCount();
+		}else{
+			//初始化未读评论的数量
+			$scope.initEvaluateCount();
 		}
 	};
 	$document.ready($scope.initFunc);

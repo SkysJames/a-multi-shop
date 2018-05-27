@@ -33,6 +33,29 @@ public class EvaluateAction extends BaseAction {
 	@Resource(name = "evaluateDao")
 	private EvaluateDao evaluateDao;
 	
+	
+	/**
+	 * 获取评论数量
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public String count() throws Exception {
+		try{
+			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
+			Integer count = evaluateService.getCount(evaluateDao, Evaluate.class, condition);
+			
+			resultMap.put("count", count);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取评论数量");
+		} catch (Exception e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
+		}
+		return RESULT_MAP;
+	}
+	
 	/**
 	 * 分页获取评论列表
 	 * @return
