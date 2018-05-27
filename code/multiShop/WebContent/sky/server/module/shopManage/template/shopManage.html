@@ -1,0 +1,155 @@
+<div class="index-container" data-ng-controller="shopManageCtrl">
+	
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark">
+				店铺信息
+				<span data-ng-show="isEdit">
+					> 编辑
+				</span>
+			</h1>
+		</div>
+		<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8 server-tools" data-ng-show="!saveType">
+			<div class="btn-group">
+				<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" 
+					data-original-title="编辑" data-ng-show="!isEdit" data-ng-click="toggleEdit(true)">
+					<strong><i class="fa fa-edit fa-lg"></i></strong>
+				</button>
+				<button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" 
+					data-original-title="返回" data-ng-show="isEdit" data-ng-click="toggleEdit(false)">
+					<strong><i class="fa fa-mail-forward fa-lg"></i></strong>
+				</button>
+				<button class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" 
+					data-original-title="保存" data-ng-show="isEdit" data-ng-click="saveShopInfo(shopInfo)" data-ng-disabled="isLoadingShopInfo">
+					<strong data-ng-show="isLoadingShopInfo"><i class="fa fa-spin fa-spinner fa-lg"></i></strong>
+					<strong data-ng-show="!isLoadingShopInfo"><i class="fa fa-save fa-lg"></i></strong>
+				</button>
+			</div>
+		</div>
+	</div>
+	
+	<!-- widget grid -->
+	<section id="widget-grid">
+		<!-- row -->
+		<div class="row">
+			<!-- NEW WIDGET START -->
+			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<!-- Widget ID (each widget will need unique ID)-->
+				<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+					<!-- widget content -->
+					<div class="widget-body">
+						<form class="form-horizontal">
+							<fieldset>
+								<legend class="text-info">
+									店铺级别：{{shopInfo.recommend|showRecommend}}&nbsp;&nbsp;&nbsp;&nbsp;
+									入驻时间：{{shopInfo.addTime|formatDate}}&nbsp;&nbsp;&nbsp;&nbsp;
+									店铺评分：{{shopInfo.mark}}&nbsp;&nbsp;&nbsp;&nbsp;
+									人气值：{{shopInfo.popularity}}&nbsp;&nbsp;&nbsp;&nbsp;
+									到期时间：{{shopInfo.overTimeString}}
+								</legend>
+								<div class="form-group">
+									<label class="col-md-2 control-label">店铺名称：</label>
+									<div class="col-md-10 common-value" data-ng-show="!isEdit">{{shopInfo.name|showBlankValue}}</div>
+									<div class="col-md-10" data-ng-show="isEdit">
+										<input class="form-control" type="text" placeholder="店铺名称" data-ng-model="shopInfo.name">
+										<span class="need-tab">*</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">店铺类型：</label>
+									<div class="col-md-10 common-value" data-ng-show="!isEdit">{{shopInfo.shopTypeName|showBlankValue}}</div>
+									<div class="col-md-10" data-ng-show="isEdit">
+										<select class="form-control" ui-select2 data-ng-model="shopInfo.shopType">
+											<optgroup data-ng-repeat="typet in typetList" label="{{typet.name}}">
+												<option data-ng-repeat="item in typet.typetList" value="{{item.id}}">{{item.name}}</option>
+											</optgroup>
+										</select>
+										<span class="need-tab">*</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">电话号码：</label>
+									<div class="col-md-10 common-value" data-ng-show="!isEdit">{{shopInfo.phone|showBlankValue}}</div>
+									<div class="col-md-10" data-ng-show="isEdit">
+										<input class="form-control" type="text" placeholder="电话号码" data-ng-model="shopInfo.phone">
+										<span class="need-tab">*</span>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">店铺简介：</label>
+									<div class="col-md-10 common-value" data-ng-show="!isEdit">{{shopInfo.brief|showBlankValue}}</div>
+									<div class="col-md-10" data-ng-show="isEdit">
+										<textarea class="form-control" rows="3" placeholder="店铺简介" data-ng-model="shopInfo.brief"></textarea>
+										<div class="common-tip">长度不能超过250字</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">店铺logo：</label>
+									<div class="col-md-10" data-ng-show="!isEdit">
+										<div class="superbox-list"  title="查看原图"
+											data-ng-repeat="item in shopInfo.logoPathList" data-ng-click="openNewPage(item)">
+											<img data-ng-src="{{item}}" alt="" class="superbox-img">
+										</div>
+										<div class="common-value" data-ng-if="shopInfo.logoPathList.length==0">暂无图片</div>
+									</div>
+									<div class="col-md-10" data-ng-show="isEdit">
+										<image-dropzone dropzone-id="shopInfoLogoId" max-files="1" image-path-list="shopInfo.logoPathList"></image-dropzone>
+										<div class="common-tip">请上传jpg,jpeg,bmp,png,gif格式的图片，建议尺寸16*16px、32*32px或64*64px</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">轮播图片：</label>
+									<div class="col-md-10" data-ng-show="!isEdit">
+										<div class="superbox-list"  title="查看原图"
+											data-ng-repeat="item in shopInfo.picPathList" data-ng-click="openNewPage(item)">
+											<img data-ng-src="{{item}}" alt="" class="superbox-img">
+										</div>
+										<div class="common-value" data-ng-if="shopInfo.picPathList.length==0">暂无图片</div>
+									</div>
+									<div class="col-md-10" data-ng-show="isEdit">
+										<image-dropzone dropzone-id="shopInfoPictureId" max-files="5" image-path-list="shopInfo.picPathList"></image-dropzone>
+										<div class="common-tip">请上传jpg,jpeg,png格式的图片，图片推荐尺寸 宽：1140px，高：450px，或 宽：1920px，高：600px</div>
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label class="col-md-2 control-label">店铺客服：</label>
+									<div class="col-md-10 common-value" data-ng-show="!isEdit">
+										<span data-ng-repeat="su in shopInfo.serviceUserList">{{su.name|showBlankValue}}&nbsp;&nbsp;&nbsp;&nbsp;</span>
+										<span data-ng-show="!shopInfo.serviceUserList || shopInfo.serviceUserList.length==0">暂无客服</span>
+									</div>
+									<div class="col-md-10" data-ng-show="isEdit">
+										<select class="form-control" ui-select2 multiple data-ng-model="shopInfo.serviceUserIds">
+											<option data-ng-repeat="user in userList" value="user.id">{{user.name}}</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">店铺地址：</label>
+									<div class="col-md-10 common-value" data-ng-show="!isEdit">{{shopInfo.address|showBlankValue}}</div>
+									<div class="col-md-10" data-ng-show="isEdit">
+										<input class="form-control" type="text" placeholder="店铺地址" data-ng-model="shopInfo.address">
+										<!-- 此处地图 -->
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">店铺描述：</label>
+									<div class="col-md-10 common-value" data-ng-show="!isEdit">{{shopInfo.description|showBlankValue}}</div>
+									<div class="col-md-10" data-ng-show="isEdit">
+										<textarea class="form-control" rows="5" placeholder="店铺描述" data-ng-model="shopInfo.description">
+										</textarea>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+				<!-- end widget -->
+			</article>
+			<!-- WIDGET END -->
+		</div>
+		<!-- end row -->
+	</section>
+	<!-- end widget grid -->
+	
+</div>

@@ -9,7 +9,7 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 			pageSize		: 10,	//每页数据量
 			totalCount	: 0,		//数据总量
 			pageCount	: 1,		//总页码数
-			shopId		: $currentUser.shopId==common.shopContants.shopSystem?"":$currentUser.shopId,
+			shopId		: ($currentUser.shopId==common.shopContants.shopSystem?"":$currentUser.shopId),
 			keywords		: "",
 			loginTimeA	: "",
 			loginTimeZ	: "",
@@ -187,8 +187,12 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 		serverCommon.navChange("#/user");
 		//初始化当前登陆用户在当前页面是否为管理员权限
 		$scope.isAdminRight = serverCommon.isAdminRight('user_manage');
-		//获取所有店铺
-		$scope.getAllShopList();
+		
+		if($scope.isAdminRight){
+			//获取所有店铺
+			$scope.getAllShopList();
+		}
+		
 		//获取用户列表
 		$scope.pagedUserList();
 		//令提示可用

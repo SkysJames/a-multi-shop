@@ -70,6 +70,15 @@ angular.module('userManageSave',[])
 					return false;
 				}
 				
+				//若当前用户的店铺ID不为system，则待保存的用户店铺为当前用户的店铺
+				if(common.shopContants.shopSystem!=$currentUser.shopId){
+					user.shopId = $currentUser.shopId;
+					
+					if(!user.rightgroups || user.rightgroups==""){
+						user.rightgroups = common.rightGroupContants.salesclerkRightgroup;
+					}
+				}
+				
 				if(!user.id || user.id==""){
 					return false;
 				}
@@ -79,6 +88,9 @@ angular.module('userManageSave',[])
 				}
 				
 				if(!user.passwd || user.passwd==""){
+					return false;
+				}
+				if(!user.userStatus || user.userStatus==""){
 					return false;
 				}
 				

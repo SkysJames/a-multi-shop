@@ -29,6 +29,11 @@ angular.module('serverIndexApp',
 		templateUrl:$contextPath+'/sky/server/module/reportManage/template/reportManage.html',
 	});
 	
+	//店铺基本信息
+	$routeProvider.when("/shopBasic",{
+		templateUrl:$contextPath+'/sky/server/module/shopManage/template/shopManage.html',
+	});
+	
 	//店铺列表
 	$routeProvider.when("/shopList",{
 		templateUrl:$contextPath+'/sky/server/module/shopManage/template/shopListManage.html',
@@ -67,6 +72,8 @@ angular.module('serverIndexApp',
 }])
 .controller("serverIndexCtrl",['$timeout', '$scope', '$rootScope', '$document', 'serverIndexHttpService', 
 function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
+	$scope.currentUser = $currentUser;
+	
 	/**
 	 * 初始化编辑框
 	 */
@@ -161,12 +168,21 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 	 */
 	$scope.initFunc = function(){
 		console.log($currentUser);
+		
+		//初始化当前登陆用户在当前页面是否为管理员权限
+		$scope.isAdminRight = serverCommon.isAdminRight('shop_manage');
 		//初始化未读消息的数量
 		$scope.initMessageCount();
-		//初始化未读举报的数量
-		$scope.initReportCount();
-		//初始化待审批店铺的数量
-		$scope.initShopCount();
+		
+		if($currentUser.allRights.indexOf("report_manage")>-1){
+			//初始化未读举报的数量
+			$scope.initReportCount();
+		}
+		
+		if($scope.isAdminRight){
+			//初始化待审批店铺的数量
+			$scope.initShopCount();
+		}
 	};
 	$document.ready($scope.initFunc);
 	

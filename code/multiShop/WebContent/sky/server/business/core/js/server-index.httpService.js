@@ -207,12 +207,24 @@ angular.module('server-index.httpService',[])
 	/**
 	 * 分页获取用户列表
 	 */
-	this.pagedUserList = function(obj){
-		var conditionJson = JSON.stringify(obj);
+	this.pagedUserList = function(condition){
+		var conditionJson = JSON.stringify(condition);
 		var tempData={
 				'conditionJson'		: conditionJson,
 		};
 		var url = $contextPath + "/system/user!paged";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 获取用户列表
+	 */
+	this.getUserList = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/user!list";
 		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
 	};
 	

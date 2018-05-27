@@ -9,6 +9,8 @@
 <!-- 独立的directive放在独立的module里面，内容简单的就方在同一个module里面 -->
 <script>
 $commonDirectiveList = [
+	'ui.select2',
+	'daterangepicker',
 	'commonPager',
 	'loadingPanel',
 	'nodataPanel',

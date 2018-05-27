@@ -10,7 +10,7 @@
 <!-- font-awesome -->
 <link rel="stylesheet" href="${ contextPath }/resource/plugin/font-awesome-4.7.0/css/font-awesome.min.css" />
 
-<!-- angular -->
+<!-- select2 -->
 <%@include file="/resource/plugin/angularui-select2/angularui-select2-css.jsp" %>
 
 <!-- dropzone图片上传工具 -->

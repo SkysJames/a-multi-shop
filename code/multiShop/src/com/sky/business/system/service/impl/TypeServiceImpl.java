@@ -39,6 +39,9 @@ public class TypeServiceImpl extends BaseServiceImpl implements TypeService {
 		if(editObj.containsKey("name")){
 			typet.setName((String)editObj.get("name"));
 		}
+		if(editObj.containsKey("shopId")){
+			typet.setShopId((String)editObj.get("shopId"));
+		}
 		if(editObj.containsKey("sort")){
 			typet.setSort(CommonMethodUtil.getIntegerByObject(editObj.get("sort")));
 		}
@@ -62,6 +65,9 @@ public class TypeServiceImpl extends BaseServiceImpl implements TypeService {
 		}
 		if(addObj.containsKey("name")){
 			typet.setName((String)addObj.get("name"));
+		}
+		if(addObj.containsKey("shopId")){
+			typet.setShopId((String)addObj.get("shopId"));
 		}
 		if(addObj.containsKey("sort")){
 			typet.setSort(CommonMethodUtil.getIntegerByObject(addObj.get("sort")));

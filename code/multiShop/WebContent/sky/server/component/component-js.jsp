@@ -4,8 +4,6 @@
 
 <script>
 $directiveList = [
-	'ui.select2',
-	'daterangepicker',
 	'personPanel',
 ];
 </script>

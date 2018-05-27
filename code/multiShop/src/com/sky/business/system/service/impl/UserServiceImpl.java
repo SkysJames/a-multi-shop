@@ -12,11 +12,14 @@ import org.springframework.stereotype.Service;
 import com.sky.business.common.service.impl.BaseServiceImpl;
 import com.sky.business.common.vo.LoginUser;
 import com.sky.business.common.vo.ServiceException;
+import com.sky.business.shop.entity.Shop;
 import com.sky.business.system.dao.UserDao;
 import com.sky.business.system.entity.User;
 import com.sky.business.system.service.UserService;
 import com.sky.contants.CodeMescContants;
+import com.sky.contants.RightContants;
 import com.sky.contants.RightGroupContants;
+import com.sky.contants.ShopContants;
 import com.sky.contants.UserContants;
 import com.sky.util.CommonMethodUtil;
 
@@ -33,7 +36,6 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	
 	@Override
 	public LoginUser checkForLogin(LoginUser loginUser) throws Exception {
-		
 		//验证数据库中是否存在该用户
 		User user = this.findByID(User.class, loginUser.getUserId());
 		if(user == null){
@@ -56,6 +58,17 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON, "该用户已被禁用");
 		}
 		
+		//验证用户是否有登陆后台的权限
+		if(StringUtils.isBlank(user.getAllRights()) || user.getAllRights().indexOf(RightContants.BACK_MANAGE)<0) {
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON, "该用户无登陆后台的权限");
+		}
+		
+		//验证用户的店铺是否存在且启用
+		Shop shop = user.getShop();
+		if(shop == null || (!ShopContants.SHOP_SYSTEM.equals(shop.getId()) && ShopContants.Status.USING!=shop.getStatus())) {
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON, "该用户暂无店铺或店铺未启用");
+		}
+			
 		user.setLoginIp(loginUser.getUserIp());
 		user.setLoginStatus(UserContants.LoginStatus.ONLINE);
 		user.setLoginTime(new Timestamp(new Date().getTime()));
@@ -63,7 +76,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		loginUser.setLoginTime(user.getLoginTime());
 		loginUser.setUsername(user.getName());
 		loginUser.setShopId(user.getShopId());
-		loginUser.setShop(user.getShop());
+		loginUser.setShop(shop);
 		loginUser.setQq(user.getQq());
 		loginUser.setWechat(user.getWechat());
 		loginUser.setTelephone(user.getTelephone());

@@ -110,6 +110,12 @@ public class Shop implements Serializable {
 	private User shopKeeper;
 	
 	/**
+ 	 * logo图片path列表
+ 	 */
+ 	@Transient
+ 	private List<String> logoPathList;
+	
+	/**
  	 * 图片path列表
  	 */
  	@Transient
@@ -344,6 +350,17 @@ public class Shop implements Serializable {
 
 	public void setShopKeeper(User shopKeeper) {
 		this.shopKeeper = shopKeeper;
+	}
+
+	public List<String> getLogoPathList() {
+		if(StringUtils.isNotBlank(this.logo)) {
+			logoPathList = Arrays.asList(this.logo.split(","));
+		}
+		return logoPathList;
+	}
+
+	public void setLogoPathList(List<String> logoPathList) {
+		this.logoPathList = logoPathList;
 	}
 
 }

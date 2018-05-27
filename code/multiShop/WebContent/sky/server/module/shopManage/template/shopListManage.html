@@ -120,7 +120,8 @@
 											<td title="{{shop.address|showBlankValue}}">{{shop.address|showBlankValue}}</td>
 											<td title="{{shop.shopTypeName|showBlankValue}}">{{shop.shopTypeName|showBlankValue}}</td>
 											<td title="{{shop.recommend|showRecommend}}">{{shop.recommend|showRecommend}}</td>
-											<td data-ng-class="{'text-danger':shop.status==1}" title="{{shop.status|stringShopStatus}}">{{shop.status|stringShopStatus}}</td>
+											<td data-ng-class="{'text-danger':shop.status==0,'text-primary':shop.status==1,'text-success':shop.status==2}" 
+												title="{{shop.status|stringShopStatus}}">{{shop.status|stringShopStatus}}</td>
 											<td title="{{shop.addTime|formatDate}}">{{shop.addTime|formatDate}}</td>
 											<td title="{{shop.overTimeString|showBlankValue}}">{{shop.overTimeString|showBlankValue}}</td>
 											<td>

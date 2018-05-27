@@ -3,8 +3,6 @@ angular.module('systemManage.module',[])
 function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpService){
 	//是否为编辑状态
 	$scope.isEdit = false;
-	//图片面板ID
-	$scope.imagePanelId = "systemImagePanelId";
 	//图片面板的路径列表
 	$scope.imagePathList = [];
 	

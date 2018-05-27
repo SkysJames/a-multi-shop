@@ -15,6 +15,8 @@
 
 <!-- angular -->
 <%@include file="/resource/plugin/angular/angular-js.jsp" %>
+
+<!-- select2 -->
 <%@include file="/resource/plugin/angularui-select2/angularui-select2-js.jsp" %>
 
 <!-- dropzone图片上传工具 -->

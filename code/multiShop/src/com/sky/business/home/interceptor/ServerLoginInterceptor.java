@@ -15,6 +15,7 @@ import com.sky.business.common.vo.LoginUser;
 import com.sky.business.system.entity.User;
 import com.sky.business.system.service.UserService;
 import com.sky.contants.RightContants;
+import com.sky.contants.ShopContants;
 
 /**
  * 后台登录拦截器
@@ -41,11 +42,13 @@ public class ServerLoginInterceptor extends AbstractInterceptor {
 		HttpServletRequest request = ServletActionContext.getRequest();
 		HttpSession session = request.getSession();
 		
-		//判断用户是否登录 或者 用户是否有登陆后台的权限
+		//判断用户是否登录 或者 用户是否有登陆后台的权限 或者 用户的店铺是否已启用
 		LoginUser loginUser = (LoginUser) session.getAttribute("loginUser");
 		if(loginUser == null 
 				|| StringUtils.isBlank(loginUser.getAllRights()) 
-				|| loginUser.getAllRights().indexOf(RightContants.BACK_MANAGE)<0) {
+				|| loginUser.getAllRights().indexOf(RightContants.BACK_MANAGE)<0
+				|| loginUser.getShop()==null 
+				|| (!ShopContants.SHOP_SYSTEM.equals(loginUser.getShop().getId()) && ShopContants.Status.USING!=loginUser.getShop().getStatus())) {
 			return result;
 		}
 		

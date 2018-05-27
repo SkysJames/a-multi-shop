@@ -1,6 +1,7 @@
 package com.sky.business.shop.service.impl;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
@@ -57,11 +58,11 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		if(editObj.containsKey("service")){
 			shop.setService((String)editObj.get("service"));
 		}
-		if(editObj.containsKey("logo") && (editObj.get("logo") instanceof List)){
+		if(editObj.containsKey("logoPathList") && (editObj.get("logoPathList") instanceof List)){
 			//图片存放的目录
 			String picPath = FileContants.PRODUCT_FILE + File.separator + (String)editObj.get("name");
 			//保存图片
-			String logo = CommonMethodUtil.saveFiles((List<String>) editObj.get("logo"), picPath);
+			String logo = CommonMethodUtil.saveFiles((List<String>) editObj.get("logoPathList"), picPath);
 			
 			shop.setLogo(logo);
 		}
@@ -120,13 +121,15 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 			shop.setName(name);
 		}
 		
-		if(addObj.containsKey("popularity") && StringUtils.isNotBlank((String)addObj.get("popularity"))){
+		if(addObj.containsKey("popularity") && addObj.get("popularity")!=null){
 			shop.setPopularity(CommonMethodUtil.getIntegerByObject(addObj.get("popularity")));
 		} else {
 			shop.setPopularity(0);
 		}
-		if(addObj.containsKey("recommend")){
+		if(addObj.containsKey("recommend") && addObj.get("recommend")!=null){
 			shop.setRecommend(CommonMethodUtil.getIntegerByObject(addObj.get("recommend")));
+		} else {
+			shop.setRecommend(0);
 		}
 		if(addObj.containsKey("shopType")){
 			shop.setShopType((String)addObj.get("shopType"));
@@ -145,8 +148,10 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		if(addObj.containsKey("description")){
 			shop.setDescription((String)addObj.get("description"));
 		}
-		if(addObj.containsKey("mark")){
+		if(addObj.containsKey("mark") && addObj.get("mark")!=null){
 			shop.setMark(CommonMethodUtil.getBigDecimalByObject(addObj.get("mark")));
+		} else {
+			shop.setMark(new BigDecimal(0));
 		}
 		if(addObj.containsKey("phone")){
 			shop.setPhone((String)addObj.get("phone"));

@@ -30,6 +30,12 @@ public class UserDaoImpl extends BaseDaoImpl implements UserDao {
 			sort = (String)condition.get("sort");
 		}
 		
+		//店铺id
+		if(condition.containsKey("shopId") && StringUtils.isNotBlank((String)condition.get("shopId"))){
+			hqlBuffer.append(" and shopId = ? ");
+			values.add((String)condition.get("shopId"));
+		}
+		
 		//用户状态
 		if(condition.containsKey("userStatus") && StringUtils.isNotBlank((String)condition.get("userStatus"))){
 			Integer userStatus = CommonMethodUtil.getIntegerByObject(condition.get("userStatus"));

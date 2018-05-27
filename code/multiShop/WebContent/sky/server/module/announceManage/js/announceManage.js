@@ -9,7 +9,7 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 			pageSize		: 10,	//每页数据量
 			totalCount	: 0,		//数据总量
 			pageCount	: 1,		//总页码数
-			shopId		: $currentUser.shopId==common.shopContants.shopSystem?"":$currentUser.shopId,
+			shopId		: ($currentUser.shopId==common.shopContants.shopSystem?"":$currentUser.shopId),
 			keywords		: "",
 			updateTimeA	: "",
 			updateTimeZ	: "",
@@ -128,7 +128,7 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 		$scope.filterText = "";
 		if($scope.condition){
 			
-			if(""!=$scope.condition.shopId){
+			if($scope.isAdminRight && ""!=$scope.condition.shopId){
 				for(var i=0;i<$scope.shopAll.length;i++){
 					var s = $scope.shopAll[i];
 					if(s.id == $scope.condition.shopId){

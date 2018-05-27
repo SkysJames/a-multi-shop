@@ -82,38 +82,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li>
 					<a href="#/majorIndex" title="主页"><i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">主页</span></a>
 				</li>
-				<li>
+				<li data-ng-if="currentUser.allRights.indexOf('system_manage')>-1 || currentUser.allRights.indexOf('forum_manage')>-1">
 					<a href="#"><i class="fa fa-lg fa-fw fa-cogs"></i> <span class="menu-item-parent">系统管理</span></a>
 					<ul>
-						<li>
+						<li data-ng-if="currentUser.allRights.indexOf('system_manage')>-1">
 							<a href="#/system">系统信息</a>
 						</li>
-						<li>
+						<li data-ng-if="currentUser.allRights.indexOf('forum_manage')>-1">
 							<a href="#">论坛信息</a>
 						</li>
 					</ul>
 				</li>
-				<li>
+				<li data-ng-if="currentUser.allRights.indexOf('announce_manage')>-1">
 					<a href="#/announce" title="公告管理"><i class="fa fa-lg fa-fw fa-bullhorn"></i> <span class="menu-item-parent">公告管理</span></a>
 				</li>
-				<li>
+				<li data-ng-if="currentUser.allRights.indexOf('message_manage')>-1 || currentUser.allRights.indexOf('report_manage')>-1">
 					<a href="#"><i class="fa fa-lg fa-fw fa-comments-o"><em class="my-hidden" data-ng-class="{'my-show':(messageCount+reportCount)}">{{messageCount+reportCount}}</em></i> <span class="menu-item-parent">消息管理</span></a>
 					<ul>
-						<li>
+						<li data-ng-if="currentUser.allRights.indexOf('message_manage')>-1">
 							<a href="#/message">消息列表<span class="badge pull-right inbox-badge bg-color-brightRed my-hidden" data-ng-class="{'my-show':messageCount}">{{messageCount}}</span></a>
 						</li>
-						<li>
+						<li data-ng-if="currentUser.allRights.indexOf('report_manage')>-1">
 							<a href="#/report">举报列表<span class="badge pull-right inbox-badge bg-color-brightRed my-hidden" data-ng-class="{'my-show':reportCount}">{{reportCount}}</span></a>
 						</li>
 					</ul>
 				</li>
-				<li>
+				<li data-ng-if="currentUser.allRights.indexOf('shop_manage')>-1">
 					<a href="#"><i class="fa fa-lg fa-fw fa-cubes"><em class="my-hidden" data-ng-class="{'my-show':shopCount}">{{shopCount}}</em></i> <span class="menu-item-parent">店铺管理</span></a>
 					<ul>
-						<li>
-							<a href="#">店铺信息</a>
+						<li data-ng-if="currentUser.allRights.indexOf('shop_basic')>-1">
+							<a href="#/shopBasic">店铺信息</a>
 						</li>
-						<li>
+						<li data-ng-if="currentUser.allRights.indexOf('shop_list')>-1">
 							<a href="#/shopList">店铺列表<span class="badge pull-right inbox-badge bg-color-brightRed my-hidden" data-ng-class="{'my-show':shopCount}">{{shopCount}}</span></a>
 						</li>
 						<li>
@@ -122,21 +122,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li>
 							<a href="#">产品列表</a>
 						</li>
-						<li>
+						<li data-ng-if="currentUser.allRights.indexOf('shop_type')>-1">
 							<a href="#/shopType">店铺类型</a>
 						</li>
-						<li>
+						<li data-ng-if="currentUser.allRights.indexOf('product_type')>-1">
 							<a href="#/productType">商品类型</a>
 						</li>
 					</ul>
 				</li>
-				<li>
+				<li data-ng-if="currentUser.allRights.indexOf('user_manage')>-1">
 					<a href="#/user"><i class="fa fa-lg fa-fw fa-users"></i> <span class="menu-item-parent">用户管理</span></a>
 				</li>
-				<li>
+				<li data-ng-if="currentUser.allRights.indexOf('visitor_manage')>-1">
 					<a href="#/visitor"><i class="fa fa-lg fa-fw fa-laptop"></i> <span class="menu-item-parent">访客管理</span></a>
 				</li>
-				<li>
+				<li data-ng-if="currentUser.allRights.indexOf('oplog_manage')>-1">
 					<a href="#/oplog"><i class="fa fa-lg fa-fw fa-calendar"></i> <span class="menu-item-parent">日志管理</span></a>
 				</li>
 			</ul>
