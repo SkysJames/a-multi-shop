@@ -105,7 +105,8 @@
 							<div class="form-group">
 								<label class="col-md-2 control-label">店铺简介：</label>
 								<div class="col-md-10">
-									<textarea class="form-control" rows="4" cols="" placeholder="店铺简介" data-ng-model="shop.brief"></textarea>
+									<textarea class="form-control" rows="3" cols="" placeholder="店铺简介" data-ng-model="shop.brief"></textarea>
+									<div class="common-tip">剩余可输入{{shop.brief|getRemainLength:250}}字</div>
 								</div>
 							</div>
 						</fieldset>

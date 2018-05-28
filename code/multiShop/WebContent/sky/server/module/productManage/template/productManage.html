@@ -1,115 +1,169 @@
-<div class="productManageId">
-	<div class="common-header">
-		<div class="header-title">
-			<i class="fa fa-cubes"></i>&nbsp;<span data-ng-click="triggerPanel($root.panelContants.INDEX_PANEL)">产品管理</span>
-			<div class="second-title" data-ng-show="$root.currentPanel.indexOf($root.panelContants.SAVE_PANEL) > -1">-&nbsp;新增</div>
-			<div class="second-title" data-ng-show="$root.currentPanel.indexOf($root.panelContants.EDIT_PANEL) > -1">-&nbsp;编辑</div>
+<div class="index-container" data-ng-controller="productManageCtrl">
+	
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark">
+				商品列表
+				<span data-ng-show="saveType && saveType=='edit'">
+					> 编辑
+				</span>
+				<span data-ng-show="saveType && saveType=='save'">
+					> 新增
+				</span>
+			</h1>
 		</div>
-	</div>
-	<div class="common-content" data-ng-show="$root.currentPanel==$root.panelContants.INDEX_PANEL">
-		<form class="common-search" data-ng-submit="getProductList()">
-			<div class="common-box">
-				<label>模糊搜索：</label>
-				<div class="common-input">
-					<input class="search-input" type="search" data-ng-model="condition.keywords" placeholder="名称和产品描述" />
-					<button class="common-btn" type="submit" title="搜索">
-						<i class="fa fa-search"></i>
-					</button>
-				</div>
-			</div>
-			<div class="common-box">
-				<label>更新时间：</label>
-				<div class="common-input" title="选择时间段">
-					<input id="searchDateRangeId" class="search-input" type="text" placeholder="开始时间&nbsp;~&nbsp;结束时间" 
-						 date-range-picker options="dateRangePickerOptions" data-ng-model="rangeDate" /> 
-					<button class="common-btn" type="button" title="选择时间" data-ng-click="showSearchDateRange();">
-						<i class="fa fa-calendar"></i>
-					</button>
-				</div>
-				<a href="javascript:void(0)" class="common-clear-date" data-ng-click="clearDate()">清空</a>
-			</div>
-			<div class="common-box">
-				<label>产品类型：</label>
-				<div class="common-input">
-					<select class="search-select" data-ng-model="condition.proType" data-ng-change="getProductList()">
-						<option value="-1">全部</option>
-						<option data-ng-repeat="item in proTypeList" value="{{item}}">{{item | stringProType}}</option>
-					</select>
-				</div>
-			</div>
-		</form>
-		<div class="common-tools">
-			<button class="btn btn-primary" data-ng-click="triggerPanel($root.panelContants.SAVE_PANEL)">添加</button>
-		</div>
-		<div class="common-div">
-			<loading-panel data-ng-show="isLoadingProduct" font-size="18"></loading-panel>
-			
-			<nodata-panel data-ng-show="productList.length==0" font-size="18"></nodata-panel>
-		
-			<div class="common-row" data-ng-repeat="product in productList">
-				<div class="common-row-left">
-					<div class="common-image" data-ng-if="product.picPathList && product.picPathList.length>0" data-ng-click="showImagePanel(product.picPathList)">
-						<img alt="暂无图片" data-ng-src="{{product.picPathList[0]}}">
-					</div>
-					<div class="common-image common-image-no" data-ng-if="!product.picPathList || product.picPathList.length==0">
-						<div class="no-image">暂无图片</div>
-					</div>
-				</div>
-				<div class="common-row-right">
-					<div class="common-row-header">
-						<div class="common-row-tools">
-							<a href="javascript:void(0)" 
-								data-ng-click="triggerPanel($root.panelContants.EDIT_PANEL, product)">编辑</a>
-							<a href="javascript:void(0)" 
-								data-ng-click="deleteProduct(product)">删除</a>
-						</div>
-						<div class="common-row-index">{{$index + 1}}</div>
-						<div class="common-row-name" title="{{product.name|showBlankValue}}">{{product.name|showBlankValue}}</div>
-					</div>
-					<div class="common-row-row">
-						<div class="common-row-box">
-							<div class="common-label">产品类型：</div>
-							<div class="common-value" title="{{product.proType|stringProType}}">{{product.proType|stringProType}}</div>
-						</div>
-						<div class="common-row-box">
-							<div class="common-label">产品描述：</div>
-							<div class="common-value" title="{{product.description|showBlankValue}}">{{product.description|showBlankValue}}</div>
-						</div>
-					</div>
-					<div class="common-row-row">
-						<div class="common-row-box">
-							<div class="common-label">创建用户：</div>
-							<div class="common-value" title="{{product.createUser|showBlankValue}}">{{product.createUser|showBlankValue}}</div>
-						</div>
-						<div class="common-row-box">
-							<div class="common-label">创建时间：</div>
-							<div class="common-value" title="{{product.createTime|formatDate}}">{{product.createTime|formatDate}}</div>
-						</div>
-					</div>
-					<div class="common-row-row">
-						<div class="common-row-box">
-							<div class="common-label">更新用户：</div>
-							<div class="common-value" title="{{product.updateUser|showBlankValue}}">{{product.updateUser|showBlankValue}}</div>
-						</div>
-						<div class="common-row-box">
-							<div class="common-label">更新时间：</div>
-							<div class="common-value" title="{{product.updateTime|formatDate}}">{{product.updateTime|formatDate}}</div>
-						</div>
-					</div>
-				</div>
+		<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8 server-tools" data-ng-show="!saveType">
+			<div class="btn-group">
+				<a href="javascript:void(0);" data-toggle="tooltip" data-ng-click="togglePanel('save')"
+					data-placement="bottom" data-original-title="新增" class="btn btn-default">
+					<strong><i class="fa fa-plus fa-lg"></i></strong>
+				</a>
 			</div>
 		</div>
-		<common-pager class="common-pager" page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
-			total-rows="condition.totalCount" to-page-call-back="getProductList(pageNo)"></common-pager>
 	</div>
 	
-	<!-- 产品保存面板 start -->
-	<product-manage-save data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.SAVE_PANEL) 
-		|| $root.isCurrentPanel($root.currentPanel, $root.panelContants.EDIT_PANEL)" 
-		product="productSave" get-product-list="getProductList()"></product-manage-save>
-	<!-- 产品保存面板 end -->
+	<!-- widget grid -->
+	<section id="widget-grid" data-ng-show="!saveType">
+		<!-- row -->
+		<div class="row">
+			<!-- NEW WIDGET START -->
+			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<!-- Widget ID (each widget will need unique ID)-->
+				<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0" data-widget-editbutton="false">
+					<header>
+						<h2 title="过滤条件：{{filterText}}">过滤条件：{{filterText}}</h2>
+					</header>
+	
+					<!-- widget div-->
+					<div>
+						<!-- widget content -->
+						<div class="widget-body">
+							
+							<!-- 过滤条件 -->
+							<form class="common-form" data-ng-submit="pagedProductList()">
+								<div class="input-group">
+									<label class="col-md-3 control-label">模糊搜索：</label>
+									<div class="col-md-9">
+										<input class="form-control" type="search" data-ng-model="condition.keywords" placeholder="名称、简介和描述">
+										<div class="input-group-btn">
+											<button class="btn btn-default btn-primary" type="submit" title="搜索">
+												<i class="fa fa-search"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="input-group" data-ng-show="isAdminRight">
+									<label class="col-md-3 control-label">商品所属：</label>
+									<div class="col-md-9">
+										<select class="form-control" ui-select2 data-ng-model="condition.shopId" data-ng-change="pagedProductList()">
+											<option value="">全部</option>
+											<option data-ng-repeat="shop in shopAll" data-ng-show="item.id!='system' && item.id!='bbs'" value="{{shop.id}}">{{shop.name}}</option>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="col-md-3 control-label">商品类型：</label>
+									<div class="col-md-9">
+										<select class="form-control" ui-select2 data-ng-model="condition.proType" data-ng-change="pagedProductList()">
+											<option value="">全部</option>
+											<optgroup data-ng-repeat="typet in typetList" label="{{typet.name}}">
+												<option data-ng-repeat="item in typet.typetList" value="{{item.id}}">{{item.name}}</option>
+											</optgroup>
+										</select>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="col-md-3 control-label">商品状态：</label>
+									<div class="col-md-9">
+										<select class="form-control" ui-select2 data-ng-model="condition.status" data-ng-change="pagedProductList()">
+											<option value="">全部</option>
+											<option value="2">已上架</option>
+											<option value="1">已下架</option>
+											<option value="0">禁用</option>
+										</select>
+									</div>
+								</div>
+							</form>
+						
+							<div class="well">
+								<table class="table table-striped table-forum">
+									<thead>
+										<tr>
+											<th colspan="2">基本信息</th>
+											<th class="text-center" style="width: 100px;">价格</th>
+											<th class="text-center hidden-xs hidden-sm" style="width: 100px;">库存</th>
+											<th class="hidden-xs hidden-sm" style="width: 150px;">最近更新</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr data-ng-repeat="product in productList">
+											<td class="text-center" style="width: 90px;">
+												<div class="superbox-list common-singleimg common-img-no" 
+													data-ng-show="!product.picPathList || product.picPathList.length==0">
+													<img data-ng-src="{{product.picPathList|getPicUrl}}" alt="" class="superbox-img">
+												</div>
+												<div class="superbox-list common-singleimg" data-ng-click="showImagePanel(product.picPathList)" 
+													data-ng-show="product.picPathList && product.picPathList.length>0">
+													<img data-ng-src="{{product.picPathList|getPicUrl}}" alt="" class="superbox-img">
+												</div>
+											</td>
+											<td>
+												<h4 class="common-pro">
+													<a href="javascript:void(0)" data-ng-click="togglePanel('edit', product)">
+														{{product.name | showBlankValue}}
+													</a>
+													<small>
+														<span>店铺：{{product.shopName | showBlankValue}}</span>
+														<span>类型：{{product.proTypeName | showBlankValue}}</span>
+														<span>浏览量：{{product.clickCount}}</span>
+													</small>
+													<small>
+														<span>简介：{{product.brief | showBlankValue}}</span>
+													</small>
+												</h4>
+											</td>
+											<td class="text-center">{{product.price}}</td>
+											<td class="text-center hidden-xs hidden-sm">{{product.proStock}}</td>
+											<td class="hidden-xs hidden-sm">
+												{{product.updateUser}}
+												<br>
+												<small><i>{{product.updateTime|formatDate}}</i></small>
+											</td>
+											<td>
+												<a href="javascript:void(0)" data-ng-click="togglePanel('edit', product)">编辑</a>
+												<a href="javascript:void(0)" data-ng-click="deleteProduct(product)">删除</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+								<loading-panel data-ng-show="isLoadingProduct" font-size="18"></loading-panel>
+								<nodata-panel data-ng-show="!isLoadingProduct && productList.length==0" font-size="18"></nodata-panel>
+								
+								<common-pager class="common-pager" page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
+									total-rows="condition.totalCount" to-page-call-back="pagedProductList(pageNo)"></common-pager>
+							</div>
+							
+						</div>
+						<!-- end widget content -->
+					</div>
+					<!-- end widget div -->
+				</div>
+				<!-- end widget -->
+			</article>
+			<!-- WIDGET END -->
+		</div>
+		<!-- end row -->
+	</section>
+	<!-- end widget grid -->
+	
+	<!-- 商品保存面板 start -->
+	<product-manage-save data-ng-show="saveType" product="productSave"></product-manage-save>
+	<!-- 商品保存面板 end -->
 	
 	<!-- 图片展示面板 start -->
 	<image-panel image-panel-id="{{imagePanelId}}" image-path-list="imagePathList"></image-panel>
 	<!-- 图片展示面板 end -->
+	
 </div>

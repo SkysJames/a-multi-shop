@@ -1,42 +1,156 @@
-<div class="common-content">
-	<div class="common-save-row">
-		<div class="common-save-label">产品名称：</div>
-		<div class="common-save-value">
-			<input class="common-save-input" type="text" placeholder="产品名称" data-ng-model="product.name">
-			<span class="need-tab">*</span>
-		</div>
+<!-- widget grid -->
+<section id="widget-grid">
+	<!-- row -->
+	<div class="row">
+		<!-- NEW WIDGET START -->
+		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<!-- Widget ID (each widget will need unique ID)-->
+			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+				<!-- widget content -->
+				<div class="widget-body">
+					<form class="form-horizontal">
+						<fieldset>
+							<legend data-ng-show="$parent.saveType=='edit'">
+								{{product.shopName|showBlankValue}}
+							</legend>
+							<div class="form-group">
+								<label class="col-md-2 control-label">商品名称：</label>
+								<div class="col-md-10">
+									<input class="form-control" type="text" placeholder="商品名称" data-ng-model="product.name">
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="form-group" data-ng-show="$parent.isAdminRight">
+								<label class="col-md-2 control-label">商品所属：</label>
+								<div class="col-md-10">
+									<select class="form-control" ui-select2 data-ng-model="product.shopId">
+										<option data-ng-repeat="item in $parent.shopAll" data-ng-show="item.id!='system' && item.id!='bbs'" value="{{item.id}}">{{item.name}}</option>
+									</select>
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">商品类型：</label>
+								<div class="col-md-10">
+									<select class="form-control" ui-select2 data-ng-model="product.proType">
+										<optgroup data-ng-repeat="typet in $parent.typetList" label="{{typet.name}}">
+											<option data-ng-repeat="item in typet.typetList" value="{{item.id}}">{{item.name}}</option>
+										</optgroup>
+									</select>
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">商品状态：</label>
+								<div class="col-md-10">
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="2" data-ng-model="product.status">
+										<span>上架</span>
+									</label>
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="1" data-ng-model="product.status">
+										<span>下架</span>
+									</label>
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="0" data-ng-model="product.status">
+										<span>禁用</span>
+									</label>
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">商品价格：</label>
+								<div class="col-md-10">
+									<input class="form-control" type="number" placeholder="商品价格" data-ng-model="product.price">
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">商品库存：</label>
+								<div class="col-md-10">
+									<input class="form-control" type="number" placeholder="商品库存" data-ng-model="product.proStock">
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="form-group" data-ng-show="$parent.saveType=='edit'">
+								<label class="col-md-2 control-label">浏览量：</label>
+								<div class="col-md-10 common-value">
+									{{product.clickCount}}
+								</div>
+							</div>
+							<div class="form-group" data-ng-show="$parent.saveType=='edit'">
+								<label class="col-md-2 control-label">创建用户：</label>
+								<div class="col-md-10 common-value">
+									{{product.createUser}}
+								</div>
+							</div>
+							<div class="form-group" data-ng-show="$parent.saveType=='edit'">
+								<label class="col-md-2 control-label">创建时间：</label>
+								<div class="col-md-10 common-value">
+									{{product.createTime|formatDate}}
+								</div>
+							</div>
+							<div class="form-group" data-ng-show="$parent.saveType=='edit'">
+								<label class="col-md-2 control-label">更新用户：</label>
+								<div class="col-md-10 common-value">
+									{{product.updateUser}}
+								</div>
+							</div>
+							<div class="form-group" data-ng-show="$parent.saveType=='edit'">
+								<label class="col-md-2 control-label">更新时间：</label>
+								<div class="col-md-10 common-value">
+									{{product.updateTime|formatDate}}
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">商品图片：</label>
+								<div class="col-md-10">
+									<image-dropzone dropzone-id="productPictureId" max-files="5" image-path-list="product.picPathList"></image-dropzone>
+									<div class="common-tip">请上传jpg,jpeg,png格式的图片，图片推荐尺寸 宽：1140px，高：450px，或 宽：1920px，高：600px</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">商品简介：</label>
+								<div class="col-md-10">
+									<textarea class="form-control" rows="3" cols="" placeholder="商品简介" data-ng-model="product.brief"></textarea>
+									<div class="common-tip">剩余可输入{{product.brief|getRemainLength:250}}字</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 control-label">商品描述：</label>
+								<div class="col-md-10">
+									<textarea class="form-control" rows="6" cols="" placeholder="商品描述" data-ng-model="product.description"></textarea>
+								</div>
+							</div>
+						</fieldset>
+						<div class="form-actions">
+							<div class="row">
+								<div class="col-md-12">
+									<button class="btn btn-default common-save-btn" type="button" data-ng-click="$parent.togglePanel(null)">
+										返回
+									</button>
+									<button class="btn btn-primary common-save-btn" type="button" 
+										data-ng-show="$parent.saveType=='edit'" data-ng-disabled="isLoadingSave" data-ng-click="editProduct(product)">
+										<i class="fa fa-save" data-ng-show="!isLoadingSave"></i>
+										<i class="fa fa-spin spinner" data-ng-show="isLoadingSave"></i>
+										保存
+									</button>
+									<button class="btn btn-primary common-save-btn" type="button" 
+										data-ng-show="$parent.saveType=='save'" data-ng-disabled="isLoadingSave" data-ng-click="saveProduct(product)">
+										<i class="fa fa-save" data-ng-show="!isLoadingSave"></i>
+										<i class="fa fa-spin spinner" data-ng-show="isLoadingSave"></i>
+										保存
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- end widget -->
+		</article>
+		<!-- WIDGET END -->
 	</div>
-	
-	<div class="common-save-row">
-		<div class="common-save-label">产品类型：</div>
-		<div class="common-save-value">
-			<select class="common-save-select" ui-select2 data-ng-model="product.proType">
-			　　<option data-ng-repeat="item in proTypeList" value="{{item}}">{{item | stringProType}}</option>
-			</select>
-			<span class="need-tab">*</span>
-		</div>
-	</div>
-	
-	<div class="common-save-row">
-		<div class="common-save-label">产品图片：</div>
-		<div class="common-save-value">
-			<image-dropzone dropzone-id="productSavePicId" image-path-list="product.picPathList"></image-dropzone>
-		</div>
-	</div>
-	
-	<div class="common-save-row">
-		<div class="common-save-label">产品描述：</div>
-		<div class="common-save-value">
-			<textarea id="productCon" class="common-save-textarea" data-ng-model="product.description"></textarea>
-		</div>
-	</div>
-	
-	<div class="common-save-bottom">
-		<button class="btn btn-default" data-ng-click="$root.returnPanel()">返回</button>
-		<button class="btn btn-primary" data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.SAVE_PANEL)" 
-			data-ng-disabled="isLoadingSave" data-ng-click="saveProduct(product)">保存</button>
-		<button class="btn btn-primary" data-ng-show="$root.isCurrentPanel($root.currentPanel, $root.panelContants.EDIT_PANEL)" 
-			data-ng-disabled="isLoadingSave" data-ng-click="editProduct(product)">保存</button>
-	</div>
-	
-</div>
+	<!-- end row -->
+</section>
+<!-- end widget grid -->

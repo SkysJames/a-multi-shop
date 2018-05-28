@@ -4,16 +4,12 @@ angular.module('productManageSave',[])
 		restrict:'E',
 		scope : {
 			product			: "=",
-			getProductList	: "&",
 		},
-		templateUrl : $contextPath +"/sky/server/directive/productManage/template/productManageSave.html",
+		templateUrl : $contextPath +"/sky/server/module/productManage/template/productManageSave.html",
 		link : function(scope,element,attrs){
 			
 		},
-		controller : function($scope, $timeout, $filter, $document, serverIndexHttpService, productManageService){
-			//产品类型列表
-			$scope.proTypeList = common.productContants.proType;
-			
+		controller : function($scope, $timeout, $filter, $document, serverIndexHttpService){
 			/**
 			 * 新增保存产品
 			 */
@@ -23,7 +19,7 @@ angular.module('productManageSave',[])
 					return;
 				}
 				
-				product.description = $scope.$root.editor.html();
+//				product.description = $scope.$root.editor.html();
 				
 				$scope.isLoadingSave = true;
 				serverIndexHttpService.saveProduct(product)
@@ -31,8 +27,8 @@ angular.module('productManageSave',[])
 					var data = response.data;
 					if(data.statusCode=="200" && data.message){
 						common.triggerSuccessMesg(data.message);
-						$scope.getProductList();
-						$scope.$root.returnPanel();
+						$scope.$parent.pagedProductList();
+						$scope.$parent.togglePanel(null);
 					}else{
 						common.triggerFailMesg(data.message);
 					}
@@ -51,7 +47,7 @@ angular.module('productManageSave',[])
 					return;
 				}
 				
-				product.description = $scope.$root.editor.html();
+//				product.description = $scope.$root.editor.html();
 				
 				$scope.isLoadingSave = true;
 				serverIndexHttpService.editProduct(product)
@@ -59,8 +55,8 @@ angular.module('productManageSave',[])
 					var data = response.data;
 					if(data.statusCode=="200" && data.message){
 						common.triggerSuccessMesg(data.message);
-						$scope.getProductList();
-						$scope.$root.returnPanel();
+						$scope.$parent.pagedProductList();
+						$scope.$parent.togglePanel(null);
 					}else{
 						common.triggerFailMesg(data.message);
 					}
@@ -78,11 +74,32 @@ angular.module('productManageSave',[])
 					return false;
 				}
 				
+				//店铺用户，则赋值其店铺ID
+				if($currentUser.shopId!=common.shopContants.shopSystem){
+					product.shopId = $currentUser.shopId;
+				}
+				
 				if(!product.name || product.name==""){
 					return false;
 				}
 				
-				if(product.proType==null || product.proType==undefined){
+				if(!product.shopId || product.shopId==""){
+					return false;
+				}
+				
+				if(!product.proType || product.proType==""){
+					return false;
+				}
+				
+				if(null==product.status || undefined==product.status){
+					return false;
+				}
+				
+				if(null==product.price || undefined==product.price){
+					return false;
+				}
+				
+				if(null==product.proStock || undefined==product.proStock){
 					return false;
 				}
 				

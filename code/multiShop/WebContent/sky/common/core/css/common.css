@@ -5,6 +5,18 @@
 	padding: 0px;
 }
 
+.common-pager {
+	bottom: 8px;
+}
+
+.common-singleimg {
+	width: 100%!important;
+}
+
+.common-img-no img {
+	cursor: not-allowed;
+}
+
 .common-form {
 	margin-bottom: 15px;
 }
@@ -57,6 +69,28 @@
 
 .common-save-btn {
 	margin-right: 5px;
+}
+
+.common-pro {
+	
+}
+.common-pro>a {
+	max-width: 350px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 16px;
+}
+.common-pro>small {
+	max-width: 350px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	margin-top: 5px!important;
+	font-size: 12px;
+}
+.common-pro>small>span {
+	margin-right: 10px;
 }
 
 .need-tab {

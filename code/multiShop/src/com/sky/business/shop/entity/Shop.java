@@ -92,7 +92,7 @@ public class Shop implements Serializable {
 	
 	
 	/**
-	 * 过期时间字符串
+	 * 店铺类型名称
 	 */
 	@Transient
 	private String shopTypeName;

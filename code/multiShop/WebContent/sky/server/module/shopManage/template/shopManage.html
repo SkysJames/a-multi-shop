@@ -80,7 +80,7 @@
 									<div class="col-md-10 common-value" data-ng-show="!isEdit">{{shopInfo.brief|showBlankValue}}</div>
 									<div class="col-md-10" data-ng-show="isEdit">
 										<textarea class="form-control" rows="3" placeholder="店铺简介" data-ng-model="shopInfo.brief"></textarea>
-										<div class="common-tip">长度不能超过250字</div>
+										<div class="common-tip">剩余可输入{{shopInfo.brief|getRemainLength:250}}字</div>
 									</div>
 								</div>
 								<div class="form-group">

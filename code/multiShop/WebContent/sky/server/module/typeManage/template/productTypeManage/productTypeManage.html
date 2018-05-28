@@ -12,7 +12,7 @@
 				</span>
 			</h1>
 		</div>
-		<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8 server-tools" data-ng-show="!saveType">
+		<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8 server-tools" data-ng-show="!saveType && !isAdminRight">
 			<div class="btn-group">
 				<a href="javascript:void(0);" data-toggle="tooltip" data-ng-click="togglePanel('save')"
 					data-placement="bottom" data-original-title="新增" class="btn btn-default">
@@ -47,7 +47,7 @@
 											{{typet.shopName|showBlankValue}}
 										</span>
 										<div class="common-tree-tools">
-											<a href="javascript:void(0)" title="编辑" data-ng-click="togglePanel('edit', typet)"><i class="fa fa-edit"></i></a>
+											<a href="javascript:void(0)" title="编辑" data-ng-click="togglePanel('edit', typet)" data-ng-show="!isAdminRight"><i class="fa fa-edit"></i></a>
 											<a href="javascript:void(0)" title="删除" data-ng-click="deleteTypet(typet)"><i class="fa fa-trash"></i></a>
 										</div>
 										<ul>

@@ -40,6 +40,7 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 	public Product add(Map<String,Object> addObj, LoginUser loginUser) throws Exception {
 		Product product = new Product();
 		product.setId(UUID.randomUUID().toString());
+		product.setClickCount(0);
 		
 		if(addObj.containsKey("shopId")){
 			product.setShopId((String)addObj.get("shopId"));

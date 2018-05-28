@@ -43,6 +43,11 @@ angular.module('serverIndexApp',
 	$routeProvider.when("/evaluate",{
 		templateUrl:$contextPath+'/sky/server/module/evaluateManage/template/evaluateManage.html',
 	});
+	
+	//商品列表
+	$routeProvider.when("/product",{
+		templateUrl:$contextPath+'/sky/server/module/productManage/template/productManage.html',
+	});
 
 	
 	//店铺类型

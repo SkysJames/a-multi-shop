@@ -43,7 +43,7 @@
 									<div class="col-md-9">
 										<select class="form-control" ui-select2 data-ng-model="condition.objId" data-ng-change="pagedEvaluateList()">
 											<option value="">全部</option>
-											<option data-ng-repeat="item in shopAll" value="{{item.id}}">{{item.name}}</option>
+											<option data-ng-repeat="item in shopAll" data-ng-show="item.id!='system' && item.id!='bbs'" value="{{item.id}}">{{item.name}}</option>
 										</select>
 									</div>
 								</div>

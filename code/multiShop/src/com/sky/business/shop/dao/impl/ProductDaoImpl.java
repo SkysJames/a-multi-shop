@@ -37,7 +37,7 @@ public class ProductDaoImpl extends BaseDaoImpl implements ProductDao {
 		}
 		
 		//商品状态
-		if(condition.containsKey("status") && null==condition.get("status")){
+		if(condition.containsKey("status") && StringUtils.isNotBlank((String)condition.get("status"))){
 			hqlBuffer.append(" and status = ? ");
 			values.add(CommonMethodUtil.getIntegerByObject(condition.get("status")));
 		}

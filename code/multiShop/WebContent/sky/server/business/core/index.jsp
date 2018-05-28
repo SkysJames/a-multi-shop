@@ -120,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<a href="#/evaluate">店铺评论<span class="badge pull-right inbox-badge bg-color-brightRed my-hidden" data-ng-class="{'my-show':evaluateCount}">{{evaluateCount}}</span></a>
 						</li>
 						<li>
-							<a href="#">产品列表</a>
+							<a href="#/product">商品列表</a>
 						</li>
 						<li data-ng-if="currentUser.allRights.indexOf('shop_type')>-1">
 							<a href="#/shopType">店铺类型</a>

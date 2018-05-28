@@ -14,6 +14,11 @@ import javax.persistence.Transient;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.sky.business.shop.service.ShopService;
+import com.sky.business.system.entity.Typet;
+import com.sky.business.system.service.TypeService;
+import com.sky.util.BeanDefinedLocator;
+
 
 /**
  * 商品
@@ -74,6 +79,18 @@ public class Product  implements java.io.Serializable {
     private Integer status;
 
     /************** 非持久化字段 start **************/
+	/**
+ 	 * 店铺名称
+ 	 */
+ 	@Transient
+ 	private String shopName;
+ 	
+ 	/**
+	 * 商品类型名称
+	 */
+	@Transient
+	private String proTypeName;
+	
  	/**
  	 * 图片path列表
  	 */
@@ -158,71 +175,57 @@ public class Product  implements java.io.Serializable {
 		return shopId;
 	}
 
-
 	public void setShopId(String shopId) {
 		this.shopId = shopId;
 	}
-
 
 	public Integer getClickCount() {
 		return clickCount;
 	}
 
-
 	public void setClickCount(Integer clickCount) {
 		this.clickCount = clickCount;
 	}
-
 
 	public String getBrief() {
 		return brief;
 	}
 
-
 	public void setBrief(String brief) {
 		this.brief = brief;
 	}
-
 
 	public String getProType() {
 		return proType;
 	}
 
-
 	public void setProType(String proType) {
 		this.proType = proType;
 	}
-
 
 	public BigDecimal getPrice() {
 		return price;
 	}
 
-
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
-
 
 	public Integer getProStock() {
 		return proStock;
 	}
 
-
 	public void setProStock(Integer proStock) {
 		this.proStock = proStock;
 	}
-
 
 	public Integer getStatus() {
 		return status;
 	}
 
-
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-
 
 	public List<String> getPicPathList() {
 		if(StringUtils.isNotBlank(picture) && null==picPathList){
@@ -234,6 +237,32 @@ public class Product  implements java.io.Serializable {
 
 	public void setPicPathList(List<String> picPathList) {
 		this.picPathList = picPathList;
+	}
+
+	public String getShopName() {
+		if(StringUtils.isNotBlank(this.shopId)) {
+			ShopService shopService = (ShopService)BeanDefinedLocator.getInstance().getBean("shopService");
+			Shop s = shopService.findByID(Shop.class, this.shopId);
+			shopName = s.getName();
+		}
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
+	public String getProTypeName() {
+		if(StringUtils.isNotBlank(this.proType)) {
+			TypeService typeService = (TypeService)BeanDefinedLocator.getInstance().getBean("typeService");
+			Typet typet = typeService.findByID(Typet.class, this.proType);
+			proTypeName = typet.getName();
+		}
+		return proTypeName;
+	}
+
+	public void setProTypeName(String proTypeName) {
+		this.proTypeName = proTypeName;
 	}
    
 }

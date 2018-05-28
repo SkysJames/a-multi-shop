@@ -13,6 +13,33 @@ angular.module('server-index.filter',[])
 })
 
 /**
+ * 显示剩余可输入的字符长度
+ */
+.filter('getRemainLength',function(){
+	return function(hasString, allLength){
+		if(hasString && allLength){
+			var remainLength = allLength - hasString.length;
+			return (remainLength>0?remainLength:0);
+		}else{
+			return allLength;
+		}
+	};
+})
+
+/**
+ * 获取图片url
+ */
+.filter('getPicUrl',function(){
+	return function(picList){
+		if(picList && picList.length>0){
+			return picList[0];
+		}else{
+			return $contextPath + "/sky/common/core/img/no_pic.jpeg";
+		}
+	};
+})
+
+/**
  * 店铺名称的展示，可能系统类型/论坛类型/店铺类型
  */
 .filter('showShopName',function(){
@@ -73,6 +100,22 @@ angular.module('server-index.filter',[])
 })
 
 /**
+ * 转换商品状态为字符串
+ */
+.filter('stringProductStatus',function(){
+	return function(status){
+		if(2==status || "2"==status){
+			return "已上架";
+		}else if(1==status || "1"==status){
+			return "已下架";
+		}else{
+			return "禁用";
+		}
+	};
+})
+
+
+/**
  * 转换店铺状态为字符串
  */
 .filter('stringShopStatus',function(){
@@ -101,7 +144,7 @@ angular.module('server-index.filter',[])
 })
 
 /**
- * 展示值
+ * 展示权限值
  * @returns
  */
 .filter('showRightName',function(){
