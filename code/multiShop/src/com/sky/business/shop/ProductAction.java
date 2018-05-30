@@ -23,7 +23,7 @@ import com.sky.util.JsonUtil;
  * @author Sky James
  *
  */
-@InterceptorRefs({@InterceptorRef("serverLoginStack")})
+@InterceptorRefs({@InterceptorRef("visitorStack")})
 public class ProductAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
@@ -168,32 +168,8 @@ public class ProductAction extends BaseAction {
 		return RESULT_MAP;
 	}
 	
-	/**
-	 * 编辑产品点赞数
-	 * @return
-	 */
-	public String editClickCount(){
-		try{
-			Map<String,Object> product = JsonUtil.getJsonToMap(conditionJson);
-			productService.editClickCount(product);
-			
-			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功修改产品的点赞数");
-		} catch (ServiceException e) {
-			logger.error(e);
-			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, e.getErrorCode());
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, e.getErrorMsg());
-		} catch (Exception e) {
-			logger.error(ExceptionUtils.getStackTrace(e));
-			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
-		}
-		return RESULT_MAP;
-	}
-	
 
 	//Getters and Setters
-	
 	@Override
 	public Map<String, Object> getResultMap() {
 		return resultMap;

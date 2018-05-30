@@ -1,0 +1,35 @@
+@CHARSET "UTF-8";
+.ans_div {
+	position:relative;
+	height:18px;
+	line-height: 18px;
+	font-size: 14px;
+	overflow:hidden;
+	cursor: pointer;
+	color: #ff0000;
+	background-color: #efefef;
+}
+.ans_a,.ans_a:HOVER,.ans_a:VISITED {
+	text-decoration: none;
+	display:block;
+	color: #ff0000;
+}
+.ans_author {
+	font-weight:normal;
+	font-size:9pt;
+}
+.slide-group{
+	position:absolute;
+	top:0px; 
+	left:0px;
+	padding-left: 0px;
+}
+
+.ans-model {
+	
+}
+.ans-model-createtime {
+	color: #999;
+}
+
+

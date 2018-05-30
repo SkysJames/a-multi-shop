@@ -138,7 +138,7 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 		.then(function(response){
 			var data = response.data;
 			if(data.statusCode=="200"){
-				$scope.typetList = data.typetList;
+				$scope.typetList = data.list;
 			}else{
 				common.triggerFailMesg(data.message);
 			}

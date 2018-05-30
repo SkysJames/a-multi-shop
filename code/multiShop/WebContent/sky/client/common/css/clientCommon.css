@@ -1,0 +1,110 @@
+@CHARSET "UTF-8";
+h1, h2, h3 {
+    font-weight: normal;
+}
+a {
+	text-decoration: none;
+}
+a:hover,a:active,a:visited,a:link {
+	text-decoration: none;
+}
+ul li {
+	list-style: none;
+}
+
+/*模态框样式start*/
+.client-model-header {
+	color: #fff;
+	background-color: #ff0000;
+}
+.client-model-header button {
+	color: #fff;
+	opacity: 0.8;
+	outline: none;
+}
+/*模态框样式end*/
+
+/*头部系统名称和搜索位置 start*/
+.client-header {
+	
+}
+.ch-pc {
+	display: block;
+	margin-top: 35px;
+	height: 102px;
+}
+.ch-pc-left {
+    height: 100%;
+}
+.ch-pc-left header {
+	margin-top: 20px;
+    margin-left: 20px;
+    font-size: 25px;
+}
+.ch-pc-left img {
+	height: 52px;
+}
+.ch-pc-middle {
+	height: 100%;
+}
+.ch-pc-search {
+	margin: 0 auto;
+    margin-top: 25px;
+    max-width: 500px;
+}
+.ch-pc-search input {
+	border: 1px solid #ff0000;
+	outline: none!important;
+}
+.ch-pc-search button {
+	color: #fff!important;
+	background-color: #ff0000;
+	border: 1px solid #ff0000;
+	outline: none!important;
+}
+.ch-pc-search button:hover {
+	background-color: #f95353;
+	border: 1px solid #f95353;
+}
+.ch-pc-announce {
+    margin: 0 auto;
+    margin-top: 6px;
+    padding: 8px 14px;
+    max-width: 500px;
+    background-color: #efefef;
+}
+
+.ch-phone {
+	display: none;
+	background-color: #efefef;
+    padding: 5px 10px;
+}
+.ch-phone-return {
+	position: absolute;
+	line-height: 32px;
+	cursor: pointer;
+}
+.ch-phone-search {
+	margin-left: 20px;
+}
+.ch-phone-search input {
+	background-color: #fff;
+	outline: none!important;
+}
+.ch-phone-search button {
+	color: #ff0000!important;
+    border: none!important;
+    background-color: transparent;
+    outline: none!important;
+}
+
+@media screen and (max-width: 760px) {
+	.ch-pc {
+		display: none;
+	}
+	
+	.ch-phone {
+		display: block;
+	}
+}
+/*头部系统名称和搜索位置 end*/

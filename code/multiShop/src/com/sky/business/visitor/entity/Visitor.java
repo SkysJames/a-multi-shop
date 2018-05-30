@@ -9,7 +9,10 @@ import javax.persistence.Table;
 
 
 /**
- * Visitor entity. @author MyEclipse Persistence Tools
+ * 访客实体
+ * 分有两种类型，系统类型和各个店铺类型
+ * @author xiefeiye
+ *
  */
 @Entity
 @Table(name="tb_visitor")

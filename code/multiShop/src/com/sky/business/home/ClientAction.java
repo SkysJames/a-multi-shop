@@ -23,7 +23,7 @@ import com.sky.contants.EntityContants;
 import com.sky.util.IpProcessUtil;
 
 /**
- * 系统主页
+ * 前端主页
  * @author Sky James
  *
  */
@@ -34,9 +34,6 @@ public class ClientAction extends BaseAction {
 
 	@Resource(name = "userService")
 	private UserService userService;
-	
-	@Resource(name = "oplogService")
-	private OplogService oplogService;
 	
 	@Resource(name = "visitorService")
 	private VisitorService visitorService;
@@ -52,7 +49,7 @@ public class ClientAction extends BaseAction {
 	 * 前端主页面
 	 * @return
 	 */
-	@Action(value = "client-index", results = @Result(location = "/sky/client/business/core/index.jsp"), interceptorRefs = {@InterceptorRef("visitorStack")})
+	@Action(value = "client-index", results = @Result(location = "/sky/client/business/core/index.jsp"), interceptorRefs = {@InterceptorRef("visitorInterceptor")})
 	public String clientIndex() {
 		logger.info("进入前端主页面");
 		return SUCCESS;

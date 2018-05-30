@@ -47,7 +47,7 @@ public class AnnounceAction extends BaseAction {
 			
 			resultMap.put("pager", pager);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取公告列表");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功分页获取公告列表");
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getStackTrace(e));
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);

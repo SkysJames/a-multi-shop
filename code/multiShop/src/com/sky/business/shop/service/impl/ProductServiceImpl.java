@@ -145,15 +145,17 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 	}
 	
 	@Override
-	public void editClickCount(Map<String,Object> editObj) throws Exception {
+	public void addClickCount(String id) throws Exception {
 		//查找数据库中是否存在
-		Product product = this.findByID(Product.class, (String)editObj.get("id"));
+		Product product = this.findByID(Product.class, id);
 		if(product == null){
 			throw new ServiceException(CodeMescContants.CodeContants.ERROR_INEXIST, CodeMescContants.MessageContants.ERROR_INEXIST);
 		}
 		
-		if(editObj.containsKey("clickCount")){
-			product.setClickCount(CommonMethodUtil.getIntegerByObject(editObj.get("clickCount")));
+		if(null == product.getClickCount()){
+			product.setClickCount(1);
+		}else {
+			product.setClickCount(product.getClickCount() + 1);
 		}
 		
 		this.update(product);

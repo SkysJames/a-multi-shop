@@ -3,7 +3,6 @@ angular.module('clientBottom',[])
 	return {
 		restrict:'E',
 		scope : {
-			currentNav	: '=',
 		},
 		templateUrl : $contextPath +"/sky/client/component/clientBottom/template/clientBottom.html",
 		link : function(scope,element,attrs){
@@ -12,6 +11,8 @@ angular.module('clientBottom',[])
 		controller : function($scope, $timeout, $filter, $document){
 			//系统名称
 			$scope.systemName = $systemName;
+			//系统logo
+			$scope.systemLogo = $systemLogo;
 			//公司名称
 			$scope.companyName = $companyName;
 			//公司地址
@@ -28,14 +29,10 @@ angular.module('clientBottom',[])
 			$scope.email = $email;
 			//qq号码
 			$scope.qq = $qq;
-			//qq联系的Url
-			$scope.qqContactUrl = common.qqContactUrl;
-			//页面导航
-			$scope.clientNavs = common.clientNavs;
-			//新闻类型map
-			$scope.newsTypes = common.newsContants.newsType;
-			//产品类型map
-			$scope.proTypes = common.productContants.proType;
+			//微信公众号二维码的Url
+			$scope.wechatPic = $wechatPic;
+			//服务时间
+			$scope.serviceTime = $serviceTime;
 			
 			/**
 			 * 切换页面
@@ -44,13 +41,6 @@ angular.module('clientBottom',[])
 				window.location.href = $contextPath + url;
 			};
 			
-			/**
-			 * 初始化函数
-			 */
-			$scope.initFunc = function(){
-				
-			};
-			$document.ready($scope.initFunc);
 		}
 	};
 });

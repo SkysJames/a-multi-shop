@@ -42,6 +42,13 @@ public class TypeDaoImpl extends BaseDaoImpl implements TypeDao {
 			values.add(parentId);
 		}
 		
+		//非此父类型ID
+		if(condition.containsKey("notParentId") && StringUtils.isNotBlank((String)condition.get("notParentId"))){
+			String notParentId = (String)condition.get("notParentId");
+			hqlBuffer.append(" and parentId != ? ");
+			values.add(notParentId);
+		}
+		
 		//关键字
 		if(condition.containsKey("keywords") && StringUtils.isNotBlank((String)condition.get("keywords"))){
 			String keywords = (String)condition.get("keywords");

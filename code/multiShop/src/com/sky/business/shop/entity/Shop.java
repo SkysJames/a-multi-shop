@@ -87,6 +87,9 @@ public class Shop implements Serializable {
 	@Column(name="PHONE")
 	private String phone;
 	
+	@Column(name="WECHAT_PIC")
+	private String wechatPic;
+	
 	@Column(name="REMARK")
 	private String remark;
 	
@@ -115,11 +118,17 @@ public class Shop implements Serializable {
  	@Transient
  	private List<String> logoPathList;
 	
-	/**
+ 	/**
  	 * 图片path列表
  	 */
  	@Transient
  	private List<String> picPathList;
+ 	
+ 	/**
+ 	 * 微信二维码path列表
+ 	 */
+ 	@Transient
+ 	private List<String> wechatPathList;
  	
  	/**
  	 * 客服人员列表
@@ -288,6 +297,14 @@ public class Shop implements Serializable {
 		this.phone = phone;
 	}
 
+	public String getWechatPic() {
+		return wechatPic;
+	}
+
+	public void setWechatPic(String wechatPic) {
+		this.wechatPic = wechatPic;
+	}
+
 	public String getRemark() {
 		return remark;
 	}
@@ -298,8 +315,7 @@ public class Shop implements Serializable {
 
 	public List<String> getPicPathList() {
 		if(StringUtils.isNotBlank(picture) && null==picPathList){
-			String[] pictures = picture.split(",");
-			picPathList = Arrays.asList(pictures);
+			picPathList = Arrays.asList(picture.split(","));
 		}
 		return picPathList;
 	}
@@ -336,10 +352,10 @@ public class Shop implements Serializable {
 	public User getShopKeeper() {
 		if(shopKeeper == null) {
 			UserService userService = (UserService)BeanDefinedLocator.getInstance().getBean("userService");
-			List<User> uList = userService.findBy(User.class, "shopId", this.id);
+			List<User> uList = userService.findBy(User.class, "shopId", id);
 			
 			for(User u : uList) {
-				if(u.getAllRights().indexOf(RightGroupContants.RIGHT_GROUP_SHOPKEEPER) > -1) {
+				if(u.getRightgroups().indexOf(RightGroupContants.RIGHT_GROUP_SHOPKEEPER) > -1) {
 					shopKeeper = u;
 					break;
 				}
@@ -353,14 +369,25 @@ public class Shop implements Serializable {
 	}
 
 	public List<String> getLogoPathList() {
-		if(StringUtils.isNotBlank(this.logo)) {
-			logoPathList = Arrays.asList(this.logo.split(","));
+		if(StringUtils.isNotBlank(logo) && null==logoPathList) {
+			logoPathList = Arrays.asList(logo.split(","));
 		}
 		return logoPathList;
 	}
 
 	public void setLogoPathList(List<String> logoPathList) {
 		this.logoPathList = logoPathList;
+	}
+
+	public List<String> getWechatPathList() {
+		if(StringUtils.isNotBlank(wechatPic) && null==wechatPathList){
+			wechatPathList = Arrays.asList(wechatPic.split(","));
+		}
+		return wechatPathList;
+	}
+
+	public void setWechatPathList(List<String> wechatPathList) {
+		this.wechatPathList = wechatPathList;
 	}
 
 }

@@ -1,24 +1,53 @@
 <div class="client-top">
-	<div class="ct-container">
-		<div class="ct-sysname">{{systemName}}</div>
-		<div class="ct-container-right">
-			<div class="ct-navbar">
-				<ul>
-					<li data-ng-repeat="nav in clientNavs" data-ng-click="triggerPage(nav.url)"
-						data-ng-class="{'active':currentNav.id==nav.id}">{{nav.name}}</li>
-				</ul>
+	<!-- PC端顶部栏start -->
+	<div class="ct-top-fixed">
+		<div class="ct-top-left">
+			<span>欢迎来到&nbsp;{{systemName|showBlankValue}}！</span>
+			<div class="ct-top-item" data-ng-show="!currentUser">
+				<span class="link">请登录</span>
+				<span class="link">注册</span>
 			</div>
-			<div class="ct-toggle">
-				<a href="javascript:void(0);" data-ng-click="toggleNavbar()"><i class="fa fa-bars"></i></a>
+			<div class="ct-top-item" data-ng-show="currentUser">
+				<span class="link">{{currentUser.username}}</span>
+			</div>
+			<div class="ct-top-item" data-ng-show="currentUser">
+				<span class="link"><i class="fa fa-star"></i>收藏夹</span>
+			</div>
+			<div class="ct-top-item" data-ng-show="currentUser">
+				<span class="link"><i class="fa fa-circle-o-notch"></i>浏览记录</span>
 			</div>
 		</div>
+		<div class="ct-top-right">
+			<div class="ct-top-item ct-wechat">
+				<span class="link">微信公众号</span>
+				<div class="ct-wechat-img">
+					<img alt="暂无图片" data-ng-src="{{wechatPic}}">
+				</div>
+			</div>
+			<span class="link" data-ng-click="toPage('/home/server-index')">商家中心</span>
+		</div>
 	</div>
+	<!-- PC端顶部栏end -->
 	
-	<div class="ct-toggle-navbar" data-ng-class="{'click':isShowNav}">
-		<ul>
-			<li data-ng-repeat="nav in clientNavs" data-ng-click="triggerPage(nav.url)"
-				data-ng-class="{'active':currentNav.id==nav.id}">{{nav.name}}</li>
-		</ul>
+	<!-- 手机版底部栏start -->
+	<div class="ct-bottom-fixed">
+		<div class="ct-bottom-item" data-ng-click="triggerPage(clientNavs.a_index.url)">
+			<i class="fa fa-home"></i>
+			<p>首页</p>
+		</div>
+		<div class="ct-bottom-item" data-ng-click="triggerPage(clientNavs.d_product.url)">
+			<i class="fa fa-globe"></i>
+			<p>产品</p>
+		</div>
+		<div class="ct-bottom-item" data-ng-click="hrefTo('tel:'+phone)">
+			<i class="fa fa-phone"></i>
+			<p>电话</p>
+		</div>
+		<div class="ct-bottom-item" data-ng-click="triggerPage(clientNavs.e_contact.url)">
+			<i class="fa fa-user"></i>
+			<p>联系</p>
+		</div>
 	</div>
+	<!-- 手机版底部栏end -->
 </div>
 

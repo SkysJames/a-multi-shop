@@ -25,7 +25,7 @@ function($timeout, $scope, $filter, $document, serverIndexHttpService){
 		.then(function(response){
 			var data = response.data;
 			if(data.statusCode=="200"){
-				$scope.typetList = data.typetList;
+				$scope.typetList = data.list;
 				$scope.isLoadingTypet = false;
 				
 				//初始化树形结构展示

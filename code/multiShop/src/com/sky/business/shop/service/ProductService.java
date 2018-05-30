@@ -39,10 +39,10 @@ public interface ProductService extends BaseService {
 	public void edit(Map<String,Object> editObj, LoginUser loginUser) throws Exception;
 	
 	/**
-	 * 修改产品点赞数
+	 * 增加商品浏览量
 	 * @param editObj
 	 * @throws Exception
 	 */
-	public void editClickCount(Map<String,Object> editObj) throws Exception;
+	public void addClickCount(String id) throws Exception;
 	
 }

@@ -25,6 +25,8 @@ Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('qq', 'system', '888877777', 0, 'qq号码', 0);
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
+ Values ('wechat_pic', 'system', '', 0, '微信公众号二维码，多个以,隔开', 0);
+Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('service_time', 'system', '9:30-18:30', 0, '服务时间', 0);
 
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)

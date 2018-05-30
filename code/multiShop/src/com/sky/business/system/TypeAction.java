@@ -43,9 +43,9 @@ public class TypeAction extends BaseAction {
 	public String list() throws Exception {
 		try{
 			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
-			List<Typet> typetList = typeService.getList(typeDao, Typet.class, condition);
+			List<Typet> list = typeService.getList(typeDao, Typet.class, condition);
 			
-			resultMap.put("typetList", typetList);
+			resultMap.put("list", list);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
 			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取类型列表");
 		} catch (Exception e) {
@@ -135,7 +135,7 @@ public class TypeAction extends BaseAction {
 			Integer count = typeService.getCount(typeDao, Typet.class, condition);
 			
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取消息数量");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取类型数量");
 			resultMap.put("count", count);
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getStackTrace(e));

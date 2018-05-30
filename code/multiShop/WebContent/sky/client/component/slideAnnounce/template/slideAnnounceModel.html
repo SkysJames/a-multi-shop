@@ -1,0 +1,24 @@
+<!-- 消息公告模态框 start -->
+<div class="modal fade" id="{{ansWinId}}" tabindex="-1" role="dialog" aria-labelledby="ansMsgWinLabel">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header client-model-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="ansMsgWinLabel" >公告消息</h4>
+			</div>
+			<div class="modal-body"style="max-height:500px;overflow-y:auto;">
+				<div data-ng-repeat="ans in indexAns" class="ans-model">
+					<h1>{{ans.name}}</h1>
+					<p>
+						<span class="ans-model-createtime">发布时间：{{ans.createTime|formatDate}}</span>
+					</p>
+					<p data-ng-bind-html="sce.trustAsHtml(ans.content)" style="font-size:normal;padding-left:37px">
+					</p>
+				</div>
+				<nodata-panel data-ng-show="!indexAns || indexAns.length==0" font-size="18"></nodata-panel>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 消息公告模态框 end -->

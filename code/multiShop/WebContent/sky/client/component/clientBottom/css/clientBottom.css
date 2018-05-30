@@ -4,7 +4,6 @@
 	color: #333;
     background: #f4f4f4;
     overflow: hidden;
-    margin-top: 50px;
     padding-bottom: 20px;
 }
 
@@ -48,10 +47,6 @@
 	font-size: 20px;
 	font-weight: bolder;
 }
-.cb-subname {
-	font-size: 16px;
-    margin: 15px 0px;
-}
 .cb-middle {
 	display: inline-block;
 	vertical-align: top;
@@ -63,14 +58,27 @@
 	vertical-align: top;
 	width: 30%;
 }
-.cb-right ul {
-	margin: 10px 0px;
+.cb-wechat {
+	margin: 20px;
 }
-.cb-right ul li .header {
-	color: #24b727;
+.cb-wechat img {
+	width: 100px;
 }
-.cb-right ul li {
-	
+.cb-wechat .text {
+	display: inline-block;
+	vertical-align: top;
+    height: 100%;
+    margin-left: -4px;
+    padding: 18px 10px;
+    text-align: center;
+    background-color: #fff;
+}
+.cb-wechat .text>i {
+	font-size: 35px;
+	color: #60cc34;
+}
+.cb-wechat .text>p {
+	margin: 5px 0px;
 }
 
 .cb-footer {
@@ -88,26 +96,7 @@
 
 
 @media screen and (max-width: 760px) {
-	.cb-content {
-		font-size: 12px;
-	}
-	.cb-content ul {
-		display: inline-block;
-	    vertical-align: top;
-		margin: 10px 45px;
-		text-align: center;
-	}
-	.cb-content ul li .header {
-		font-size: 16px;
-	}
-	.cb-left {
+	.client-bottom {
 		display: none;
-	}
-	.cb-middle {
-		width: 100%;
-	}
-	.cb-right {
-		width: 100%;
-		text-align: center;
 	}
 }

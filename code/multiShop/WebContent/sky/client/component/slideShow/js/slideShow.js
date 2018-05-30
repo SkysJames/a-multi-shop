@@ -3,11 +3,14 @@ angular.module('slideShow',[])
 	return {
 		restrict:'E',
 		scope : {
+			tableName	: '@',
+			typeList		: '=',
 			slideList	: '=',
+			indexAns		: '=',
 		},
 		templateUrl : $contextPath +"/sky/client/component/slideShow/template/slideShow.html",
 		link : function(scope,element,attrs){
-			
+			scope.twoTypeList = [];
 		},
 		controller : function($scope, $timeout, $filter, $document){
 			/**
@@ -35,6 +38,7 @@ angular.module('slideShow',[])
 			 * 初始化函数
 			 */
 			$scope.initFunc = function(){
+				//初始化轮播图片
 				$timeout($scope.initSlider, 1000);
 			};
 			$document.ready($scope.initFunc);

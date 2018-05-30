@@ -34,4 +34,11 @@ public interface ShopService extends BaseService {
 	 */
 	public void delete(String id) throws Exception;
 	
+	/**
+	 * 增加店铺人气值
+	 * @param editObj
+	 * @throws Exception
+	 */
+	public void addPopularity(String id) throws Exception;
+	
 }

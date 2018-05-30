@@ -1,17 +1,15 @@
 @CHARSET "UTF-8";
-.flexslider {
-	margin: 0px auto 20px;
+.slide-show {
 	position: relative;
-	width: 100%;
-	height: 520px;
-	overflow: hidden;
-	zoom: 1;
 }
 
-@media screen and (max-width: 800px){
 .flexslider {
-	height: 360px !important;
-}
+	margin: 0px auto;
+	position: relative;
+	width: 100%;
+	height: 480px;
+	overflow: hidden;
+	zoom: 1;
 }
 
 .flexslider li {
@@ -30,6 +28,8 @@
 	height: 100%;
 	display: block;
 	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 .flex-direction-nav a {
@@ -103,4 +103,109 @@
 .flex-control-paging li.active a {
 	background-position: 0 0;
 }
+
+
+.ctype {
+}
+.ctype-one {
+	position: absolute;
+    top: -30px;
+    bottom: 1px;
+    left: 60px;
+    width: 200px;
+    font-size: 14px;
+    color: #fff;
+    background: rgba(0,0,0,0.6);
+    z-index: 50;
+}
+.ctype-one>ul {
+	margin: 0px;
+}
+.ctype-one>ul>li {
+	line-height: 31px;
+	padding-left: 38px;
+	cursor: auto;
+}
+.ctype-one>ul>li>span {
+	cursor: pointer;
+}
+.ctype-one>ul>li:first-of-type {
+	line-height: 30px;
+	padding: 0px 15px;
+	color: #fff!important;
+    background: #ff0000!important;
+}
+.ctype-two {
+	position: absolute;
+	top: 30px;
+    bottom: 1px;
+    left: 200px;
+    width: 0px;
+    background: rgba(255,255,255,0.9);
+    overflow: auto;
+    z-index: 50;
+    transition: all .3s ease;
+}
+.ctype-two-content {
+	margin: 10px 25px;
+}
+.ctype-two-content a {
+	margin-right: 15px;
+	color: #666;
+	font-size: 16px;
+}
+.ctype-two-content a:hover {
+	color: #ff0000;
+}
+.ctype-one>ul>li:hover {
+	color: #ff0000;
+	background: rgba(255,255,255,0.9);
+}
+.ctype-one>ul>li:hover .ctype-two {
+	width: 800px;
+}
+
+
+.phone-announce {
+	display: none;
+	padding: 12px 14px;
+    background-color: #efefef;
+}
+
+
+@media screen and (max-width: 1100px) {
+	.ctype-one>ul>li:hover .ctype-two {
+		width: 600px;
+	}
+}
+
+@media screen and (max-width: 900px) {
+	.ctype-one>ul>li:hover .ctype-two {
+		width: 400px;
+	}
+}
+
+@media screen and (max-width: 760px) {
+	.ctype {
+		display: none;
+	}
+	
+	.flexslider {
+		height: 300px !important;
+	}
+	
+	.phone-announce {
+		display: block;
+	}
+}
+
+@media screen and (max-width: 490px) {
+	.flexslider {
+		height: 180px !important;
+	}
+}
+
+
+
+
 

@@ -1,16 +1,14 @@
-angular.module('indexApp',["client-index.filter","client-index.httpService"].concat($directiveList))
+angular.module('indexApp',["client-index.filter","client-index.httpService","indexHeader"].concat($commonDirectiveList).concat($directiveList))
 .controller("indexCtrl",['$timeout', '$scope', '$document', 'clientIndexHttpService', 
 function($timeout, $scope, $document, clientIndexHttpService){
-	//页面导航
-	$scope.clientNavs = common.clientNavs;
-	//当前导航对象
-	$scope.currentNav = $scope.clientNavs.a_index;
-	//当前轮播的图片列表
-	$scope.slideList = common.clientSlider.a_index;
-	//新闻类型map
-	$scope.newsTypes = common.newsContants.newsType;
-	//产品类型map
-	$scope.proTypes = common.productContants.proType;
+	//系统轮播图片
+	$scope.slideList = $systemPicture==""?clientCommon.demoSliders:$systemPicture.split(",");
+	//店铺类型列表（一级类型）
+	$scope.oneTypeList = [];
+	//店铺类型列表（二级类型）
+	$scope.twoTypeList = [];
+	//搜索框的关键字
+	$scope.keywords = "";
 	
 	/**
 	 * 切换页面
@@ -27,55 +25,115 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	};
 	
 	/**
-	 * 获取产品列表
+	 * 加载更多店铺
 	 */
-	$scope.getProductList = function(pageNo){
+	$scope.loadMoreShop = function(){
+		
+	};
+	
+	
+	/**
+	 * 获取系统公告消息
+	 */
+	$scope.getIndexAnsList = function() {
 		var condition = {
-				pageNo		: 1,		//当前页码
-				pageSize		: 6,		//每页数据量
-				proType		: -1,
+				shopId	: common.shopContants.shopSystem,
+				status	: common.announceContants.status.USING,
+		};
+		clientIndexHttpService.getAnnounceList(condition)
+		.then(function(response){
+			$scope.indexAns = response.data.list;
+			if($scope.indexAns && $scope.indexAns.length>0){
+				for ( var int = 0; int < $scope.indexAns.length; int++) {
+					$scope.indexAns[int].seq = int+1;
+				}
+			}
+		});
+	};
+	
+	/**
+	 * 获取店铺类型列表
+	 */
+	$scope.getTypeList = function(){
+		var condition = {
+				tableName	: common.tableContants.TB_SHOP,	//店铺表名
+				parentId		: common.typetContants.rootParentId,//一级类别
 		};
 		
-		$scope.isLoadingProduct = true;
-		clientIndexHttpService.getProductList(condition)
+		clientIndexHttpService.getTypeList(condition)
 		.then(function(response){
 			var data = response.data;
-			$scope.productList = data.pager.resultList;
-			$scope.isLoadingProduct = false;
+			$scope.oneTypeList = data.list;
+			
+			//合并所有的二级店铺类型
+			for(var i=0;i<$scope.oneTypeList.length;i++){
+				if($scope.oneTypeList[i].typetList && $scope.oneTypeList[i].typetList.length>0){
+					$scope.twoTypeList = $scope.twoTypeList.concat($scope.oneTypeList[i].typetList);
+				}
+			}
+			
+			//初始化第一个店铺类型的店铺列表
+			if($scope.twoTypeList && $scope.twoTypeList.length>0){
+				$scope.pagedShopList($scope.twoTypeList[0]);
+			}
 		},function(err){
 			console.log(err);
 		});
 	};
 	
 	/**
-	 * 获取新闻列表
+	 * 获取推荐店铺列表
 	 */
-	$scope.getNewsList = function(pageNo){
+	$scope.pagedReShopList = function(){
 		var condition = {
 				pageNo		: 1,		//当前页码
 				pageSize		: 6,		//每页数据量
-				newsType		: -1,
+				recommend	: "1",	//推荐
 		};
 		
-		$scope.isLoadingNews = true;
-		clientIndexHttpService.getNewsList(condition)
+		$scope.isLoadingReShop = true;
+		clientIndexHttpService.pagedShopList(condition)
 		.then(function(response){
 			var data = response.data;
-			$scope.newsList = data.pager.resultList;
-			$scope.isLoadingNews = false;
+			$scope.reShopList = data.pager.resultList;
+			$scope.isLoadingReShop = false;
 		},function(err){
 			console.log(err);
 		});
 	};
+	
+	/**
+	 * 获取店铺列表
+	 */
+	$scope.pagedShopList = function(typet){
+		var condition = {
+				pageNo		: 1,		//当前页码
+				pageSize		: 6,		//每页数据量
+				shopType		: typet.id,	//店铺类型
+		};
+		
+		$scope.isLoadingShop = true;
+		clientIndexHttpService.pagedShopList(condition)
+		.then(function(response){
+			var data = response.data;
+			typet.shopList = data.pager.resultList;
+			$scope.isLoadingShop = false;
+		},function(err){
+			console.log(err);
+		});
+	};
+	
 	
 	/**
 	 * 初始化函数
 	 */
 	$scope.initFunc = function(){
-		//初始化产品列表
-		$scope.getProductList();
-		//初始化新闻列表
-		$scope.getNewsList();
+		//初始化公告消息列表
+		$scope.getIndexAnsList();
+		//初始化推荐店铺列表
+		$scope.pagedReShopList();
+		//初始化类型列表
+		$scope.getTypeList();
 	};
 	$document.ready($scope.initFunc);
 	

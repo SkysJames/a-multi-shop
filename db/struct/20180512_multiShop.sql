@@ -54,6 +54,7 @@ create table tb_visitor
     CREATE_TIME     datetime comment '创建时间',
     VISITED_TIME    datetime comment '最近访问时间'
 );
+alter table tb_visitor add index idx_tb_visitor_ip_si(IP,SHOP_ID);
 alter table tb_visitor add index idx_tb_visitor_vt_si(VISITED_TIME,SHOP_ID);
 
 
@@ -155,6 +156,7 @@ create table tb_shop
     LATITUDE        double(9,6) comment '店铺所在地，纬度',
     STATUS			integer default 0 comment '状态：-1-实际不存在该店铺;0-禁用；1-申请待验证；2-启用',
     PHONE			varchar(600) comment '电话号码',
+    WECHAT_PIC		varchar(2000) comment '微信公众号二维码，多个以,隔开',
     REMARK         	varchar(2000) comment '备注'
 );
 

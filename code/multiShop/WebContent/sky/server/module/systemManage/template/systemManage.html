@@ -147,6 +147,20 @@
 									</div>
 								</div>
 								<div class="form-group">
+									<label class="col-md-2 control-label">二维码：</label>
+									<div class="col-md-10" data-ng-show="!isEdit">
+										<div class="superbox-list"  title="查看原图"
+											data-ng-repeat="item in systemInfo.wechatPictureList" data-ng-click="openNewPage(item)">
+											<img data-ng-src="{{item}}" alt="" class="superbox-img">
+										</div>
+										<div class="common-value" data-ng-if="systemInfo.wechatPictureList.length==0">暂无图片</div>
+									</div>
+									<div class="col-md-10" data-ng-show="isEdit">
+										<image-dropzone dropzone-id="systemInfoWechatId" max-files="1" image-path-list="systemInfo.wechatPictureList"></image-dropzone>
+										<div class="common-tip">请上传jpg,jpeg,png格式的图片，建议尺寸150*150px</div>
+									</div>
+								</div>
+								<div class="form-group">
 									<label class="col-md-2 control-label">服务时间：</label>
 									<div class="col-md-10 common-value" data-ng-show="!isEdit">{{systemInfo.service_time|showBlankValue}}</div>
 									<div class="col-md-10" data-ng-show="isEdit">

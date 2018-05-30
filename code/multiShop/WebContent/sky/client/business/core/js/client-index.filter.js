@@ -13,14 +13,16 @@ angular.module('client-index.filter',[])
 })
 
 /**
- * 返回图片的url
+ * 获取类型的名称
  */
-.filter('getImgUrl',function(){
-	return function(imgUrl){
-		if(imgUrl){
-			return imgUrl;
+.filter('getTypeName',function(){
+	return function(tableName){
+		if("tb_shop"==tableName){
+			return "店铺分类";
+		}else if("tb_product"==tableName){
+			return "商品分类";
 		}
-		return $contextPath + "/sky/common/img/no_pic.jpeg";
+		return "";
 	};
 })
 
@@ -38,86 +40,6 @@ angular.module('client-index.filter',[])
 			}
 		}
 		return "-";
-	};
-})
-
-/**
- * 转换新闻类型为字符串
- */
-.filter('stringNewsType',function(){
-	return function(newsType){
-		switch(newsType){
-		case 0:
-			return "公司新闻";
-		case 1:
-			return "行业动态";
-		}
-		return null;
-	};
-})
-
-/**
- * 转换产品类型为字符串
- */
-.filter('stringProType',function(){
-	return function(proType){
-		switch(proType){
-		case 0:
-			return "网页设计";
-		case 1:
-			return "管理系统";
-		case 2:
-			return "课程设计";
-		case 3:
-			return "微信小程序";
-		}
-		return null;
-	};
-})
-
-/**
- * 转换访客状态为字符串
- */
-.filter('stringVisitorStatus',function(){
-	return function(status){
-		if(common.visitorContants.status.USING == status){
-			return "允许";
-		}else{
-			return "禁止";
-		}
-	};
-})
-
-/**
- * 转换用户状态为字符串
- */
-.filter('stringStatus',function(){
-	return function(status){
-		if(common.userContants.userStatus.USING == status){
-			return "启用";
-		}else{
-			return "禁用";
-		}
-	};
-})
-
-/**
- * 展示权限名
- * @returns
- */
-.filter('showRightName',function(){
-	return function(rightList){
-		if(rightList && rightList.length>0){
-			var rightName = rightList[0].name;
-			
-			for(var i=1;i<rightList.length;i++){
-				rightName += "," + rightList[i].name;
-			}
-			
-			return rightName;
-		}else{
-			return ' - ';
-		}
 	};
 })
 

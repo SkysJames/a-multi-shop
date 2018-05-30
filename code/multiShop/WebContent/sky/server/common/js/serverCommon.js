@@ -103,11 +103,4 @@ var serverCommon = {
 			});
 		},
 		
-		/**
-		 * 将滚动条滚动到指定位置，如 #id
-		 */
-		scrollTo : function(target){
-			$("html, body").animate({scrollTop: $(target).offset().top}, {duration: 500,easing: "swing"});
-		},
-		
 };

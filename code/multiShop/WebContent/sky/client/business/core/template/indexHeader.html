@@ -1,0 +1,44 @@
+<div class="client-header">
+	<!-- PC端start -->
+	<div class="ch-pc row">
+		<div class="ch-pc-left col-sm-4 col-md-3">
+			<header> 
+				<img data-ng-src="{{systemLogo}}" alt="">
+				{{systemName}}
+			</header>
+		</div>
+		<div class="ch-pc-middle col-sm-5 col-md-6">
+			<form class="ch-pc-search" data-ng-submit="">
+				<div class="input-group">
+					<input class="form-control" type="search" placeholder="搜索 店铺、商品" data-ng-model="keywords">
+					<div class="input-group-btn">
+						<button class="btn" type="submit" title="搜索">
+							搜&nbsp;&nbsp;索
+						</button>
+					</div>
+				</div>
+			</form>
+			
+			<div class="ch-pc-announce">
+				<slide-announce ans-id="systemAnsId" ans-win-id="systemAnsWinId" index-ans="indexAns"></slide-announce>
+			</div>
+		</div>
+		<div class="col-sm-3"></div>
+	</div>
+	<!-- PC端end -->
+	
+	<!-- 手机端start -->
+	<div class="ch-phone">
+		<div class="ch-phone-return"><i class="fa fa-chevron-left"></i></div>
+		<form class="ch-phone-search" data-ng-submit="">
+			<div class="input-group">
+				<input class="form-control" type="search" placeholder="搜索 店铺、商品" data-ng-model="keywords">
+				<div class="input-group-btn">
+					<button class="btn" type="submit" title="搜索">搜索</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- 手机端end -->
+</div>
+

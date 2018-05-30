@@ -1,18 +1,49 @@
-<!-- 轮播 start -->
-<div id="banner_tabs" class="flexslider">
-	<ul class="slides">
-		<li data-ng-repeat="slide in slideList">
-			<a title="">
-				<img alt="" style="background: url({{slide}}) no-repeat center;">
-			</a>
-		</li>
-	</ul>
-	<ul class="flex-direction-nav">
-		<li><a class="flex-prev" href="javascript:void(0);">Previous</a></li>
-		<li><a class="flex-next" href="javascript:void(0);">Next</a></li>
-	</ul>
-	<ol id="bannerCtrl" class="flex-control-nav flex-control-paging">
-		<li data-ng-repeat="slide in slideList"><a>{{$index + 1}}</a></li>
-	</ol>
+<!-- 轮播图片模块 start -->
+<div class="slide-show">
+	<!-- 类型 start -->
+	<div class="ctype">
+		<div class="ctype-one">
+			<ul>
+				<li><i class="fa fa-list-ul"></i>&nbsp;&nbsp;{{tableName | getTypeName}}</li>
+				<li data-ng-repeat="type in typeList">
+					<span>{{type.name | showBlankValue}}</span>
+					<div class="ctype-two">
+						<div class="ctype-two-content">
+							<a href="javascript:void(0)" data-ng-repeat="item in type.typetList" data-ng-click="">{{item.name | showBlankValue}}</a>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- 类型 end -->
+	
+	<!-- 轮播 start -->
+	<div id="banner_tabs" class="flexslider">
+		<ul class="slides">
+			<li data-ng-repeat="slide in slideList">
+				<a title="">
+					<img alt="" style="background-image: url({{slide}});">
+				</a>
+			</li>
+		</ul>
+		<ul class="flex-direction-nav">
+			<li><a class="flex-prev" href="javascript:void(0);">Previous</a></li>
+			<li><a class="flex-next" href="javascript:void(0);">Next</a></li>
+		</ul>
+		<ol id="bannerCtrl" class="flex-control-nav flex-control-paging">
+			<li data-ng-repeat="slide in slideList"><a>{{$index + 1}}</a></li>
+		</ol>
+	</div>
+	<!-- 轮播 end -->
+	
+	<!-- 消息公告start -->
+	<div class="phone-announce">
+		<slide-announce ans-id="systemAnsId2" ans-win-id="systemAnsWinId" index-ans="indexAns"></slide-announce>
+	</div>
+	<!-- 消息公告end -->
+	
 </div>
-<!-- 轮播 end -->
+<!-- 轮播图片模块 end -->
+
+

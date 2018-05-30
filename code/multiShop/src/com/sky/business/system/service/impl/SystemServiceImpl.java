@@ -38,6 +38,7 @@ public class SystemServiceImpl extends BaseServiceImpl implements SystemService 
 		List<String> systemIconList = new ArrayList<String>();
 		List<String> systemLogoList = new ArrayList<String>();
 		List<String> systemPictureList = new ArrayList<String>();
+		List<String> wechatPictureList = new ArrayList<String>();
 		
 		List<SysParameter> sysList = sysParameterService.findBy(SysParameter.class, "type", "system");
 		for(SysParameter sys : sysList) {
@@ -56,10 +57,15 @@ public class SystemServiceImpl extends BaseServiceImpl implements SystemService 
 			String[] system_pictures = ((String)systemInfo.get("system_picture")).split(",");
 			systemPictureList = Arrays.asList(system_pictures);
 		}
+		if(systemInfo.containsKey("wechat_pic") && StringUtils.isNotBlank((String)systemInfo.get("wechat_pic"))) {
+			String[] wechat_pics = ((String)systemInfo.get("wechat_pic")).split(",");
+			wechatPictureList = Arrays.asList(wechat_pics);
+		}
 		
 		systemInfo.put("systemIconList", systemIconList);
 		systemInfo.put("systemLogoList", systemLogoList);
 		systemInfo.put("systemPictureList", systemPictureList);
+		systemInfo.put("wechatPictureList", wechatPictureList);
 		
 		return systemInfo;
 	}
@@ -126,6 +132,15 @@ public class SystemServiceImpl extends BaseServiceImpl implements SystemService 
 			String picture = CommonMethodUtil.saveFiles((List<String>) systemInfo.get("systemPictureList"), picPath);
 			
 			sysParameterService.saveValue("system_picture", picture);
+		}
+		
+		if(systemInfo.containsKey("wechatPictureList")) {
+			//图片存放的目录
+			String picPath = FileContants.SYSTEM_FILE + File.separator + "system";
+			//保存图片
+			String picture = CommonMethodUtil.saveFiles((List<String>) systemInfo.get("wechatPictureList"), picPath);
+			
+			sysParameterService.saveValue("wechat_pic", picture);
 		}
 		
 	}

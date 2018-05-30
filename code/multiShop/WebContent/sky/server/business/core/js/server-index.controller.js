@@ -204,8 +204,6 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 	 * 初始化函数
 	 */
 	$scope.initFunc = function(){
-		console.log($currentUser);
-		
 		//初始化当前登陆用户在当前页面是否为管理员权限
 		$scope.isAdminRight = serverCommon.isAdminRight('shop_manage');
 		//初始化未读消息的数量

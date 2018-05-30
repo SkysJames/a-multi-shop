@@ -60,11 +60,19 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		}
 		if(editObj.containsKey("logoPathList") && (editObj.get("logoPathList") instanceof List)){
 			//图片存放的目录
-			String picPath = FileContants.PRODUCT_FILE + File.separator + (String)editObj.get("name");
+			String picPath = FileContants.SHOP_FILE + File.separator + (String)editObj.get("name");
 			//保存图片
 			String logo = CommonMethodUtil.saveFiles((List<String>) editObj.get("logoPathList"), picPath);
 			
 			shop.setLogo(logo);
+		}
+		if(editObj.containsKey("wechatPathList") && (editObj.get("wechatPathList") instanceof List)){
+			//图片存放的目录
+			String picPath = FileContants.SHOP_FILE + File.separator + (String)editObj.get("name");
+			//保存图片
+			String wechatPic = CommonMethodUtil.saveFiles((List<String>) editObj.get("wechatPathList"), picPath);
+			
+			shop.setWechatPic(wechatPic);
 		}
 		if(editObj.containsKey("description")){
 			shop.setDescription((String)editObj.get("description"));
@@ -95,7 +103,7 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		}
 		if(editObj.containsKey("picPathList") && (editObj.get("picPathList") instanceof List)) {
 			//图片存放的目录
-			String picPath = FileContants.PRODUCT_FILE + File.separator + (String)editObj.get("name");
+			String picPath = FileContants.SHOP_FILE + File.separator + (String)editObj.get("name");
 			//保存图片
 			String picture = CommonMethodUtil.saveFiles((List<String>) editObj.get("picPathList"), picPath);
 			
@@ -109,6 +117,7 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 	public Shop add(Map<String,Object> addObj) throws Exception {
 		Shop shop = new Shop();
 		shop.setId(UUID.randomUUID().toString());
+		shop.setPopularity(0);
 		
 		if(addObj.containsKey("name")){
 			String name = (String)addObj.get("name");
@@ -139,11 +148,19 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		}
 		if(addObj.containsKey("logo")){
 			//图片存放的目录
-			String picPath = FileContants.PRODUCT_FILE + File.separator + (String)addObj.get("name");
+			String picPath = FileContants.SHOP_FILE + File.separator + (String)addObj.get("name");
 			//保存图片
 			String logo = CommonMethodUtil.saveFiles((List<String>) addObj.get("logo"), picPath);
 			
 			shop.setLogo(logo);
+		}
+		if(addObj.containsKey("wechatPathList") && (addObj.get("wechatPathList") instanceof List)){
+			//图片存放的目录
+			String picPath = FileContants.SHOP_FILE + File.separator + (String)addObj.get("name");
+			//保存图片
+			String wechatPic = CommonMethodUtil.saveFiles((List<String>) addObj.get("wechatPathList"), picPath);
+			
+			shop.setWechatPic(wechatPic);
 		}
 		if(addObj.containsKey("description")){
 			shop.setDescription((String)addObj.get("description"));
@@ -174,7 +191,7 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		}
 		if(addObj.containsKey("picPathList")){
 			//图片存放的目录
-			String picPath = FileContants.PRODUCT_FILE + File.separator + (String)addObj.get("name");
+			String picPath = FileContants.SHOP_FILE + File.separator + (String)addObj.get("name");
 			//保存图片
 			String picture = CommonMethodUtil.saveFiles((List<String>) addObj.get("picPathList"), picPath);
 			
@@ -202,6 +219,23 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		//查找该店铺下是否存在用户，有则删除失败
 		
 		this.delete(shop);
+	}
+
+	@Override
+	public void addPopularity(String id) throws Exception {
+		//查找数据库中是否存在
+		Shop shop = this.findByID(Shop.class, id);
+		if(shop == null){
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_INEXIST, CodeMescContants.MessageContants.ERROR_INEXIST);
+		}
+		
+		if(null == shop.getPopularity()){
+			shop.setPopularity(1);
+		}else {
+			shop.setPopularity(shop.getPopularity() + 1);
+		}
+		
+		this.update(shop);
 	}
 
 }

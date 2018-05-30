@@ -8,9 +8,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     
-    <title>${systemName }管理系统</title>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
     <!-- 后台基本css -->
 	<%@ include file="/sky/server/common/server.inc-css.jsp"%>
 	<!-- smartadmin css -->
@@ -20,6 +17,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<!-- 导入系统图标 -->
     <link rel="icon" href="${systemIcon }" type="image/x-icon">
+    
+    <title>${systemName }管理系统</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
   </head>
   
   <body class="server-index" data-ng-app="serverIndexApp" data-ng-controller="serverIndexCtrl">

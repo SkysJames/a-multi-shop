@@ -12,23 +12,21 @@ angular.module('clientTop',[])
 		controller : function($scope, $timeout, $filter, $document){
 			//系统名称
 			$scope.systemName = $systemName;
-			//前端展示页面的导航
-			$scope.clientNavs = common.clientNavs;
-			//是否展开导航列表
-			$scope.isShowNav = false;
+			//当前登录用户
+			$scope.currentUser = $currentUser;
+			//微信二维码的url
+			$scope.wechatPic = $wechatPic;
+			
+			//获取收藏夹列表
+			
+			//获取历史浏览记录列表
 			
 			/**
-			 * 当页面宽度小于760，展开/收起导航列表
+			 * 通过url打开页面
+			 * isLocation true-本页面打开，false-新窗口打开
 			 */
-			$scope.toggleNavbar = function(){
-				$scope.isShowNav = !$scope.isShowNav;
-			};
-			
-			/**
-			 * 切换页面
-			 */
-			$scope.triggerPage = function(url){
-				window.location.href = $contextPath + url;
+			$scope.toPage = function(url, isLocation){
+				common.toPage($contextPath + url, isLocation);
 			};
 		}
 	};
