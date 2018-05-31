@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<!-- 轮播图片end -->
   	
   	<!-- 推荐店铺start -->
-  	<div class="index-recommend">
+  	<div class="index-commodel index-recommend">
   		<div class="ishop-header">
   			<h2>推荐店铺</h2>
   		</div>
@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<!-- 推荐店铺end -->
   	
   	<!-- 类型店铺start -->
-  	<div class="index-shop" data-ng-repeat="typet in twoTypeList">
+  	<div class="index-commodel index-shop" data-ng-repeat="typet in twoTypeList">
   		<div class="ishop-header">
   			<h2>{{typet.name}}</h2>
   			<a href="javascript:void(0)" data-ng-click="">
