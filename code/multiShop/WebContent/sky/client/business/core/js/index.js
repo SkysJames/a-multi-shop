@@ -89,6 +89,7 @@ function($timeout, $scope, $document, clientIndexHttpService){
 				pageNo		: 1,		//当前页码
 				pageSize		: 6,		//每页数据量
 				recommend	: "1",	//推荐
+				isOver		: "0",	//未过期
 		};
 		
 		$scope.isLoadingReShop = true;
@@ -97,6 +98,8 @@ function($timeout, $scope, $document, clientIndexHttpService){
 			var data = response.data;
 			$scope.reShopList = data.pager.resultList;
 			$scope.isLoadingReShop = false;
+			
+			$(".index-recommend").fadeIn("slow");
 		},function(err){
 			console.log(err);
 		});
@@ -110,6 +113,7 @@ function($timeout, $scope, $document, clientIndexHttpService){
 				pageNo		: 1,		//当前页码
 				pageSize		: 6,		//每页数据量
 				shopType		: typet.id,	//店铺类型
+				isOver		: "0",	//未过期
 		};
 		
 		$scope.isLoadingShop = true;
@@ -118,6 +122,8 @@ function($timeout, $scope, $document, clientIndexHttpService){
 			var data = response.data;
 			typet.shopList = data.pager.resultList;
 			$scope.isLoadingShop = false;
+			
+			$(".index-shop").fadeIn("slow");
 		},function(err){
 			console.log(err);
 		});

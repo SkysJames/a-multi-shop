@@ -34,11 +34,59 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<slide-show table-name="tb_shop" type-list="oneTypeList" slide-list="slideList" index-ans="indexAns"></slide-show>
   	<!-- 轮播图片end -->
   	
+  	<!-- 推荐店铺start -->
+  	<div class="index-recommend">
+  		<div class="ishop-header">
+  			<h2>推荐店铺</h2>
+  		</div>
+  		<div class="ishop-content">
+  			<ul>
+  				<li data-ng-repeat="item in reShopList" data-ng-click="">
+  					<div class="ishop-img" style="background-image: url({{item.picPathList|getImgByImgList}})"></div>
+  					<div class="ishop-con">
+  						<h3>{{item.name | showBlankValue}}</h3><label>{{item.popularity}}人气</label>
+  						<p>简介：{{item.brief | showBlankValue}}</p>
+  						<p>评分：{{item.mark}}分</p>
+  						<p>地址：{{item.address | showBlankValue}}</p>
+  					</div>
+  				</li>
+  			</ul>
+  		</div>
+  	</div>
+  	<!-- 推荐店铺end -->
+  	
+  	<!-- 类型店铺start -->
+  	<div class="index-shop" data-ng-repeat="typet in twoTypeList">
+  		<div class="ishop-header">
+  			<h2>{{typet.name}}</h2>
+  			<a href="javascript:void(0)" data-ng-click="">
+  				更多&nbsp;<i class="fa fa-chevron-right"></i>
+  			</a>
+  		</div>
+  		<div class="ishop-content">
+  			<ul>
+  				<li data-ng-repeat="item in typet.shopList" data-ng-click="">
+  					<div class="ishop-img" style="background-image: url({{item.picPathList|getImgByImgList}})"></div>
+  					<div class="ishop-con">
+  						<h3>{{item.name | showBlankValue}}</h3><label>{{item.popularity}}人气</label>
+  						<p>简介：{{item.brief | showBlankValue}}</p>
+  						<p>评分：{{item.mark}}分</p>
+  						<p>地址：{{item.address | showBlankValue}}</p>
+  					</div>
+  				</li>
+  			</ul>
+  		</div>
+  	</div>
+  	<!-- 类型店铺end -->
+  	
+  	
 	<!-- 页面底部start -->
 	<client-bottom></client-bottom>
 	<!-- 页面底部end -->
 	
+	<!-- 公告消息模态框start -->
 	<slide-announce-model ans-win-id="systemAnsWinId" index-ans="indexAns"></slide-announce-model>
+	<!-- 公告消息模态框end -->
 	
   </body>
   

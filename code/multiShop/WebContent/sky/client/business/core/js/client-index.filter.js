@@ -27,6 +27,18 @@ angular.module('client-index.filter',[])
 })
 
 /**
+ * 获取类型的名称
+ */
+.filter('getImgByImgList',function(){
+	return function(imgList){
+		if(imgList && imgList.length>0){
+			return imgList[0];
+		}
+		return $contextPath + "/sky/common/core/img/no_pic.jpeg";
+	};
+})
+
+/**
  * 返回缩略的内容
  */
 .filter('getSmallContent',function(){

@@ -7,7 +7,6 @@
 	overflow:hidden;
 	cursor: pointer;
 	color: #ff0000;
-	background-color: #efefef;
 }
 .ans_a,.ans_a:HOVER,.ans_a:VISITED {
 	text-decoration: none;

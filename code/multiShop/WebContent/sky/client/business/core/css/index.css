@@ -1,3 +1,108 @@
 @CHARSET "UTF-8";
+.index-recommend {
+	display: none;
+	padding: 10px 20px;
+	background-color: #ebebeb;
+}
 
+.index-recommend .ishop-header {
+	text-align: center;
+	padding: 10px;
+}
+.index-recommend .ishop-header h2 {
+	margin: 0px;
+	font-size: 18px;
+	color: #ff0000;
+}
+
+.index-shop {
+	display: none;
+	padding: 10px 20px;
+	background-color: #fff;
+}
+
+.index-shop .ishop-header {
+	padding: 10px;
+}
+.index-shop .ishop-header h2 {
+	display: inline-block;
+    vertical-align: top;
+    margin: 0px;
+    padding: 7px 30px;
+    font-size: 16px;
+    color: #fff;
+    background: #ff0000;
+}
+.index-shop .ishop-header a {
+	float: right;
+	line-height: 31px;
+	font-size: 16px;
+    color: #a0a0a0;
+}
+
+.ishop-content {
+	text-align: center;
+}
+.ishop-content>ul {
+	
+}
+.ishop-content>ul>li {
+	display: inline-block;
+	vertical-align: top;
+	margin: 10px;
+	background: #fff;
+	border: 1px solid #ddd;
+	cursor: pointer;
+	-webkit-transition: all .3s ease;
+	-moz-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
+}
+.ishop-img {
+	width: 180px;
+    height: 120px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+}
+.ishop-con {
+	position: relative;
+	padding: 5px 10px;
+	text-align: left;
+	background: url(../img/s_li.png) no-repeat right bottom;
+}
+.ishop-con>h3 {
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	margin-top: 5px;
+    margin-bottom: 5px;
+	max-width: 65%;
+	font-weight: bolder;
+	font-size: 16px;
+	color: #333;
+}
+.ishop-con>label {
+	display: inline-block;
+	vertical-align: top;
+	position: relative;
+	margin: 5px;
+	font-size: 12px;
+	color: #fff;
+	background: #ff0000;
+	padding: 2px 4px;
+	border-radius: 2px;
+}
+.ishop-con p {
+    margin-bottom: 2px;
+    font-size: 12px;
+}
+.ishop-content>ul>li:hover {
+	transform:translateY(-6px);
+	-webkit-transform:translateY(-6px);
+	-moz-transform:translateY(-6px);
+	box-shadow:0 26px 40px -24px rgba(0,36,100,.3);
+	-webkit-box-shadow:0 26px 40px -24px rgba(0,36,100,.3);
+	-moz-box-shadow:0 26px 40px -24px rgba(0,36,100,.3);
+}
 

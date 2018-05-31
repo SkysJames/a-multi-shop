@@ -47,6 +47,9 @@
 	opacity: 0;
 	filter: alpha(opacity=0);
 	-webkit-transition: all .3s ease;
+	-moz-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
 	border-radius: 35px;
 }
 
@@ -144,7 +147,10 @@
     background: rgba(255,255,255,0.9);
     overflow: auto;
     z-index: 50;
-    transition: all .3s ease;
+    -webkit-transition: all .3s ease;
+	-moz-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
 }
 .ctype-two-content {
 	margin: 10px 25px;
@@ -169,7 +175,7 @@
 .phone-announce {
 	display: none;
 	padding: 12px 14px;
-    background-color: #efefef;
+    background-color: #fff;
 }
 
 
