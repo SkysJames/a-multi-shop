@@ -2,13 +2,13 @@
 	<!-- PC端start -->
 	<div class="ch-pc row">
 		<div class="ch-pc-left col-sm-4 col-md-3">
-			<header> 
+			<header data-ng-click="toIndexPage()"> 
 				<img data-ng-src="{{systemLogo}}" alt="">
 				{{systemName}}
 			</header>
 		</div>
 		<div class="ch-pc-middle col-sm-5 col-md-6">
-			<form class="ch-pc-search" data-ng-submit="">
+			<form class="ch-pc-search" data-ng-submit="toSearchPage()">
 				<div class="input-group">
 					<input class="form-control" type="search" placeholder="搜索 店铺、商品" data-ng-model="keywords">
 					<div class="input-group-btn">
@@ -29,8 +29,8 @@
 	
 	<!-- 手机端start -->
 	<div class="ch-phone">
-		<div class="ch-phone-return"><i class="fa fa-chevron-left"></i></div>
-		<form class="ch-phone-search" data-ng-submit="">
+		<div class="ch-phone-return" data-ng-click="toBackPage()"><i class="fa fa-chevron-left"></i></div>
+		<form class="ch-phone-search" data-ng-submit="toSearchPage()">
 			<div class="input-group">
 				<input class="form-control" type="search" placeholder="搜索 店铺、商品" data-ng-model="keywords">
 				<div class="input-group-btn">

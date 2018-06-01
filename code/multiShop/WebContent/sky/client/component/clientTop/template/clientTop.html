@@ -11,10 +11,13 @@
 				<span class="link">{{currentUser.username}}</span>
 			</div>
 			<div class="ct-top-item" data-ng-show="currentUser">
-				<span class="link"><i class="fa fa-star"></i>收藏夹</span>
+				<span class="link" data-ng-click=""><i class="fa fa-shopping-cart"></i>购物车</span>
 			</div>
 			<div class="ct-top-item" data-ng-show="currentUser">
-				<span class="link"><i class="fa fa-circle-o-notch"></i>浏览记录</span>
+				<span class="link" data-ng-click=""><i class="fa fa-star"></i>收藏夹</span>
+			</div>
+			<div class="ct-top-item" data-ng-show="currentUser">
+				<span class="link" data-ng-click=""><i class="fa fa-clock-o"></i>浏览记录</span>
 			</div>
 		</div>
 		<div class="ct-top-right">
@@ -31,21 +34,53 @@
 	
 	<!-- 手机版底部栏start -->
 	<div class="ct-bottom-fixed">
-		<div class="ct-bottom-item" data-ng-click="triggerPage(clientNavs.a_index.url)">
+	
+		<!-- 分类面板start -->
+		<div class="ct-panel ct-type" data-ng-show="currentNav=='type'">
+			<ul>
+				<li>
+					<i class="fa fa-list-ul"></i>&nbsp;&nbsp;{{tableName | getTypeName}}
+					<span data-ng-click="clickNav('index')"><i class="fa fa-close"></i></span>
+				</li>
+				<li data-ng-repeat="type in typeList">
+					<div class="ct-type-header">
+						<h3>{{type.name | showBlankValue}}</h3>
+					</div>
+					<div class="ct-type-two">
+						<a href="javascript:void(0)" data-ng-repeat="item in type.typetList" data-ng-click="">{{item.name | showBlankValue}}</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<!-- 分类面板end -->
+	
+		<div class="ct-bottom-item" data-ng-class="{'ct-bottom-five': tableName=='tb_product', 'active': currentNav=='index'}" data-ng-click="clickNav('index')">
 			<i class="fa fa-home"></i>
 			<p>首页</p>
 		</div>
-		<div class="ct-bottom-item" data-ng-click="triggerPage(clientNavs.d_product.url)">
-			<i class="fa fa-globe"></i>
-			<p>产品</p>
+		<div class="ct-bottom-item" data-ng-class="{'ct-bottom-five': tableName=='tb_product', 'active': currentNav=='type'}" data-ng-click="clickNav('type')">
+			<i class="fa fa-th-large"></i>
+			<p>分类</p>
 		</div>
-		<div class="ct-bottom-item" data-ng-click="hrefTo('tel:'+phone)">
-			<i class="fa fa-phone"></i>
-			<p>电话</p>
+		<div class="ct-bottom-item" data-ng-class="{'ct-bottom-five': tableName=='tb_product', 'active': currentNav=='cart'}" data-ng-click="clickNav('cart')" data-ng-show="tableName=='tb_product'">
+			<i class="fa fa-shopping-cart"></i>
+			<p>购物车</p>
 		</div>
-		<div class="ct-bottom-item" data-ng-click="triggerPage(clientNavs.e_contact.url)">
+		<div class="ct-bottom-item" data-ng-class="{'ct-bottom-five': tableName=='tb_product', 'active': currentNav.indexOf('more')>-1}" data-ng-click="clickNav('more',$event)">
+			<i class="fa fa-compass"></i>
+			<p>更多</p>
+			<ul class="ct-bottom-item-two">
+				<li>
+					<a href="javascript:void(0)"><i class="fa fa-star"></i>&nbsp;收藏夹</a>
+				</li>
+				<li>
+					<a href="javascript:void(0)"><i class="fa fa-clock-o"></i>&nbsp;浏览记录</a>
+				</li>
+			</ul>
+		</div>
+		<div class="ct-bottom-item" data-ng-class="{'ct-bottom-five': tableName=='tb_product', 'active': currentNav=='me'}" data-ng-click="clickNav('me')">
 			<i class="fa fa-user"></i>
-			<p>联系</p>
+			<p>我的</p>
 		</div>
 	</div>
 	<!-- 手机版底部栏end -->

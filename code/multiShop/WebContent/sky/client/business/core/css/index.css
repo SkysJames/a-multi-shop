@@ -8,6 +8,11 @@
 	background-color: #ebebeb;
 }
 
+.ishop-header {
+	margin: 0 auto;
+	width: 1200px;
+}
+
 .index-recommend .ishop-header {
 	text-align: center;
 	padding: 10px;
@@ -19,12 +24,15 @@
 }
 
 .index-shop {
-	display: none;
+	display: none!important;
 	background-color: #fff;
+}
+.index-shop-show {
+	display: block!important;
 }
 
 .index-shop .ishop-header {
-	padding: 10px 15px;
+	padding: 10px 10px;
 }
 .index-shop .ishop-header h2 {
 	display: inline-block;
@@ -43,7 +51,9 @@
 }
 
 .ishop-content {
-	text-align: center;
+	text-align: left;
+	margin: 0 auto;
+	width: 1200px;
 }
 .ishop-content>ul {
 	
@@ -80,25 +90,30 @@
 	position: relative;
 	margin-top: 5px;
     margin-bottom: 5px;
-	max-width: 65%;
+	max-width: 100%;
 	font-weight: bolder;
 	font-size: 16px;
 	color: #333;
-}
-.ishop-con>label {
-	display: inline-block;
-	vertical-align: top;
-	position: relative;
-	margin: 5px;
-	font-size: 12px;
-	color: #fff;
-	background: #ff0000;
-	padding: 2px 4px;
-	border-radius: 2px;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
 }
 .ishop-con p {
     margin-bottom: 2px;
     font-size: 12px;
+    overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.ishop-con p label {
+	float: right;
+    position: relative;
+    margin: 0px;
+    font-family: "微软雅黑";
+    color: #aaa;
+}
+.ishop-con p label i {
+	color: #ff0000;
 }
 .ishop-content>ul>li:hover {
 	transform:translateY(-6px);
@@ -107,6 +122,27 @@
 	box-shadow:0 26px 40px -24px rgba(0,36,100,.3);
 	-webkit-box-shadow:0 26px 40px -24px rgba(0,36,100,.3);
 	-moz-box-shadow:0 26px 40px -24px rgba(0,36,100,.3);
+}
+.ishop-content>ul>li:hover .ishop-con>h3 {
+	color: #ff0000;
+}
+
+@media screen and (max-width: 1250px) {
+	.ishop-content {
+		width: 600px;
+	}
+	.ishop-header {
+		width: 600px;
+	}
+}
+
+@media screen and (max-width: 760px) {
+	.ishop-content {
+		width: auto;
+	}
+	.ishop-header {
+		width: auto;
+	}
 }
 
 @media screen and (max-width: 490px) {

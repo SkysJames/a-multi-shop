@@ -7,16 +7,101 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML>
 <html>
   <head>
-    <base href="<%=basePath%>">
-    
-    <title>My JSP 'index.jsp' starting page</title>
+  
+  	<!-- 前端基本css -->
+	<%@ include file="/sky/client/common/client.inc-css.jsp"%>
+    <!-- 导入相应的css -->
+	<link rel="stylesheet" href="${ contextPath }/sky/client/business/core/css/index.css" />
+	
+	<!-- 导入系统图标 -->
+    <link rel="icon" href="${systemIcon }" type="image/x-icon">
+  
+    <title>${systemName }</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
   </head>
   
-  <body>
-    <%
-    	response.sendRedirect(path + "/home/client-index");
-    %>
+  <body data-ng-app="indexApp" data-ng-controller="indexCtrl">
+  	<!-- 页面头部start -->
+	<client-top table-name="tb_shop" type-list="oneTypeList"></client-top>
+  	<!-- 页面头部end -->
+	
+	<!-- 系统名称，搜索框start -->
+	<index-header index-ans="indexAns"></index-header>
+	<!-- 系统名称，搜索框end -->
+	
+	<!-- 轮播图片start -->
+	<slide-show table-name="tb_shop" type-list="oneTypeList" slide-list="slideList" index-ans="indexAns"></slide-show>
+  	<!-- 轮播图片end -->
+  	
+  	<!-- 推荐店铺start -->
+  	<div class="index-commodel index-recommend">
+  		<div class="ishop-header">
+  			<h2>推荐店铺</h2>
+  		</div>
+  		<div class="ishop-content">
+  			<ul>
+  				<li data-ng-repeat="item in reShopList" data-ng-click="">
+  					<div class="ishop-img" style="background-image: url({{item.picPathList|getImgByImgList}})"></div>
+  					<div class="ishop-con">
+  						<h3 title="{{item.name | showBlankValue}}">{{item.name | showBlankValue}}</h3>
+  						<p title="简介：{{item.brief | showBlankValue}}">简介：{{item.brief | showBlankValue}}</p>
+  						<p title="评分：{{item.mark}}分">
+  							评分：{{item.mark}}分
+  							<label title="人气{{item.popularity}}"><i class="fa fa-heart"></i>&nbsp;{{item.popularity}}</label>
+  						</p>
+  						<p title="地址：{{item.address | showBlankValue}}">地址：{{item.address | showBlankValue}}</p>
+  					</div>
+  				</li>
+  			</ul>
+  		</div>
+  	</div>
+  	<!-- 推荐店铺end -->
+  	
+  	<!-- 类型店铺start -->
+  	<div class="index-commodel index-shop" data-ng-class="{'index-shop-show': typet.shopList && typet.shopList.length>0}" data-ng-repeat="typet in twoTypeList">
+  		<div class="ishop-header">
+  			<h2>{{typet.name}}</h2>
+  			<a href="javascript:void(0)" data-ng-click="">
+  				更多&nbsp;<i class="fa fa-chevron-right"></i>
+  			</a>
+  		</div>
+  		<div class="ishop-content">
+  			<ul>
+  				<li data-ng-repeat="item in typet.shopList" data-ng-click="">
+  					<div class="ishop-img" style="background-image: url({{item.picPathList|getImgByImgList}})"></div>
+  					<div class="ishop-con">
+  						<h3 title="{{item.name | showBlankValue}}">{{item.name | showBlankValue}}</h3>
+  						<p title="简介：{{item.brief | showBlankValue}}">简介：{{item.brief | showBlankValue}}</p>
+  						<p title="评分：{{item.mark}}分">
+  							评分：{{item.mark}}分
+  							<label title="人气{{item.popularity}}"><i class="fa fa-heart"></i>&nbsp;{{item.popularity}}</label>
+  						</p>
+  						<p title="地址：{{item.address | showBlankValue}}">地址：{{item.address | showBlankValue}}</p>
+  					</div>
+  				</li>
+  			</ul>
+  		</div>
+  		<div class="clear"></div>
+  	</div>
+  	<loading-panel data-ng-show="isLoadingShop" font-size="18"></loading-panel>
+  	<!-- 类型店铺end -->
+	  	
+	<!-- 页面底部start -->
+	<client-bottom></client-bottom>
+	<!-- 页面底部end -->
+	
+	<!-- 公告消息模态框start -->
+	<slide-announce-model ans-win-id="systemAnsWinId" index-ans="indexAns"></slide-announce-model>
+	<!-- 公告消息模态框end -->
+	
   </body>
+  
+  <!-- 后台基本js -->
+  <%@ include file="/sky/client/common/client.inc-js.jsp"%>
+  
+  <!-- 导入相应的js -->
+  <script type="text/javascript" src="${ contextPath }/sky/client/business/core/js/index.js"></script>
+  <script type="text/javascript" src="${ contextPath }/sky/client/business/core/js/indexHeader.js"></script>
+  
 </html>

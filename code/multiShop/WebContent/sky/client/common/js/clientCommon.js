@@ -11,3 +11,12 @@ var clientCommon = {
 			$contextPath + "/sky/client/component/slideShow/img/slideImg_5.jpg",
 		],
 };
+
+/**
+ * 点击网页任意地方触发事件
+ * @returns
+ */
+$(document).click(function(){
+	//令手机端底部的二级菜单消失
+    $(".ct-bottom-item-two").hide();
+});

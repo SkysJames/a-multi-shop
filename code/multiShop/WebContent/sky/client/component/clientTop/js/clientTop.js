@@ -3,7 +3,8 @@ angular.module('clientTop',[])
 	return {
 		restrict:'E',
 		scope : {
-			currentNav	: '=',
+			tableName	: '@',
+			typeList		: '=',
 		},
 		templateUrl : $contextPath +"/sky/client/component/clientTop/template/clientTop.html",
 		link : function(scope,element,attrs){
@@ -16,6 +17,23 @@ angular.module('clientTop',[])
 			$scope.currentUser = $currentUser;
 			//微信二维码的url
 			$scope.wechatPic = $wechatPic;
+			//当前导航
+			$scope.currentNav = "index";
+			
+			/**
+			 * 点击导航对象
+			 */
+			$scope.clickNav = function(nav, event){
+				if(nav=="more"){
+					$(".ct-bottom-item-two").css("top", "-76px");
+					$(".ct-bottom-item-two").fadeIn();
+					event.stopPropagation();
+					return;
+				}
+				$scope.currentNav = nav;
+			};
+			
+			//获取购物车列表
 			
 			//获取收藏夹列表
 			
@@ -28,6 +46,11 @@ angular.module('clientTop',[])
 			$scope.toPage = function(url, isLocation){
 				common.toPage($contextPath + url, isLocation);
 			};
+			
+			//点击自己则不消失，即停止冒泡事件
+			$(".ct-bottom-item-two").click(function(event){
+				event.stopPropagation();
+			});
 		}
 	};
 });

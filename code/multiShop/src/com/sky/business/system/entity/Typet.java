@@ -140,7 +140,7 @@ public class Typet implements Serializable {
 		if(TypetContants.ROOT_PARENT_ID.equals(this.parentId)) {
 			TypeService typeService = (TypeService)BeanDefinedLocator.getInstance().getBean("typeService");
 			
-			typetList = typeService.findBy(Typet.class, "parentId", this.id);
+			typetList = typeService.findBy(Typet.class, "parentId", this.id, "sort", true);
 		}
 		return typetList;
 	}

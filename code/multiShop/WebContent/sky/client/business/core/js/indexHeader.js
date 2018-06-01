@@ -3,8 +3,7 @@ angular.module('indexHeader',[])
 	return {
 		restrict:'E',
 		scope : {
-			keywords	: "=",
-			indexAns	: "=",
+			indexAns		: "=",
 		},
 		templateUrl : $contextPath +"/sky/client/business/core/template/indexHeader.html",
 		link : function(scope,element,attrs){
@@ -17,13 +16,30 @@ angular.module('indexHeader',[])
 			$scope.systemLogo = $systemLogo;
 			//当前登录用户
 			$scope.currentUser = $currentUser;
+			//搜索关键字
+			$scope.keywords = "";
 			
 			/**
-			 * 通过url打开页面
-			 * isLocation true-本页面打开，false-新窗口打开
+			 * 回到主页
 			 */
-			$scope.toPage = function(url, isLocation){
-				common.toPage($contextPath + url, isLocation);
+			$scope.toIndexPage = function(){
+				window.location.href = $contextPath;
+			};
+			
+			/**
+			 * 路由页面
+			 */
+			$scope.toSearchPage = function(){
+				if($scope.keywords && $scope.keywords.length>0){
+					window.location.href = $contextPath + "/sky/" + "?keywords=" + $scope.keywords;
+				}
+			};
+			
+			/**
+			 * 后退到前一个页面
+			 */
+			$scope.toBackPage = function(){
+				window.history.go(-1);
 			};
 			
 		}

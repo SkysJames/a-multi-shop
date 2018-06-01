@@ -121,7 +121,7 @@
 	height: 60px;
 	text-align: center;
 	background-color: #fff;
-	border-top: #000;
+	border-top: 1px solid #efefef;
 	box-shadow: 0 0 4px 0px rgba(0,0,0,.6);
 	z-index: 99;
 }
@@ -135,6 +135,9 @@
 	cursor: pointer;
 	border: none;
 }
+.ct-bottom-five {
+	width: 19.2%;
+}
 .ct-bottom-item i {
 	margin-top: 8px;
 	font-size: 24px;
@@ -142,8 +145,92 @@
 .ct-bottom-item p {
 	
 }
-.ct-bottom-item:hover {
+.ct-bottom-item:hover,.ct-bottom-item.active {
 	color: #fb0000;
+}
+.ct-bottom-item-two {
+	position: absolute;
+    text-align: left;
+    min-width: 100px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    margin: 0px;
+    z-index: 99;
+}
+.ct-bottom-item-two li {
+	padding: 0px 10px;
+    line-height: 35px;
+    border-bottom: 1px solid #ddd;
+}
+.ct-bottom-item-two i {
+	font-size: 14px;
+}
+
+.ct-panel {
+	position: fixed;
+	top: 0px;
+	bottom: 60px;
+	left: 0px;
+	right: 0px;
+	background-color: rgba(255,255,255,0.95);
+	overflow: auto;
+	z-index: 50;
+    -webkit-transition: all .3s ease;
+	-moz-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
+}
+
+.ct-type>ul {
+	margin: 0px;
+}
+.ct-type>ul>li {
+	text-align: left;
+	margin-bottom: 10px;
+}
+.ct-type>ul>li:first-of-type {
+	line-height: 35px;
+	margin: 0px;
+	padding: 0px 15px;
+	color: #fff!important;
+    background: #ff0000!important;
+}
+.ct-type>ul>li:first-of-type>span {
+	float: right;
+	cursor: pointer;
+}
+.ct-type>ul>li:first-of-type>span:hover {
+	opacity: 0.85;
+}
+.ct-type-header {
+	text-align: left;
+    line-height: 31px;
+    padding-left: 5px;
+    margin: 0px 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: auto;
+}
+.ct-type-header>h3 {
+	display: inline-block;
+    margin: 0px;
+    padding: 0px 15px;
+    font-size: 15px;
+    line-height: inherit;
+    color: #ff0000;
+    border-bottom: 2px solid #ff0000;
+}
+.ct-type-two {
+	line-height: 25px;
+    padding: 6px 30px;
+    font-size: 14px;
+}
+.ct-type-two a {
+	margin-right: 15px;
+	color: #666;
+}
+.ct-type-two a:hover {
+	color: #ff0000;
 }
 
 

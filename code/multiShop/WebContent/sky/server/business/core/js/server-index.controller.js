@@ -79,7 +79,6 @@ angular.module('serverIndexApp',
 		redirectTo: defaultUrl
     });
 	
-	
 }])
 .controller("serverIndexCtrl",['$timeout', '$scope', '$rootScope', '$document', 'serverIndexHttpService', 
 function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
