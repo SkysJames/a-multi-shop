@@ -27,12 +27,19 @@ angular.module('indexHeader',[])
 			};
 			
 			/**
-			 * 跳到搜索页面
+			 * 路由页面
 			 */
 			$scope.toSearchPage = function(){
 				if($scope.keywords && $scope.keywords.length>0){
 					window.location.href = $contextPath + "/sky/" + "?keywords=" + $scope.keywords;
 				}
+			};
+			
+			/**
+			 * 后退到前一个页面
+			 */
+			$scope.toBackPage = function(){
+				window.history.go(-1);
 			};
 			
 		}

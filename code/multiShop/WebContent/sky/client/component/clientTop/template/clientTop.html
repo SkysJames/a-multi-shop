@@ -66,7 +66,8 @@
 			<i class="fa fa-shopping-cart"></i>
 			<p>购物车</p>
 		</div>
-		<div class="ct-bottom-item" data-ng-class="{'ct-bottom-five': tableName=='tb_product', 'active': currentNav.indexOf('more')>-1}" data-ng-click="clickNav('more',$event)">
+		<div class="ct-bottom-item" data-ng-mouseover="mouseNav('more',true)" data-ng-mouseleave="mouseNav('more',false)"
+			data-ng-class="{'ct-bottom-five': tableName=='tb_product', 'active': currentNav.indexOf('more')>-1}">
 			<i class="fa fa-compass"></i>
 			<p>更多</p>
 			<ul class="ct-bottom-item-two">

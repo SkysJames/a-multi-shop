@@ -25,7 +25,7 @@ var clientCommon = {
  * 点击网页任意地方触发事件
  * @returns
  */
-$(document).click(function(){
-	//令手机端底部的二级菜单消失
-    $(".ct-bottom-item-two").hide();
-});
+//$(document).click(function(){
+//	//令手机端底部的二级菜单消失
+//    $(".ct-bottom-item-two").hide();
+//});

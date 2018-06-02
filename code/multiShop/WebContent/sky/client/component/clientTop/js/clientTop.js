@@ -24,14 +24,20 @@ angular.module('clientTop',[])
 			 * 点击导航对象
 			 */
 			$scope.clickNav = function(nav, event){
-				if(nav=="more"){
-					$(".ct-bottom-item-two").css("top", "-76px");
-					$(".ct-bottom-item-two").fadeIn();
-					event.stopPropagation();
-					return;
-				}
 				$scope.currentNav = nav;
 			};
+			
+			/**
+			 * 鼠标移过导航对象
+			 */
+			$scope.mouseNav = function(nav, isOver){
+				if(nav=="more" && isOver){
+					$(".ct-bottom-item-two").css("top", "-84px");
+					$(".ct-bottom-item-two").fadeIn();
+				}else{
+					$(".ct-bottom-item-two").fadeOut();
+				}
+			}
 			
 			//获取购物车列表
 			
