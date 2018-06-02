@@ -3,6 +3,8 @@ angular.module('indexApp',["client-index.filter","client-index.httpService","ind
 function($timeout, $scope, $document, clientIndexHttpService){
 	//系统轮播图片
 	$scope.slideList = $systemPicture==""?clientCommon.demoSliders:$systemPicture.split(",");
+	//系统轮播图片链接
+	$scope.slideHrefList = $systemPictureHref==""?clientCommon.demoSliderHrefs:$systemPictureHref.split(",");
 	//店铺类型列表（一级类型）
 	$scope.oneTypeList = [];
 	//店铺类型列表（二级类型）

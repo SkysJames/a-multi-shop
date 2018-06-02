@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- 系统名称，搜索框end -->
 	
 	<!-- 轮播图片start -->
-	<slide-show table-name="tb_shop" type-list="oneTypeList" slide-list="slideList" index-ans="indexAns"></slide-show>
+	<slide-show table-name="tb_shop" type-list="oneTypeList" slide-list="slideList" slide-href-list="slideHrefList" index-ans="indexAns"></slide-show>
   	<!-- 轮播图片end -->
   	
   	<!-- 推荐店铺start -->

@@ -38,6 +38,7 @@ public class SystemServiceImpl extends BaseServiceImpl implements SystemService 
 		List<String> systemIconList = new ArrayList<String>();
 		List<String> systemLogoList = new ArrayList<String>();
 		List<String> systemPictureList = new ArrayList<String>();
+		List<String> systemPictureHrefList = new ArrayList<String>();
 		List<String> wechatPictureList = new ArrayList<String>();
 		
 		List<SysParameter> sysList = sysParameterService.findBy(SysParameter.class, "type", "system");
@@ -57,6 +58,10 @@ public class SystemServiceImpl extends BaseServiceImpl implements SystemService 
 			String[] system_pictures = ((String)systemInfo.get("system_picture")).split(",");
 			systemPictureList = Arrays.asList(system_pictures);
 		}
+		if(systemInfo.containsKey("system_picture_href") && StringUtils.isNotBlank((String)systemInfo.get("system_picture_href"))) {
+			String[] system_picture_hrefs = ((String)systemInfo.get("system_picture_href")).split(",");
+			systemPictureHrefList = Arrays.asList(system_picture_hrefs);
+		}
 		if(systemInfo.containsKey("wechat_pic") && StringUtils.isNotBlank((String)systemInfo.get("wechat_pic"))) {
 			String[] wechat_pics = ((String)systemInfo.get("wechat_pic")).split(",");
 			wechatPictureList = Arrays.asList(wechat_pics);
@@ -65,6 +70,7 @@ public class SystemServiceImpl extends BaseServiceImpl implements SystemService 
 		systemInfo.put("systemIconList", systemIconList);
 		systemInfo.put("systemLogoList", systemLogoList);
 		systemInfo.put("systemPictureList", systemPictureList);
+		systemInfo.put("systemPictureHrefList", systemPictureHrefList);
 		systemInfo.put("wechatPictureList", wechatPictureList);
 		
 		return systemInfo;
@@ -132,6 +138,13 @@ public class SystemServiceImpl extends BaseServiceImpl implements SystemService 
 			String picture = CommonMethodUtil.saveFiles((List<String>) systemInfo.get("systemPictureList"), picPath);
 			
 			sysParameterService.saveValue("system_picture", picture);
+		}
+		
+		if(systemInfo.containsKey("systemPictureHrefList")) {
+			List<String> systemPictureHrefList = (List<String>) systemInfo.get("systemPictureHrefList");
+			String pictureHref = CommonMethodUtil.packetListToStr(systemPictureHrefList);
+			
+			sysParameterService.saveValue("system_picture_href", pictureHref);
 		}
 		
 		if(systemInfo.containsKey("wechatPictureList")) {

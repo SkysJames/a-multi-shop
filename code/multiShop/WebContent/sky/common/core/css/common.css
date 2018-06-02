@@ -45,6 +45,9 @@
 .common-value {
 	padding-top: 7px;
 }
+.common-values input {
+	margin-bottom: 5px;
+}
 
 .common-tree {
 	

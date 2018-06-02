@@ -112,7 +112,7 @@ create table tb_message
     CONTENT			varchar(4000) comment '消息内容',
     SEND_TIME       datetime not null comment '发送时间',
     STATUS         	integer default 0 not null comment '状态：0 - 未发送；1 - 已发送未接收；2 - 已接收',
-    HREF     		varchar(4000) comment '对象链接'
+    HREF     		varchar(400) comment '对象链接'
 );
 alter table tb_message add index idx_tb_message_tu(TO_USER);
 
@@ -145,18 +145,19 @@ create table tb_shop
     SHOP_TYPE		varchar(100) comment '店铺类型',
     ADD_TIME        datetime comment '入驻时间，即通过验证的时间',
     OVER_TIME       datetime comment '到期时间',
-    SERVICE			varchar(4000) comment '客服用户ID，多个以,隔开',
-    LOGO       		varchar(4000) comment 'logo图片路径',
-    PICTURE			varchar(4000) comment '相关轮播图片路径，多个以,隔开',
+    SERVICE			varchar(600) comment '客服用户ID，多个以,隔开',
+    LOGO       		varchar(200) comment 'logo图片路径',
+    PICTURE			varchar(2000) comment '相关轮播图片路径，多个以,隔开',
+    PICTURE_HREF    varchar(2000) comment '相关轮播图片的链接，按顺序与图片对应，多个以,隔开',
     BRIEF           varchar(600) comment '店铺简介',
     DESCRIPTION     text comment '店铺描述',
     MARK			decimal(2,1) comment '店铺评分，最高5分，所有评价分的平均值',
-    ADDRESS         varchar(4000) comment '店铺所在地址',
+    ADDRESS         varchar(2000) comment '店铺所在地址',
     LONGITUDE       double(9,6) comment '店铺所在地，经度',
     LATITUDE        double(9,6) comment '店铺所在地，纬度',
     STATUS			integer default 0 comment '状态：-1-实际不存在该店铺;0-禁用；1-申请待验证；2-启用',
     PHONE			varchar(600) comment '电话号码',
-    WECHAT_PIC		varchar(2000) comment '微信公众号二维码，多个以,隔开',
+    WECHAT_PIC		varchar(200) comment '微信公众号二维码，多个以,隔开',
     REMARK         	varchar(2000) comment '备注'
 );
 
@@ -174,7 +175,7 @@ create table tb_evaluate
     MARK			decimal(2,1) comment '评分，最高5分',
     CONTENT			varchar(4000) comment '评价内容',
     CREATE_TIME     datetime not null comment '评价时间',
-    PICTURE         varchar(4000) comment '相关图片路径，多个以,隔开',
+    PICTURE         varchar(2000) comment '相关图片路径，多个以,隔开',
     STATUS         	integer default 0 not null comment '状态：0 - 未发送；1 - 已发送未接收；2 - 已接收'
 );
 
@@ -192,7 +193,7 @@ create table tb_product
     PRO_TYPE        varchar(36) comment '商品类型',             
     BRIEF           varchar(600) comment '商品简介',
     DESCRIPTION     text comment '商品描述',
-    PICTURE         varchar(4000) comment '相关图片路径，多个以,隔开', 
+    PICTURE         varchar(2000) comment '相关图片路径，多个以,隔开', 
     PRICE			decimal(12,2) comment '价格',
     PRO_STOCK		integer default 1 comment '商品库存',
     CREATE_TIME     datetime comment '创建时间',                            
@@ -228,7 +229,7 @@ DROP TABLE IF EXISTS tb_announce;
 create table tb_announce
 (
     ID              varchar(36) primary key comment '主键ID',     
-    NAME            varchar(4000) comment '公告名称',
+    NAME            varchar(300) comment '公告名称',
     SHOP_ID			varchar(36) comment '店铺ID，system - 系统公告',
     CONTENT         text comment '公告内容',
     CREATE_TIME     datetime comment '创建时间',
@@ -254,7 +255,7 @@ create table tb_prohistory
     USER_ID         varchar(36) comment '用户ID',    
     CREATE_TIME     datetime comment '创建时间',           
     UPDATE_TIME     datetime comment '更新时间',
-    HREF     		varchar(4000) comment '对象链接'
+    HREF     		varchar(400) comment '对象链接'
 );
 alter table tb_prohistory add index idx_tb_prohistory_tn_ui(TABLE_NAME,USER_ID);
 
@@ -284,7 +285,7 @@ CREATE TABLE `tb_bbssection` (
   `ID` varchar(32) COLLATE utf8_bin NOT NULL COMMENT '主键ID',
   `NAME` varchar(32) COLLATE utf8_bin NOT NULL COMMENT '版块名称',
   `BRIEF` varchar(600) COLLATE utf8_bin COMMENT '简介',
-  `HEADPIC`     varchar(4000) comment '头像图片路径',
+  `HEADPIC`     varchar(400) comment '头像图片路径',
   `CREATE_TIME` datetime COMMENT '创建时间',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin ROW_FORMAT=DYNAMIC;

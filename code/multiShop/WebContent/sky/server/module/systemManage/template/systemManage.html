@@ -89,6 +89,18 @@
 										<div class="common-tip">请上传jpg,jpeg,png格式的图片，图片推荐尺寸 宽：1140px，高：450px，或 宽：1920px，高：600px</div>
 									</div>
 								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">轮播链接：</label>
+									<div class="col-md-10" data-ng-show="!isEdit">
+										<div class="common-value" data-ng-repeat="item in systemInfo.systemPictureHrefList">{{item|showBlankValue}}</div>
+										<div class="common-value" data-ng-if="systemInfo.systemPictureHrefList.length==0">暂无链接</div>
+									</div>
+									<div class="col-md-10 common-values" data-ng-show="isEdit">
+										<input class="form-control" type="text" placeholder="对应第{{$index+1}}个轮播图片" 
+											data-ng-repeat="item in systemInfo.systemPictureList" data-ng-model="systemInfo.systemPictureHrefList[$index]">
+										<div class="common-tip">此处添加的链接，与轮播图片一一对应，如：https://www.baidu.com/</div>
+									</div>
+								</div>
 								
 								<div class="form-group">
 									<label class="col-md-2 control-label">公司名称：</label>

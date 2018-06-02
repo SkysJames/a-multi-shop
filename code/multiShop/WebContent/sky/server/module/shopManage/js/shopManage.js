@@ -77,6 +77,11 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 			return false;
 		}
 		
+		//店铺轮播图片的链接
+		if(shop.picPathList){
+			shop.picHrefList.length = shop.picPathList.length;
+		}
+		
 		//店铺的客服人员
 		if(shop.serviceUserIds){
 			var service = "";

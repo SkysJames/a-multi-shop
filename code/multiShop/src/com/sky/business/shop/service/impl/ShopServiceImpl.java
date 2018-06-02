@@ -109,6 +109,12 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 			
 			shop.setPicture(picture);
 		}
+		if(editObj.containsKey("picHrefList")) {
+			List<String> picHrefList = (List<String>) editObj.get("picHrefList");
+			String pictureHref = CommonMethodUtil.packetListToStr(picHrefList);
+			
+			shop.setPictureHref(pictureHref);
+		}
 		
 		this.update(shop);
 	}
@@ -196,6 +202,12 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 			String picture = CommonMethodUtil.saveFiles((List<String>) addObj.get("picPathList"), picPath);
 			
 			shop.setPicture(picture);
+		}
+		if(addObj.containsKey("picHrefList")) {
+			List<String> picHrefList = (List<String>) addObj.get("picHrefList");
+			String pictureHref = CommonMethodUtil.packetListToStr(picHrefList);
+			
+			shop.setPictureHref(pictureHref);
 		}
 		
 		this.save(shop);

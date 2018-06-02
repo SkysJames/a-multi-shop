@@ -59,8 +59,10 @@
 	
 }
 .ishop-content>ul>li {
-	display: inline-block;
 	vertical-align: top;
+	display: inline-block; /* 现代浏览器 +IE6、7 inline 元素 */  
+	*display: inline; /* IE6、7 block 元素 */  
+	*zoom: 1;
 	width: 180px;
 	margin: 10px;
 	background: #fff;
@@ -90,7 +92,7 @@
 	position: relative;
 	margin-top: 5px;
     margin-bottom: 5px;
-	max-width: 100%;
+	width: 100%;
 	font-weight: bolder;
 	font-size: 16px;
 	color: #333;

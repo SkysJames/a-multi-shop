@@ -3,6 +3,7 @@ package com.sky.business.shop.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -62,6 +63,9 @@ public class Shop implements Serializable {
 	
 	@Column(name="PICTURE")
 	private String picture;
+	
+	@Column(name="PICTURE_HREF")
+	private String pictureHref;
 	
 	@Column(name="BRIEF")
 	private String brief;
@@ -123,6 +127,12 @@ public class Shop implements Serializable {
  	 */
  	@Transient
  	private List<String> picPathList;
+ 	
+ 	/**
+ 	 * 图片链接列表
+ 	 */
+ 	@Transient
+ 	private List<String> picHrefList;
  	
  	/**
  	 * 微信二维码path列表
@@ -388,6 +398,26 @@ public class Shop implements Serializable {
 
 	public void setWechatPathList(List<String> wechatPathList) {
 		this.wechatPathList = wechatPathList;
+	}
+
+	public String getPictureHref() {
+		return pictureHref;
+	}
+
+	public void setPictureHref(String pictureHref) {
+		this.pictureHref = pictureHref;
+	}
+
+	public List<String> getPicHrefList() {
+		picHrefList = new ArrayList<String>();
+		if(StringUtils.isNotBlank(pictureHref)){
+			picHrefList = Arrays.asList(pictureHref.split(","));
+		}
+		return picHrefList;
+	}
+
+	public void setPicHrefList(List<String> picHrefList) {
+		this.picHrefList = picHrefList;
 	}
 
 }

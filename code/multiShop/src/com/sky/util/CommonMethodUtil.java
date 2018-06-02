@@ -126,4 +126,24 @@ public class CommonMethodUtil {
 		return filesUrl;
 	}
 	
+	/**
+	 * 将字符串列表封装为字符串，以,分隔
+	 * @param list
+	 * @return
+	 */
+	public static String packetListToStr(List<String> list) {
+		String str = "";
+		
+		if(list != null) {
+			for(String s : list) {
+				str += s + ",";
+			}
+			if(str.length() > 0) {
+				str = str.substring(0, str.length()-1);
+			}
+		}
+		
+		return str;
+	}
+	
 }

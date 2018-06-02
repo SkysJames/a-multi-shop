@@ -18,6 +18,9 @@
 	String systemPicture = SysParameterUtil.getStringValue("system_picture", "");
 	pageContext.setAttribute("systemPicture", systemPicture);
 	
+	String systemPictureHref = SysParameterUtil.getStringValue("system_picture_href", "");
+	pageContext.setAttribute("systemPictureHref", systemPictureHref);
+	
 	String companyName = SysParameterUtil.getStringValue("company_name", "");
 	pageContext.setAttribute("companyName", companyName);
 	
@@ -56,6 +59,7 @@ var $currentUser = JSON.parse('${ JsonUtil.toJson(loginUser) }');//当前登录�
 var $systemName = '${ systemName }';//系统名称
 var $systemLogo = '${ systemLogo }';//系统logo
 var $systemPicture = '${ systemPicture }';//系统轮播图
+var $systemPictureHref = '${ systemPictureHref }';//系统轮播图链接
 
 var $companyName = '${ companyName }';//公司名称
 var $companyAddress = '${ companyAddress }';//公司地址

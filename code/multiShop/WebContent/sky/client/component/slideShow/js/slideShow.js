@@ -3,10 +3,11 @@ angular.module('slideShow',[])
 	return {
 		restrict:'E',
 		scope : {
-			tableName	: '@',
-			typeList		: '=',
-			slideList	: '=',
-			indexAns		: '=',
+			tableName		: '@',
+			typeList			: '=',
+			slideList		: '=',
+			slideHrefList	: '=',
+			indexAns			: '=',
 		},
 		templateUrl : $contextPath +"/sky/client/component/slideShow/template/slideShow.html",
 		link : function(scope,element,attrs){
@@ -32,6 +33,13 @@ angular.module('slideShow',[])
 				$('#banner_tabs .flex-next').click(function() {
 					bannerSlider.next();
 				});
+			};
+			
+			/**
+			 * 跳转链接
+			 */
+			$scope.toUrl = function(url){
+				window.location.href = url;
 			};
 			
 			/**

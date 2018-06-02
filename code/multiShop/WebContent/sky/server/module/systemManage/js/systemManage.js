@@ -41,6 +41,10 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 	 * 保存系统信息
 	 */
 	$scope.saveSystemInfo = function(systemInfo){
+		if($scope.systemInfo.systemPictureList){
+			$scope.systemInfo.systemPictureHrefList.length = $scope.systemInfo.systemPictureList.length;
+		}
+		
 		$scope.isLoadingSystemInfo = true;
 		serverIndexHttpService.saveSystemInfo(systemInfo)
 		.then(function(response){

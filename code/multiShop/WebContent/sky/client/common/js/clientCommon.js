@@ -10,6 +10,15 @@ var clientCommon = {
 			$contextPath + "/sky/client/component/slideShow/img/slideImg_4.jpg",
 			$contextPath + "/sky/client/component/slideShow/img/slideImg_5.jpg",
 		],
+		
+		//系统轮播图片链接（例子）
+		demoSliderHrefs	: [
+			$contextPath,
+			$contextPath,
+			$contextPath,
+			$contextPath,
+			$contextPath,
+		],
 };
 
 /**

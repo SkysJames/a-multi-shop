@@ -7,6 +7,8 @@ Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('system_logo', 'system', '', 0, '多商铺平台logo的url', 0);
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('system_picture', 'system', '', 0, '多商铺平台轮播图片的url，多个以,分隔', 0);
+Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
+ Values ('system_picture_href', 'system', '', 0, '多商铺平台轮播图片的链接，按顺序与图片对应，多个以,分隔', 0);
 
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('company_name', 'system', '梦想蓝天网络科技', 0, '公司名称', 0);
@@ -69,7 +71,7 @@ Insert into tb_right (ID, NAME, TYPE)
  Values ('product_type', '商品分类', 'shop');
 
 Insert into tb_rightgroup (ID, NAME, RIGHTS)
- Values ('admin_rightgroup', '管理员角色', 'back_manage,system_manage,forum_manage,announce_manage,message_manage,report_manage,user_manage,visitor_manage,oplog_manage,shop_manage,shop_list,product_manage,shop_type,product_type');
+ Values ('admin_rightgroup', '管理员角色', 'back_manage,system_manage,forum_manage,announce_manage,message_manage,report_manage,user_manage,visitor_manage,oplog_manage,shop_manage,shop_list,shop_type');
 Insert into tb_rightgroup (ID, NAME, RIGHTS)
  Values ('shopkeeper_rightgroup', '店长角色', 'back_manage,announce_manage,message_manage,user_manage,shop_manage,shop_basic,product_manage,product_type');
 Insert into tb_rightgroup (ID, NAME, RIGHTS)
