@@ -32,26 +32,21 @@ public class ClientAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
 
-	@Resource(name = "userService")
-	private UserService userService;
-	
-	@Resource(name = "visitorService")
-	private VisitorService visitorService;
-	
 	private LoginUser loginUser;
 	
-	private Integer type;
-	
-	private String code;
+	//搜索关键字
+	private String keywords;
+	//搜索类型ID
+	private String type;
 	
 	//action
 	/**
 	 * 前端主页面
 	 * @return
 	 */
-	@Action(value = "client-index", results = @Result(location = "/sky/client/business/core/index.jsp"), interceptorRefs = {@InterceptorRef("visitorInterceptor")})
-	public String clientIndex() {
-		logger.info("进入前端主页面");
+	@Action(value = "shop-search", results = @Result(location = "/sky/client/business/shopSearch/shopSearch.jsp", params = {"keywords","${keywords}","type","${type}"}), interceptorRefs = {@InterceptorRef("visitorInterceptor")})
+	public String shopSearch() {
+		logger.info("进入前端店铺搜索页面");
 		return SUCCESS;
 	}
 
@@ -74,20 +69,20 @@ public class ClientAction extends BaseAction {
 		return pager;
 	}
 
-	public Integer getType() {
+	public String getKeywords() {
+		return keywords;
+	}
+
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
+
+	public String getType() {
 		return type;
 	}
 
-	public void setType(Integer type) {
+	public void setType(String type) {
 		this.type = type;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
 	}
 
 }

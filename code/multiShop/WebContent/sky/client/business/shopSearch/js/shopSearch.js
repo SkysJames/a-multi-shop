@@ -1,14 +1,16 @@
-angular.module('indexApp',["client-index.filter","client-index.httpService","indexHeader"].concat($commonDirectiveList).concat($directiveList))
-.controller("indexCtrl",['$timeout', '$scope', '$document', 'clientIndexHttpService', 
+angular.module('shopSearchApp',["client-index.filter","client-index.httpService","indexHeader"].concat($commonDirectiveList).concat($directiveList))
+.controller("shopSearchCtrl",['$timeout', '$scope', '$document', 'clientIndexHttpService', 
 function($timeout, $scope, $document, clientIndexHttpService){
-	//系统轮播图片
-	$scope.slideList = $systemPicture==""?clientCommon.demoSliders:$systemPicture.split(",");
-	//系统轮播图片链接
-	$scope.slideHrefList = $systemPictureHref==""?clientCommon.demoSliderHrefs:$systemPictureHref.split(",");
-	//店铺类型列表（一级类型）
-	$scope.oneTypeList = [];
-	//店铺类型列表（二级类型）
-	$scope.twoTypeList = [];
+	//店铺类型列表
+	$scope.typeList = [];
+	//搜索条件对象
+	$scope.condition = {
+			pageNo		: 1,		//当前页码
+			pageSize		: 30,	//每页数据量
+			isOver		: "0",	//未过期
+			shopType		: type,	//店铺类型
+			keywords		: keywords,	//店铺类型
+	};
 	
 	/**
 	 * 当前页面跳到指定位置
@@ -65,14 +67,7 @@ function($timeout, $scope, $document, clientIndexHttpService){
 		clientIndexHttpService.getTypeList(condition)
 		.then(function(response){
 			var data = response.data;
-			$scope.oneTypeList = data.list;
-			
-			//合并所有的二级店铺类型
-			for(var i=0;i<$scope.oneTypeList.length;i++){
-				if($scope.oneTypeList[i].typetList && $scope.oneTypeList[i].typetList.length>0){
-					$scope.twoTypeList = $scope.twoTypeList.concat($scope.oneTypeList[i].typetList);
-				}
-			}
+			$scope.typeList = data.list;
 			
 			//初始化第一个店铺类型的店铺列表
 			if($scope.twoTypeList && $scope.twoTypeList.length>0){
@@ -84,45 +79,14 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	};
 	
 	/**
-	 * 获取推荐店铺列表
-	 */
-	$scope.pagedReShopList = function(){
-		var condition = {
-				pageNo		: 1,		//当前页码
-				pageSize		: 6,		//每页数据量
-				recommend	: "1",	//推荐
-				isOver		: "0",	//未过期
-		};
-		
-		$scope.isLoadingReShop = true;
-		clientIndexHttpService.pagedShopList(condition)
-		.then(function(response){
-			var data = response.data;
-			$scope.reShopList = data.pager.resultList;
-			$scope.isLoadingReShop = false;
-			
-			$(".index-recommend").fadeIn("slow");
-		},function(err){
-			console.log(err);
-		});
-	};
-	
-	/**
 	 * 获取店铺列表
 	 */
-	$scope.pagedShopList = function(typet){
-		var condition = {
-				pageNo		: 1,		//当前页码
-				pageSize		: 6,		//每页数据量
-				shopType		: typet.id,	//店铺类型
-				isOver		: "0",	//未过期
-		};
-		
+	$scope.pagedShopList = function(){
 		$scope.isLoadingShop = true;
-		clientIndexHttpService.pagedShopList(condition)
+		clientIndexHttpService.pagedShopList($scope.condition)
 		.then(function(response){
 			var data = response.data;
-			typet.shopList = data.pager.resultList;
+			$scope.shopList = data.pager.resultList;
 			$scope.isLoadingShop = false;
 			
 			$(".index-shop").fadeIn("slow");
@@ -138,10 +102,8 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	$scope.initFunc = function(){
 		//初始化公告消息列表
 		$scope.getIndexAnsList();
-		//初始化推荐店铺列表
-		$scope.pagedReShopList();
-		//初始化类型列表
-		$scope.getTypeList();
+		//初始化店铺列表
+		$scope.pagedShopList();
 		
 		//页面滚动事件
 		$(window).scroll(function(){

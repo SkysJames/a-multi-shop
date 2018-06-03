@@ -1,4 +1,4 @@
-angular.module('indexApp',["client-index.filter","client-index.httpService","indexHeader"].concat($commonDirectiveList).concat($directiveList))
+angular.module('indexApp',["client-index.filter","client-index.httpService"].concat($commonDirectiveList).concat($directiveList))
 .controller("indexCtrl",['$timeout', '$scope', '$document', 'clientIndexHttpService', 
 function($timeout, $scope, $document, clientIndexHttpService){
 	//系统轮播图片
@@ -9,6 +9,8 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	$scope.oneTypeList = [];
 	//店铺类型列表（二级类型）
 	$scope.twoTypeList = [];
+	//搜索关键字
+	$scope.keywords = "";
 	
 	/**
 	 * 当前页面跳到指定位置

@@ -10,8 +10,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   	<!-- 前端基本css -->
 	<%@ include file="/sky/client/common/client.inc-css.jsp"%>
-    <!-- 导入相应的css -->
-	<link rel="stylesheet" href="${ contextPath }/sky/client/business/core/css/index.css" />
 	
 	<!-- 导入系统图标 -->
     <link rel="icon" href="${systemIcon }" type="image/x-icon">
@@ -27,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<!-- 页面头部end -->
 	
 	<!-- 系统名称，搜索框start -->
-	<index-header index-ans="indexAns"></index-header>
+	<index-header keywords="keywords" index-ans="indexAns"></index-header>
 	<!-- 系统名称，搜索框end -->
 	
 	<!-- 轮播图片start -->
@@ -82,7 +80,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				</li>
   			</ul>
   		</div>
-  		<div class="clear"></div>
   	</div>
   	<loading-panel data-ng-show="isLoadingShop" font-size="18"></loading-panel>
   	<!-- 类型店铺end -->
@@ -102,6 +99,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <!-- 导入相应的js -->
   <script type="text/javascript" src="${ contextPath }/sky/client/business/core/js/index.js"></script>
-  <script type="text/javascript" src="${ contextPath }/sky/client/business/core/js/indexHeader.js"></script>
   
 </html>
