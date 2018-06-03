@@ -13,6 +13,20 @@ angular.module('client-index.filter',[])
 })
 
 /**
+ * 获取关键字搜索类型
+ */
+.filter('getKeyType',function(){
+	return function(keyType){
+		if("shop"==keyType){
+			return "店铺";
+		}else if("product"==keyType){
+			return "商品";
+		}
+		return "";
+	};
+})
+
+/**
  * 获取类型的名称
  */
 .filter('getTypeName',function(){

@@ -3,6 +3,7 @@ angular.module('indexHeader',[])
 	return {
 		restrict:'E',
 		scope : {
+			keyType		: "@",
 			keywords		: "=",
 			indexAns		: "=",
 		},
@@ -19,6 +20,17 @@ angular.module('indexHeader',[])
 			$scope.currentUser = $currentUser;
 			
 			/**
+			 * 鼠标经过搜索关键字类型
+			 */
+			$scope.mouseKeyType = function(isOver){
+				if(isOver){
+					$(".ch-key-type>ul").fadeIn();
+				}else{
+					$(".ch-key-type>ul").fadeOut();
+				}
+			};
+			
+			/**
 			 * 回到主页
 			 */
 			$scope.toIndexPage = function(){
@@ -29,9 +41,11 @@ angular.module('indexHeader',[])
 			 * 跳到搜索页面
 			 */
 			$scope.toSearchPage = function(){
-				if($scope.keywords && $scope.keywords.length>0){
-//					console.log($contextPath + "/home/shop-search?keywords=" + $scope.keywords);
+				var pathname = window.location.pathname;
+				if($scope.keyType && $scope.keyType=="shop"){
 					window.location.href = $contextPath + "/home/shop-search?keywords=" + $scope.keywords;
+				}else if($scope.keyType && $scope.keyType=="product"){
+					window.location.href = $contextPath + "/home/product-search?keywords=" + $scope.keywords;
 				}
 			};
 			

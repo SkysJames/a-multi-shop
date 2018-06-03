@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<!-- 页面头部end -->
 	
 	<!-- 系统名称，搜索框start -->
-	<index-header keywords="keywords" index-ans="indexAns"></index-header>
+	<index-header key-type="shop" keywords="keywords" index-ans="indexAns"></index-header>
 	<!-- 系统名称，搜索框end -->
 	
 	<!-- 轮播图片start -->

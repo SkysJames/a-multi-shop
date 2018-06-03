@@ -7,6 +7,8 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	$scope.condition = {
 			pageNo		: 1,		//当前页码
 			pageSize		: 30,	//每页数据量
+			pageCount	: 1,
+			totalCount	: 0,
 			isOver		: "0",	//未过期
 			shopType		: type,	//店铺类型
 			keywords		: keywords,	//店铺类型
@@ -23,15 +25,9 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	 * 加载更多店铺
 	 */
 	$scope.loadMoreShop = function(){
-		//加载下一个店铺类型的店铺列表
-		if($scope.twoTypeList && $scope.twoTypeList.length>0 && !$scope.isLoadingShop){
-			for(var i=0; i<$scope.twoTypeList.length; i++){
-				var twoType = $scope.twoTypeList[i];
-				if(!twoType.shopList){
-					$scope.pagedShopList(twoType);
-					return;
-				}
-			}
+		if($scope.condition && $scope.condition.pageNo<$scope.condition.pageCount){
+			$scope.condition.pageNo++;
+			$scope.pagedShopList();
 		}
 	};
 	
@@ -87,6 +83,8 @@ function($timeout, $scope, $document, clientIndexHttpService){
 		.then(function(response){
 			var data = response.data;
 			$scope.shopList = data.pager.resultList;
+			$scope.condition.pageCount = data.pager.pageCount;
+			$scope.condition.totalCount = data.pager.totalCount;
 			$scope.isLoadingShop = false;
 			
 			$(".index-shop").fadeIn("slow");

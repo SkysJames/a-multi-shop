@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<!-- 页面头部end -->
 	
 	<!-- 系统名称，搜索框start -->
-	<index-header keywords="condition.keywords" index-ans="indexAns"></index-header>
+	<index-header key-type="shop" keywords="condition.keywords" index-ans="indexAns"></index-header>
 	<!-- 系统名称，搜索框end -->
 	
 	<!-- 搜索条件start -->
@@ -46,7 +46,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</h2>
 			<div class="icondition-content">
 				<table>
-					<tr></tr>
+					<tr>
+						<td class="icondition-td1">一级分类</td>
+						<td class="icondition-td2">
+							<a data-ng-class="{'active': !condition.shopType || condition.shopType==''}" href="javascript:void(0)" >全部</a>
+						</td>
+					</tr>
+					<tr>
+						<td>二级分类</td>
+						<td></td>
+					</tr>
 				</table>
 			</div>
 		</div>

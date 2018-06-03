@@ -193,6 +193,10 @@
 }
 
 @media screen and (max-width: 760px) {
+	.slide-show {
+		margin-top: 42px;
+	}
+	
 	.ctype {
 		display: none;
 	}

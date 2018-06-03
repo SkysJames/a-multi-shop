@@ -2,6 +2,32 @@
 .client-header {
 	
 }
+
+.ch-key-type {
+	display: table-cell;
+    vertical-align: middle;
+    padding-left: 10px;
+    width: 56px;
+    background-color: #ff0000;
+}
+.ch-key-type a {
+	color: #fff!important;
+}
+.ch-key-type>ul {
+	display: none;
+	position: absolute;
+	left: 0px;
+	width: 57px;
+	margin-top: 7px;
+	border-top: 1px solid #fff;
+	z-index: 1;
+}
+.ch-key-type>ul>li {
+	background-color: #ff0000;
+    padding-left: 10px;
+    line-height: 30px;
+}
+
 .ch-pc {
 	display: block;
 	margin-top: 35px;
@@ -51,6 +77,10 @@
 
 .ch-phone {
 	display: none;
+	position: fixed;
+    top: 0px;
+    border-bottom: 1px solid #ddd;
+    z-index: 50;
 	background-color: #efefef;
     padding: 5px 10px;
 }

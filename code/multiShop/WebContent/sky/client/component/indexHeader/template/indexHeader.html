@@ -10,7 +10,14 @@
 		<div class="ch-pc-middle col-sm-5 col-md-6">
 			<form class="ch-pc-search" data-ng-submit="toSearchPage()">
 				<div class="input-group">
-					<input class="form-control" type="search" placeholder="搜索 店铺、商品" data-ng-model="keywords">
+					<div class="ch-key-type" data-ng-mouseover="mouseKeyType(true)" data-ng-mouseleave="mouseKeyType(false)">
+						<a href="javascript:void(0)">{{keyType | getKeyType}}&nbsp;<i class="fa fa-caret-down"></i></a>
+						<ul>
+							<li><a data-ng-show="keyType!='shop'" data-ng-click="keyType='shop'" href="javascript:void(0)">店铺</a></li>
+							<li><a data-ng-show="keyType!='product'" data-ng-click="keyType='product'" href="javascript:void(0)">商品</a></li>
+						</ul>
+					</div>
+					<input class="form-control" type="search" placeholder="搜索 {{keyType | getKeyType}}" data-ng-model="keywords">
 					<div class="input-group-btn">
 						<button class="btn" type="submit" title="搜索">
 							搜&nbsp;&nbsp;索
@@ -31,7 +38,14 @@
 	<div class="ch-phone">
 		<form class="ch-phone-search" data-ng-submit="toSearchPage()">
 			<div class="input-group">
-				<input class="form-control" type="search" placeholder="搜索 店铺、商品" data-ng-model="keywords">
+				<div class="ch-key-type" data-ng-mouseover="mouseKeyType(true)" data-ng-mouseleave="mouseKeyType(false)">
+					<a href="javascript:void(0)">{{keyType | getKeyType}}&nbsp;<i class="fa fa-caret-down"></i></a>
+					<ul>
+						<li><a data-ng-show="keyType!='shop'" data-ng-click="keyType='shop'" href="javascript:void(0)">店铺</a></li>
+						<li><a data-ng-show="keyType!='product'" data-ng-click="keyType='product'" href="javascript:void(0)">商品</a></li>
+					</ul>
+				</div>
+				<input class="form-control" type="search" placeholder="搜索 {{keyType | getKeyType}}" data-ng-model="keywords">
 				<div class="input-group-btn">
 					<button class="btn" type="submit" title="搜索">搜索</button>
 				</div>
