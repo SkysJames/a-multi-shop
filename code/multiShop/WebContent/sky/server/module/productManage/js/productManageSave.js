@@ -15,7 +15,7 @@ angular.module('productManageSave',[])
 			 */
 			$scope.saveProduct = function(product){
 				if(!$scope.isSaveProduct(product)){
-					common.triggerFailMesg("*为必填项");
+					common.triggerFailMesg("请按格式规范填写");
 					return;
 				}
 				
@@ -43,7 +43,7 @@ angular.module('productManageSave',[])
 			 */
 			$scope.editProduct = function(product){
 				if(!$scope.isSaveProduct(product)){
-					common.triggerFailMesg("*为必填项");
+					common.triggerFailMesg("请按格式规范填写");
 					return;
 				}
 				
@@ -80,6 +80,8 @@ angular.module('productManageSave',[])
 				}
 				
 				if(!product.name || product.name==""){
+					return false;
+				}else if(product.name.length>35){
 					return false;
 				}
 				

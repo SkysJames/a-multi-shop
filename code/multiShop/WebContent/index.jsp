@@ -28,6 +28,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<index-header table-name="tb_shop" keywords="keywords" index-ans="indexAns"></index-header>
 	<!-- 系统名称，搜索框end -->
 	
+	<!-- 分割线 start -->
+	<div class="my-line"></div>
+	<!-- 分割线 end -->
+	
 	<!-- 轮播图片start -->
 	<slide-show table-name="tb_shop" type-list="oneTypeList" slide-list="slideList" slide-href-list="slideHrefList" index-ans="indexAns"></slide-show>
   	<!-- 轮播图片end -->
@@ -40,7 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<div class="ishop-content">
   			<ul>
   				<li data-ng-repeat="item in reShopList" data-ng-click="">
-  					<div class="ishop-img" style="background-image: url({{item.picPathList|getImgByImgList}})"></div>
+  					<div class="ishop-img" style="background-image: url({{item.logoPathList|getImgByImgList}})"></div>
   					<div class="ishop-con">
   						<h3 title="{{item.name | showBlankValue}}">{{item.name | showBlankValue}}</h3>
   						<p title="简介：{{item.brief | showBlankValue}}">简介：{{item.brief | showBlankValue}}</p>
@@ -67,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<div class="ishop-content">
   			<ul>
   				<li data-ng-repeat="item in typet.shopList" data-ng-click="">
-  					<div class="ishop-img" style="background-image: url({{item.picPathList|getImgByImgList}})"></div>
+  					<div class="ishop-img" style="background-image: url({{item.logoPathList|getImgByImgList}})"></div>
   					<div class="ishop-con">
   						<h3 title="{{item.name | showBlankValue}}">{{item.name | showBlankValue}}</h3>
   						<p title="简介：{{item.brief | showBlankValue}}">简介：{{item.brief | showBlankValue}}</p>

@@ -18,6 +18,7 @@
 								<div class="col-md-10">
 									<input class="form-control" type="text" placeholder="商品名称" data-ng-model="product.name">
 									<span class="need-tab">*</span>
+									<div class="common-tip">名称长度不可超过35字</div>
 								</div>
 							</div>
 							<div class="form-group" data-ng-show="$parent.isAdminRight">
@@ -33,9 +34,7 @@
 								<label class="col-md-2 control-label">商品类型：</label>
 								<div class="col-md-10">
 									<select class="form-control" ui-select2 data-ng-model="product.proType">
-										<optgroup data-ng-repeat="typet in $parent.typetList" label="{{typet.name}}">
-											<option data-ng-repeat="item in typet.typetList" value="{{item.id}}">{{item.name}}</option>
-										</optgroup>
+										<option data-ng-repeat="typet in $parent.typetList" value="{{typet.id}}">{{typet.name}}</option>
 									</select>
 									<span class="need-tab">*</span>
 								</div>
@@ -106,7 +105,7 @@
 								<label class="col-md-2 control-label">商品图片：</label>
 								<div class="col-md-10">
 									<image-dropzone dropzone-id="productPictureId" max-files="5" image-path-list="product.picPathList"></image-dropzone>
-									<div class="common-tip">请上传jpg,jpeg,png格式的图片，图片推荐尺寸 宽：1140px，高：450px，或 宽：1920px，高：600px</div>
+									<div class="common-tip">请上传jpg,jpeg,png格式的图片，图片推荐尺寸 宽：220px，高：220px</div>
 								</div>
 							</div>
 							<div class="form-group">

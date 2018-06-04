@@ -61,9 +61,10 @@ angular.module('clientTop',[])
 			$scope.toSearchPage = function(selectedType){
 				if($scope.tableName && $scope.tableName=="tb_shop"){
 					window.location.href = $contextPath + "/home/shop-search?keywords=" + ($scope.keywords?$scope.keywords:"") + "&type=" + selectedType.id;
-				}else if($scope.tableName && $scope.tableName=="tb_product"){
-					window.location.href = $contextPath + "/home/product-search?keywords=" + ($scope.keywords?$scope.keywords:"") + "&type=" + selectedType.id;
 				}
+//				else if($scope.tableName && $scope.tableName=="tb_product"){
+//					window.location.href = $contextPath + "/home/product-search?keywords=" + ($scope.keywords?$scope.keywords:"") + "&type=" + selectedType.id;
+//				}
 			};
 			
 			//点击自己则不消失，即停止冒泡事件

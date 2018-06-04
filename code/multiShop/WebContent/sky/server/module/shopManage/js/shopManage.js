@@ -49,7 +49,7 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 	 */
 	$scope.saveShopInfo = function(shopInfo){
 		if(!$scope.isSaveShop(shopInfo)){
-			common.triggerFailMesg("请按照要求填写信息");
+			common.triggerFailMesg("请按格式规范填写");
 			return;
 		}
 		
@@ -95,6 +95,8 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 		}
 		
 		if(!shop.name || shop.name==""){
+			return false;
+		}else if(shop.name.length>35){
 			return false;
 		}
 		if(!shop.shopType || shop.shopType==""){

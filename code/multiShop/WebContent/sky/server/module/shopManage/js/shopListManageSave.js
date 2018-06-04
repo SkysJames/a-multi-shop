@@ -15,7 +15,7 @@ angular.module('shopListManageSave',[])
 			 */
 			$scope.saveShop = function(shop){
 				if(!$scope.isSaveShop(shop)){
-					common.triggerFailMesg("*为必填项");
+					common.triggerFailMesg("请按格式规范填写");
 					return;
 				}
 				
@@ -41,7 +41,7 @@ angular.module('shopListManageSave',[])
 			 */
 			$scope.editShop = function(shop){
 				if(!$scope.isSaveShop(shop)){
-					common.triggerFailMesg("*为必填项");
+					common.triggerFailMesg("请按格式规范填写");
 					return;
 				}
 				
@@ -79,6 +79,8 @@ angular.module('shopListManageSave',[])
 				shop.overTimeString = $("#overTimeId").val();
 				
 				if(!shop.name || shop.name==""){
+					return false;
+				}else if(shop.name.length>35){
 					return false;
 				}
 				if(!shop.shopType || shop.shopType==""){

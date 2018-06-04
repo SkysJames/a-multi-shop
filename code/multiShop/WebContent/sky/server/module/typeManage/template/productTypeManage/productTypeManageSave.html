@@ -30,16 +30,6 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-2 control-label">父级类型：</label>
-								<div class="col-md-10" data-ng-show="$parent.saveType=='save'">
-									<select class="form-control" ui-select2 data-ng-model="typet.parentId">
-										<option value="-1">无</option>
-										<option data-ng-repeat="item in $parent.typetList" value="{{item.id}}">{{item.name}}</option>
-									</select>
-								</div>
-								<div class="col-md-10 common-value" data-ng-show="$parent.saveType=='edit'">{{typet.parentName|showBlankValue}}</div>
-							</div>
-							<div class="form-group">
 								<label class="col-md-2 control-label">类型排序：</label>
 								<div class="col-md-10">
 									<input class="form-control" type="number" placeholder="类型排序（数字）" data-ng-model="typet.sort">

@@ -66,9 +66,7 @@
 									<div class="col-md-9">
 										<select class="form-control" ui-select2 data-ng-model="condition.proType" data-ng-change="pagedProductList()">
 											<option value="">全部</option>
-											<optgroup data-ng-repeat="typet in typetList" label="{{typet.name}}">
-												<option data-ng-repeat="item in typet.typetList" value="{{item.id}}">{{item.name}}</option>
-											</optgroup>
+											<option data-ng-repeat="typet in typetList" value="{{typet.id}}">{{typet.name}}</option>
 										</select>
 									</div>
 								</div>

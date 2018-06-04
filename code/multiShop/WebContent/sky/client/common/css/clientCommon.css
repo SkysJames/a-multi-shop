@@ -11,6 +11,9 @@ a:hover,a:active,a:visited,a:link {
 ul li {
 	list-style: none;
 }
+.my-line {
+	display: none;
+}
 .common-padding {
 	margin: 0 auto;
     width: 1200px;
@@ -30,7 +33,7 @@ ul li {
 /*模态框样式end*/
 
 
-/*首页和店铺搜索页面 start*/
+/*首页和搜索页面 start*/
 .index-commodel {
 	padding: 10px 20px;
 }
@@ -38,10 +41,10 @@ ul li {
 .index-condition {
 	display: none;
 	background-color: #fff;
+	padding-top: 0px;
 }
 .icondition-header {
-	padding: 0px 10px;
-    padding-bottom: 10px;
+	padding: 10px;
     border-bottom: 1px solid #efefef;
 }
 .icondition-header h4 {
@@ -169,6 +172,7 @@ ul li {
 .ishop-img {
 	width: 100%;
     height: 120px;
+    border-bottom: 1px solid #ddd;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;
@@ -238,8 +242,9 @@ ul li {
 	.common-padding {
 		width: auto;
 	}
-	.index-condition {
-		margin-top: 47px;
+	.my-line {
+		display: block;
+		margin-top: 42px;
 	}
 	.icondition-content {
 		display: none;
@@ -257,4 +262,177 @@ ul li {
 		height: 100px;
 	}
 }
-/*首页和店铺搜索页面 end*/
+/*首页和搜索页面 end*/
+
+/*商品搜索页面 start*/
+.shop-product {
+	display: none;
+	background-color: #fff;
+}
+
+.shoppro-content {
+	text-align: left;
+	margin: 0 auto;
+	width: 1210px;
+}
+.shoppro-content>ul {
+	
+}
+.shoppro-content>ul>li {
+	vertical-align: top;
+	display: inline-block; /* 现代浏览器 +IE6、7 inline 元素 */  
+	*display: inline; /* IE6、7 block 元素 */  
+	*zoom: 1;
+	width: 222px;
+	margin: 10px;
+	background: #fff;
+	border: 1px solid #ddd;
+	cursor: pointer;
+	-webkit-transition: all .3s ease;
+	-moz-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
+}
+.shoppro-img {
+	width: 100%;
+    height: 220px;
+    border-bottom: 1px solid #ddd;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+}
+.shoppro-con {
+	position: relative;
+	padding: 5px 10px;
+	text-align: left;
+}
+.shoppro-con>h3 {
+	display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin-top: 5px;
+    margin-bottom: 6px;
+    width: 100%;
+    font-weight: bolder;
+    font-size: 18px;
+    color: #ff0000;
+}
+.shoppro-con>h3 label {
+	float: right;
+    position: relative;
+    margin: 0px;
+    font-family: "微软雅黑";
+    color: #aaa;
+    font-size: 12px;
+    font-weight: normal;
+}
+.shoppro-con a {
+	font-size: 12px;
+	color: #333;
+}
+.shoppro-con a:hover {
+	color: #ff0000;
+	text-decoration: underline!important;
+}
+.shoppro-con p {
+    margin: 5px 0px;
+    font-size: 12px;
+    color: #999;
+    overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.shoppro-content>ul>li:hover {
+	border: 1px solid #ff0000;
+}
+
+@media screen and (max-width: 1250px) {
+	.shoppro-content {
+		width: 730px;
+	}
+}
+
+@media screen and (max-width: 760px) {
+	.shoppro-content {
+		width: auto;
+	}
+	
+	.shoppro-content>ul>li {
+	    position: relative;
+		width: 100%;
+		margin: 0px;
+    		margin-bottom: 8px;
+		background: #fff;
+		padding-bottom: 5px;
+	    border: none;
+	    border-bottom: 1px solid #efefef;
+		cursor: pointer;
+		-webkit-transition: all .3s ease;
+		-moz-transition: all .3s ease;
+		-o-transition: all .3s ease;
+		transition: all .3s ease;
+	}
+	.shoppro-img {
+		vertical-align: top;
+		display: inline-block; /* 现代浏览器 +IE6、7 inline 元素 */  
+		*display: inline; /* IE6、7 block 元素 */  
+		*zoom: 1;
+		width: 125px;
+	    height: 125px;
+	    border-bottom: none;
+	    border-radius: 6px;
+	    background-color: #fbfbfb;
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: contain;
+	}
+	.shoppro-con {
+		position: absolute;
+	    top: 0px;
+	    bottom: 0px;
+	    left: 130px;
+	    right: 0px;
+	    padding: 5px 10px;
+	    text-align: left;
+	}
+	.shoppro-con>h3 {
+		position: absolute;
+	    bottom: 6px;
+	    width: 94%;
+	    font-weight: bolder;
+	    font-size: 18px;
+	    color: #ff0000;
+	}
+	.shoppro-con>h3 label {
+		float: right;
+	    position: relative;
+	    margin: 0px;
+	    font-family: "微软雅黑";
+	    color: #aaa;
+	    font-size: 12px;
+	    font-weight: normal;
+	}
+	.shoppro-con a {
+		font-size: 14px;
+		color: #333;
+	}
+	.shoppro-con a:hover {
+		color: #ff0000;
+		text-decoration: underline!important;
+	}
+	.shoppro-con p {
+	    margin: 5px 0px;
+	    font-size: 12px;
+	    color: #999;
+	    overflow: hidden;
+		text-overflow:ellipsis;
+		white-space: nowrap;
+	}
+	.shoppro-content>ul>li:hover {
+		border: none;
+		border-bottom: 1px solid #efefef;
+	}
+}
+/*商品搜索页面 end*/
+
+

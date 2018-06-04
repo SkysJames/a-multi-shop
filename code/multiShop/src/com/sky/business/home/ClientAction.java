@@ -27,7 +27,6 @@ import com.sky.util.IpProcessUtil;
  * @author Sky James
  *
  */
-@InterceptorRefs({@InterceptorRef("defaultStack")})
 public class ClientAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
@@ -41,12 +40,22 @@ public class ClientAction extends BaseAction {
 	
 	//action
 	/**
-	 * 前端主页面
+	 * 前端店铺搜索页面
 	 * @return
 	 */
-	@Action(value = "shop-search", results = @Result(location = "/sky/client/business/shopSearch/shopSearch.jsp", params = {"keywords","${keywords}","type","${type}"}), interceptorRefs = {@InterceptorRef("visitorInterceptor")})
+	@Action(value = "shop-search", results = @Result(location = "/sky/client/business/shopSearch/shopSearch.jsp", params = {"keywords","${keywords}","type","${type}"}), interceptorRefs = {@InterceptorRef("visitorStack")})
 	public String shopSearch() {
 		logger.info("进入前端店铺搜索页面");
+		return SUCCESS;
+	}
+	
+	/**
+	 * 前端商品搜索页面
+	 * @return
+	 */
+	@Action(value = "product-search", results = @Result(location = "/sky/client/business/productSearch/productSearch.jsp", params = {"keywords","${keywords}"}), interceptorRefs = {@InterceptorRef("visitorStack")})
+	public String productSearch() {
+		logger.info("进入前端商品搜索页面");
 		return SUCCESS;
 	}
 

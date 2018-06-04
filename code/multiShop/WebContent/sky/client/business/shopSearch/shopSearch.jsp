@@ -37,6 +37,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<index-header not-index="true" table-name="tb_shop" keywords="condition.keywords" index-ans="indexAns"></index-header>
 	<!-- 系统名称，搜索框end -->
 	
+	<!-- 分割线 start -->
+	<div class="my-line"></div>
+	<!-- 分割线 end -->
+	
 	<!-- 搜索条件start -->
 	<div class="index-commodel index-condition">
 		<div class="icondition-header common-padding">
@@ -84,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		<div class="ishop-content">
   			<ul>
   				<li data-ng-repeat="item in shopList" data-ng-click="">
-  					<div class="ishop-img" style="background-image: url({{item.picPathList|getImgByImgList}})"></div>
+  					<div class="ishop-img" style="background-image: url({{item.logoPathList|getImgByImgList}})"></div>
   					<div class="ishop-con">
   						<h3 title="{{item.name | showBlankValue}}">{{item.name | showBlankValue}}</h3>
   						<p title="简介：{{item.brief | showBlankValue}}">简介：{{item.brief | showBlankValue}}</p>

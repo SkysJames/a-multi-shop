@@ -13,7 +13,7 @@ function($timeout, $scope, $document, clientIndexHttpService){
 			totalCount	: 0,
 			isOver		: "0",	//未过期
 			shopType		: type,	//店铺类型
-			keywords		: keywords,	//店铺类型
+			keywords		: keywords,	//搜索关键字
 	};
 	//当前被选中的类型对象
 	$scope.selectedType = {};
