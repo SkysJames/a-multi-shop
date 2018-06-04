@@ -3,6 +3,8 @@ angular.module('shopSearchApp',["client-index.filter","client-index.httpService"
 function($timeout, $scope, $document, clientIndexHttpService){
 	//店铺类型列表
 	$scope.typeList = [];
+	//二级店铺类型列表
+	$scope.twoTypeList = [];
 	//搜索条件对象
 	$scope.condition = {
 			pageNo		: 1,		//当前页码
@@ -13,6 +15,12 @@ function($timeout, $scope, $document, clientIndexHttpService){
 			shopType		: type,	//店铺类型
 			keywords		: keywords,	//店铺类型
 	};
+	//当前被选中的类型对象
+	$scope.selectedType = {};
+	//是否一级分类更多
+	$scope.isOneTypeMore = false;
+	//是否二级分类更多
+	$scope.isTwoTypeMore = false;
 	
 	/**
 	 * 当前页面跳到指定位置
@@ -27,7 +35,7 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	$scope.loadMoreShop = function(){
 		if($scope.condition && $scope.condition.pageNo<$scope.condition.pageCount){
 			$scope.condition.pageNo++;
-			$scope.pagedShopList();
+			$scope.pagedShopList(true);
 		}
 	};
 	
@@ -64,11 +72,12 @@ function($timeout, $scope, $document, clientIndexHttpService){
 		.then(function(response){
 			var data = response.data;
 			$scope.typeList = data.list;
+			//初始化被选中的类型
+			$scope.initSelectedType($scope.condition.shopType);
+			//初始化店铺列表
+			$scope.pagedShopList();
 			
-			//初始化第一个店铺类型的店铺列表
-			if($scope.twoTypeList && $scope.twoTypeList.length>0){
-				$scope.pagedShopList($scope.twoTypeList[0]);
-			}
+			$(".index-condition").fadeIn("slow");
 		},function(err){
 			console.log(err);
 		});
@@ -77,12 +86,18 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	/**
 	 * 获取店铺列表
 	 */
-	$scope.pagedShopList = function(){
+	$scope.pagedShopList = function(isMore){
 		$scope.isLoadingShop = true;
 		clientIndexHttpService.pagedShopList($scope.condition)
 		.then(function(response){
 			var data = response.data;
-			$scope.shopList = data.pager.resultList;
+			
+			if(!isMore || !$scope.shopList || $scope.shopList.length==0){
+				$scope.shopList = data.pager.resultList;
+			}else{
+				$scope.shopList = $scope.shopList.concat(data.pager.resultList);
+			}
+			
 			$scope.condition.pageCount = data.pager.pageCount;
 			$scope.condition.totalCount = data.pager.totalCount;
 			$scope.isLoadingShop = false;
@@ -93,6 +108,64 @@ function($timeout, $scope, $document, clientIndexHttpService){
 		});
 	};
 	
+	/**
+	 * 选择一级类型
+	 */
+	$scope.selectOneType = function(oneType){
+		if(oneType){
+			$scope.twoTypeList = oneType.typetList;
+			if($scope.twoTypeList && $scope.twoTypeList.length>0){
+				$scope.selectedType = $scope.twoTypeList[0];
+			}else{
+				$scope.selectedType = {
+						id			: oneType.id,
+						parentId		: oneType.id,
+						parentName	: oneType.name,
+				};
+			}
+		}else{//全部
+			$scope.selectedType = {};
+			$scope.twoTypeList = [];
+		}
+		$scope.condition.shopType = $scope.selectedType.id;
+		$scope.pagedShopList();
+	};
+	
+	/**
+	 * 选择二级类型
+	 */
+	$scope.selectTwoType = function(twoType){
+		if(twoType){
+			$scope.selectedType = twoType;
+			$scope.condition.shopType = $scope.selectedType.id;
+			$scope.pagedShopList();
+		}
+	};
+	
+	/**
+	 * 初始化被选中的类型
+	 */
+	$scope.initSelectedType = function(type){
+		$scope.condition.shopType = type;
+		if(!type || type==""){
+			$scope.selectedType = {};
+			return;
+		}
+		
+		for(var i=0; i<$scope.typeList.length; i++){
+			var oneType = $scope.typeList[i];
+			if(oneType.typetList && oneType.typetList.length>0){
+				for(var j=0; j<oneType.typetList.length; j++){
+					var twoType = oneType.typetList[j];
+					if(twoType.id == type){
+						$scope.twoTypeList = oneType.typetList;
+						$scope.selectedType = twoType;
+						return;
+					}
+				}
+			}
+		}
+	};
 	
 	/**
 	 * 初始化函数
@@ -100,8 +173,8 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	$scope.initFunc = function(){
 		//初始化公告消息列表
 		$scope.getIndexAnsList();
-		//初始化店铺列表
-		$scope.pagedShopList();
+		//初始化店铺类型列表
+		$scope.getTypeList();
 		
 		//页面滚动事件
 		$(window).scroll(function(){

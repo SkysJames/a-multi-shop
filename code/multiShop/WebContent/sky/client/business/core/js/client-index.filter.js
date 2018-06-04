@@ -16,10 +16,10 @@ angular.module('client-index.filter',[])
  * 获取关键字搜索类型
  */
 .filter('getKeyType',function(){
-	return function(keyType){
-		if("shop"==keyType){
+	return function(tableName){
+		if("tb_shop"==tableName){
 			return "店铺";
-		}else if("product"==keyType){
+		}else if("tb_product"==tableName){
 			return "商品";
 		}
 		return "";

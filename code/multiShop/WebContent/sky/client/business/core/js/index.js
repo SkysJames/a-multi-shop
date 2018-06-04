@@ -11,6 +11,8 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	$scope.twoTypeList = [];
 	//搜索关键字
 	$scope.keywords = "";
+	//当前被选中的类型对象
+	$scope.selectedType = {};
 	
 	/**
 	 * 当前页面跳到指定位置

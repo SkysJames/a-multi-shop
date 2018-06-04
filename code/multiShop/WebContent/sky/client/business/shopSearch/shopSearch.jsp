@@ -30,34 +30,51 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body data-ng-app="shopSearchApp" data-ng-controller="shopSearchCtrl">
   	<!-- 页面头部start -->
-	<client-top table-name="tb_shop" type-list="oneTypeList"></client-top>
+	<client-top table-name="tb_shop" keywords="condition.keywords" selected-type="selectedType" type-list="typeList"></client-top>
   	<!-- 页面头部end -->
 	
 	<!-- 系统名称，搜索框start -->
-	<index-header key-type="shop" keywords="condition.keywords" index-ans="indexAns"></index-header>
+	<index-header not-index="true" table-name="tb_shop" keywords="condition.keywords" index-ans="indexAns"></index-header>
 	<!-- 系统名称，搜索框end -->
 	
 	<!-- 搜索条件start -->
 	<div class="index-commodel index-condition">
-		<div class="icondition-header">
-			<h2>
-				全部
-				<span>&nbsp;>&nbsp;</span>
-			</h2>
-			<div class="icondition-content">
-				<table>
-					<tr>
-						<td class="icondition-td1">一级分类</td>
-						<td class="icondition-td2">
-							<a data-ng-class="{'active': !condition.shopType || condition.shopType==''}" href="javascript:void(0)" >全部</a>
-						</td>
-					</tr>
-					<tr>
-						<td>二级分类</td>
-						<td></td>
-					</tr>
-				</table>
-			</div>
+		<div class="icondition-header common-padding">
+			<h4>
+				<span class="icondition-all" data-ng-click="selectOneType()">全部店铺</span>
+				<span data-ng-show="selectedType.parentName">&nbsp;>&nbsp;{{selectedType.parentName|showBlankValue}}</span>
+				<span data-ng-show="selectedType.name">&nbsp;>&nbsp;{{selectedType.name|showBlankValue}}</span>
+			</h4>
+		</div>
+		<div class="icondition-content common-padding">
+			<table>
+				<tr>
+					<td class="icondition-td1">一级分类</td>
+					<td>
+						<div class="icondition-td2" data-ng-class="{'icondition-more': isOneTypeMore}">
+							<span data-ng-click="isOneTypeMore = !isOneTypeMore">
+								更多&nbsp;<i class="fa" data-ng-class="{'fa-chevron-down':!isOneTypeMore, 'fa-chevron-up':isOneTypeMore}"></i>
+							</span>
+							<a data-ng-class="{'active': !selectedType.parentId || selectedType.parentId==''}" 
+								data-ng-click="selectOneType()" href="javascript:void(0)" >全部</a>
+							<a data-ng-class="{'active': selectedType.parentId && selectedType.parentId==item.id}" 
+								data-ng-click="selectOneType(item)" data-ng-repeat="item in typeList" href="javascript:void(0)" >{{item.name|showBlankValue}}</a>
+						</div>
+					</td>
+				</tr>
+				<tr data-ng-show="twoTypeList && twoTypeList.length>0">
+					<td class="icondition-td1">二级分类</td>
+					<td>
+						<div class="icondition-td2" data-ng-class="{'icondition-more': isTwoTypeMore}">
+							<span data-ng-click="isTwoTypeMore = !isTwoTypeMore">
+								更多&nbsp;<i class="fa" data-ng-class="{'fa-chevron-down':!isTwoTypeMore, 'fa-chevron-up':isTwoTypeMore}"></i>
+							</span>
+							<a data-ng-class="{'active': selectedType.id && selectedType.id==item.id}" 
+								data-ng-click="selectTwoType(item)" data-ng-repeat="item in twoTypeList" href="javascript:void(0)" >{{item.name|showBlankValue}}</a>
+						</div>
+					</td>
+				</tr>
+			</table>
 		</div>
 	</div>
 	<!-- 搜索条件end -->

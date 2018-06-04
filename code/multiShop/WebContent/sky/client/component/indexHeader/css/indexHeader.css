@@ -1,6 +1,6 @@
 @CHARSET "UTF-8";
 .client-header {
-	
+	border-bottom: 1px solid #efefef;
 }
 
 .ch-key-type {

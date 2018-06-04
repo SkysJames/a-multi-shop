@@ -11,6 +11,11 @@ a:hover,a:active,a:visited,a:link {
 ul li {
 	list-style: none;
 }
+.common-padding {
+	margin: 0 auto;
+    width: 1200px;
+    padding: 10px 10px;
+}
 
 /*模态框样式start*/
 .client-model-header {
@@ -31,27 +36,74 @@ ul li {
 }
 
 .index-condition {
-	display: none!important;
+	display: none;
 	background-color: #fff;
 }
 .icondition-header {
-	
+	padding: 0px 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #efefef;
 }
-.icondition-header h2 {
-	
+.icondition-header h4 {
+	font-size: 16px;
+    margin: 0px;
+}
+.icondition-all {
+	cursor: pointer;
+}
+.icondition-all:hover {
+	color: #ff0000;
 }
 .icondition-content {
 	
+}
+.icondition-content table {
+	width: 100%;
+}
+.icondition-content table td {
+	border: 1px solid #ddd;
+}
+.icondition-content .icondition-td1 {
+	width: 18%;
+    padding: 14px;
+    padding-left: 20px;
+    vertical-align: top;
+    background-color: #f7f5f6;
+}
+.icondition-content .icondition-td2 {
+	padding: 10px 20px;
+    height: 46px;
+	overflow: hidden;
+}
+.icondition-content .icondition-more {
+	height: auto;
+}
+.icondition-content .icondition-td2>span {
+	float: right;
+    margin: 4px;
+    color: #888;
+    cursor: pointer;
+}
+.icondition-content .icondition-td2>span:hover {
+    color: #ff0000;
+}
+.icondition-content .icondition-td2>a {
+	display: inline-block;
+	margin: 5px;
+    margin-top: 0px;
+	margin-bottom: 10px;
+	color: #555;
+	padding: 4px 12px;
+	border-radius: 2px;
+}
+.icondition-content .icondition-td2>a:hover,.icondition-content .icondition-td2>a.active {
+	color: #fff;
+	background-color: #ff0000;
 }
 
 .index-recommend {
 	display: none;
 	background-color: #ebebeb;
-}
-
-.ishop-header {
-	margin: 0 auto;
-	width: 1200px;
 }
 
 .index-recommend .ishop-header {
@@ -174,7 +226,7 @@ ul li {
 	.ishop-content {
 		width: 600px;
 	}
-	.ishop-header {
+	.common-padding {
 		width: 600px;
 	}
 }
@@ -183,8 +235,14 @@ ul li {
 	.ishop-content {
 		width: auto;
 	}
-	.ishop-header {
+	.common-padding {
 		width: auto;
+	}
+	.index-condition {
+		margin-top: 47px;
+	}
+	.icondition-content {
+		display: none;
 	}
 }
 

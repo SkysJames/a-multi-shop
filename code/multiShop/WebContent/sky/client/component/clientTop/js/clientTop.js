@@ -4,6 +4,8 @@ angular.module('clientTop',[])
 		restrict:'E',
 		scope : {
 			tableName	: '@',
+			keywords		: '=',
+			selectedType	: '=',
 			typeList		: '=',
 		},
 		templateUrl : $contextPath +"/sky/client/component/clientTop/template/clientTop.html",
@@ -51,6 +53,17 @@ angular.module('clientTop',[])
 			 */
 			$scope.toPage = function(url, isLocation){
 				common.toPage($contextPath + url, isLocation);
+			};
+			
+			/**
+			 * 跳到搜索页面
+			 */
+			$scope.toSearchPage = function(selectedType){
+				if($scope.tableName && $scope.tableName=="tb_shop"){
+					window.location.href = $contextPath + "/home/shop-search?keywords=" + ($scope.keywords?$scope.keywords:"") + "&type=" + selectedType.id;
+				}else if($scope.tableName && $scope.tableName=="tb_product"){
+					window.location.href = $contextPath + "/home/product-search?keywords=" + ($scope.keywords?$scope.keywords:"") + "&type=" + selectedType.id;
+				}
 			};
 			
 			//点击自己则不消失，即停止冒泡事件

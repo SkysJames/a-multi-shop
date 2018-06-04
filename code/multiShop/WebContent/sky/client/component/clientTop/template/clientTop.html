@@ -42,12 +42,12 @@
 					<i class="fa fa-list-ul"></i>&nbsp;&nbsp;{{tableName | getTypeName}}
 					<span data-ng-click="clickNav('index')"><i class="fa fa-close"></i></span>
 				</li>
-				<li data-ng-repeat="type in typeList">
+				<li data-ng-show="type.typetList && type.typetList.length>0" data-ng-repeat="type in typeList">
 					<div class="ct-type-header">
 						<h3>{{type.name | showBlankValue}}</h3>
 					</div>
 					<div class="ct-type-two">
-						<a href="javascript:void(0)" data-ng-repeat="item in type.typetList" data-ng-click="">{{item.name | showBlankValue}}</a>
+						<a data-ng-class="{'active': item.id==selectedType.id}" href="javascript:void(0)" data-ng-repeat="item in type.typetList" data-ng-click="toSearchPage(item)">{{item.name | showBlankValue}}</a>
 					</div>
 				</li>
 			</ul>

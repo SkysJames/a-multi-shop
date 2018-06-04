@@ -146,7 +146,7 @@
 	
 }
 .ct-bottom-item:hover,.ct-bottom-item.active {
-	color: #fb0000;
+	color: #ff0000;
 }
 .ct-bottom-item-two {
 	position: absolute;
@@ -228,10 +228,12 @@
     font-size: 14px;
 }
 .ct-type-two a {
+	display: inline-block;
+	margin: 5px;
 	margin-right: 15px;
 	color: #666;
 }
-.ct-type-two a:hover {
+.ct-type-two a:hover,.ct-type-two a.active {
 	color: #ff0000;
 }
 

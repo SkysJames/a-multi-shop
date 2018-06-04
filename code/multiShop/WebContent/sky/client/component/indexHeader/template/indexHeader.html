@@ -11,13 +11,13 @@
 			<form class="ch-pc-search" data-ng-submit="toSearchPage()">
 				<div class="input-group">
 					<div class="ch-key-type" data-ng-mouseover="mouseKeyType(true)" data-ng-mouseleave="mouseKeyType(false)">
-						<a href="javascript:void(0)">{{keyType | getKeyType}}&nbsp;<i class="fa fa-caret-down"></i></a>
+						<a href="javascript:void(0)">{{tableName | getKeyType}}&nbsp;<i class="fa fa-caret-down"></i></a>
 						<ul>
-							<li><a data-ng-show="keyType!='shop'" data-ng-click="keyType='shop'" href="javascript:void(0)">店铺</a></li>
-							<li><a data-ng-show="keyType!='product'" data-ng-click="keyType='product'" href="javascript:void(0)">商品</a></li>
+							<li><a data-ng-show="tableName!='tb_shop'" data-ng-click="tableName='tb_shop'" href="javascript:void(0)">店铺</a></li>
+							<li><a data-ng-show="tableName!='tb_product'" data-ng-click="tableName='tb_product'" href="javascript:void(0)">商品</a></li>
 						</ul>
 					</div>
-					<input class="form-control" type="search" placeholder="搜索 {{keyType | getKeyType}}" data-ng-model="keywords">
+					<input class="form-control" type="search" placeholder="搜索 {{tableName | getKeyType}}" data-ng-model="keywords">
 					<div class="input-group-btn">
 						<button class="btn" type="submit" title="搜索">
 							搜&nbsp;&nbsp;索
@@ -36,16 +36,17 @@
 	
 	<!-- 手机端start -->
 	<div class="ch-phone">
+		<div class="ch-phone-return" data-ng-show="notIndex" data-ng-click="toIndexPage()"><i class="fa fa-chevron-left"></i></div>
 		<form class="ch-phone-search" data-ng-submit="toSearchPage()">
 			<div class="input-group">
 				<div class="ch-key-type" data-ng-mouseover="mouseKeyType(true)" data-ng-mouseleave="mouseKeyType(false)">
-					<a href="javascript:void(0)">{{keyType | getKeyType}}&nbsp;<i class="fa fa-caret-down"></i></a>
+					<a href="javascript:void(0)">{{tableName | getKeyType}}&nbsp;<i class="fa fa-caret-down"></i></a>
 					<ul>
-						<li><a data-ng-show="keyType!='shop'" data-ng-click="keyType='shop'" href="javascript:void(0)">店铺</a></li>
-						<li><a data-ng-show="keyType!='product'" data-ng-click="keyType='product'" href="javascript:void(0)">商品</a></li>
+						<li><a data-ng-show="tableName!='tb_shop'" data-ng-click="tableName='tb_shop'" href="javascript:void(0)">店铺</a></li>
+						<li><a data-ng-show="tableName!='tb_product'" data-ng-click="tableName='tb_product'" href="javascript:void(0)">商品</a></li>
 					</ul>
 				</div>
-				<input class="form-control" type="search" placeholder="搜索 {{keyType | getKeyType}}" data-ng-model="keywords">
+				<input class="form-control" type="search" placeholder="搜索 {{tableName | getKeyType}}" data-ng-model="keywords">
 				<div class="input-group-btn">
 					<button class="btn" type="submit" title="搜索">搜索</button>
 				</div>

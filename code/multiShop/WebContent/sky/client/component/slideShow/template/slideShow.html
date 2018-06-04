@@ -9,7 +9,7 @@
 					<span>{{type.name | showBlankValue}}</span>
 					<div class="ctype-two">
 						<div class="ctype-two-content">
-							<a href="javascript:void(0)" data-ng-repeat="item in type.typetList" data-ng-click="">{{item.name | showBlankValue}}</a>
+							<a href="javascript:void(0)" data-ng-repeat="item in type.typetList" data-ng-click="toSearchPage(item)">{{item.name | showBlankValue}}</a>
 						</div>
 					</div>
 				</li>

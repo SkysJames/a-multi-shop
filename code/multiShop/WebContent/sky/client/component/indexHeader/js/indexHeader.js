@@ -3,7 +3,8 @@ angular.module('indexHeader',[])
 	return {
 		restrict:'E',
 		scope : {
-			keyType		: "@",
+			notIndex		: "@",
+			tableName	: "@",
 			keywords		: "=",
 			indexAns		: "=",
 		},
@@ -41,10 +42,9 @@ angular.module('indexHeader',[])
 			 * 跳到搜索页面
 			 */
 			$scope.toSearchPage = function(){
-				var pathname = window.location.pathname;
-				if($scope.keyType && $scope.keyType=="shop"){
+				if($scope.tableName && $scope.tableName=="tb_shop"){
 					window.location.href = $contextPath + "/home/shop-search?keywords=" + $scope.keywords;
-				}else if($scope.keyType && $scope.keyType=="product"){
+				}else if($scope.tableName && $scope.tableName=="tb_product"){
 					window.location.href = $contextPath + "/home/product-search?keywords=" + $scope.keywords;
 				}
 			};

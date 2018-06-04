@@ -43,6 +43,17 @@ angular.module('slideShow',[])
 			};
 			
 			/**
+			 * 跳到搜索页面
+			 */
+			$scope.toSearchPage = function(selectedType){
+				if($scope.tableName && $scope.tableName=="tb_shop"){
+					window.location.href = $contextPath + "/home/shop-search?type=" + selectedType.id;
+				}else if($scope.tableName && $scope.tableName=="tb_product"){
+					window.location.href = $contextPath + "/home/product-search?type=" + selectedType.id;
+				}
+			};
+			
+			/**
 			 * 初始化函数
 			 */
 			$scope.initFunc = function(){

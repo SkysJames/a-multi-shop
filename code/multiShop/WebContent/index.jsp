@@ -21,11 +21,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body data-ng-app="indexApp" data-ng-controller="indexCtrl">
   	<!-- 页面头部start -->
-	<client-top table-name="tb_shop" type-list="oneTypeList"></client-top>
+	<client-top table-name="tb_shop" selected-type="selectedType" type-list="oneTypeList"></client-top>
   	<!-- 页面头部end -->
 	
 	<!-- 系统名称，搜索框start -->
-	<index-header key-type="shop" keywords="keywords" index-ans="indexAns"></index-header>
+	<index-header table-name="tb_shop" keywords="keywords" index-ans="indexAns"></index-header>
 	<!-- 系统名称，搜索框end -->
 	
 	<!-- 轮播图片start -->
@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	
   	<!-- 推荐店铺start -->
   	<div class="index-commodel index-recommend">
-  		<div class="ishop-header">
+  		<div class="ishop-header common-padding">
   			<h2>推荐店铺</h2>
   		</div>
   		<div class="ishop-content">
@@ -58,7 +58,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	
   	<!-- 类型店铺start -->
   	<div class="index-commodel index-shop" data-ng-class="{'index-shop-show': typet.shopList && typet.shopList.length>0}" data-ng-repeat="typet in twoTypeList">
-  		<div class="ishop-header">
+  		<div class="ishop-header common-padding">
   			<h2>{{typet.name}}</h2>
   			<a href="javascript:void(0)" data-ng-click="">
   				更多&nbsp;<i class="fa fa-chevron-right"></i>
