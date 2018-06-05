@@ -57,9 +57,11 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 		if(selectedObj){
 			$scope.announceSave = _.cloneDeep(selectedObj);
 			$("#overTimeId").val($scope.announceSave.overTimeString);
+			$scope.announceConEditor.html($scope.announceSave.content);
 		}else{
 			$scope.announceSave = null;
 			$("#overTimeId").val("");
+			$scope.announceConEditor.html("");
 		}
 	};
 	

@@ -13,7 +13,7 @@
 					<p>
 						<span class="ans-model-createtime">发布时间：{{ans.createTime|formatDate}}</span>
 					</p>
-					<p data-ng-bind-html="sce.trustAsHtml(ans.content)" style="font-size:normal;padding-left:37px">
+					<p data-ng-bind-html="sce.trustAsHtml(ans.content)" style="margin-top: 10px;">
 					</p>
 				</div>
 				<nodata-panel data-ng-show="!indexAns || indexAns.length==0" font-size="18"></nodata-panel>

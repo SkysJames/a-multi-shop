@@ -44,8 +44,10 @@ function($timeout, $scope, $rootScope, $filter, $document, $sce, serverIndexHttp
 		$scope.saveType = saveType;
 		if(selectedObj){
 			$scope.productSave = _.cloneDeep(selectedObj);
+			$scope.productDesEditor.html($scope.productSave.description);
 		}else{
 			$scope.productSave = null;
+			$scope.productDesEditor.html("");
 		}
 	};
 	

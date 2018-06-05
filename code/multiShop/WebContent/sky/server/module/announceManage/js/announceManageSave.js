@@ -70,6 +70,9 @@ angular.module('announceManageSave',[])
 					return false;
 				}
 				
+				//赋值公告内容
+				announce.content = $scope.$parent.announceConEditor.html();
+				
 				//塞入店铺ID
 				if(!$scope.$parent.isAdminRight){
 					announce.shopId = $currentUser.shopId;
@@ -90,6 +93,15 @@ angular.module('announceManageSave',[])
 				
 				return true;
 			};
+			
+			/**
+			 * 初始化函数
+			 */
+			$scope.initFunc = function(){
+				//初始化公告内容的kindeditor
+				$scope.$parent.announceConEditor = serverCommon.initKindEditor("#announceConId");
+			};
+			$document.ready($scope.initFunc);
 			
 		}
 	};

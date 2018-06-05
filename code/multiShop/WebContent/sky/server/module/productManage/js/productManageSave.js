@@ -19,8 +19,6 @@ angular.module('productManageSave',[])
 					return;
 				}
 				
-//				product.description = $scope.$root.editor.html();
-				
 				$scope.isLoadingSave = true;
 				serverIndexHttpService.saveProduct(product)
 				.then(function(response){
@@ -47,8 +45,6 @@ angular.module('productManageSave',[])
 					return;
 				}
 				
-//				product.description = $scope.$root.editor.html();
-				
 				$scope.isLoadingSave = true;
 				serverIndexHttpService.editProduct(product)
 				.then(function(response){
@@ -73,6 +69,9 @@ angular.module('productManageSave',[])
 				if(!product){
 					return false;
 				}
+				
+				//赋值商品的描述
+				product.description = $scope.$parent.productDesEditor.html();
 				
 				//店铺用户，则赋值其店铺ID
 				if($currentUser.shopId!=common.shopContants.shopSystem){
@@ -107,6 +106,15 @@ angular.module('productManageSave',[])
 				
 				return true;
 			};
+			
+			/**
+			 * 初始化函数
+			 */
+			$scope.initFunc = function(){
+				//初始化商品描述的kindeditor
+				$scope.$parent.productDesEditor = serverCommon.initKindEditor("#productDesId");
+			};
+			$document.ready($scope.initFunc);
 		}
 	};
 });
