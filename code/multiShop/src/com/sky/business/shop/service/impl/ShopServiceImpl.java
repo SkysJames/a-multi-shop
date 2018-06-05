@@ -83,6 +83,9 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		if(editObj.containsKey("phone")){
 			shop.setPhone((String)editObj.get("phone"));
 		}
+		if(editObj.containsKey("address")){
+			shop.setAddress((String)editObj.get("address"));
+		}
 		if(editObj.containsKey("remark")){
 			shop.setRemark((String)editObj.get("remark"));
 		}
@@ -178,6 +181,9 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		}
 		if(addObj.containsKey("phone")){
 			shop.setPhone((String)addObj.get("phone"));
+		}
+		if(addObj.containsKey("address")){
+			shop.setAddress((String)addObj.get("address"));
 		}
 		if(addObj.containsKey("remark")){
 			shop.setRemark((String)addObj.get("remark"));

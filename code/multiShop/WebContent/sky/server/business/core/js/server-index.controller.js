@@ -89,22 +89,6 @@ function($timeout, $scope, $rootScope, $document, serverIndexHttpService){
 	$scope.shopCount = 0;
 	
 	/**
-	 * 初始化编辑框
-	 */
-	$rootScope.initEidtor = function(target){
-		$rootScope.editor = KindEditor.create(target, {
-			resizeType : 1,
-			allowPreviewEmoticons : false,
-			width : '100%',
-			items : [
-				'justifyleft', 'justifycenter', 'justifyright',
-				'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'clearhtml', 'quickformat', 'selectall', '|', 'forecolor', 'hilitecolor', 'bold',
-				'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'table', 'hr', 'emoticons', 'pagebreak','source','fullscreen'
-				]
-		});
-	};
-	
-	/**
 	 * 显示个人信息面板
 	 */
 	$scope.showPersonPanel = function(){

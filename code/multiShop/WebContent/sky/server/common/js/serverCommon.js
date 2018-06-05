@@ -4,6 +4,29 @@
 var serverCommon = {
 		
 		/**
+		 * 初始化并返回kindeditor编辑器
+		 */
+		initKindEditor: function(target){
+			return KindEditor.create(target, {
+				width		: "100%",
+				resizeType	: 1,		//只允许调整高度
+				filterMode	: true, //默认过滤HTML代码
+				allowPreviewEmoticons : true,	//预览表情
+				allowImageUpload	: true,	//允许上传图片
+				uploadJson	: $contextPath + "/common/file!uploadKindEditorFile",	//图片的上传地址
+				afterUpload	: function(){this.sync();},	//图片上传后，将上传的内容同步到textarea
+				afterBlur	: function(){this.sync();},	//失去焦点时，将上传的内容同步到textarea
+				items : [
+					"source", "|", "undo", "redo", "|", "preview", "template", "code", "cut", "copy", "paste", "plainpaste", "wordpaste",
+					"|", "justifyleft", "justifycenter", "justifyright", "justifyfull", "insertorderedlist","insertunorderedlist", "indent", 
+					"outdent", "subscript", "superscript", "clearhtml","quickformat", "selectall", "|", "fullscreen", "/", "formatblock", 
+					"fontname", "fontsize", "|","forecolor", "hilitecolor", "bold", "italic", "underline", "strikethrough", "lineheight",
+					"removeformat", "|", "image", "table", "hr","emoticons", "baidumap", "pagebreak", "anchor", "link", "unlink", "about"
+					]
+			});
+		},
+		
+		/**
 		 * 是否为管理员权限，即有某某管理权限，所属店铺为系统类型
 		 */
 		isAdminRight	: function(right){

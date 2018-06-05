@@ -47,8 +47,8 @@ public class ServerLoginInterceptor extends AbstractInterceptor {
 		if(loginUser == null 
 				|| StringUtils.isBlank(loginUser.getAllRights()) 
 				|| loginUser.getAllRights().indexOf(RightContants.BACK_MANAGE)<0
-				|| loginUser.getShop()==null 
-				|| (!ShopContants.SHOP_SYSTEM.equals(loginUser.getShop().getId()) && ShopContants.Status.USING!=loginUser.getShop().getStatus())) {
+				|| loginUser.getShopId()==null 
+				|| (!ShopContants.SHOP_SYSTEM.equals(loginUser.getShopId()) && ShopContants.Status.USING!=loginUser.getShopStatus())) {
 			return result;
 		}
 		

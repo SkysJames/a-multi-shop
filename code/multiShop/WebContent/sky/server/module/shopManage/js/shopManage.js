@@ -1,6 +1,7 @@
 angular.module('shopManage.module',[])
-.controller("shopManageCtrl",['$timeout', '$scope', '$rootScope', '$filter', '$document', 'serverIndexHttpService', 
-function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpService){
+.controller("shopManageCtrl",['$timeout', '$scope', '$sce', '$filter', '$document', 'serverIndexHttpService', 
+function($timeout, $scope, $sce, $filter, $document, serverIndexHttpService){
+	$scope.sce = $sce;
 	//是否为编辑状态
 	$scope.isEdit = false;
 	//图片面板的路径列表
@@ -26,6 +27,7 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 			var data = response.data;
 			if(data.statusCode=="200"){
 				$scope.shopInfo = data.shop;
+				$scope.shopDesEditor.html($scope.shopInfo.description);
 				
 				if($scope.shopInfo.service && $scope.shopInfo.service.length>0){
 					$scope.shopInfo.serviceUserIds = $scope.shopInfo.service.split(",");
@@ -76,6 +78,9 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 		if(!shop){
 			return false;
 		}
+		
+		//赋值店铺的描述
+		shop.description = $scope.shopDesEditor.html();
 		
 		//店铺轮播图片的链接
 		if(shop.picPathList){
@@ -177,6 +182,8 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 		$scope.getShopInfo();
 		//令提示可用
 		$('[data-toggle="tooltip"]').tooltip();
+		//初始化店铺描述的kindeditor
+		$scope.shopDesEditor = serverCommon.initKindEditor("#shopDesId");
 	};
 	$document.ready($scope.initFunc);
 }]);

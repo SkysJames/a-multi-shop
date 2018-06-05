@@ -68,7 +68,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		if(shop == null || (!ShopContants.SHOP_SYSTEM.equals(shop.getId()) && ShopContants.Status.USING!=shop.getStatus())) {
 			throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON, "该用户暂无店铺或店铺未启用");
 		}
-			
+		
 		user.setLoginIp(loginUser.getUserIp());
 		user.setLoginStatus(UserContants.LoginStatus.ONLINE);
 		user.setLoginTime(new Timestamp(new Date().getTime()));
@@ -76,7 +76,8 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		loginUser.setLoginTime(user.getLoginTime());
 		loginUser.setUsername(user.getName());
 		loginUser.setShopId(user.getShopId());
-		loginUser.setShop(shop);
+		loginUser.setShopName(shop.getName());
+		loginUser.setShopStatus(shop.getStatus());
 		loginUser.setQq(user.getQq());
 		loginUser.setWechat(user.getWechat());
 		loginUser.setTelephone(user.getTelephone());
@@ -100,6 +101,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		
 		if(editUser.containsKey("name")){
 			user.setName((String)editUser.get("name"));
+			user.setName(user.getName().replaceAll("\"", "'"));
 		}
 		if(editUser.containsKey("passwd")){
 			user.setPasswd((String)editUser.get("passwd"));
@@ -109,6 +111,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		}
 		if(editUser.containsKey("remark")){
 			user.setRemark((String)editUser.get("remark"));
+			user.setRemark(user.getRemark().replaceAll("\"", "'"));
 		}
 		if(editUser.containsKey("userStatus")){
 			user.setUserStatus(CommonMethodUtil.getIntegerByObject(editUser.get("userStatus")));
@@ -118,12 +121,15 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		}
 		if(editUser.containsKey("qq")){
 			user.setQq((String)editUser.get("qq"));
+			user.setQq(user.getQq().replaceAll("\"", "'"));
 		}
 		if(editUser.containsKey("wechat")){
 			user.setWechat((String)editUser.get("wechat"));
+			user.setWechat(user.getWechat().replaceAll("\"", "'"));
 		}
 		if(editUser.containsKey("telephone")){
 			user.setTelephone((String)editUser.get("telephone"));
+			user.setTelephone(user.getTelephone().replaceAll("\"", "'"));
 		}
 		if(editUser.containsKey("rights")){
 			user.setRights((String)editUser.get("rights"));
@@ -158,6 +164,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		
 		if(user.containsKey("remark")){
 			newUser.setRemark((String)user.get("remark"));
+			newUser.setRemark(newUser.getRemark().replaceAll("\"", "'"));
 		}
 		if(user.containsKey("userStatus")){
 			newUser.setUserStatus(CommonMethodUtil.getIntegerByObject(user.get("userStatus")));
@@ -167,12 +174,15 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		}
 		if(user.containsKey("qq")){
 			newUser.setQq((String)user.get("qq"));
+			newUser.setQq(newUser.getQq().replaceAll("\"", "'"));
 		}
 		if(user.containsKey("wechat")){
 			newUser.setWechat((String)user.get("wechat"));
+			newUser.setWechat(newUser.getWechat().replaceAll("\"", "'"));
 		}
 		if(user.containsKey("telephone")){
 			newUser.setTelephone((String)user.get("telephone"));
+			newUser.setTelephone(newUser.getTelephone().replaceAll("\"", "'"));
 		}
 		if(user.containsKey("rights")){
 			newUser.setRights((String)user.get("rights"));
@@ -217,10 +227,12 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		
 		if(editUser.containsKey("name")) {
 			user.setName((String)editUser.get("name"));
+			user.setName(user.getName().replaceAll("\"", "'"));
 		}
 		
 		if(editUser.containsKey("remark")) {
 			user.setRemark((String)editUser.get("remark"));
+			user.setRemark(user.getRemark().replaceAll("\"", "'"));
 		}
 		
 		this.update(user);

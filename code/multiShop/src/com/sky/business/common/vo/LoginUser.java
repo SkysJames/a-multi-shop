@@ -3,8 +3,6 @@ package com.sky.business.common.vo;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import com.sky.business.shop.entity.Shop;
-
 /**
  * 登录用户
  * @author Sky James
@@ -22,7 +20,9 @@ public class LoginUser implements Serializable {
     
     private String shopId;
     
-    private Shop shop;
+    private String shopName;
+    
+    private Integer shopStatus;
     
     private String qq;
     
@@ -124,12 +124,20 @@ public class LoginUser implements Serializable {
 		this.telephone = telephone;
 	}
 
-	public Shop getShop() {
-		return shop;
+	public String getShopName() {
+		return shopName;
 	}
 
-	public void setShop(Shop shop) {
-		this.shop = shop;
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
+	public Integer getShopStatus() {
+		return shopStatus;
+	}
+
+	public void setShopStatus(Integer shopStatus) {
+		this.shopStatus = shopStatus;
 	}
 
 	public String getAllRights() {

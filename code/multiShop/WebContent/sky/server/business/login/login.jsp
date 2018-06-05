@@ -23,6 +23,10 @@ pageContext.setAttribute("systemName", systemName);
     <!-- 导入相应css -->
 	<link rel="stylesheet" type="text/css" href="${contextPath}/sky/server/business/login/css/login.css" />
 	
+	<script type="text/javascript">
+	var $contextPath = '${ contextPath }';//上下文地址
+	</script>
+	
   </head>
   
   <body class="login-body" data-ng-app="loginApp" data-ng-controller="loginCtrl">

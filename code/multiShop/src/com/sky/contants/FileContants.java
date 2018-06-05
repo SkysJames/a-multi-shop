@@ -8,6 +8,11 @@ package com.sky.contants;
 public final class FileContants {
 	
 	/**
+	 * kindeditor文件名
+	 */
+	public static final String KINDEDITOR_FILE = "kindeditor";
+	
+	/**
 	 * 系统文件名
 	 */
 	public static final String SYSTEM_FILE = "system";

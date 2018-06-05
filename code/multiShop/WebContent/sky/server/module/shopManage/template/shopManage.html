@@ -161,10 +161,11 @@
 								</div>
 								<div class="form-group">
 									<label class="col-md-2 control-label">店铺描述：</label>
-									<div class="col-md-10 common-value" data-ng-show="!isEdit">{{shopInfo.description|showBlankValue}}</div>
+									<div class="col-md-10 common-value" data-ng-show="!isEdit">
+										<div data-ng-bind-html="sce.trustAsHtml(shopInfo.description)"></div>
+									</div>
 									<div class="col-md-10" data-ng-show="isEdit">
-										<textarea class="form-control" rows="5" placeholder="店铺描述" data-ng-model="shopInfo.description">
-										</textarea>
+										<textarea id="shopDesId"></textarea>
 									</div>
 								</div>
 							</fieldset>
