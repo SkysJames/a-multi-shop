@@ -1,0 +1,27 @@
+<div class="shop-nav">
+	<!-- PC端start -->
+	<div class="sn-pc row">
+		<div class="col-sm-3 col-lg-2">
+			<div data-ng-show="selectedNav=='index'" data-ng-mouseover="mouseType(true)" data-ng-mouseleave="mouseType(false)">
+				<a class="sn-title" href="javascript:void(0)">
+					商品分类&nbsp;<i class="fa fa-list-ul"></i><i class="fa fa-caret-down"></i>
+				</a>
+				<div class="sn-types">
+					<a class="sn-type" href="#/indexPage/type/{{type.id}}" data-ng-repeat="type in typeList">{{type.name}}</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-9 col-lg-10">
+			<a class="sn-nav" data-ng-class="{'active':selectedNav=='index'}" href="#/productPage">首页</a>
+			<a class="sn-nav" data-ng-class="{'active':selectedNav=='about'}" href="javascript:void(0)">关于我们</a>
+			<a class="sn-nav" data-ng-class="{'active':selectedNav=='evaluate'}" href="javascript:void(0)">店铺评价</a>
+		</div>
+	</div>
+	<!-- PC端end -->
+	
+	<!-- 手机端start -->
+	<div class="sn-phone">
+	</div>
+	<!-- 手机端end -->
+</div>
+

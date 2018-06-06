@@ -55,6 +55,9 @@ var common = {
 			TB_PRODUCT	: "tb_product",//商品表名
 		},
 		
+		/**
+		 * 公告常量
+		 */
 		announceContants	: {
 			status	: {
 				UNUSING	: "0",//状态不可用
@@ -87,7 +90,11 @@ var common = {
 		 * 产品类型常量
 		 */
 		productContants	: {
-			
+			status	: {
+				UNUSING		: "0",//禁用
+				OFFTABLE		: "1",//下架
+				ONTABLE		: "2",//上架
+			}
 		},
 		
 		/**

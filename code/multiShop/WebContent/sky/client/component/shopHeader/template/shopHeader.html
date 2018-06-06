@@ -1,0 +1,61 @@
+<div class="client-header">
+	<!-- PC端start -->
+	<div class="sh-pc row">
+		<div class="sh-pc-left col-sm-8 col-lg-6">
+			<header> 
+				<div class="sh-head-box my-pointer" data-ng-click="toIndexPage()">
+					<img data-ng-src="{{systemLogo}}" alt="">
+					{{systemName}}
+				</div>
+				<div class="sh-head-box my-pointer">
+					<div class="name-box">
+						<img data-ng-src="{{shopInfo.logoPathList|getLogoByLogoList}}" alt="">
+						<div class="shop-name">
+							{{shopInfo.name}}
+							<div>
+								<label class="recommend" data-ng-if="shopInfo.recommend==1">推荐</label>
+								<label title="{{shopInfo.shopKeeper.name}}">{{shopInfo.shopKeeper.name}}</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="sh-head-box">
+					<span>人气&nbsp;{{shopInfo.popularity}}</span>
+					<span>评分&nbsp;{{shopInfo.mark}}</span>
+				</div>
+			</header>
+		</div>
+		<div class="sh-pc-middle col-sm-4 col-lg-6">
+			<form class="sh-pc-search" data-ng-submit="toSearchPage()">
+				<div class="input-group">
+					<input class="form-control" type="search" placeholder="搜索 商品" data-ng-model="keywords">
+					<div class="input-group-btn">
+						<button class="btn" type="submit" title="搜索">
+							搜&nbsp;&nbsp;索
+						</button>
+					</div>
+				</div>
+			</form>
+			
+			<div class="sh-pc-announce">
+				<slide-announce ans-id="systemAnsId" ans-win-id="systemAnsWinId" index-ans="indexAns"></slide-announce>
+			</div>
+		</div>
+	</div>
+	<!-- PC端end -->
+	
+	<!-- 手机端start -->
+	<div class="sh-phone">
+		<div class="sh-phone-return" data-ng-click="toIndexPage()"><i class="fa fa-chevron-left"></i></div>
+		<form class="sh-phone-search" data-ng-submit="toSearchPage()">
+			<div class="input-group">
+				<input class="form-control" type="search" placeholder="搜索 {{tableName | getKeyType}}" data-ng-model="keywords">
+				<div class="input-group-btn">
+					<button class="btn" type="submit" title="搜索">搜索</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- 手机端end -->
+</div>
+

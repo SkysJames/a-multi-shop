@@ -135,9 +135,6 @@
 	cursor: pointer;
 	border: none;
 }
-.ct-bottom-five {
-	width: 19.2%;
-}
 .ct-bottom-item i {
 	margin-top: 8px;
 	font-size: 24px;
@@ -151,7 +148,7 @@
 .ct-bottom-item-two {
 	position: absolute;
     text-align: left;
-    min-width: 100px;
+    min-width: 100%;
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 2px;

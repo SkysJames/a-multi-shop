@@ -54,20 +54,20 @@
 		</div>
 		<!-- 分类面板end -->
 	
-		<div class="ct-bottom-item" data-ng-class="{'ct-bottom-five': tableName=='tb_product', 'active': currentNav=='index'}" data-ng-click="clickNav('index')">
+		<div class="ct-bottom-item" data-ng-class="{'active': currentNav=='index'}" data-ng-click="clickNav('index')">
 			<i class="fa fa-home"></i>
 			<p>首页</p>
 		</div>
-		<div class="ct-bottom-item" data-ng-class="{'ct-bottom-five': tableName=='tb_product', 'active': currentNav=='type'}" data-ng-click="clickNav('type')">
+		<div class="ct-bottom-item" data-ng-class="{'active': currentNav=='type'}" data-ng-click="clickNav('type')" data-ng-show="tableName=='tb_shop'">
 			<i class="fa fa-th-large"></i>
 			<p>分类</p>
 		</div>
-		<div class="ct-bottom-item" data-ng-class="{'ct-bottom-five': tableName=='tb_product', 'active': currentNav=='cart'}" data-ng-click="clickNav('cart')" data-ng-show="tableName=='tb_product'">
+		<div class="ct-bottom-item" data-ng-class="{'active': currentNav=='cart'}" data-ng-click="clickNav('cart')" data-ng-show="tableName=='tb_product'">
 			<i class="fa fa-shopping-cart"></i>
 			<p>购物车</p>
 		</div>
 		<div class="ct-bottom-item" data-ng-mouseover="mouseNav('more',true)" data-ng-mouseleave="mouseNav('more',false)"
-			data-ng-class="{'ct-bottom-five': tableName=='tb_product', 'active': currentNav.indexOf('more')>-1}">
+			data-ng-class="{'active': currentNav.indexOf('more')>-1}">
 			<i class="fa fa-compass"></i>
 			<p>更多</p>
 			<ul class="ct-bottom-item-two">
@@ -79,7 +79,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="ct-bottom-item" data-ng-class="{'ct-bottom-five': tableName=='tb_product', 'active': currentNav=='me'}" data-ng-click="clickNav('me')">
+		<div class="ct-bottom-item" data-ng-class="{'active': currentNav=='me'}" data-ng-click="clickNav('me')">
 			<i class="fa fa-user"></i>
 			<p>我的</p>
 		</div>

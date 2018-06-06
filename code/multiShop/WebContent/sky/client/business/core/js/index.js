@@ -15,6 +15,13 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	$scope.selectedType = {};
 	
 	/**
+	 * 跳转页面
+	 */
+	$scope.toPage = function(url){
+		common.toPage($contextPath + url, true);
+	};
+	
+	/**
 	 * 当前页面跳到指定位置
 	 */
 	$scope.scrollTo = function(target){
@@ -120,6 +127,7 @@ function($timeout, $scope, $document, clientIndexHttpService){
 				pageSize		: 6,		//每页数据量
 				shopType		: typet.id,	//店铺类型
 				isOver		: "0",	//未过期
+				status		: common.shopContants.status.USING,	//状态启用
 		};
 		
 		$scope.isLoadingShop = true;
@@ -150,7 +158,7 @@ function($timeout, $scope, $document, clientIndexHttpService){
 		//页面滚动事件
 		$(window).scroll(function(){
 			//判断是否滚动到底部
-			if($(window).scrollTop() + $(window).height() == $(document).height()){
+			if($(window).scrollTop() >= ($(document).height() - $(window).height())){
 				$scope.loadMoreShop();
 			}
 		});

@@ -1,0 +1,67 @@
+<div class="shop-index-page" data-ng-controller="indexPageCtrl">
+	<!-- 轮播图片start -->
+	<slide-show class="shop-only-pc" data-ng-show="!routeParams.keywords && !routeParams.type" 
+		table-name="tb_product" slide-list="slideList" slide-href-list="slideHrefList"></slide-show>
+  	<!-- 轮播图片end -->
+  	
+  	<!-- 搜索条件start -->
+	<div class="shop-commodel shop-condition" data-ng-show="routeParams.keywords || routeParams.type">
+		<div class="scondition-header common-padding">
+			<h4>
+				<span class="scondition-all" data-ng-click="selectType(typeList[0])">全部商品</span>
+				<span data-ng-show="routeParams.keywords">&nbsp;>&nbsp;过滤：{{routeParams.keywords|showBlankValue}}</span>
+			</h4>
+		</div>
+		<div class="scondition-content common-padding">
+			<table>
+				<tr>
+					<td class="scondition-td1">商品分类</td>
+					<td>
+						<div class="scondition-td2" data-ng-class="{'scondition-more': isTypeMore}">
+							<span data-ng-click="isTypeMore = !isTypeMore">
+								更多&nbsp;<i class="fa" data-ng-class="{'fa-chevron-down':!isTypeMore, 'fa-chevron-up':isTypeMore}"></i>
+							</span>
+							<a data-ng-class="{'active': !condition.proType || condition.proType==''}" 
+								data-ng-click="selectType('')" href="javascript:void(0)" >全部</a>
+							<a data-ng-class="{'active': condition.proType==item.id}" 
+								data-ng-click="selectType(item.id)" data-ng-repeat="item in shopIndexScope.typeList" href="javascript:void(0)" >{{item.name|showBlankValue}}</a>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<!-- 搜索条件end -->
+  	
+  	<!-- 手机端的类型列表start -->
+  	<div class="sphone-type shop-only-phone">
+  		<ul>
+  			<li data-ng-class="{'active': !condition.proType || condition.proType==''}" data-ng-click="selectType('')">全部</li>
+  			<li data-ng-class="{'active': condition.proType==item.id}" 
+  				data-ng-click="selectType(item.id)" data-ng-repeat="item in shopIndexScope.typeList">{{item.name|showBlankValue}}</li>
+  		</ul>
+  	</div>
+  	<!-- 手机端的类型列表end -->
+  	
+  	<!-- 商品列表start -->
+  	<div class="shop-commodel shop-product sphone-product">
+  		<div class="shoppro-content">
+  			<ul>
+  				<li data-ng-repeat="item in productList" data-ng-click="">
+  					<div class="shoppro-img" style="background-image: url({{item.picPathList|getImgByImgList}})"></div>
+  					<div class="shoppro-con">
+  						<h3 title="{{item.price}}元">
+  							<i class="fa fa-rmb"></i>&nbsp;{{item.price}}
+  							<label title="浏览量：{{item.clickCount}}">浏览量：{{item.clickCount}}</label>
+  						</h3>
+  						<a title="{{item.name | showBlankValue}}" href="javascript:void(0)">{{item.name | showBlankValue}}</a>
+  						<p title="{{item.shopName | showBlankValue}}">{{item.shopName | showBlankValue}}</p>
+  					</div>
+  				</li>
+  			</ul>
+  		</div>
+		<nodata-panel data-ng-show="!isLoadingProduct && productList.length==0" font-size="18"></nodata-panel>
+		<loading-panel data-ng-show="isLoadingProduct" font-size="18"></loading-panel>
+  	</div>
+  	<!-- 商品列表end -->
+</div>

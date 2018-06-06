@@ -41,7 +41,19 @@ angular.module('client-index.filter',[])
 })
 
 /**
- * 获取类型的名称
+ * 获取logo的url
+ */
+.filter('getLogoByLogoList',function(){
+	return function(logoList){
+		if(logoList && logoList.length>0){
+			return logoList[0];
+		}
+		return $contextPath + "/sky/common/core/img/system_logo.png";
+	};
+})
+
+/**
+ * 获取图片的url
  */
 .filter('getImgByImgList',function(){
 	return function(imgList){

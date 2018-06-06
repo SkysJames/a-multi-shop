@@ -14,6 +14,9 @@ ul li {
 .my-line {
 	display: none;
 }
+.my-pointer {
+	cursor: pointer;
+}
 .common-padding {
 	margin: 0 auto;
     width: 1200px;
@@ -434,5 +437,137 @@ ul li {
 	}
 }
 /*商品搜索页面 end*/
+
+/*店铺首页 start*/
+.shop-only-phone {
+	display: none;
+}
+.shop-index-page {
+	
+}
+.shop-commodel {
+	padding: 10px 20px;
+}
+
+.shop-condition {
+	background-color: #fff;
+	padding-top: 0px;
+}
+.scondition-header {
+	padding: 10px;
+    border-bottom: 1px solid #efefef;
+}
+.scondition-header h4 {
+	font-size: 16px;
+    margin: 0px;
+}
+.scondition-all {
+	cursor: pointer;
+}
+.scondition-all:hover {
+	color: #ff0000;
+}
+.scondition-content {
+	
+}
+.scondition-content table {
+	width: 100%;
+}
+.scondition-content table td {
+	border: 1px solid #ddd;
+}
+.scondition-content .scondition-td1 {
+	width: 18%;
+    padding: 14px;
+    padding-left: 20px;
+    vertical-align: top;
+    background-color: #f7f5f6;
+}
+.scondition-content .scondition-td2 {
+	padding: 10px 20px;
+    height: 46px;
+	overflow: hidden;
+}
+.scondition-content .scondition-more {
+	height: auto;
+}
+.scondition-content .scondition-td2>span {
+	float: right;
+    margin: 4px;
+    color: #888;
+    cursor: pointer;
+}
+.scondition-content .scondition-td2>span:hover {
+    color: #ff0000;
+}
+.scondition-content .scondition-td2>a {
+	display: inline-block;
+	margin: 5px;
+    margin-top: 0px;
+	margin-bottom: 10px;
+	color: #555;
+	padding: 4px 12px;
+	border-radius: 2px;
+}
+.scondition-content .scondition-td2>a:hover,.scondition-content .scondition-td2>a.active {
+	color: #fff;
+	background-color: #ff0000;
+}
+
+.sphone-type {
+	position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: 20%;
+    overflow: auto;
+    background-color: #f8f8f8;
+}
+.sphone-type ul {
+	margin: 0px;
+}
+.sphone-type ul li {
+	padding: 10px;
+    font-size: 13px;
+    color: #666;
+    cursor: pointer;
+}
+.sphone-type ul li:hover, .sphone-type ul li.active {
+	font-weight: bolder;
+	color: #333;
+	background-color: #fff;
+}
+
+@media screen and (max-width: 760px) {
+	.shop-index-page {
+		position: absolute;
+		top: 44px;
+		bottom: 60px;
+		left: 0px;
+		right: 0px;
+		-webkit-transition: all .5s ease;
+		-moz-transition: all .5s ease;
+		-o-transition: all .5s ease;
+		transition: all .5s ease;
+	}
+	
+	.shop-only-pc {
+		display: none;
+	}
+	.shop-only-phone {
+		display: block;
+	}
+	
+	.sphone-product {
+		position: absolute;
+		top: 0px;
+	    bottom: 0px;
+	    right: 0px;
+		left: 20%;
+		padding: 10px;
+		overflow: auto;
+	}
+}
+/*店铺首页 end*/
 
 

@@ -1,0 +1,59 @@
+@CHARSET "UTF-8";
+.shop-nav {
+	
+}
+
+.sn-pc {
+	width: 100%;
+	background-color: #403f3a;
+    margin: 0px;
+}
+.sn-title {
+	float: right;
+    font-size: 16px;
+    line-height: 36px;
+    color: #f4c91b!important;
+}
+.sn-types {
+	display: none;
+	position: absolute;
+    top: 36px;
+    width: 580px;
+    z-index: 90;
+    padding: 10px 20px;
+    background-color: rgba(64, 63, 59, 0.65);
+}
+.sn-type,.sn-type:link {
+    display: inline-block;
+	font-size: 14px;
+    margin: 5px 8px;
+    color: #eee;
+}
+.sn-type:hover,.sn-type.active {
+	color: #f4c91b;
+}
+.sn-nav,.sn-nav:link {
+	margin-left: 20px;
+    margin-right: 50px;
+	font-size: 16px;
+    line-height: 36px;
+    color: #fff;
+}
+.sn-nav:hover,.sn-nav.active {
+	color: #f4c91b;
+}
+
+.sn-phone {
+	
+}
+
+@media screen and (max-width: 760px) {
+	.sn-pc {
+		display: none;
+	}
+	
+	.sn-phone {
+		display: block;
+	}
+}
+

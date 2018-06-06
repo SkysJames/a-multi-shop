@@ -1,25 +1,25 @@
-angular.module('productSearchApp',["client-index.filter","client-index.httpService","indexHeader"].concat($commonDirectiveList).concat($directiveList))
-.controller("productSearchCtrl",['$timeout', '$scope', '$document', 'clientIndexHttpService', 
-function($timeout, $scope, $document, clientIndexHttpService){
+angular.module('indexPage.module',[])
+.controller("indexPageCtrl",['$timeout', '$scope', '$routeParams', '$filter', '$document', "clientIndexHttpService", 
+function($timeout, $scope, $routeParams, $filter, $document, clientIndexHttpService){
+	//路由过来的参数
+	$scope.routeParams = $routeParams;
+	//根作用域
+	$scope.shopIndexScope = angular.element($('#shopIndexId')).scope();
+	//是否显示更多类型
+	$scope.isTypeMore = false;
 	//搜索条件对象
 	$scope.condition = {
 			pageNo		: 1,		//当前页码
 			pageSize		: 30,	//每页数据量
 			pageCount	: 1,
 			totalCount	: 0,
+			shopId		: shopId,//店铺ID
 			isOver		: "0",	//未过期
 			status		: common.productContants.status.ONTABLE,	//状态上架
-			keywords		: keywords,	//搜索关键字
+			keywords		: $routeParams.keywords,	//搜索关键字
+			proType		: $routeParams.type,//商品类型
 	};
-	//当前被选中的类型对象
-	$scope.selectedType = {};
 	
-	/**
-	 * 当前页面跳到指定位置
-	 */
-	$scope.scrollTo = function(target){
-		common.scrollTo(target);
-	};
 	
 	/**
 	 * 加载更多商品
@@ -31,43 +31,12 @@ function($timeout, $scope, $document, clientIndexHttpService){
 		}
 	};
 	
-	
 	/**
-	 * 获取系统公告消息
+	 * 选择过滤商品类型
 	 */
-	$scope.getIndexAnsList = function() {
-		var condition = {
-				shopId	: common.shopContants.shopSystem,
-				status	: common.announceContants.status.USING,
-		};
-		clientIndexHttpService.getAnnounceList(condition)
-		.then(function(response){
-			$scope.indexAns = response.data.list;
-			if($scope.indexAns && $scope.indexAns.length>0){
-				for ( var int = 0; int < $scope.indexAns.length; int++) {
-					$scope.indexAns[int].seq = int+1;
-				}
-			}
-		});
-	};
-	
-	/**
-	 * 获取店铺类型列表
-	 */
-	$scope.getTypeList = function(){
-		var condition = {
-				tableName	: common.tableContants.TB_SHOP,	//店铺表名
-				parentId		: common.typetContants.rootParentId,//一级类别
-		};
-		
-		clientIndexHttpService.getTypeList(condition)
-		.then(function(response){
-			var data = response.data;
-			$scope.typeList = data.list;
-			console.log($scope.typeList);
-		},function(err){
-			console.log(err);
-		});
+	$scope.selectType = function(typeId){
+		$scope.condition.proType = typeId;
+		$scope.pagedProductList();
 	};
 	
 	/**
@@ -101,12 +70,17 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	 * 初始化函数
 	 */
 	$scope.initFunc = function(){
-		//初始化公告消息列表
-		$scope.getIndexAnsList();
-		//获取店铺类型
-		$scope.getTypeList();
-		//初始化商品列表
+		//分页获取商品列表
 		$scope.pagedProductList();
+		
+		//手机端的商品面板滚动事件
+		$(".sphone-product").scroll(function(){
+			var allHeight = $(".sphone-product .shoppro-content").height();
+			//判断是否滚动到该div的底部
+			if($(".sphone-product").scrollTop() >= (allHeight - $(".sphone-product").height())){
+				$scope.loadMoreProduct();
+			}
+		});
 		
 		//页面滚动事件
 		$(window).scroll(function(){
@@ -117,5 +91,4 @@ function($timeout, $scope, $document, clientIndexHttpService){
 		});
 	};
 	$document.ready($scope.initFunc);
-	
 }]);

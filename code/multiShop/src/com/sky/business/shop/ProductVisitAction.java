@@ -1,5 +1,6 @@
 package com.sky.business.shop;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -49,6 +50,28 @@ public class ProductVisitAction extends BaseAction {
 			resultMap.put("count", count);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
 			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取商品数量");
+		} catch (Exception e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
+		}
+		return RESULT_MAP;
+	}
+	
+	/**
+	 * 获取产品列表
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public String list() throws Exception {
+		try{
+			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
+			List<Product> list = productService.getList(productDao, Product.class, condition);
+			
+			resultMap.put("list", list);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取产品列表");
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getStackTrace(e));
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);

@@ -12,6 +12,7 @@ function($timeout, $scope, $document, clientIndexHttpService){
 			pageCount	: 1,
 			totalCount	: 0,
 			isOver		: "0",	//未过期
+			status		: common.shopContants.status.USING,	//状态启用
 			shopType		: type,	//店铺类型
 			keywords		: keywords,	//搜索关键字
 	};
@@ -21,6 +22,13 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	$scope.isOneTypeMore = false;
 	//是否二级分类更多
 	$scope.isTwoTypeMore = false;
+	
+	/**
+	 * 跳转页面
+	 */
+	$scope.toPage = function(url){
+		common.toPage($contextPath + url, true);
+	};
 	
 	/**
 	 * 当前页面跳到指定位置
@@ -33,7 +41,7 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	 * 加载更多店铺
 	 */
 	$scope.loadMoreShop = function(){
-		if($scope.condition && $scope.condition.pageNo<$scope.condition.pageCount){
+		if($scope.condition && $scope.condition.pageNo<$scope.condition.pageCount && !$scope.isLoadingShop){
 			$scope.condition.pageNo++;
 			$scope.pagedShopList(true);
 		}
@@ -179,7 +187,7 @@ function($timeout, $scope, $document, clientIndexHttpService){
 		//页面滚动事件
 		$(window).scroll(function(){
 			//判断是否滚动到底部
-			if($(window).scrollTop() + $(window).height() == $(document).height()){
+			if($(window).scrollTop() >= ($(document).height() - $(window).height())){
 				$scope.loadMoreShop();
 			}
 		});

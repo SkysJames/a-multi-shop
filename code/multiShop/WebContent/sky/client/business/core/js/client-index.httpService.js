@@ -64,6 +64,18 @@ angular.module('client-index.httpService',[])
 	};
 	
 	/**
+	 * 获取商品列表
+	 */
+	this.getProductList = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/shop/product-visit!list";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
 	 * 分页获取商品列表
 	 */
 	this.pagedProductList = function(condition){

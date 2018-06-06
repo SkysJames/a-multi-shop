@@ -87,7 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<div class="index-commodel index-shop" data-ng-class="{'index-shop-show': shopList && shopList.length>0}">
   		<div class="ishop-content">
   			<ul>
-  				<li data-ng-repeat="item in shopList" data-ng-click="">
+  				<li data-ng-repeat="item in shopList" data-ng-click="toPage('/home/shop-index?shopId='+item.id)">
   					<div class="ishop-img" style="background-image: url({{item.logoPathList|getImgByImgList}})"></div>
   					<div class="ishop-con">
   						<h3 title="{{item.name | showBlankValue}}">{{item.name | showBlankValue}}</h3>

@@ -1,0 +1,136 @@
+@CHARSET "UTF-8";
+.sh-pc {
+	display: block;
+	margin-top: 35px;
+	height: 102px;
+	width: 100%;
+}
+.sh-pc-left {
+    height: 100%;
+}
+.sh-pc-left header {
+	margin-top: 20px;
+    margin-left: 20px;
+    font-size: 25px;
+}
+.sh-head-box {
+	vertical-align: top;
+	display: inline-block; /* 现代浏览器 +IE6、7 inline 元素 */  
+	*display: inline; /* IE6、7 block 元素 */  
+	*zoom: 1;
+	height: 60px;
+    padding-top: 5px;
+	padding-left: 10px;
+    padding-right: 15px;
+    border-right: 1px solid #ddd;
+}
+.sh-head-box:last-of-type {
+	border-right: none;
+	padding-top: 22px;
+}
+.sh-head-box .name-box {
+	font-size: 20px;
+    line-height: 22px;
+}
+.sh-head-box .name-box .shop-name {
+	vertical-align: top;
+	display: inline-block; /* 现代浏览器 +IE6、7 inline 元素 */  
+	*display: inline; /* IE6、7 block 元素 */  
+	*zoom: 1;
+}
+.sh-head-box label {
+	font-size: 12px;
+    margin: 5px;
+    margin-left: 0px;
+    max-width: 90px;
+    overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
+.sh-head-box label.recommend {
+	width: 40px;
+    line-height: 16px;
+    font-size: 10px;
+    -webkit-transform: scale(.83);
+    background-color: #f4c985;
+    border: 1px solid #e7ba77;
+    border-radius: 2px;
+    color: #856651;
+    text-align: center;
+}
+.sh-head-box span {
+	margin: 5px;
+    font-size: 12px;
+    color: #ff0000;
+}
+.sh-pc-left img {
+	height: 52px;
+}
+.sh-pc-middle {
+	height: 100%;
+}
+.sh-pc-search {
+	margin: 0 auto;
+    margin-top: 25px;
+    max-width: 500px;
+}
+.sh-pc-search input {
+	border: 1px solid #ff0000;
+	outline: none!important;
+}
+.sh-pc-search button {
+	color: #fff!important;
+	background-color: #ff0000;
+	border: 1px solid #ff0000;
+	outline: none!important;
+}
+.sh-pc-search button:hover {
+	background-color: #f95353;
+	border: 1px solid #f95353;
+}
+.sh-pc-announce {
+    margin: 0 auto;
+    margin-top: 6px;
+    padding: 8px 14px;
+    max-width: 500px;
+    background-color: #efefef;
+}
+
+.sh-phone {
+	display: none;
+	position: fixed;
+    top: 0px;
+    border-bottom: 1px solid #ddd;
+    z-index: 50;
+	background-color: #efefef;
+    padding: 5px 10px;
+}
+.sh-phone-return {
+	position: absolute;
+	line-height: 32px;
+	cursor: pointer;
+}
+.sh-phone-search {
+	margin-left: 20px;
+}
+.sh-phone-search input {
+	background-color: #fff;
+	outline: none!important;
+}
+.sh-phone-search button {
+	color: #ff0000!important;
+    border: none!important;
+    background-color: transparent;
+    outline: none!important;
+}
+
+@media screen and (max-width: 760px) {
+	.sh-pc {
+		display: none;
+	}
+	
+	.sh-phone {
+		display: block;
+	}
+}
+
