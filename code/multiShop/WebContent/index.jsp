@@ -64,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<div class="index-commodel index-shop" data-ng-class="{'index-shop-show': typet.shopList && typet.shopList.length>0}" data-ng-repeat="typet in twoTypeList">
   		<div class="ishop-header common-padding">
   			<h2>{{typet.name}}</h2>
-  			<a href="javascript:void(0)" data-ng-click="">
+  			<a href="home/shop-search?type={{typet.id}}">
   				更多&nbsp;<i class="fa fa-chevron-right"></i>
   			</a>
   		</div>

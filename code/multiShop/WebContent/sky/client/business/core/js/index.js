@@ -158,7 +158,7 @@ function($timeout, $scope, $document, clientIndexHttpService){
 		//页面滚动事件
 		$(window).scroll(function(){
 			//判断是否滚动到底部
-			if($(window).scrollTop() >= ($(document).height() - $(window).height())){
+			if($(window).scrollTop() == ($(document).height() - $(window).height())){
 				$scope.loadMoreShop();
 			}
 		});

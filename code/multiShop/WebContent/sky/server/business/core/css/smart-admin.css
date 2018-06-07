@@ -15467,6 +15467,7 @@ time.icon span {
 	display: block;
 	top: 0;
 	right: 0;
+	left: auto;
 	padding: 3px 4px 3px 6px
 }
 

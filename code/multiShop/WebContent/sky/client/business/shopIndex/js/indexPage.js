@@ -103,7 +103,7 @@ function($timeout, $scope, $routeParams, $filter, $document, clientIndexHttpServ
 		//页面滚动事件
 		$(window).scroll(function(){
 			//判断是否滚动到底部
-			if($(window).scrollTop() >= ($(document).height() - $(window).height())){
+			if($(window).scrollTop() == ($(document).height() - $(window).height())){
 				$scope.loadMoreProduct();
 			}
 		});
