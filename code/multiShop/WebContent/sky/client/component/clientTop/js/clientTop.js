@@ -7,6 +7,7 @@ angular.module('clientTop',[])
 			keywords		: '=',
 			selectedType	: '=',
 			typeList		: '=',
+			shopInfo		: '=',
 		},
 		templateUrl : $contextPath +"/sky/client/component/clientTop/template/clientTop.html",
 		link : function(scope,element,attrs){
@@ -27,6 +28,13 @@ angular.module('clientTop',[])
 			 */
 			$scope.clickNav = function(nav, event){
 				$scope.currentNav = nav;
+			};
+			
+			/**
+			 * 展开或收缩客服用户
+			 */
+			$scope.toggleServiceUser = function(item){
+				item.isOpen = !item.isOpen;
 			};
 			
 			/**

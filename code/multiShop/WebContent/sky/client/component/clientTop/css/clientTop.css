@@ -235,6 +235,139 @@
 }
 
 
+
+.ct-right-fixed {
+	position: fixed;
+	top: 50%;
+	right: 0px;
+	margin-top: -70px;
+	z-index: 99;
+}
+.ct-right-fixed .ct-fixed-item {
+	width: 60px;
+    height: 60px;
+    padding-top: 12px;
+    margin-bottom: 15px;
+    background-color: rgba(255,255,255,0.75);
+    text-align: center;
+    font-size: 12px;
+    border: 1px solid #e2e2e2;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+.ct-fixed-item>i {
+	font-size: 20px;
+}
+.ct-fixed-item>p {
+	
+}
+.ct-fixed-item .ct-service {
+	color: #00c424;
+}
+.ct-fixed-item:hover,.ct-fixed-item:active {
+	background-color: rgba(255,255,255,1);
+}
+
+.ct-phone {
+	display: none;
+	position: absolute;
+    top: -120px;
+    right: 60px;
+	cursor: default;
+}
+.ct-phone-container {
+	width: 160px;
+    margin-right: 8px;
+    background-color: #fff;
+    box-shadow: 0px 0px 4px 0px #eee;
+}
+.ct-phone-item {
+	text-align: left;
+    padding: 6px 0 6px 12px;
+    border-bottom: 1px solid #e2e2e2;
+    background-color: #fff;
+}
+.ct-phone-row {
+	margin-bottom: 5px;
+	border-top: 1px solid #eee;
+}
+.ct-phone-item h4 {
+	font-size: 14px;
+	margin: 8px 0px;
+}
+.ct-phone-item p {
+    margin: 5px 0px;
+    font-size: 12px;
+}
+.ct-phone-item label {
+	width: 36px;
+	margin: 0px;
+    margin-right: 5px;
+    font-size: 12px;
+    cursor: default;
+}
+.ct-phone-item span {
+	
+}
+.ct-phone-item span.dowm-up {
+	float: right;
+	margin-right: 10px;
+	color: #ff0000;
+}
+.ct-phone-item a {
+	
+}
+.ct-phone-item img {
+	width: 135px;
+}
+.ct-phone-row-head {
+	cursor: pointer;
+}
+
+.ct-fixed-phone:hover .ct-phone {
+	display: block;
+	animation: toright-animation .4s;
+	-moz-animation: toright-animation .4s;
+	-webkit-animation: toright-animation .4s;
+	-o-animation: toright-animation .4s;	
+}
+@keyframes toright-animation {
+	0% {
+		right: 260px;
+	}
+	100% {
+		right: 60px;
+	}
+}
+/* Firefox */
+@-moz-keyframes toright-animation {
+	0% {
+		right: 260px;
+	}
+	100% {
+		right: 60px;
+	}
+}
+/* Safari 和 Chrome */
+@-webkit-keyframes toright-animation {
+	0% {
+		right: 260px;
+	}
+	100% {
+		right: 60px;
+	}
+}
+/* Opera */
+@-o-keyframes toright-animation {
+	0% {
+		right: 260px;
+	}
+	100% {
+		right: 60px;
+	}
+}
+
+
 @media screen and (max-width: 760px) {
 	.ct-top-fixed {
 		display: none;

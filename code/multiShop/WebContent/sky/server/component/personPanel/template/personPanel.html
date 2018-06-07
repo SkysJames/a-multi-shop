@@ -27,6 +27,27 @@
 							</td>
 						</tr>
 						<tr>
+							<td class="person-right-label">手机号：</td>
+							<td data-ng-class="{'person-input' : isEdit}">
+								<span data-ng-show="!isEdit">{{currentUser.telephone}}</span>
+								<input data-ng-show="isEdit" data-ng-model="editUser.telephone" placeholder="请输入您的手机号">
+							</td>
+						</tr>
+						<tr>
+							<td class="person-right-label">QQ号：</td>
+							<td data-ng-class="{'person-input' : isEdit}">
+								<span data-ng-show="!isEdit">{{currentUser.qq}}</span>
+								<input data-ng-show="isEdit" data-ng-model="editUser.qq" placeholder="请输入您的QQ号">
+							</td>
+						</tr>
+						<tr>
+							<td class="person-right-label">微信号：</td>
+							<td data-ng-class="{'person-input' : isEdit}">
+								<span data-ng-show="!isEdit">{{currentUser.wechat}}</span>
+								<input data-ng-show="isEdit" data-ng-model="editUser.wechat" placeholder="请输入您的微信号">
+							</td>
+						</tr>
+						<tr>
 							<td class="person-right-label">店铺：</td>
 							<td>
 								<span>{{currentUser.shop.name}}</span>

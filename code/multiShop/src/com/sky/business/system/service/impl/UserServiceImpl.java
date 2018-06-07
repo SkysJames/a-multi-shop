@@ -229,14 +229,28 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			user.setName((String)editUser.get("name"));
 			user.setName(user.getName().replaceAll("\"", "'"));
 		}
-		
 		if(editUser.containsKey("remark")) {
 			user.setRemark((String)editUser.get("remark"));
 			user.setRemark(user.getRemark().replaceAll("\"", "'"));
 		}
+		if(editUser.containsKey("qq")){
+			user.setQq((String)editUser.get("qq"));
+			user.setQq(user.getQq().replaceAll("\"", "'"));
+		}
+		if(editUser.containsKey("wechat")){
+			user.setWechat((String)editUser.get("wechat"));
+			user.setWechat(user.getWechat().replaceAll("\"", "'"));
+		}
+		if(editUser.containsKey("telephone")){
+			user.setTelephone((String)editUser.get("telephone"));
+			user.setTelephone(user.getTelephone().replaceAll("\"", "'"));
+		}
 		
 		this.update(user);
 		loginUser.setUsername(user.getName());
+		loginUser.setQq(user.getQq());
+		loginUser.setWechat(user.getWechat());
+		loginUser.setTelephone(user.getTelephone());
 		
 		return loginUser;
 	}

@@ -40,9 +40,7 @@ angular.module('personPanel',[])
 			 * 显示编辑个人信息
 			 */
 			$scope.showEditPerson = function(){
-				$scope.editUser.id = $scope.currentUser.id;
-				$scope.editUser.name = $scope.currentUser.name;
-				$scope.editUser.remark = $scope.currentUser.remark;
+				$scope.editUser = _.cloneDeep($scope.currentUser);
 				$scope.toggleEdit(true);
 			};
 			
@@ -55,10 +53,8 @@ angular.module('personPanel',[])
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode == "200"){
-						$scope.initCurrentUser();//更新当前用户
-						$scope.toggleEdit(false);//关闭编辑
-						$scope.savePersonWait = false;
 						common.triggerSuccessMesg(data.message);
+						window.location.reload();
 					}else{
 						common.triggerFailMesg(data.message);
 					}

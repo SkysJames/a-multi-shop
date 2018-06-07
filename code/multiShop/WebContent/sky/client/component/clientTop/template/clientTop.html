@@ -85,5 +85,58 @@
 		</div>
 	</div>
 	<!-- 手机版底部栏end -->
+	
+	<!-- 侧边客服start -->
+	<div class="ct-right-fixed" data-ng-show="shopInfo">
+		<div class="ct-fixed-item ct-fixed-phone">
+			<i class="fa fa-wechat ct-service"></i>
+			<p>客服</p>
+			<div class="ct-phone">
+				<div class="ct-phone-container">
+					<div class="ct-phone-item">
+						<h4>{{shopInfo.name}}</h4>
+						<p>店长&nbsp;&nbsp;&nbsp;&nbsp;{{shopInfo.shopKeeper.name}}</p>
+					</div>
+					<div class="ct-phone-item">
+						<h4>店铺客服</h4>
+						<div class="ct-phone-row" data-ng-repeat="item in shopInfo.serviceUserList">
+							<p class="ct-phone-row-head" data-ng-click="toggleServiceUser(item)">
+								<label>客服{{$index+1}}</label>
+								<span>{{item.name}}</span>
+								<span class="dowm-up"><i class="fa" data-ng-class="{'fa-chevron-down': !item.isOpen, 'fa-chevron-up': item.isOpen}"></i></span>
+							</p>
+							<div data-ng-show="item.isOpen">
+								<p data-ng-show="item.wechat && item.wechat!=''">
+									<label>微信号</label>
+									<span>{{item.wechat}}</span>
+								</p>
+								<p data-ng-show="item.telephone && item.telephone!=''">
+									<label>手机号</label>
+									<a href="tel:{{item.telephone}}" target="_blank"><i class="fa fa-phone"></i>{{item.telephone}}</a>
+								</p>
+								<p data-ng-show="item.qq && item.qq!=''">
+									<label>Q&nbsp;&nbsp;&nbsp;&nbsp;Q</label>
+									<a href="http://wpa.qq.com/msgrd?v=3&uin={{item.qq}}&site=qq&menu=yes" target="_blank"><i class="fa fa-qq"></i>{{item.qq}}</a>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="ct-phone-item">
+						<h4>联系方式</h4>
+						<p>
+							<label>手机号</label>
+							<span>{{shopInfo.phone}}</span>
+						</p>
+						<p data-ng-show="shopInfo.wechatPathList && shopInfo.wechatPathList.length>0">
+							<label>公众号</label>
+							<img alt="" data-ng-src="{{shopInfo.wechatPathList|getImgByImgList}}">
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 侧边客服end -->
+	
 </div>
 
