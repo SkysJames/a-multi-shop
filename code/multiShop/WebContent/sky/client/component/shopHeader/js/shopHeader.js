@@ -20,17 +20,21 @@ angular.module('shopHeader',[])
 			$scope.currentUser = $currentUser;
 			
 			/**
-			 * 回到主页
+			 * 回到上一页
 			 */
-			$scope.toIndexPage = function(){
-				window.location.href = $contextPath;
+			$scope.toBackPage = function(){
+				window.history.go(-1);
 			};
 			
 			/**
 			 * 跳到搜索页面
 			 */
 			$scope.toSearchPage = function(){
-				window.location.href = "#/indexPage/keywords/" + $scope.keywords;
+				if($scope.keywords){
+					window.location.href = "#/indexPage/keywords/" + $scope.keywords;
+				}else{
+					window.location.href = "#/indexPage";
+				}
 			};
 			
 		}

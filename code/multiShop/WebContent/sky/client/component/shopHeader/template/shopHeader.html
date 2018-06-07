@@ -38,7 +38,7 @@
 			</form>
 			
 			<div class="sh-pc-announce">
-				<slide-announce ans-id="systemAnsId" ans-win-id="systemAnsWinId" index-ans="indexAns"></slide-announce>
+				<slide-announce ans-id="shopAnsPcId" ans-win-id="shopAnsWinId" index-ans="indexAns"></slide-announce>
 			</div>
 		</div>
 	</div>
@@ -46,15 +46,42 @@
 	
 	<!-- 手机端start -->
 	<div class="sh-phone">
-		<div class="sh-phone-return" data-ng-click="toIndexPage()"><i class="fa fa-chevron-left"></i></div>
-		<form class="sh-phone-search" data-ng-submit="toSearchPage()">
-			<div class="input-group">
-				<input class="form-control" type="search" placeholder="搜索 {{tableName | getKeyType}}" data-ng-model="keywords">
-				<div class="input-group-btn">
-					<button class="btn" type="submit" title="搜索">搜索</button>
+		<!-- 背景图 -->
+		<div class="sh-phone-bg" style="background-image: url({{shopInfo.picPathList|getImgByImgList}});"></div>
+		
+		<!-- 搜索框 -->
+		<div class="sh-phone-search">
+			<div class="sh-phone-return" data-ng-click="toBackPage()"><i class="fa fa-chevron-left"></i></div>
+			<form data-ng-submit="toSearchPage()">
+				<div class="input-group">
+					<input class="form-control" type="search" placeholder="搜索 商品" data-ng-model="keywords">
+					<div class="input-group-btn">
+						<button class="btn" type="submit" title="搜索">搜索</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		
+		<!-- 店铺信息 -->
+		<div class="sh-phone-head">
+			<img data-ng-src="{{shopInfo.logoPathList|getLogoByLogoList}}" alt="">
+			<div class="shop-name">
+				<h4 title="{{shopInfo.name}}">{{shopInfo.name}}</h4>
+				<div>
+					<span>人气&nbsp;{{shopInfo.popularity}}</span>
+					<span>评分&nbsp;{{shopInfo.mark}}</span>
+				</div>
+				<div>
+					<label class="recommend" data-ng-if="shopInfo.recommend==1">推荐</label>
+					<label title="{{shopInfo.shopKeeper.name}}">{{shopInfo.shopKeeper.name}}</label>
 				</div>
 			</div>
-		</form>
+		</div>
+		
+		<!-- 店铺公告 -->
+		<div class="sh-phone-announce">
+			<slide-announce ans-id="shopAnsPhoneId" ans-win-id="shopAnsWinId" index-ans="indexAns"></slide-announce>
+		</div>
 	</div>
 	<!-- 手机端end -->
 </div>

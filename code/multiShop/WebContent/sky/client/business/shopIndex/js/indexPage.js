@@ -5,6 +5,8 @@ function($timeout, $scope, $routeParams, $filter, $document, clientIndexHttpServ
 	$scope.routeParams = $routeParams;
 	//根作用域
 	$scope.shopIndexScope = angular.element($('#shopIndexId')).scope();
+	//搜索关键字
+	$scope.shopIndexScope.keywords = $routeParams.keywords?$routeParams.keywords:"";
 	//是否显示更多类型
 	$scope.isTypeMore = false;
 	//搜索条件对象
@@ -16,9 +18,11 @@ function($timeout, $scope, $routeParams, $filter, $document, clientIndexHttpServ
 			shopId		: shopId,//店铺ID
 			isOver		: "0",	//未过期
 			status		: common.productContants.status.ONTABLE,	//状态上架
-			keywords		: $routeParams.keywords,	//搜索关键字
+			keywords		: $routeParams.keywords?$routeParams.keywords:"",	//搜索关键字
 			proType		: $routeParams.type,//商品类型
 	};
+	//选中的导航
+	$scope.selectedNav = "index";
 	
 	
 	/**
@@ -76,6 +80,20 @@ function($timeout, $scope, $routeParams, $filter, $document, clientIndexHttpServ
 		//手机端的商品面板滚动事件
 		$(".sphone-product").scroll(function(){
 			var allHeight = $(".sphone-product .shoppro-content").height();
+			
+			//判断向下滚动是否大于0，且可扩大屏幕
+			if($(".sphone-product").scrollTop() > 0 
+					&& allHeight > ($(".sphone-product").height() + $(".sn-phone").height() + $(".sh-phone").height())){
+				$(".sh-phone").addClass("sh-phone-scroll");
+				$(".shop-index-page").addClass("shop-index-page-scroll");
+			}
+			
+			//判断是否滚动到div的顶部
+			if($(".sphone-product").scrollTop() == 0){
+				$(".sh-phone").removeClass("sh-phone-scroll");
+				$(".shop-index-page").removeClass("shop-index-page-scroll");
+			}
+			
 			//判断是否滚动到该div的底部
 			if($(".sphone-product").scrollTop() >= (allHeight - $(".sphone-product").height())){
 				$scope.loadMoreProduct();

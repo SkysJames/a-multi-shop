@@ -37,10 +37,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<shop-header shop-info="shopInfo" keywords="keywords" index-ans="indexAns"></shop-header>
 	<!-- 店铺名称，搜索框end -->
 	
-	<!-- 店铺导航start -->
-	<shop-nav selected-nav="selectedNav" type-list="typeList"></shop-nav>
-	<!-- 店铺导航end -->
-	
 	<!-- 路由部分start -->
 	<ng-view></ng-view>
 	<!-- 路由部分end -->
@@ -50,7 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- 页面底部end -->
 	
 	<!-- 公告消息模态框start -->
-	<slide-announce-model ans-win-id="systemAnsWinId" index-ans="indexAns"></slide-announce-model>
+	<slide-announce-model ans-win-id="shopAnsWinId" index-ans="indexAns"></slide-announce-model>
 	<!-- 公告消息模态框end -->
 	
   </body>

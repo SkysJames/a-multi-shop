@@ -14,7 +14,6 @@ angular.module('slideAnnounce',[])
 		controller:function($scope, $sce, $element, $document, $interval, $timeout, clientIndexHttpService){
 			$scope.sce = $sce;
 			$scope.slideGroup = $('.slide-group');
-			$scope.slides = $('.slide');
 			$scope.currentSlide = 0;
 			$scope.slideTotal = 0;
 			
@@ -29,6 +28,10 @@ angular.module('slideAnnounce',[])
 			};
 			
 			$scope.updateIndex = function() {
+				if($scope.ansId){
+					$scope.slideGroup = $('#' + $scope.ansId + ' .slide-group');
+				}
+				
 				if($scope.slideGroup[0]){
 					$scope.slideTotal = ($scope.slideGroup[0].clientHeight)/20 - 1;
 				}

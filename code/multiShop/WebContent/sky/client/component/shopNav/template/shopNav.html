@@ -12,7 +12,7 @@
 			</div>
 		</div>
 		<div class="col-sm-9 col-lg-10">
-			<a class="sn-nav" data-ng-class="{'active':selectedNav=='index'}" href="#/productPage">首页</a>
+			<a class="sn-nav" data-ng-class="{'active':selectedNav=='index'}" href="#/indexPage">首页</a>
 			<a class="sn-nav" data-ng-class="{'active':selectedNav=='about'}" href="javascript:void(0)">关于我们</a>
 			<a class="sn-nav" data-ng-class="{'active':selectedNav=='evaluate'}" href="javascript:void(0)">店铺评价</a>
 		</div>
@@ -20,7 +20,16 @@
 	<!-- PC端end -->
 	
 	<!-- 手机端start -->
-	<div class="sn-phone">
+	<div class="sn-phone row">
+		<div class="col-xs-4 sn-phone-nav" data-ng-class="{'active':selectedNav=='index'}">
+			<a href="#/indexPage">商品</a>
+		</div>
+		<div class="col-xs-4 sn-phone-nav" data-ng-class="{'active':selectedNav=='about'}">
+			<a href="javascript:void(0)">商家</a>
+		</div>
+		<div class="col-xs-4 sn-phone-nav" data-ng-class="{'active':selectedNav=='evaluate'}">
+			<a href="javascript:void(0)">评论</a>
+		</div>
 	</div>
 	<!-- 手机端end -->
 </div>

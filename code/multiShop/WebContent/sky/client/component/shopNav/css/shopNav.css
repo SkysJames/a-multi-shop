@@ -44,7 +44,23 @@
 }
 
 .sn-phone {
-	
+	display: none;
+    height: 40px;
+    line-height: 40px;
+	background-color: #fff;
+    border-bottom: 1px solid #efefef;
+}
+.sn-phone-nav {
+	text-align: center;
+    font-size: 15px;
+}
+.sn-phone-nav>a {
+	color: #888;
+	padding: 10px 8px;
+}
+.sn-phone-nav.active>a,.sn-phone-nav>a:hover {
+	color: #333;
+	border-bottom: 2px solid #ff0000;
 }
 
 @media screen and (max-width: 760px) {

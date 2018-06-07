@@ -1,15 +1,18 @@
-<div class="shop-index-page" data-ng-controller="indexPageCtrl">
-	<!-- 轮播图片start -->
+<div class="shop-index-page" data-ng-class="{'shop-index-page-search':routeParams.keywords}" data-ng-controller="indexPageCtrl">
+	<!-- 店铺导航start -->
+	<shop-nav selected-nav="selectedNav" type-list="shopIndexScope.typeList"></shop-nav>
+	<!-- 店铺导航end -->
+	
+	<!-- pc端的轮播图片start -->
 	<slide-show class="shop-only-pc" data-ng-show="!routeParams.keywords && !routeParams.type" 
 		table-name="tb_product" slide-list="slideList" slide-href-list="slideHrefList"></slide-show>
-  	<!-- 轮播图片end -->
+  	<!-- pc端的轮播图片end -->
   	
-  	<!-- 搜索条件start -->
-	<div class="shop-commodel shop-condition" data-ng-show="routeParams.keywords || routeParams.type">
-		<div class="scondition-header common-padding">
+  	<!-- pc端的搜索条件start -->
+	<div class="shop-commodel shop-condition shop-only-pc" data-ng-show="routeParams.keywords || routeParams.type">
+		<div class="scondition-header common-padding" data-ng-show="routeParams.keywords">
 			<h4>
-				<span class="scondition-all" data-ng-click="selectType(typeList[0])">全部商品</span>
-				<span data-ng-show="routeParams.keywords">&nbsp;>&nbsp;过滤：{{routeParams.keywords|showBlankValue}}</span>
+				<span>过滤：{{routeParams.keywords|showBlankValue}}</span>
 			</h4>
 		</div>
 		<div class="scondition-content common-padding">
@@ -31,7 +34,7 @@
 			</table>
 		</div>
 	</div>
-	<!-- 搜索条件end -->
+	<!-- pc端的搜索条件end -->
   	
   	<!-- 手机端的类型列表start -->
   	<div class="sphone-type shop-only-phone">

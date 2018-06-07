@@ -516,7 +516,7 @@ ul li {
 
 .sphone-type {
 	position: absolute;
-    top: 0px;
+    top: 40px;
     left: 0px;
     bottom: 0px;
     width: 20%;
@@ -541,7 +541,7 @@ ul li {
 @media screen and (max-width: 760px) {
 	.shop-index-page {
 		position: absolute;
-		top: 44px;
+		top: 186px;
 		bottom: 60px;
 		left: 0px;
 		right: 0px;
@@ -549,6 +549,10 @@ ul li {
 		-moz-transition: all .5s ease;
 		-o-transition: all .5s ease;
 		transition: all .5s ease;
+	}
+	.shop-index-page-search,.shop-index-page-scroll {
+		top: 44px;
+		z-index: 51;
 	}
 	
 	.shop-only-pc {
@@ -560,7 +564,7 @@ ul li {
 	
 	.sphone-product {
 		position: absolute;
-		top: 0px;
+		top: 40px;
 	    bottom: 0px;
 	    right: 0px;
 		left: 20%;
