@@ -1,4 +1,7 @@
-angular.module('shopIndexApp',["ngRoute","client-index.filter","client-index.httpService","indexPage.module"].concat($commonDirectiveList).concat($directiveList))
+angular.module('shopIndexApp',
+		["ngRoute","client-index.filter","client-index.httpService","indexPage.module","aboutPage.module","evaluatePage.module"]
+		.concat($commonDirectiveList).concat($directiveList)
+)
 .config(['$routeProvider', function($routeProvider){
 	var defaultUrl = "/indexPage";
 	 
@@ -13,6 +16,16 @@ angular.module('shopIndexApp',["ngRoute","client-index.filter","client-index.htt
 	//商品类型搜索
 	$routeProvider.when("/indexPage/type/:type",{
 		templateUrl	: $contextPath+'/sky/client/business/shopIndex/template/indexPage.html',
+	});
+	
+	//店铺商家页面
+	$routeProvider.when("/aboutPage",{
+		templateUrl	: $contextPath+'/sky/client/business/shopIndex/template/aboutPage.html',
+	});
+	
+	//店铺评价页面
+	$routeProvider.when("/evaluatePage",{
+		templateUrl	: $contextPath+'/sky/client/business/shopIndex/template/evaluatePage.html',
 	});
 	
 	$routeProvider.otherwise({

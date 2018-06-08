@@ -1,0 +1,75 @@
+<div class="shop-index-page" data-ng-controller="evaluatePageCtrl">
+	<!-- 店铺导航start -->
+	<shop-nav selected-nav="selectedNav" type-list="shopIndexScope.typeList"></shop-nav>
+	<!-- 店铺导航end -->
+	
+	<!-- 店铺评价主要内容start -->
+	<div class="se-content">
+		<div class="se-for-scroll">
+			<!-- 评分以及过滤start -->
+			<div class="se-filter">
+				<div class="se-mark row">
+					<div class="se-mark-real col-xs-3 col-sm-2">
+						<p>平均评分</p>
+						<h4>{{shopIndexScope.shopInfo.mark}}</h4>
+					</div>
+					<div class="se-mark-filter col-xs-9 col-sm-10">
+						<a data-ng-class="{'active': !condition.mark || condition.mark==''}" 
+							data-ng-click="selectMark('')" href="javascript:void(0)" >全部</a>
+						<a data-ng-class="{'active': condition.mark && condition.mark=='1'}" 
+							data-ng-click="selectMark('1')" href="javascript:void(0)" >1分</a>
+						<a data-ng-class="{'active': condition.mark && condition.mark=='2'}" 
+							data-ng-click="selectMark('2')" href="javascript:void(0)" >2分</a>
+						<a data-ng-class="{'active': condition.mark && condition.mark=='3'}" 
+							data-ng-click="selectMark('3')" href="javascript:void(0)" >3分</a>
+						<a data-ng-class="{'active': condition.mark && condition.mark=='4'}" 
+							data-ng-click="selectMark('4')" href="javascript:void(0)" >4分</a>
+						<a data-ng-class="{'active': condition.mark && condition.mark=='5'}" 
+							data-ng-click="selectMark('5')" href="javascript:void(0)" >5分</a>
+					</div>
+				</div>
+				<div class="se-radio-filter">
+					<label class="radio radio-inline">
+						<input type="radio" class="radiobox" value="" data-ng-model="condition.hasPic" data-ng-change="filterHasPic()">
+						<span>全部</span> 
+					</label>
+					<label class="radio radio-inline">
+						<input type="radio" class="radiobox" value="1" data-ng-model="condition.hasPic" data-ng-change="filterHasPic()">
+						<span>有图</span> 
+					</label>
+				</div>
+			</div>
+			<!-- 评分以及过滤end -->
+		
+			<!-- 评论列表start -->
+			<div class="se-evaluate">
+				<ul>
+					<li data-ng-repeat="item in evaluateList">
+						<div class="row">
+							<div class="col-xs-9 col-sm-10">
+								<p>{{item.content|showBlankValue}}</p>
+								<div data-ng-show="item.picPathList && item.picPathList.length>0">
+									<div class="superbox-list" data-ng-repeat="pic in item.picPathList" data-ng-click="showImagePanel(pic)">
+										<img data-ng-src="{{pic}}" alt="" class="superbox-img">
+									</div>
+								</div>
+								<small class="text-muted">{{item.createTime|formatDate}}</small>
+							</div>
+							<div class="col-xs-3 col-sm-2 text-right">
+								<p>{{item.userName|showBlankValue}}</p>
+								<span>评分：{{item.mark}}分</span>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<nodata-panel data-ng-show="!isLoadingEvaluate && evaluateList.length==0" font-size="18"></nodata-panel>
+				<loading-panel data-ng-show="isLoadingEvaluate" font-size="18"></loading-panel>
+				<common-pager page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
+					total-rows="condition.totalCount" to-page-call-back="pagedEvaluateList(pageNo)"></common-pager>
+			</div>
+			<!-- 评论列表end -->
+		</div>
+	</div>
+	<!-- 店铺评价主要内容end -->
+
+</div>

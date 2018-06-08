@@ -42,7 +42,7 @@ angular.module('clientTop',[])
 			 */
 			$scope.mouseNav = function(nav, isOver){
 				if(nav=="more" && isOver){
-					$(".ct-bottom-item-two").css("top", "-84px");
+					$(".ct-bottom-item-two").css("top", "-126px");
 					$(".ct-bottom-item-two").fadeIn();
 				}else{
 					$(".ct-bottom-item-two").fadeOut();

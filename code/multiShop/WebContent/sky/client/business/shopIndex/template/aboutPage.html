@@ -1,27 +1,25 @@
-<div data-ng-controller="indexPageCtrl">
+<div class="shop-index-page" data-ng-controller="aboutPageCtrl">
+	<!-- 店铺导航start -->
+	<shop-nav selected-nav="selectedNav" type-list="shopIndexScope.typeList"></shop-nav>
+	<!-- 店铺导航end -->
+	
 	<!-- 轮播图片start -->
-	<slide-show class="shop-slide" table-name="tb_product" type-list="typeList" slide-list="slideList" slide-href-list="slideHrefList" index-ans="indexAns"></slide-show>
+	<slide-show class="shop-only-pc" table-name="tb_product" slide-list="slideList" slide-href-list="slideHrefList" index-ans="indexAns"></slide-show>
   	<!-- 轮播图片end -->
   	
-  	<!-- 商品列表start -->
-  	<div class="index-commodel shop-product">
-  		<div class="shoppro-content">
-  			<ul>
-  				<li data-ng-repeat="item in productList" data-ng-click="">
-  					<div class="shoppro-img" style="background-image: url({{item.picPathList|getImgByImgList}})"></div>
-  					<div class="shoppro-con">
-  						<h3 title="{{item.price}}元">
-  							<i class="fa fa-rmb"></i>&nbsp;{{item.price}}
-  							<label title="浏览量：{{item.clickCount}}">浏览量：{{item.clickCount}}</label>
-  						</h3>
-  						<a title="{{item.name | showBlankValue}}" href="javascript:void(0)">{{item.name | showBlankValue}}</a>
-  						<p title="{{item.shopName | showBlankValue}}">{{item.shopName | showBlankValue}}</p>
-  					</div>
-  				</li>
-  			</ul>
+  	<!-- 商家详情start -->
+  	<div class="sa-content">
+  		<div class="sa-for-scroll">
+  			<!-- 商家基本信息start -->
+		  	<div class="sa-basic">
+		  		
+		  	</div>
+  			<!-- 商家基本信息end -->
+  			
+		  	<!-- 商家描述start -->
+	  		<div data-ng-bind-html="sce.trustAsHtml(shopIndexScope.shopInfo.description)"></div>
+		  	<!-- 商家描述end -->
   		</div>
   	</div>
-	<nodata-panel data-ng-show="!isLoadingProduct && productList.length==0" font-size="18"></nodata-panel>
-	<loading-panel data-ng-show="isLoadingProduct" font-size="18"></loading-panel>
-  	<!-- 商品列表end -->
+  	<!-- 商家详情end -->
 </div>

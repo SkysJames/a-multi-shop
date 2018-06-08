@@ -178,6 +178,7 @@ create table tb_evaluate
     PICTURE         varchar(2000) comment '相关图片路径，多个以,隔开',
     STATUS         	integer default 0 not null comment '状态：0 - 未发送；1 - 已发送未接收；2 - 已接收'
 );
+alter table tb_evaluate add index idx_tb_evaluate_ct_tn_oi_s_m(CREATE_TIME,TABLE_NAME,OBJ_ID,STATUS,MARK);
 
 
 /*
@@ -202,6 +203,7 @@ create table tb_product
     UPDATE_USER     varchar(36) comment '更新用户ID',
     STATUS			integer default 2 comment '状态：0-禁用；1-下架；2-上架'
 );
+alter table tb_product add index idx_tb_product_cc_s_si_pt(CLICK_COUNT,STATUS,SHOP_ID,PRO_TYPE);
 
 
 /*

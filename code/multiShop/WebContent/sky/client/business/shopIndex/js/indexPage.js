@@ -77,6 +77,10 @@ function($timeout, $scope, $routeParams, $filter, $document, clientIndexHttpServ
 		//分页获取商品列表
 		$scope.pagedProductList();
 		
+		//还原屏幕
+		$(".sh-phone").removeClass("sh-phone-scroll");
+		$(".shop-index-page").removeClass("shop-index-page-scroll");
+		
 		//手机端的商品面板滚动事件
 		$(".sphone-product").scroll(function(){
 			var allHeight = $(".sphone-product .shoppro-content").height();

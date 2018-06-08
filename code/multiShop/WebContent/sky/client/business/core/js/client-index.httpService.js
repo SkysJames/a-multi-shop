@@ -109,5 +109,16 @@ angular.module('client-index.httpService',[])
 		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
 	};
 	
+	/**
+	 * 分页获取评论列表
+	 */
+	this.pagedEvaluateList = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/shop/evaluate-visit!paged";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
 	
 });

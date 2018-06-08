@@ -57,5 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <!-- 导入相应的js -->
   <script type="text/javascript" src="${ contextPath }/sky/client/business/shopIndex/js/shopIndex.js"></script>
   <script type="text/javascript" src="${ contextPath }/sky/client/business/shopIndex/js/indexPage.js"></script>
+  <script type="text/javascript" src="${ contextPath }/sky/client/business/shopIndex/js/aboutPage.js"></script>
+  <script type="text/javascript" src="${ contextPath }/sky/client/business/shopIndex/js/evaluatePage.js"></script>
   
 </html>

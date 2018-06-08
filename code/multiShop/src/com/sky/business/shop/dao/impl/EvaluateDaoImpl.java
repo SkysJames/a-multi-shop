@@ -57,6 +57,20 @@ public class EvaluateDaoImpl extends BaseDaoImpl implements EvaluateDao {
 			values.add(CommonMethodUtil.getIntegerByObject(condition.get("status")));
 		}
 		
+		//前端店铺的评价状态（大于0，已发送状态）
+		if(condition.containsKey("clientStatus") && StringUtils.isNotBlank((String)condition.get("clientStatus"))){
+			hqlBuffer.append(" and status > ? ");
+			values.add(CommonMethodUtil.getIntegerByObject(condition.get("clientStatus")));
+		}
+		
+		//前端店铺的图片有无判断
+		if(condition.containsKey("hasPic") && StringUtils.isNotBlank((String)condition.get("hasPic"))){
+			Integer hasPic = CommonMethodUtil.getIntegerByObject(condition.get("hasPic"));
+			if(hasPic==1) {
+				hqlBuffer.append(" and picture is not null ");
+			}
+		}
+		
 		//关键字
 		if(condition.containsKey("keywords") && StringUtils.isNotBlank((String)condition.get("keywords"))){
 			String keywords = (String)condition.get("keywords");

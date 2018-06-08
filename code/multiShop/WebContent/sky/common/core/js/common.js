@@ -66,6 +66,17 @@ var common = {
 		},
 		
 		/**
+		 * 评论常量
+		 */
+		evaluateContants	: {
+			status	: {
+				NOSEND		: "0",//未发送
+				NORECEIVE	: "1",//已发送未接收
+				RECEIVED		: "2",//已接收
+			},
+		},
+		
+		/**
 		 * 类型常量
 		 */
 		typetContants		: {

@@ -22,7 +22,7 @@ public class ProductDaoImpl extends BaseDaoImpl implements ProductDao {
 
 	@Override
 	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
-		String sort = "updateTime desc";
+		String sort = "clickCount desc";
 		
 		//排序
 		if(condition.containsKey("sort") && StringUtils.isNotBlank((String)condition.get("sort"))){
