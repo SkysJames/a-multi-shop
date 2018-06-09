@@ -27,7 +27,7 @@ var clientCommon = {
  */
 $(document).click(function(){
 	//令手机端底部的二级菜单消失
-    $(".ct-bottom-item-two").hide();
+	$(".ct-bottom-item-two").fadeOut();
     //令手机端右边客服弹出框消失
     $(".ct-phone").removeClass("ct-phone-show");
 });

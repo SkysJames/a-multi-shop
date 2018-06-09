@@ -148,7 +148,7 @@
 .ct-bottom-item-two {
 	position: absolute;
     text-align: left;
-    min-width: 100%;
+    min-width: 100px;
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 2px;
