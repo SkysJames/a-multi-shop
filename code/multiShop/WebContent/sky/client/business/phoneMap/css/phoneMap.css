@@ -1,0 +1,29 @@
+@CHARSET "UTF-8";
+.phone-map {
+	position: absolute;
+	top: 40px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+}
+
+.pmap-header {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	height: 40px;
+	line-height: 40px;
+	background-color: #ff0000;
+	color: #fff;
+}
+.pmap-header h4 {
+	margin: 0px;
+    text-align: center;
+}
+.pmap-return {
+	position: absolute;
+	left:10px;
+	z-index: 99;
+	color: #fff;
+}

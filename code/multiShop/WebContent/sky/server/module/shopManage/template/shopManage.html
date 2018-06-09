@@ -68,6 +68,7 @@
 										<span class="need-tab">*</span>
 									</div>
 								</div>
+								
 								<div class="form-group">
 									<label class="col-md-2 control-label">电话号码：</label>
 									<div class="col-md-10 common-value" data-ng-show="!isEdit">{{shopInfo.phone|showBlankValue}}</div>
@@ -156,7 +157,13 @@
 									<div class="col-md-10 common-value" data-ng-show="!isEdit">{{shopInfo.address|showBlankValue}}</div>
 									<div class="col-md-10" data-ng-show="isEdit">
 										<input class="form-control" type="text" placeholder="店铺地址" data-ng-model="shopInfo.address">
-										<!-- 此处地图 -->
+									</div>
+									<div class="col-md-offset-2 col-md-10">
+										<div class="input-btext">
+											<span>经度：{{shopInfo.longitude}}</span>
+											<span>纬度：{{shopInfo.latitude}}</span>
+										</div>
+										<div class="input-bmap" id="addressMap"></div>
 									</div>
 								</div>
 								<div class="form-group">

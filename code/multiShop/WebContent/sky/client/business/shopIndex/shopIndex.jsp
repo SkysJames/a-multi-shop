@@ -18,6 +18,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">
     
+	<!-- 百度地图js -->
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=7O3offVwYRhf9ll0xafEnBQLG06YGBCe"></script>
+    
     <%
 	String shopId = (String)request.getAttribute("shopId");
 	Boolean shopAbout = (Boolean)request.getAttribute("shopAbout");

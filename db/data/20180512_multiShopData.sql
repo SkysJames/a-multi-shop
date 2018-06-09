@@ -30,6 +30,8 @@ Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('wechat_pic', 'system', '', 0, '微信公众号二维码，多个以,隔开', 0);
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('service_time', 'system', '9:30-18:30', 0, '服务时间', 0);
+Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
+ Values ('default_bmap', 'system', '113.273154,23.146502', 0, '默认的百度地图经纬度', 0);
 
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('forum_name', 'forum', '论坛名称', 0, '论坛名称', 1);

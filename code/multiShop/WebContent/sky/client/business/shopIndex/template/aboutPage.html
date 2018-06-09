@@ -10,15 +10,49 @@
   	<!-- 商家详情start -->
   	<div class="sa-content">
   		<div class="sa-for-scroll">
-  			<!-- 商家基本信息start -->
+		  	<!-- 商家描述start -->
+	  		<div data-ng-show="shopIndexScope.shopInfo.description && shopIndexScope.shopInfo.description.length>0" 
+	  			data-ng-bind-html="sce.trustAsHtml(shopIndexScope.shopInfo.description)"></div>
+		  	<!-- 商家描述end -->
+		  	
+		  	<!-- 商家基本信息start -->
 		  	<div class="sa-basic">
-		  		
+		  		<h4>基本信息</h4>
+		  		<div class="sa-basic-container">
+			  		<div class="sa-basic-row">
+			  			<div class="sa-basic-td">店铺店长</div>
+			  			<div class="sa-basic-td">{{shopIndexScope.shopInfo.shopKeeper.name}}</div>
+			  		</div>
+			  		<div class="sa-basic-row">
+			  			<div class="sa-basic-td">联系电话</div>
+			  			<div class="sa-basic-td">
+			  				<span class="shop-only-pc">{{shopIndexScope.shopInfo.phone}}</span>
+			  				<a class="shop-only-phone" href="tel:{{shopIndexScope.shopInfo.phone}}">
+				  				<i class="fa fa-phone"></i>&nbsp;{{shopIndexScope.shopInfo.phone}}
+			  				</a>
+			  			</div>
+			  		</div>
+			  		<div class="sa-basic-row">
+			  			<div class="sa-basic-td">店铺简介</div>
+			  			<div class="sa-basic-td">{{shopIndexScope.shopInfo.brief|showBlankValue}}</div>
+			  		</div>
+			  		<div class="sa-basic-row">
+			  			<div class="sa-basic-td">店铺地址</div>
+			  			<div class="sa-basic-td">
+			  				<a class="shop-only-pc" href="javascript:void(0)" data-ng-click="mapShopPosition()" title="点击定位">
+				  				<i class="fa fa-map-marker"></i>&nbsp;&nbsp;{{shopIndexScope.shopInfo.address|showBlankValue}}
+			  				</a>
+			  				<a class="shop-only-phone" href="javascript:void(0)" data-ng-click="toPhoneMap()">
+				  				<i class="fa fa-map-marker"></i>&nbsp;{{shopIndexScope.shopInfo.address|showBlankValue}}
+			  				</a>
+			  			</div>
+			  		</div>
+			  		<div class="sa-basic-row shop-only-pc">
+			  			<div id="shopMap" class="sa-basic-map"></div>
+			  		</div>
+		  		</div>
 		  	</div>
   			<!-- 商家基本信息end -->
-  			
-		  	<!-- 商家描述start -->
-	  		<div data-ng-bind-html="sce.trustAsHtml(shopIndexScope.shopInfo.description)"></div>
-		  	<!-- 商家描述end -->
   		</div>
   	</div>
   	<!-- 商家详情end -->

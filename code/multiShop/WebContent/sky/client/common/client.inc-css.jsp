@@ -50,6 +50,10 @@
 	
 	String serviceTime = SysParameterUtil.getStringValue("service_time", "");
 	pageContext.setAttribute("serviceTime", serviceTime);
+	
+	//默认百度地图经纬度
+	String defaultBmap = SysParameterUtil.getStringValue("default_bmap", "");
+	pageContext.setAttribute("defaultBmap", StringUtils.isNotBlank(defaultBmap)?defaultBmap:"113.273154,23.146502");
 %>
 <!-- 初始化全局参数 -->
 <script type="text/javascript">
@@ -71,6 +75,7 @@ var $email = '${ email }';//邮箱地址
 var $qq = '${ qq }';//qq号码
 var $wechatPic = '${ wechatPic }';//微信公众号二维码
 var $serviceTime = '${ serviceTime }';//服务时间
+var $defaultBmaps = '${ defaultBmap }'.split(",");//默认百度地图经纬度
 </script>
 
 <!-- 导入外部插件 -->

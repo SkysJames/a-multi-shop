@@ -18,13 +18,19 @@
 	String systemLogo = SysParameterUtil.getStringValue("system_logo", "");
 	pageContext.setAttribute("systemLogo", StringUtils.isNotBlank(systemLogo)?systemLogo:(request.getContextPath() + "/sky/common/core/img/system_logo.png"));
 	
+	//默认百度地图经纬度
+	String defaultBmap = SysParameterUtil.getStringValue("default_bmap", "");
+	pageContext.setAttribute("defaultBmap", StringUtils.isNotBlank(defaultBmap)?defaultBmap:"113.273154,23.146502");
+	
 	pageContext.setAttribute("opTypeMap", JsonUtil.toJson(EntityContants.OplogContants.actionMaps));
 	
 %>
 <!-- 初始化全局参数 -->
 <script type="text/javascript">
 var $contextPath = '${ contextPath }';//上下文地址
+var $systemName = '${ systemName }';//系统名称
 var $currentUser = JSON.parse('${ JsonUtil.toJson(loginUser) }');//当前登录用户
+var $defaultBmaps = '${ defaultBmap }'.split(",");//默认百度地图经纬度
 var $opTypeMap = JSON.parse('${ opTypeMap }');//日志类型map
 </script>
 

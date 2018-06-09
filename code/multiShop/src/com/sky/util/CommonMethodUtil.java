@@ -37,7 +37,6 @@ public class CommonMethodUtil {
 				in = ((BigDecimal)object).intValue();
 			}
 		}
-		
 		return in;
 	}
 	
@@ -60,7 +59,26 @@ public class CommonMethodUtil {
 				in = new BigDecimal((Float)object);
 			}
 		}
+		return in;
+	}
+	
+	/**
+	 * 将object转为Double类型
+	 * @param object
+	 * @return
+	 */
+	public static Double getDoubleByObject(Object object){
+		Double in = null;
 		
+		if(object!=null){
+			if(object instanceof Double){
+				in = (Double)object;
+			}else if(object instanceof String){
+				in = new Double((String)object);
+			}else if(object instanceof Float){
+				in = new Double((Float)object);
+			}
+		}
 		return in;
 	}
 	

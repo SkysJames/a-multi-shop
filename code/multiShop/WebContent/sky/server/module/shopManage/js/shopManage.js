@@ -12,9 +12,75 @@ function($timeout, $scope, $sce, $filter, $document, serverIndexHttpService){
 	 */
 	$scope.toggleEdit = function(isEdit){
 		$scope.isEdit = isEdit;
-		if(!$scope.isEdit){
+		if(!$scope.isEdit){//不可编辑状态
 			$scope.shopInfo = _.cloneDeep($scope.shopInfoBak);
+			$scope.toggleMapClick(false);
+		}else{//编辑状态
+			$scope.toggleMapClick(true);
 		}
+	};
+	
+	/**
+	 * 切换地图是否可点击
+	 */
+	$scope.toggleMapClick = function(isClick){
+		//判断地图是否存在
+		if($scope.addressMap){
+			if(isClick){
+				//关闭地图打开的信息窗口
+				$scope.addressMap.closeInfoWindow();
+				//地图滚动缩放
+				$scope.addressMap.enableScrollWheelZoom();
+				//地图滚动惯性缩放
+				$scope.addressMap.enableContinuousZoom();
+				//地图惯性拖拽
+				$scope.addressMap.enableInertialDragging();
+				//添加城市列表搜索
+				$scope.addressMap.addControl($scope.cityControl);
+				//添加地图的点击事件
+				$scope.addressMap.addEventListener("click",function(e){
+					$timeout(function(){
+						$scope.shopInfo.longitude = e.point.lng;
+						$scope.shopInfo.latitude = e.point.lat;
+						
+						//删除原来的定位
+						$scope.addressMap.removeOverlay($scope.addressMarker);
+						//创建新的定位
+						$scope.addressPoint = new BMap.Point($scope.shopInfo.longitude, $scope.shopInfo.latitude);
+						$scope.addressMarker = new BMap.Marker($scope.addressPoint);
+						$scope.addressMap.addOverlay($scope.addressMarker);
+					}, 100);
+				});
+			}else{
+				if(!$scope.shopInfo.longitude || !$scope.shopInfo.latitude){
+					$scope.shopInfo.longitude = $defaultBmaps[0];
+					$scope.shopInfo.latitude = $defaultBmaps[1];
+				}
+				
+				//地图滚动缩放
+				$scope.addressMap.disableScrollWheelZoom();
+				//地图滚动惯性缩放
+				$scope.addressMap.disableContinuousZoom();
+				//地图惯性拖拽
+				$scope.addressMap.disableInertialDragging();
+				//添加城市列表搜索
+				$scope.addressMap.removeControl($scope.cityControl);
+				//移除地图的点击事件
+				$scope.addressMap.removeEventListener("click");
+				
+				//店铺的定位图标
+				$scope.addressPoint = new BMap.Point($scope.shopInfo.longitude, $scope.shopInfo.latitude);
+				$scope.addressMarker = new BMap.Marker($scope.addressPoint);
+				$scope.addressMap.centerAndZoom($scope.addressPoint, 18);
+				$scope.addressMap.addOverlay($scope.addressMarker);
+				//图标的点击事件
+				$scope.addressMarker.addEventListener("click", function(){
+					var infoWindow = new BMap.InfoWindow($scope.shopInfo.address, {title:$scope.shopInfo.name});
+					$scope.addressMap.openInfoWindow(infoWindow, $scope.addressPoint);
+				});
+			}
+		}
+		
 	};
 	
 	/**
@@ -35,7 +101,10 @@ function($timeout, $scope, $sce, $filter, $document, serverIndexHttpService){
 					$scope.shopInfo.serviceUserIds = [];
 				}
 				
-				$scope.shopInfoBak = _.cloneDeep($scope.shopInfo);//备份
+				//备份
+				$scope.shopInfoBak = _.cloneDeep($scope.shopInfo);
+				//初始化店铺地址地图
+				$scope.initMap();
 				
 				$scope.isLoadingShopInfo = false;
 			}else{
@@ -164,6 +233,27 @@ function($timeout, $scope, $sce, $filter, $document, serverIndexHttpService){
 	 */
 	$scope.openNewPage = function(url){
 		common.toPage(url);
+	};
+	
+	/**
+	 * 初始化地址地图
+	 */
+	$scope.initMap = function(){
+		$scope.addressMap = new BMap.Map("addressMap");
+		
+		//添加可见的缩放控件
+		$scope.addressMap.addControl(new BMap.NavigationControl());
+		//添加当前地图的缩放比例
+		$scope.addressMap.addControl(new BMap.ScaleControl({anchor: BMAP_ANCHOR_TOP_LEFT}));
+		
+		//城市列表控件
+		$scope.cityControl = new BMap.CityListControl({
+		    anchor: BMAP_ANCHOR_TOP_RIGHT,
+		    offset: new BMap.Size(10, 20),
+		})
+		
+		//初始化原无点击事件的地图
+		$scope.toggleMapClick(false);
 	};
 	
 	/**

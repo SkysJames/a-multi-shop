@@ -20,6 +20,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
     <title>${systemName }管理系统</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    
+    <!-- 百度地图js -->
+  	<script type="text/javascript" src="http://api.map.baidu.com/api?v=3.0&ak=7O3offVwYRhf9ll0xafEnBQLG06YGBCe"></script>
     
   </head>
   

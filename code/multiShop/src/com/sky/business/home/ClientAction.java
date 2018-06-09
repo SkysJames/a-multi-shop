@@ -86,7 +86,7 @@ public class ClientAction extends BaseAction {
 		
 		return SUCCESS;
 	}
-
+	
 	//Getters and Setters
 	public LoginUser getLoginUser() {
 		return loginUser;

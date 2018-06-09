@@ -102,3 +102,17 @@
     margin-left: 5px;
     color: red;
 }
+
+.input-btext {
+	margin-top: 10px;
+}
+.input-btext span {
+	margin-right: 12px;
+}
+.input-bmap {
+	width: 90%;
+	height: 420px;
+	margin-top: 5px;
+	margin-bottom: 15px;
+}
+

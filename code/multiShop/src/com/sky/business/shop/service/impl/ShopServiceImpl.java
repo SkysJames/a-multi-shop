@@ -86,6 +86,12 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		if(editObj.containsKey("address")){
 			shop.setAddress((String)editObj.get("address"));
 		}
+		if(editObj.containsKey("longitude")){
+			shop.setLongitude(CommonMethodUtil.getDoubleByObject(editObj.get("longitude")));
+		}
+		if(editObj.containsKey("latitude")){
+			shop.setLatitude(CommonMethodUtil.getDoubleByObject(editObj.get("latitude")));
+		}
 		if(editObj.containsKey("remark")){
 			shop.setRemark((String)editObj.get("remark"));
 		}
@@ -184,6 +190,12 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		}
 		if(addObj.containsKey("address")){
 			shop.setAddress((String)addObj.get("address"));
+		}
+		if(addObj.containsKey("longitude")){
+			shop.setLongitude(CommonMethodUtil.getDoubleByObject(addObj.get("longitude")));
+		}
+		if(addObj.containsKey("latitude")){
+			shop.setLatitude(CommonMethodUtil.getDoubleByObject(addObj.get("latitude")));
 		}
 		if(addObj.containsKey("remark")){
 			shop.setRemark((String)addObj.get("remark"));
