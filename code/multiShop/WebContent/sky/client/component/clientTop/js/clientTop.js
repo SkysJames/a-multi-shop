@@ -42,10 +42,21 @@ angular.module('clientTop',[])
 			 */
 			$scope.mouseNav = function(nav, isOver){
 				if(nav=="more" && isOver){
-					$(".ct-bottom-item-two").css("top", "-126px");
+					$(".ct-bottom-item-two").css("top", "-125px");
 					$(".ct-bottom-item-two").fadeIn();
 				}else{
 					$(".ct-bottom-item-two").fadeOut();
+				}
+			}
+			
+			/**
+			 * 鼠标移过客服
+			 */
+			$scope.mouseService = function(isOver){
+				if(isOver){
+					$(".ct-phone").addClass("ct-phone-show");
+				}else{
+					$(".ct-phone").removeClass("ct-phone-show");
 				}
 			}
 			
@@ -72,10 +83,10 @@ angular.module('clientTop',[])
 				}
 			};
 			
-			//点击自己则不消失，即停止冒泡事件
-			$(".ct-bottom-item-two").click(function(event){
-				event.stopPropagation();
-			});
+//			//点击自己则不消失，即停止冒泡事件
+//			$(".ct-bottom-item-two").click(function(event){
+//				event.stopPropagation();
+//			});
 		}
 	};
 });
