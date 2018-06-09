@@ -83,10 +83,17 @@ angular.module('clientTop',[])
 				}
 			};
 			
-//			//点击自己则不消失，即停止冒泡事件
-//			$(".ct-bottom-item-two").click(function(event){
-//				event.stopPropagation();
-//			});
+			/**
+			 * 点击自己则不消失，即停止冒泡事件
+			 */
+			//导航对象
+			$(".ct-bottom-item-two").click(function(event){
+				event.stopPropagation();
+			});
+			//客服
+			$(".ct-phone").click(function(event){
+				event.stopPropagation();
+			});
 		}
 	};
 });

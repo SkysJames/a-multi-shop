@@ -37,6 +37,11 @@ angular.module('shopHeader',[])
 			 * 跳到搜索页面
 			 */
 			$scope.toSearchPage = function(){
+				if(shopAbout){
+					common.triggerFailMesg("此店铺无商品可搜索");
+					return;
+				}
+				
 				if($scope.keywords){
 					window.location.href = "#/indexPage/keywords/" + $scope.keywords;
 				}else{
