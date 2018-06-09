@@ -4,6 +4,11 @@ angular.module('shopIndexApp',
 )
 .config(['$routeProvider', function($routeProvider){
 	var defaultUrl = "/indexPage";
+	
+	//判断是否首页为商家信息
+	if(shopAbout){
+		defaultUrl = "/aboutPage";
+	}
 	 
 	//店铺首页
 	$routeProvider.when("/indexPage",{

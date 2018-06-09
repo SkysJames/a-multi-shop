@@ -12,16 +12,22 @@
 			</div>
 		</div>
 		<div class="col-sm-9 col-lg-10">
-			<a class="sn-nav" data-ng-class="{'active':selectedNav=='index'}" href="#/indexPage">首页</a>
-			<a class="sn-nav" data-ng-class="{'active':selectedNav=='about'}" href="#/aboutPage">关于我们</a>
-			<a class="sn-nav" data-ng-class="{'active':selectedNav=='evaluate'}" href="#/evaluatePage">店铺评价</a>
+			<div data-ng-show="!shopAbout">
+				<a class="sn-nav" data-ng-class="{'active':selectedNav=='index'}" href="#/indexPage">首页</a>
+				<a class="sn-nav" data-ng-class="{'active':selectedNav=='about'}" href="#/aboutPage">关于我们</a>
+				<a class="sn-nav" data-ng-class="{'active':selectedNav=='evaluate'}" href="#/evaluatePage">店铺评价</a>
+			</div>
+			<div data-ng-show="shopAbout">
+				<a class="sn-nav" data-ng-class="{'active':selectedNav=='about'}" href="#/aboutPage">首页</a>
+				<a class="sn-nav" data-ng-class="{'active':selectedNav=='evaluate'}" href="#/evaluatePage">店铺评价</a>
+			</div>
 		</div>
 	</div>
 	<!-- PC端end -->
 	
 	<!-- 手机端start -->
 	<div class="sn-phone row">
-		<div class="col-xs-4 sn-phone-nav" data-ng-class="{'active':selectedNav=='index'}">
+		<div class="col-xs-4 sn-phone-nav" data-ng-class="{'active':selectedNav=='index'}" data-ng-show="!shopAbout">
 			<a href="#/indexPage">商品</a>
 		</div>
 		<div class="col-xs-4 sn-phone-nav" data-ng-class="{'active':selectedNav=='about'}">

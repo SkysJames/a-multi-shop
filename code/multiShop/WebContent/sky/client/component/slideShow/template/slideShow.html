@@ -19,7 +19,7 @@
 	<!-- 类型 end -->
 	
 	<!-- 轮播 start -->
-	<div id="banner_tabs" class="flexslider">
+	<div id="banner_tabs" class="flexslider" data-ng-show="slideList && slideList.length>0">
 		<ul class="slides">
 			<li data-ng-repeat="slide in slideList" data-ng-click="toUrl(slideHrefList[$index]?slideHrefList[$index]:slide)">
 				<a title="">

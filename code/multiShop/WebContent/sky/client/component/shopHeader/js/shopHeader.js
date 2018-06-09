@@ -20,6 +20,13 @@ angular.module('shopHeader',[])
 			$scope.currentUser = $currentUser;
 			
 			/**
+			 * 回到主页
+			 */
+			$scope.toIndexPage = function(){
+				window.location.href = $contextPath;
+			};
+			
+			/**
 			 * 回到上一页
 			 */
 			$scope.toBackPage = function(){

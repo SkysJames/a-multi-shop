@@ -11,6 +11,9 @@ angular.module('shopNav',[])
 			
 		},
 		controller : function($scope, $timeout, $filter, $document, clientIndexHttpService){
+			//是否首页就为关于我们
+			$scope.shopAbout = shopAbout;
+			
 			/**
 			 * 鼠标移过分类对象
 			 */
