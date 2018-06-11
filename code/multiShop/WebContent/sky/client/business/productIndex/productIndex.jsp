@@ -37,7 +37,64 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<!-- 商品信息部分start -->
 	<div class="pindex-container">
+		<!-- PC端的商品基本信息start -->
+		<div class="pindex-basic shop-only-pc">
+			<div class="pindex-left">
+				<div class="pindex-imgbig" style="background-image: url({{selectedImg|getImgUrl}})"></div>
+				<div class="pindex-imgs" data-ng-show="!productInfo.picPathList || productInfo.picPathList.length==0">
+					<ul>
+						<li><img alt="暂无图片" data-ng-src="{{null|getImgUrl}}"></li>
+					</ul>
+				</div>
+				<div class="pindex-imgs" data-ng-show="productInfo.picPathList && productInfo.picPathList.length>0">
+					<ul>
+						<li data-ng-repeat="item in productInfo.picPathList" data-ng-class="{'active': selectedImg==item}" 
+							data-ng-mouseover="selectImg(item)"><img style="background-image: url({{item|getImgUrl}})"></li>
+					</ul>
+				</div>
+				<div class="pindex-share">
+					<a href="javascript:void(0)"><i class="fa fa-star"></i>&nbsp;收藏商品</a>
+					<a href="javascript:void(0)"><i class="fa fa-share-alt"></i>&nbsp;分享</a>
+				</div>
+			</div>
+			<div class="pindex-right">
+				<h4>{{productInfo.name}}</h4>
+				<p data-ng-show="productInfo.brief && productInfo.brief.length>0">{{productInfo.brief}}</p>
+				<div class="pindex-row price-row">
+					<div class="pindex-td">价格</div>
+					<div class="pindex-td pindex-price"><i class="fa fa-rmb"></i>&nbsp;<span>{{productInfo.price}}</span></div>
+				</div>
+				<div class="pindex-row">
+					<div class="pindex-td">浏览量</div>
+					<div class="pindex-td">{{productInfo.clickCount}}</div>
+				</div>
+				<div class="pindex-row">
+					<div class="pindex-td">库存</div>
+					<div class="pindex-td">{{productInfo.proStock}}</div>
+				</div>
+				<div class="pindex-row">
+					<a href="javascript:void(0)" data-ng-click="toShopPage()">点击进入店铺</a>
+				</div>
+				<div class="pindex-row">
+					<button data-ng-show="productInfo.status==2">加入购物车</button>
+					<button data-ng-show="productInfo.status!=2" class="pro-down">商品已下架</button>
+				</div>
+			</div>
+		</div>
+		<!-- PC端的商品基本信息end -->
 		
+		<!-- 手机端的商品基本信息start -->
+		<div class="pindex-basic shop-only-phone">
+			手机端的商品基本信息
+		</div>
+		<!-- 手机端的商品基本信息end -->
+		
+		<!-- 商品详情start -->
+		<div class="pindex-description" data-ng-show="productInfo.description && productInfo.description.length>0">
+			<h4>详情描述</h4>
+			<div data-ng-bind-html="sce.trustAsHtml(productInfo.description)"></div>	
+		</div>
+		<!-- 商品详情end -->
 	</div>
 	<!-- 商品信息部分end -->
 	

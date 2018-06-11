@@ -55,6 +55,18 @@ angular.module('client-index.filter',[])
 /**
  * 获取图片的url
  */
+.filter('getImgUrl',function(){
+	return function(url){
+		if(url && url.length>0){
+			return url;
+		}
+		return $contextPath + "/sky/common/core/img/no_pic.jpeg";
+	};
+})
+
+/**
+ * 在url列表中获取第一个图片的url
+ */
 .filter('getImgByImgList',function(){
 	return function(imgList){
 		if(imgList && imgList.length>0){

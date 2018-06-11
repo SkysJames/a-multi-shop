@@ -2,10 +2,13 @@ angular.module('productIndexApp',
 		["client-index.filter","client-index.httpService"]
 		.concat($commonDirectiveList).concat($directiveList)
 )
-.controller("productIndexCtrl",['$timeout', '$scope', '$document', 'clientIndexHttpService', 
-function($timeout, $scope, $document, clientIndexHttpService){
+.controller("productIndexCtrl",['$timeout', '$scope', '$sce', '$filter', '$document', 'clientIndexHttpService', 
+function($timeout, $scope, $sce, $filter,$document, clientIndexHttpService){
+	$scope.sce = $sce;
 	//商品信息
 	$scope.productInfo = {};
+	//被选中查看的商品图
+	$scope.selectedImg = "";
 	
 	
 	/**
@@ -23,10 +26,24 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	};
 	
 	/**
+	 * 跳到店铺页面
+	 */
+	$scope.toShopPage = function(){
+		window.location.href = $contextPath + '/home/shop-index?shopId=' + $scope.shopInfo.id;
+	};
+	
+	/**
 	 * 当前页面跳到指定位置
 	 */
 	$scope.scrollTo = function(target){
 		common.scrollTo(target);
+	};
+	
+	/**
+	 * 选中相应的商品图
+	 */
+	$scope.selectImg = function(url){
+		$scope.selectedImg = url;
 	};
 	
 	/**
@@ -43,9 +60,16 @@ function($timeout, $scope, $document, clientIndexHttpService){
 			$scope.productInfo = response.data.product;
 			
 			if($scope.productInfo){
+				//命名浏览器标题
 				$("title").text($scope.productInfo.shopName);
+				//设置被选中的商品图
+				$scope.selectedImg = $filter("getImgByImgList")($scope.productInfo.picPathList);
+				//获取该商品的店铺
 				$scope.getShopInfo($scope.productInfo.shopId);
+				//增加浏览量
 				clientIndexHttpService.addProClickCount($scope.productInfo.id);
+				
+				$(".pindex-container").fadeIn();
 			}else{
 				common.triggerFailMesg("该商品已不存在");
 			}

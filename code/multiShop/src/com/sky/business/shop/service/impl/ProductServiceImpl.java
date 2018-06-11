@@ -51,6 +51,9 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 		if(addObj.containsKey("proType")){
 			product.setProType((String)addObj.get("proType"));
 		}
+		if(addObj.containsKey("brief")){
+			product.setBrief((String)addObj.get("brief"));
+		}
 		if(addObj.containsKey("description")){
 			product.setDescription((String)addObj.get("description"));
 		}
@@ -111,6 +114,9 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 		}
 		if(editObj.containsKey("proType")){
 			product.setProType((String)editObj.get("proType"));
+		}
+		if(editObj.containsKey("brief")){
+			product.setBrief((String)editObj.get("brief"));
 		}
 		if(editObj.containsKey("description")){
 			product.setDescription((String)editObj.get("description"));

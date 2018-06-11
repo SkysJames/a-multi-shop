@@ -148,7 +148,7 @@
 .ct-bottom-item-two {
 	position: absolute;
     text-align: left;
-    min-width: 100px;
+    min-width: 100%;
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 2px;
@@ -380,6 +380,12 @@
 	
 	body {
 		padding-bottom: 60px;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	.ct-bottom-item-two {
+	    min-width: 100px;
 	}
 }
 

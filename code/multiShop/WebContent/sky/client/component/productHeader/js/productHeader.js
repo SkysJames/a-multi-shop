@@ -31,13 +31,6 @@ angular.module('productHeader',[])
 				window.history.go(-1);
 			};
 			
-			/**
-			 * 跳到店铺页面
-			 */
-			$scope.toShopPage = function(){
-				window.location.href = $contextPath + '/home/shop-index?shopId=' + $scope.shopInfo.id;
-			};
-			
 		}
 	};
 });
