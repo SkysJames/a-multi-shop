@@ -27,8 +27,8 @@ var lng = reqObj.lng?reqObj.lng:"113.383897";
 var lat = reqObj.lat?reqObj.lat:"23.13188";
 
 //设置标题
-$(".pmap-header h4").text(title);
 $("title").text(title);
+$(".pmap-header h4").text(title);
 
 //百度地图
 var pmap = new BMap.Map("phoneMap");
@@ -42,8 +42,13 @@ pmap.addControl(new BMap.ZoomControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, offset: 
 //店铺的定位图标
 var point = new BMap.Point(lng, lat);
 var marker = new BMap.Marker(point);
-pmap.centerAndZoom(point, 14);
+pmap.centerAndZoom(point, 12);
 pmap.addOverlay(marker);
+
+//标题头的点击事件
+$(".pmap-header h4").click(function(){
+	pmap.centerAndZoom(point, 12);
+});
 
 ////图标的点击事件
 //marker.addEventListener("click", function(){

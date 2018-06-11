@@ -154,6 +154,10 @@ public class CommonMethodUtil {
 		
 		if(list != null) {
 			for(String s : list) {
+				if(StringUtils.isBlank(s)) {
+					s = "";
+				}
+				
 				str += s + ",";
 			}
 			if(str.length() > 0) {

@@ -20,6 +20,7 @@
 .pmap-header h4 {
 	margin: 0px;
     text-align: center;
+    cursor: pointer;
 }
 .pmap-return {
 	position: absolute;
