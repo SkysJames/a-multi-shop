@@ -40,8 +40,6 @@ angular.module('shopIndexApp',
 }])
 .controller("shopIndexCtrl",['$timeout', '$scope', '$document', 'clientIndexHttpService', 
 function($timeout, $scope, $document, clientIndexHttpService){
-	//选中的导航
-	$scope.selectedNav = "index";
 	//店铺轮播图片
 	$scope.slideList = clientCommon.demoSliders;
 	//店铺轮播图片链接
@@ -79,6 +77,10 @@ function($timeout, $scope, $document, clientIndexHttpService){
 				$scope.slideHrefList = $scope.shopInfo.picHrefList;
 				
 				//其他操作
+				$("title").text($scope.shopInfo.name);
+				clientIndexHttpService.addShopPopularity($scope.shopInfo.id);
+			}else{
+				common.triggerFailMesg("该店铺已不存在");
 			}
 		});
 	};

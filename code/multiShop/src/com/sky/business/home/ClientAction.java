@@ -42,6 +42,8 @@ public class ClientAction extends BaseAction {
 	private String shopId;
 	//是否展示店铺信息
 	private boolean shopAbout;
+	//商品ID
+	private String productId;
 	
 	//action
 	/**
@@ -82,6 +84,21 @@ public class ClientAction extends BaseAction {
 		Integer count = productService.getCount(productDao, Product.class, condition);
 		if(count==null || count==0) {
 			shopAbout = true;
+		}
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 前端商品详情页面
+	 * @return
+	 */
+	@Action(value = "product-index", results = @Result(location = "/sky/client/business/productIndex/productIndex.jsp", params = {"productId","${productId}"}), interceptorRefs = {@InterceptorRef("visitorStack")})
+	public String productIndex() {
+		logger.info("进入前端商品详情页面");
+		
+		if(StringUtils.isBlank(productId)) {
+			return ERROR;
 		}
 		
 		return SUCCESS;
@@ -136,6 +153,14 @@ public class ClientAction extends BaseAction {
 
 	public void setShopAbout(boolean shopAbout) {
 		this.shopAbout = shopAbout;
+	}
+
+	public String getProductId() {
+		return productId;
+	}
+
+	public void setProductId(String productId) {
+		this.productId = productId;
 	}
 
 }

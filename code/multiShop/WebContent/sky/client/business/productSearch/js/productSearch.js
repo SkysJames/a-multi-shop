@@ -15,6 +15,13 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	$scope.selectedType = {};
 	
 	/**
+	 * 跳转页面
+	 */
+	$scope.toPage = function(url){
+		common.toPage($contextPath + url, true);
+	};
+	
+	/**
 	 * 当前页面跳到指定位置
 	 */
 	$scope.scrollTo = function(target){
@@ -30,7 +37,6 @@ function($timeout, $scope, $document, clientIndexHttpService){
 			$scope.pagedProductList(true);
 		}
 	};
-	
 	
 	/**
 	 * 获取系统公告消息

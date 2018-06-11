@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<div class="index-commodel shop-product">
   		<div class="shoppro-content">
   			<ul>
-  				<li data-ng-repeat="item in productList" data-ng-click="">
+  				<li data-ng-repeat="item in productList" data-ng-click="toPage('/home/product-index?productId='+item.id)">
   					<div class="shoppro-img" style="background-image: url({{item.picPathList|getImgByImgList}})"></div>
   					<div class="shoppro-con">
   						<h3 title="{{item.price}}元">

@@ -1,0 +1,25 @@
+<div class="client-header">
+	<!-- PC端start -->
+	<div class="ph-pc">
+		<header> 
+			<div class="ph-head-box my-pointer" data-ng-click="toIndexPage()">
+				<img data-ng-src="{{systemLogo}}" alt="">
+				{{systemName}}
+			</div>
+			<div class="ph-head-box">
+				<div class="name-box">
+					<img data-ng-src="{{shopInfo.logoPathList|getLogoByLogoList}}" alt="">
+					<div class="shop-name">
+						{{shopInfo.name}}
+						<div>
+							<label class="recommend" data-ng-if="shopInfo.recommend==1">推荐</label>
+							<label title="{{shopInfo.shopKeeper.name}}">{{shopInfo.shopKeeper.name}}</label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	</div>
+	<!-- PC端end -->
+</div>
+

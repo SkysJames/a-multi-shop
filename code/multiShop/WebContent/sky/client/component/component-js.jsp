@@ -7,6 +7,7 @@
 <script src="${contextPath }/sky/client/component/slideAnnounce/js/slideAnnounce.js"></script>
 <script src="${contextPath }/sky/client/component/shopHeader/js/shopHeader.js"></script>
 <script src="${contextPath }/sky/client/component/shopNav/js/shopNav.js"></script>
+<script src="${contextPath }/sky/client/component/productHeader/js/productHeader.js"></script>
 
 <!-- 独立的directive放在独立的module里面，内容简单的就方在同一个module里面 -->
 <script>
@@ -18,6 +19,7 @@ $directiveList = [
 	'slideAnnounce',
 	'shopHeader',
 	'shopNav',
+	'productHeader',
 ];
 </script>
 

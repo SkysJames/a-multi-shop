@@ -26,6 +26,13 @@ function($timeout, $scope, $routeParams, $filter, $document, clientIndexHttpServ
 	
 	
 	/**
+	 * 跳转页面
+	 */
+	$scope.toPage = function(url){
+		common.toPage($contextPath + url, true);
+	};
+	
+	/**
 	 * 加载更多商品
 	 */
 	$scope.loadMoreProduct = function(){
