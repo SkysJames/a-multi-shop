@@ -4,13 +4,14 @@
 		<div class="ct-top-left">
 			<span>欢迎来到&nbsp;{{systemName|showBlankValue}}！</span>
 			<div class="ct-top-item" data-ng-show="!currentUser">
-				<span class="link">请登录</span>
-				<span class="link">注册</span>
+				<span class="link" data-ng-click="openLoginPanel('login');">请登录</span>/
+				<span class="link" data-ng-click="openLoginPanel('register');">注册</span>
 			</div>
 			<div class="ct-top-item" data-ng-show="currentUser">
-				<span class="link">{{currentUser.username}}</span>
+				<span class="link">{{currentUser.username}}</span>/
+				<span class="link">退出</span>
 			</div>
-			<div class="ct-top-item" data-ng-show="currentUser">
+			<div class="ct-top-item" data-ng-show="currentUser && tableName=='tb_product'">
 				<span class="link" data-ng-click=""><i class="fa fa-shopping-cart"></i>&nbsp;购物车</span>
 			</div>
 			<div class="ct-top-item" data-ng-show="currentUser">
@@ -140,6 +141,83 @@
 		</div>
 	</div>
 	<!-- 侧边客服end -->
+	
+	<!-- 注册登陆模态框 start -->
+	<div class="modal fade" id="loginWinId" tabindex="-1" role="dialog" aria-labelledby="loginWinLabel">
+		<div class="modal-dialog login-model-dialog">
+			<div class="modal-content login-model-content">
+				<div class="modal-header client-model-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">{{getLoginHeader(loginNav)}}</h4>
+				</div>
+				<div class="modal-body">
+					
+					<!-- 登录面板start -->
+					<div class="login-panel" data-ng-show="loginNav=='login'">
+						<div class="login-row">
+							<div class="input-group">
+								<div class="login-label">
+									<i class="fa fa-user"></i>
+								</div>
+								<input class="form-control" type="text" placeholder="输入用户名" data-ng-model="loginObj.username">
+							</div>
+						</div>
+						
+						<div class="login-row">
+							<div class="input-group">
+								<div class="login-label">
+									<i class="fa fa-lock"></i>
+								</div>
+								<input class="form-control" type="password" placeholder="输入密码" data-ng-model="loginObj.password">
+							</div>
+						</div>
+						
+						<div class="login-row">
+							<button type="button" class="btn login-btn">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+						</div>
+						
+						<div class="login-row">
+							<div class="input-group">
+								<small class="pull-right">
+									<a href="javascript:void(0)" data-ng-click="triggerLoginPanel('register')">免费注册</a>
+									<a href="javascript:void(0)">忘记密码</a>
+								</small>
+							</div>
+						</div>
+					</div>
+					<!-- 登录面板end -->
+					
+					<!-- 注册面板start -->
+					<div class="register-panel" data-ng-show="loginNav=='register'">
+						<div class="login-top">
+							<a href="javascript:void(0)" data-ng-click="triggerLoginPanel('login')"><i class="fa fa-chevron-left"></i>&nbsp;返回登录</a>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<input class="form-control" type="text" placeholder="用户名" data-ng-model="registerObj.username">
+							</div>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<input class="form-control" type="password" placeholder="设置密码" data-ng-model="registerObj.password">
+							</div>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<input class="form-control" type="password" placeholder="确认密码" data-ng-model="registerObj.passwordSure">
+							</div>
+						</div>
+						
+						<div class="login-row">
+							<button type="button" class="btn login-btn">注&nbsp;&nbsp;&nbsp;&nbsp;册</button>
+						</div>
+					</div>
+					<!-- 注册面板end -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 注册登陆模态框 end -->
 	
 </div>
 

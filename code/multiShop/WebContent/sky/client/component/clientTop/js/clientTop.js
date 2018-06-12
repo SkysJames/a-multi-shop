@@ -22,6 +22,45 @@ angular.module('clientTop',[])
 			$scope.wechatPic = $wechatPic;
 			//当前导航
 			$scope.currentNav = "index";
+			//当前登录面板的导航，login-登录面板，register-注册面板
+			$scope.loginNav = "login";
+			//登录对象
+			$scope.loginObj = {};
+			//注册对象
+			$scope.registerObj = {};
+			
+			
+			/**
+			 * 获取登录面板的标题头
+			 */
+			$scope.getLoginHeader = function(nav){
+				if(nav){
+					if(nav == "login"){
+						return "登录";
+					}else if(nav == "register"){
+						return  "注册";
+					}
+				}
+			};
+			
+			/**
+			 * 切换登录面板（登录面板/注册面板）
+			 */
+			$scope.triggerLoginPanel = function(nav){
+				$scope.loginNav = nav;
+				//登录对象
+				$scope.loginObj = {};
+				//注册对象
+				$scope.registerObj = {};
+			};
+			
+			/**
+			 * 打开登录面板
+			 */
+			$scope.openLoginPanel = function(nav){
+				$scope.triggerLoginPanel(nav);
+				$('#loginWinId').modal("show");
+			};
 			
 			/**
 			 * 点击导航对象

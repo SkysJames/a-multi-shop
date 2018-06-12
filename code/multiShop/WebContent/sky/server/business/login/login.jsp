@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ page import="com.sky.util.SysParameterUtil" %>
+<%@page import="org.apache.commons.lang3.StringUtils"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -10,6 +11,10 @@ String contextPath = request.getContextPath();
 
 String systemName = SysParameterUtil.getStringValue("system_name", "");
 pageContext.setAttribute("systemName", systemName);
+
+//系统图标
+String systemIcon = SysParameterUtil.getStringValue("system_icon", "");
+pageContext.setAttribute("systemIcon", StringUtils.isNotBlank(systemIcon)?systemIcon:(request.getContextPath() + "/sky/common/core/img/system_icon.ico"));
 %>
 
 <!DOCTYPE HTML>
@@ -22,6 +27,9 @@ pageContext.setAttribute("systemName", systemName);
 	<%@ include file="/resource/plugin/plugin-css.jsp"%>
     <!-- 导入相应css -->
 	<link rel="stylesheet" type="text/css" href="${contextPath}/sky/server/business/login/css/login.css" />
+	
+	<!-- 导入系统图标 -->
+    <link rel="icon" href="${systemIcon }" type="image/x-icon">
 	
 	<script type="text/javascript">
 	var $contextPath = '${ contextPath }';//上下文地址

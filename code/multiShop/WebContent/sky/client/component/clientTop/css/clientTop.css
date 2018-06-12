@@ -22,7 +22,8 @@
 	margin-right: 30px;
 }
 .ct-top-fixed span {
-	margin-right: 15px;
+	margin-left: 7px;
+	margin-right: 7px;
 }
 .ct-top-fixed span.link {
 	color: #777;
@@ -368,6 +369,63 @@
 	}
 }
 
+.login-model-dialog {
+	width: 350px;
+}
+.login-model-content {
+	min-height: 420px;
+}
+.login-panel {
+	margin-top: 50px;
+}
+.register-panel {
+	
+}
+.login-row {
+	margin-top: 20px;
+    text-align: center;
+    line-height: 40px;
+}
+.login-row .input-group {
+	margin: 0 auto;
+	width: 95%;
+}
+.login-row .input-group>input {
+	height: 40px;
+}
+.login-row small {
+	line-height: 20px;
+}
+.login-row small>a {
+	margin-left: 15px;
+	color: #888;
+}
+.login-row small>a:hover {
+	text-decoration: underline;
+}
+.login-top {
+	margin: 0 auto;
+    width: 95%;
+}
+.login-top a {
+	font-size: 14px;
+    color: #333;
+}
+.login-label {
+	display: table-cell;
+    vertical-align: middle;
+    width: 40px;
+    background-color: #dddddd;
+}
+.login-btn {
+	width: 95%;
+    height: 40px;
+    font-size: 16px;
+    color: #fff!important;
+    background-color: #ff0000!important;
+    outline: none;
+}
+
 
 @media screen and (max-width: 760px) {
 	.ct-top-fixed {
@@ -380,6 +438,10 @@
 	
 	body {
 		padding-bottom: 60px;
+	}
+	
+	.login-model-dialog {
+		width: auto;
 	}
 }
 
