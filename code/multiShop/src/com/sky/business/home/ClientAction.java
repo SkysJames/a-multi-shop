@@ -6,25 +6,41 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.InterceptorRef;
+import org.apache.struts2.convention.annotation.InterceptorRefs;
 import org.apache.struts2.convention.annotation.Result;
 
 import com.sky.business.common.BaseAction;
 import com.sky.business.common.vo.LoginUser;
 import com.sky.business.common.vo.Pager;
+import com.sky.business.common.vo.ServiceException;
+import com.sky.business.oplog.entity.Oplog;
+import com.sky.business.oplog.service.OplogService;
 import com.sky.business.shop.dao.ProductDao;
 import com.sky.business.shop.entity.Product;
 import com.sky.business.shop.service.ProductService;
+import com.sky.business.system.service.UserService;
+import com.sky.contants.CodeMescContants;
+import com.sky.contants.EntityContants;
+import com.sky.util.IpProcessUtil;
 
 /**
  * 前端主页
  * @author Sky James
  *
  */
+@InterceptorRefs({@InterceptorRef("defaultStack")})
 public class ClientAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Resource(name = "userService")
+	private UserService userService;
+	
+	@Resource(name = "oplogService")
+	private OplogService oplogService;
 	
 	@Resource(name = "productService")
 	private ProductService productService;
@@ -32,6 +48,7 @@ public class ClientAction extends BaseAction {
 	@Resource(name = "productDao")
 	private ProductDao productDao;
 
+	//登录用户
 	private LoginUser loginUser;
 	
 	//搜索关键字
@@ -46,6 +63,54 @@ public class ClientAction extends BaseAction {
 	private String productId;
 	
 	//action
+	/**
+	 * 登录
+	 * @return
+	 */
+	@Action(value = "client-login")
+	public String login() throws Exception {
+		try {
+			isNull(loginUser);
+			loginUser.setUserIp(IpProcessUtil.getIpAddr(req));
+			loginUser = userService.checkForLoginClient(loginUser);
+			session.setAttribute("loginUser", loginUser);
+			
+			String opDetail = "IP地址:" + loginUser.getUserIp() + "。" + "用户" + loginUser.getUsername() + "（" + loginUser.getUserId() + "）登录前台系统";
+			Oplog log = Oplog.newOpUserInstance(loginUser.getUserId(), EntityContants.OplogContants.actionMaps.get("client-login"), opDetail, loginUser.getUserIp());
+			oplogService.save(log);
+			logger.info("用户" + loginUser.getUsername() + "（" + loginUser.getUserId() + "）" + "登录前台系统");
+			
+			resultMap.put("loginUser", loginUser);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功登录平台");
+		} catch (ServiceException e) {
+			logger.error(e.getMessage());
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, e.getErrorCode());
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, e.getErrorMsg());
+		} catch (Exception e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
+		}
+		
+		return RESULT_MAP;
+	}
+	
+	/**
+	 * 退出
+	 * @return
+	 * @throws Exception
+	 */
+	@Action(value = "client-logout",interceptorRefs = {@InterceptorRef("clientLoginStack")})
+	public String logout() throws Exception {
+		session.invalidate();
+		logger.info("退出系统");
+		
+		resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
+		resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功退出平台");
+		return RESULT_MAP;
+	}
+	
 	/**
 	 * 前端店铺搜索页面
 	 * @return

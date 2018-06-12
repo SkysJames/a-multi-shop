@@ -13,7 +13,7 @@ angular.module('clientTop',[])
 		link : function(scope,element,attrs){
 			
 		},
-		controller : function($scope, $timeout, $filter, $document){
+		controller : function($scope, $timeout, $filter, $document, clientIndexHttpService){
 			//系统名称
 			$scope.systemName = $systemName;
 			//当前登录用户
@@ -60,6 +60,42 @@ angular.module('clientTop',[])
 			$scope.openLoginPanel = function(nav){
 				$scope.triggerLoginPanel(nav);
 				$('#loginWinId').modal("show");
+			};
+			
+			/**
+			 * 登录
+			 */
+			$scope.login = function(){
+				clientIndexHttpService.login($scope.loginObj)
+				.then(function(response){
+					var data = response.data;
+					if(data.statusCode=="200"){
+						common.triggerSuccessMesg(data.message);
+						window.location.reload();
+					}else{
+						common.triggerFailMesg(data.message);
+					}
+				},function(err){
+					console.log(err);
+				});
+			};
+			
+			/**
+			 * 退出
+			 */
+			$scope.logout = function(){
+				clientIndexHttpService.logout()
+				.then(function(response){
+					var data = response.data;
+					if(data.statusCode=="200"){
+						common.triggerSuccessMesg(data.message);
+						window.location.reload();
+					}else{
+						common.triggerFailMesg(data.message);
+					}
+				},function(err){
+					console.log(err);
+				});
 			};
 			
 			/**

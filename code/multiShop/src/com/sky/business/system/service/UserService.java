@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.sky.business.common.service.BaseService;
 import com.sky.business.common.vo.LoginUser;
+import com.sky.business.shop.entity.Shop;
 import com.sky.business.system.entity.User;
 
 /**
@@ -20,6 +21,23 @@ public interface UserService extends BaseService {
 	 * @throws Exception
 	 */
 	public LoginUser checkForLogin(LoginUser loginUser) throws Exception;
+	
+	/**
+	 * 检验是否登录前端系统成功
+	 * @param loginUser
+	 * @return
+	 * @throws Exception
+	 */
+	public LoginUser checkForLoginClient(LoginUser loginUser) throws Exception;
+	
+	/**
+	 * 设置并且获取登录用户
+	 * @param user
+	 * @param shop
+	 * @return
+	 * @throws Exception
+	 */
+	public LoginUser setAndGetLoginUser(LoginUser loginUser, User user, Shop shop) throws Exception;
 	
 	/**
 	 * 修改用户信息

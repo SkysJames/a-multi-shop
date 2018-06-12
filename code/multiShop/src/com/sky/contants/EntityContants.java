@@ -43,14 +43,25 @@ public class EntityContants {
 			/**
 			 * 前台展示action
 			 */
+			actionMaps.put("announce-visit", "公告信息");
+			actionMaps.put("shop-visit", "店铺信息");
+			actionMaps.put("product-visit", "商品信息");
+			actionMaps.put("type-visit", "类型信息");
 			actionMaps.put("client-index", "前台首页");
+			actionMaps.put("client-logout", "系统退出");
+			actionMaps.put("client-login", "前台登录");
+			actionMaps.put("cart-client", "前台购物车");
+			actionMaps.put("prohistory-client", "前台收藏/历史记录");
+			actionMaps.put("message-client", "前台消息");
+			actionMaps.put("report-client", "前台举报");
+			actionMaps.put("evaluate-client", "前台评价");
 			
 			/**
 			 * 后台action
 			 */
 			actionMaps.put("server-index", "后台首页");
 			actionMaps.put("server-logout", "系统退出");
-			actionMaps.put("server-login", "登录");
+			actionMaps.put("server-login", "后台登录");
 			actionMaps.put("user", "用户管理");
 			actionMaps.put("type", "类型管理");
 			actionMaps.put("prohistory", "收藏/历史记录管理");

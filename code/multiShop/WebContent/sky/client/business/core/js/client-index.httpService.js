@@ -6,6 +6,27 @@ angular.module('client-index.httpService',[])
 	$http.defaults.headers.put['X-Requested-With'] = 'XMLHttpRequest';
 	
 	/**
+	 * 登录
+	 */
+	this.login = function(loginUser){
+		var tempData={
+				'loginUser.userId'		: loginUser.userId,
+				'loginUser.userPwd'		: loginUser.userPwd,
+		};
+		var url = $contextPath + "/home/client-login";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 退出登录
+	 */
+	this.logout = function(){
+		var tempData={};
+		var url = $contextPath + "/home/client-logout";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
 	 * 获取公告列表
 	 */
 	this.getAnnounceList = function(condition){

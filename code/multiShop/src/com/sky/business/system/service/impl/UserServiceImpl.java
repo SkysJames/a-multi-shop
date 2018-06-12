@@ -69,15 +69,50 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON, "该用户暂无店铺或店铺未启用");
 		}
 		
+		return this.setAndGetLoginUser(loginUser, user, shop);
+	}
+	
+	@Override
+	public LoginUser checkForLoginClient(LoginUser loginUser) throws Exception {
+		//验证数据库中是否存在该用户
+		User user = this.findByID(User.class, loginUser.getUserId());
+		if(user == null){
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_INEXIST,CodeMescContants.MessageContants.ERROR_INEXIST);
+		}
+		
+		//验证用户的密码是否正确
+		if(!(user.getPasswd().equals(loginUser.getUserPwd()))){
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON, "用户名密码错误");
+		}
+//		//验证md5加密后的密码是否正确
+//		String pwdMd5 = EncryptArithmeticUtil.md5EncryptAll(loginUser.getUserPwd().getBytes("UTF-8"));
+//		loginUser.setUserPwd(pwdMd5);
+//		if(!(user.getPasswd().equals(loginUser.getUserPwd()))){
+//			throw new ServiceException(CodeMesUtil.Code.LOGIN_USER_ERROR,CodeMesUtil.Message.LOGIN_USER_ERROR);
+//		}
+		
+		//验证用户的状态是否为启用状态
+		if(user.getUserStatus() != UserContants.UserStatus.USING){
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON, "该用户已被禁用");
+		}
+		
+		return this.setAndGetLoginUser(loginUser, user, user.getShop());
+	}
+	
+	@Override
+	public LoginUser setAndGetLoginUser(LoginUser loginUser, User user, Shop shop) throws Exception {
 		user.setLoginIp(loginUser.getUserIp());
 		user.setLoginStatus(UserContants.LoginStatus.ONLINE);
 		user.setLoginTime(new Timestamp(new Date().getTime()));
 		
+		if(shop != null) {
+			loginUser.setShopName(shop.getName());
+			loginUser.setShopStatus(shop.getStatus());
+		}
+		
 		loginUser.setLoginTime(user.getLoginTime());
 		loginUser.setUsername(user.getName());
 		loginUser.setShopId(user.getShopId());
-		loginUser.setShopName(shop.getName());
-		loginUser.setShopStatus(shop.getStatus());
 		loginUser.setQq(user.getQq());
 		loginUser.setWechat(user.getWechat());
 		loginUser.setTelephone(user.getTelephone());
@@ -88,8 +123,6 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		
 		return loginUser;
 	}
-	
-	
 
 	@Override
 	public void edit(Map<String,Object> editUser) throws Exception {
@@ -279,7 +312,6 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 //		user.setPasswd(newPwdMd5);
 		
 		this.update(user);
-		
 	}
-
+	
 }
