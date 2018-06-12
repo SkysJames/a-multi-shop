@@ -50,7 +50,7 @@
   	<div class="shop-commodel shop-product sphone-product">
   		<div class="shoppro-content">
   			<ul>
-  				<li data-ng-repeat="item in productList" data-ng-click="toPage('/home/product-index?productId='+item.id)">
+  				<li data-ng-repeat="item in productList" data-ng-click="toPage('/home/product-index?productId='+item.id, true)">
   					<div class="shoppro-img" style="background-image: url({{item.picPathList|getImgByImgList}})"></div>
   					<div class="shoppro-con">
   						<h3 title="{{item.price}}元">

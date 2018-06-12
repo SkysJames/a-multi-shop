@@ -17,8 +17,8 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	/**
 	 * 跳转页面
 	 */
-	$scope.toPage = function(url){
-		common.toPage($contextPath + url, true);
+	$scope.toPage = function(url, flag){
+		common.toPage($contextPath + url, flag);
 	};
 	
 	/**

@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		</div>
   		<div class="ishop-content">
   			<ul>
-  				<li data-ng-repeat="item in reShopList" data-ng-click="toPage('/home/shop-index?shopId='+item.id)">
+  				<li data-ng-repeat="item in reShopList" data-ng-click="toPage('/home/shop-index?shopId='+item.id, true)">
   					<div class="ishop-img" style="background-image: url({{item.logoPathList|getImgByImgList}})"></div>
   					<div class="ishop-con">
   						<h3 title="{{item.name | showBlankValue}}">{{item.name | showBlankValue}}</h3>
@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   		</div>
   		<div class="ishop-content">
   			<ul>
-  				<li data-ng-repeat="item in typet.shopList" data-ng-click="toPage('/home/shop-index?shopId='+item.id)">
+  				<li data-ng-repeat="item in typet.shopList" data-ng-click="toPage('/home/shop-index?shopId='+item.id, true)">
   					<div class="ishop-img" style="background-image: url({{item.logoPathList|getImgByImgList}})"></div>
   					<div class="ishop-con">
   						<h3 title="{{item.name | showBlankValue}}">{{item.name | showBlankValue}}</h3>

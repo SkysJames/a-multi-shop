@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<a href="javascript:void(0)" data-ng-click="toShopPage()">点击进入店铺</a>
 				</div>
 				<div class="pindex-row">
-					<button data-ng-show="productInfo.status==2">加入购物车</button>
+					<button data-ng-show="productInfo.status==2"><i class="fa fa-cart-plus"></i>&nbsp;加入购物车</button>
 					<button data-ng-show="productInfo.status!=2" class="pro-down">商品已下架</button>
 				</div>
 			</div>
@@ -85,7 +85,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		<!-- 手机端的商品基本信息start -->
 		<div class="pindex-basic shop-only-phone">
-			手机端的商品基本信息
+			<div class="pindex-phone-imgs">
+				<ul>
+					<li data-ng-repeat="item in productInfo.picPathList" data-ng-class="{'active': selectedImg==item}">
+						<img style="background-image: url({{item|getImgUrl}})">
+					</li>
+				</ul>
+			</div>
+			<div class="pindex-phone-info">
+				<h4>{{productInfo.name}}</h4>
+				<small>
+					<span>浏览量&nbsp;{{productInfo.clickCount}}</span>
+					<span>库存&nbsp;{{productInfo.proStock}}</span>
+				</small>
+				<div class="pindex-price">
+					<i class="fa fa-rmb"></i>&nbsp;<span>{{productInfo.price}}</span>
+					<div class="pull-right">
+						<button data-ng-show="productInfo.status==2"><i class="fa fa-cart-plus"></i>&nbsp;加入购物车</button>
+						<button data-ng-show="productInfo.status!=2" class="pro-down">商品已下架</button>
+					</div>
+				</div>
+				<p data-ng-show="productInfo.brief && productInfo.brief.length>0">简介：&nbsp;{{productInfo.brief}}</p>
+			</div>
 		</div>
 		<!-- 手机端的商品基本信息end -->
 		

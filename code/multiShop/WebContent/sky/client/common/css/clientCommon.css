@@ -904,6 +904,7 @@ ul li {
     font-family: "Hiragino Sans GB","microsoft yahei",sans-serif;
     font-size: 16px;
     line-height: 38px;
+    border: none;
     border-radius: 2px;
     margin-right: 20px;
     outline: none;
@@ -925,7 +926,6 @@ ul li {
     padding: 8px 10px;
     border-bottom: 1px solid #ddd;
 }
-
 
 @media screen and (max-width: 1050px) {
 	.pindex-container {
@@ -957,9 +957,72 @@ ul li {
 
 @media screen and (max-width: 760px) {
 	.pindex-container {
-		margin-top: 15px;
+		width: 100%;
+		margin-top: 40px;
     		margin-bottom: 15px;
+    		padding: 0px 8px;
 	}
+	
+	.pindex-basic {
+		
+	}
+	
+	.pindex-phone-imgs {
+		
+	}
+	.pindex-phone-imgs>ul {
+		
+	}
+	.pindex-phone-imgs>ul>li {
+		display: none;
+		width: 100%;
+		height: 260px;
+	}
+	.pindex-phone-imgs>ul>li.active {
+		display: block;
+	}
+	.pindex-phone-imgs>ul>li>img {
+		width: 100%;
+		height: 100%;
+		background-position: center;
+	    background-repeat: no-repeat;
+	    background-size: 100%;
+	    border-radius: 15px;
+    		box-shadow: 1px 1px 5px 0px #aaa;
+	}
+	.pindex-phone-info {
+		margin-top: 15px;
+	}
+	.pindex-phone-info>h4 {
+		
+	}
+	.pindex-phone-info>small {
+		color: #aaa;
+	}
+	.pindex-phone-info>small>span {
+		margin-right: 10px;
+	}
+	.pindex-phone-info>p {
+		font-size: 12px;
+    		color: #777;
+	}
+	.pindex-price {
+	    margin: 8px 0px;
+	}
+	.pindex-price button {
+		vertical-align: top;
+	    border: none;
+	    border-radius: 20px;
+	    padding: 3px 11px;
+	    background-color: #fbb925;
+	    color: #333;
+	    font-size: 12px;
+	    outline: none;
+	}
+	.pindex-price button.pro-down {
+		
+	}
+	
 	.pindex-description {
 		margin-top: 10px;
 	}

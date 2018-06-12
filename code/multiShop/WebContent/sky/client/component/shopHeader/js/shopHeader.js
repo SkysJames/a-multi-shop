@@ -30,7 +30,11 @@ angular.module('shopHeader',[])
 			 * 回到上一页
 			 */
 			$scope.toBackPage = function(){
-				window.history.go(-1);
+				if(window.history.length > 1){
+					window.history.go(-1);
+				}else{
+					window.location.href = $contextPath;
+				}
 			};
 			
 			/**

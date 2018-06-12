@@ -62,9 +62,46 @@
     color: #ff0000;
 }
 
+.ph-phone {
+	display: none;
+	position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 50;
+	height: 40px;
+	background-color: #fff;
+    overflow: hidden;
+    -webkit-transition: all .5s ease;
+	-moz-transition: all .5s ease;
+	-o-transition: all .5s ease;
+	transition: all .5s ease;
+}
+.ph-phone a {
+	line-height: 40px;
+    font-size: 18px;
+    color: #666;
+}
+.ph-phone a:hover {
+	color: #333;
+}
+.ph-phone a.active {
+	color: #ff0000;
+}
+.ph-phone .pull-left a {
+	margin-left: 10px;
+}
+.ph-phone .pull-right a {
+	margin-right: 10px;
+}
+
 @media screen and (max-width: 760px) {
 	.ph-pc {
 		display: none;
+	}
+	
+	.ph-phone {
+		display: block;
 	}
 }
 
