@@ -1,4 +1,4 @@
-<div class="client-header">
+<div id="productHeaderId" class="client-header">
 	<!-- PC端start -->
 	<div class="ph-pc">
 		<header> 
@@ -28,7 +28,7 @@
 			<a href="javascript:void(0)" data-ng-click="toBackPage()"><i class="fa fa-chevron-left"></i></a>
 		</div>
 		<div class="pull-right">
-			<a href="javascript:void(0)"><i class="fa fa-star"></i></a>
+			<a href="javascript:void(0)" data-ng-class="{'active': collectedObj}" data-ng-click="toggleCollect()"><i class="fa fa-star"></i></a>
 			<a href="javascript:void(0)"><i class="fa fa-share-square-o"></i></a>
 		</div>
 	</div>

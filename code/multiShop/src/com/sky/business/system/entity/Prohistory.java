@@ -7,6 +7,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.sky.business.shop.entity.Product;
+import com.sky.business.shop.entity.Shop;
+import com.sky.business.shop.service.ProductService;
+import com.sky.business.shop.service.ShopService;
+import com.sky.util.BeanDefinedLocator;
 
 /**
  * 历史浏览/收藏表
@@ -42,6 +49,14 @@ public class Prohistory implements Serializable {
 	
 	@Column(name="HREF")
 	private String href;
+	
+	//店铺
+	@Transient
+	private Shop shop;
+	
+	//商品
+	@Transient
+	private Product product;
 	
     // Property accessors
 	public String getId() {
@@ -106,6 +121,45 @@ public class Prohistory implements Serializable {
 
 	public void setHref(String href) {
 		this.href = href;
+	}
+
+	public Shop getShop() {
+		try {
+		    	if (null == shop) {
+		    		ShopService shopService = (ShopService)BeanDefinedLocator.getInstance().getBean("shopService");
+		    		
+		    		if(tableName.equals("tb_shop")){
+		    			shop = shopService.findByID(Shop.class, objId);
+		    		}
+			}
+	    	} catch (Exception e) {
+	    		e.printStackTrace();
+	    	}
+		
+		return shop;
+	}
+
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
+
+	public Product getProduct() {
+		try {
+		    	if (null == product) {
+		    		ProductService productService = (ProductService)BeanDefinedLocator.getInstance().getBean("productService");
+		    		
+		    		if(tableName.equals("tb_product")){
+		    			product = productService.findByID(Product.class, objId);
+		    		}
+			}
+	    	} catch (Exception e) {
+	    		e.printStackTrace();
+	    	}
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 	
 }

@@ -303,4 +303,45 @@ var common = {
 			WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});
 		},
 		
+		/**
+		 * 获取分页对象
+		 */
+		getPagerObj	: function(list, pageSize){
+			var pager = {
+					pageNo		: 1,		//当前页码
+					pageSize		: pageSize,	//每页数据量
+					pageCount	: 1,
+					totalCount	: list.length,
+					list			: [],
+			};
+			
+			if (pager.totalCount % pager.pageSize == 0) {
+				pager.pageCount = pager.totalCount / pager.pageSize;
+			} else {
+				pager.pageCount = Math.floor(pager.totalCount / pager.pageSize) + 1;
+			}
+			
+			pager.list = list.slice(0, pager.pageSize);
+			
+			return pager;
+		},
+		
+		/**
+		 * 前端分页获取相应列表
+		 */
+		pagedList	: function(pageNo, pageSize, pageCount, list){
+			var newList = [];
+			
+			if(pageNo > pageCount){
+				console.log("pageNo is too large");
+				return newList;
+			}
+			
+			var startIndex = (pageNo - 1) * pageSize;
+			var endIndex = pageNo * pageSize;
+			newList = list.slice(startIndex, endIndex);
+			
+			return newList;
+		},
+		
 };

@@ -79,6 +79,7 @@ public class EntityContants {
 			
 			methodMaps.put("index", "进入主页面");
 			methodMaps.put("logout", "退出了登录");
+			methodMaps.put("saveOrUpdate", "执行添加或修改操作");
 			methodMaps.put("save", "执行添加操作");
 			methodMaps.put("edit", "执行修改操作");
 			methodMaps.put("delete", "执行删除操作");

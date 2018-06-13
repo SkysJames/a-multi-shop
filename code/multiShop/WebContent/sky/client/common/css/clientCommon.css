@@ -845,6 +845,9 @@ ul li {
 .pindex-share>a>i {
 	color: #ff8b00;
 }
+.pindex-share>a:hover,.pindex-share>a.active {
+	color: #ff8b00;
+}
 .pindex-right {
 	vertical-align: top;
 	display: inline-block; /* 现代浏览器 +IE6、7 inline 元素 */  

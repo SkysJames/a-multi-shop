@@ -28,7 +28,7 @@ public class ProhistoryDaoImpl extends BaseDaoImpl implements ProhistoryDao {
 		}
 		
 		//类型，收藏夹类型/历史记录类型
-		if(condition.containsKey("type") && null!=condition.get("type")){
+		if(condition.containsKey("type") && StringUtils.isNotBlank((String)condition.get("type"))){
 			Integer type = CommonMethodUtil.getIntegerByObject(condition.get("type"));
 			hqlBuffer.append(" and type = ? ");
 			values.add(type);

@@ -18,12 +18,14 @@ angular.module('clientTop',[])
 			$scope.systemName = $systemName;
 			//微信二维码的url
 			$scope.wechatPic = $wechatPic;
-			//当前导航
+			//当前导航（手机端底部）
 			$scope.currentNav = "index";
 			//当前登录面板的导航，login-登录面板，register-注册面板
 			$scope.loginNav = "login";
 			//当前用户面板的导航，user-用户信息面板，password-密码面板
 			$scope.userNav = "user";
+			//当前收藏面板的导航，shop-店铺面板，product-商品面板
+			$scope.collectNav = "shop";
 			//登录对象
 			$scope.loginObj = {};
 			//注册对象
@@ -92,6 +94,21 @@ angular.module('clientTop',[])
 			};
 			
 			/**
+			 * 切换收藏面板（店铺面板/商品面板）
+			 */
+			$scope.triggerCollectPanel = function(nav){
+				$scope.collectNav = nav;
+			};
+			
+			/**
+			 * 打开收藏面板
+			 */
+			$scope.openCollectPanel = function(){
+				$scope.triggerCollectPanel("shop");
+				$('#collectWinId').modal("show");
+			};
+			
+			/**
 			 * 打开登录面板
 			 */
 			$scope.openLoginPanel = function(nav){
@@ -100,14 +117,23 @@ angular.module('clientTop',[])
 			};
 			
 			/**
+			 * 判断是否已经登录
+			 */
+			$scope.isLogin = function(){
+				if(!$currentUser){
+					$scope.openLoginPanel("login");
+					return false;
+				}
+				return true;
+			};
+			
+			/**
 			 * 打开我的面板
 			 */
 			$scope.openMyPanel = function(){
-				if($currentUser){
+				if($scope.isLogin()){
 					$scope.triggerUserPanel("user");
 					$('#userWinId').modal("show");
-				}else{
-					$scope.openLoginPanel("login");
 				}
 			};
 			
@@ -273,9 +299,106 @@ angular.module('clientTop',[])
 			
 			//获取购物车列表
 			
-			//获取收藏夹列表
+			
+			/**
+			 * 前端分页获取店铺收藏列表
+			 */
+			$scope.pagedShopCollect = function(pageNo){
+				if(pageNo){
+					$scope.collectShopPager.pageNo = pageNo;
+				}else{
+					$scope.collectShopPager.pageNo = 1;
+				}
+				
+				$scope.collectShopPager.list = common.pagedList($scope.collectShopPager.pageNo, 
+						$scope.collectShopPager.pageSize, $scope.collectShopPager.pageCount, $scope.collectShopListBak);
+			};
+			
+			/**
+			 * 前端分页获取商品收藏列表
+			 */
+			$scope.pagedProductCollect = function(pageNo){
+				if(pageNo){
+					$scope.collectProductPager.pageNo = pageNo;
+				}else{
+					$scope.collectProductPager.pageNo = 1;
+				}
+				
+				$scope.collectProductPager.list = common.pagedList($scope.collectProductPager.pageNo, 
+						$scope.collectProductPager.pageSize, $scope.collectProductPager.pageCount, $scope.collectProductListBak);
+			};
+			
+			/**
+			 * 获取收藏夹列表
+			 */
+			$scope.getCollectList = function(tableName){
+				if(!$currentUser){
+					return;
+				}
+				
+				var condition = {
+						userId		: $currentUser.userId,
+						type			: "2",//收藏夹类型
+						tableName	: tableName,
+				};
+				
+				if(tableName==common.tableContants.TB_SHOP){
+					$scope.isLoadingColectedShop = true;
+				}else if(tableName==common.tableContants.TB_PRODUCT){
+					$scope.isLoadingColectedProduct = true;
+				}
+				
+				clientIndexHttpService.getProhistoryList(condition)
+				.then(function(response){
+					var data = response.data;
+					if(data.statusCode=="200"){
+						if(tableName==common.tableContants.TB_SHOP){
+							$scope.collectShopListBak = data.list;
+							$scope.collectShopPager = common.getPagerObj(data.list, 5);
+							$scope.isLoadingColectedShop = false;
+							
+							//判断当前是否在已收藏的店铺页面
+							if(angular.element($('#shopHeaderId')).scope()){
+								angular.element($('#shopHeaderId')).scope().collectedObj = $filter("getCollectedObj")(shopId, $scope.collectShopListBak);
+							}
+						}else if(tableName==common.tableContants.TB_PRODUCT){
+							$scope.collectProductListBak = data.list;
+							$scope.collectProductPager = common.getPagerObj(data.list, 5);
+							$scope.isLoadingColectedProduct = false;
+							
+							//判断当前是否在已收藏的商品页面
+							if(angular.element($('#productHeaderId')).scope()){
+								angular.element($('#productHeaderId')).scope().collectedObj = $filter("getCollectedObj")(productId, $scope.collectProductListBak);
+							}
+						}
+					}else{
+						common.triggerFailMesg(data.message);
+					}
+				},function(err){
+					console.log(err);
+				});
+			};
+			
+			/**
+			 * 取消收藏，店铺/商品
+			 */
+			$scope.deleteCollect = function(collectedObj, tableName){
+				clientIndexHttpService.deleteProhistory(collectedObj)
+				.then(function(response){
+					var data = response.data;
+					if(data.statusCode=="200"){
+						//更新收藏列表
+						$scope.getCollectList(tableName);
+					}else{
+						common.triggerFailMesg(data.message);
+					}
+				},function(err){
+					console.log(err);
+				});
+			};
 			
 			//获取历史浏览记录列表
+			
 			
 			/**
 			 * 通过url打开页面
@@ -300,6 +423,10 @@ angular.module('clientTop',[])
 			$scope.initFunc = function(){
 				//获取用户信息
 				$scope.getUserInfo();
+				//获取店铺的收藏列表
+				$scope.getCollectList(common.tableContants.TB_SHOP);
+				//获取商品的收藏列表
+				$scope.getCollectList(common.tableContants.TB_PRODUCT);
 				
 				/**
 				 * 点击自己则不消失，即停止冒泡事件

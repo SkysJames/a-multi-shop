@@ -1,4 +1,4 @@
-<div class="client-header">
+<div id="shopHeaderId" class="client-header">
 	<!-- PC端start -->
 	<div class="sh-pc row">
 		<div class="sh-pc-left col-sm-8 col-lg-6">
@@ -20,8 +20,15 @@
 					</div>
 				</div>
 				<div class="sh-head-box">
-					<span>人气&nbsp;{{shopInfo.popularity}}</span>
-					<span>评分&nbsp;{{shopInfo.mark}}</span>
+					<div class="sh-collect">
+						<a data-ng-class="{'active': collectedObj}" href="javascript:void(0)" data-ng-click="toggleCollect()">
+							<i class="fa fa-star"></i>&nbsp;{{collectedObj?"已收藏":"收藏本店"}}
+						</a>
+					</div>
+					<div class="sh-popularity">
+						<span>人气&nbsp;{{shopInfo.popularity}}</span>
+						<span>评分&nbsp;{{shopInfo.mark}}</span>
+					</div>
 				</div>
 			</header>
 		</div>
@@ -68,6 +75,9 @@
 			<div class="shop-name">
 				<h4 title="{{shopInfo.name}}">{{shopInfo.name}}</h4>
 				<div>
+					<a class="sh-phone-collect" data-ng-class="{'active': collectedObj}" href="javascript:void(0)" data-ng-click="toggleCollect()">
+						<i class="fa fa-star"></i>&nbsp;{{collectedObj?"已收藏":"收藏本店"}}
+					</a>
 					<span>人气&nbsp;{{shopInfo.popularity}}</span>
 					<span>评分&nbsp;{{shopInfo.mark}}</span>
 				</div>

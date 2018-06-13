@@ -61,6 +61,54 @@ angular.module('client-index.httpService',[])
 	};
 	
 	/**
+	 * 分页获取收藏夹/历史记录列表
+	 */
+	this.pagedProhistoryList = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/prohistory-client!paged";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 获取收藏夹/历史记录列表
+	 */
+	this.getProhistoryList = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/prohistory-client!list";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 添加或编辑收藏夹/历史记录列表
+	 */
+	this.saveOrUpdateProhistory = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/prohistory-client!saveOrUpdate";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 删除收藏夹/历史记录列表
+	 */
+	this.deleteProhistory = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/prohistory-client!delete";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
 	 * 获取公告列表
 	 */
 	this.getAnnounceList = function(condition){

@@ -1,5 +1,6 @@
 package com.sky.business.system;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -22,8 +23,8 @@ import com.sky.util.JsonUtil;
  * @author Sky James
  *
  */
-@InterceptorRefs({@InterceptorRef("serverLoginStack")})
-public class ProhistoryAction extends BaseAction {
+@InterceptorRefs({@InterceptorRef("clientLoginStack")})
+public class ProhistoryClientAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
 
@@ -46,7 +47,52 @@ public class ProhistoryAction extends BaseAction {
 			
 			resultMap.put("pager", pager);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功分页获取收藏夹/历史记录列表");
+		} catch (Exception e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
+		}
+		return RESULT_MAP;
+	}
+	
+	/**
+	 * 获取收藏夹/历史记录列表
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public String list() throws Exception {
+		try{
+			Map<String,Object> condition = JsonUtil.getJsonToMap(conditionJson);
+			List<Prohistory> list = prohistoryService.getList(prohistoryDao, Prohistory.class, condition);
+			
+			resultMap.put("list", list);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
 			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取收藏夹/历史记录列表");
+		} catch (Exception e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
+		}
+		return RESULT_MAP;
+	}
+	
+	/**
+	 * 保存收藏夹
+	 * @return
+	 */
+	public String saveOrUpdate(){
+		try{
+			Map<String,Object> prohistory = JsonUtil.getJsonToMap(conditionJson);
+			prohistoryService.saveOrUpdate(prohistory);
+			
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功保存收藏夹");
+		} catch (ServiceException e) {
+			logger.error(e);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, e.getErrorCode());
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, e.getErrorMsg());
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getStackTrace(e));
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);

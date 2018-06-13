@@ -447,6 +447,106 @@
 	text-align: left;
 }
 
+.collect-title {
+	text-align: center;
+	padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+.collect-title a {
+	padding: 6px 15px;
+    margin: 6px;
+    color: #666;
+    background-color: #efefef;
+    border-radius: 2px;
+}
+.collect-title a:hover,.collect-title a.active {
+	color: #fff;
+    background-color: #ff0000;
+}
+.collect-panel {
+	
+}
+.collect-panel>ul {
+	margin: 0px;
+	margin-bottom: 25px;
+}
+.collect-panel>ul>li {
+	position: relative;
+	width: 100%;
+	margin: 0px;
+   	margin-bottom: 5px;
+	background: #fff;
+    border: 1px solid #efefef;
+	-webkit-transition: all .3s ease;
+	-moz-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
+}
+.collect-panel>ul>li:hover {
+	border: 1px solid #ff0000;
+}
+.collect-img {
+	vertical-align: top;
+	display: inline-block; /* 现代浏览器 +IE6、7 inline 元素 */  
+	*display: inline; /* IE6、7 block 元素 */  
+	*zoom: 1;
+	width: 80px;
+    height: 80px;
+    border-bottom: none;
+    border-radius: 6px;
+    background-color: #fbfbfb;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+}
+.collect-con {
+	position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 82px;
+    right: 0px;
+    padding: 5px 10px;
+    text-align: left;
+}
+.collect-con>h3 {
+	position: absolute;
+    bottom: 10px;
+    width: 94%;
+    margin: 0px;
+    font-weight: bolder;
+    font-size: 18px;
+    color: #ff0000;
+}
+.collect-con>h3 a {
+	float: right;
+    position: relative;
+    margin: 0px;
+    margin-right: 10px;
+    font-family: "微软雅黑";
+    color: #aaa;
+    font-size: 12px;
+    font-weight: normal;
+}
+.collect-con>h3 a:hover {
+	text-decoration: underline;
+}
+.collect-con>a {
+	font-size: 14px;
+	color: #333;
+}
+.collect-con>a:hover {
+	color: #ff0000;
+	text-decoration: underline!important;
+}
+.collect-con>p {
+    margin: 5px 0px;
+    font-size: 12px;
+    color: #999;
+    overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}
 
 @media screen and (max-width: 760px) {
 	.ct-top-fixed {

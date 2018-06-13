@@ -2,8 +2,8 @@ angular.module('productIndexApp',
 		["client-index.filter","client-index.httpService"]
 		.concat($commonDirectiveList).concat($directiveList)
 )
-.controller("productIndexCtrl",['$timeout', '$scope', '$sce', '$filter', '$document', 'clientIndexHttpService', 
-function($timeout, $scope, $sce, $filter,$document, clientIndexHttpService){
+.controller("productIndexCtrl",['$timeout', '$interval', '$scope', '$sce', '$filter', '$document', 'clientIndexHttpService', 
+function($timeout, $interval, $scope, $sce, $filter,$document, clientIndexHttpService){
 	$scope.sce = $sce;
 	//商品信息
 	$scope.productInfo = {};
@@ -105,6 +105,17 @@ function($timeout, $scope, $sce, $filter,$document, clientIndexHttpService){
 	$scope.initFunc = function(){
 		//获取商品信息
 		$scope.getProductInfo(productId);
+		
+		//定时任务加载获取商品页面头部的作用域
+		$scope.intervalHeaderScope = $interval(function(){
+			if(angular.element($('#productHeaderId')).scope()){
+				//获取商品页面头部的作用域
+				$scope.productHeaderScope = angular.element($('#productHeaderId')).scope();
+				//去掉定时任务
+				$interval.cancel($scope.intervalHeaderScope);
+			}
+		},2000);
+		
 	};
 	$document.ready($scope.initFunc);
 	

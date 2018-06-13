@@ -77,6 +77,24 @@ angular.module('client-index.filter',[])
 })
 
 /**
+ * 是否已被收藏
+ * id - 被收藏的对象ID（店铺id或商品id）
+ * list - 收藏总列表
+ */
+.filter('getCollectedObj',function(){
+	return function(id, list){
+		if(list && list.length>0){
+			for(var i=0,len=list.length; i<len; i++){
+				if(id == list[i].objId){
+					return list[i];
+				}
+			}
+		}
+		return null;
+	};
+})
+
+/**
  * 返回缩略的内容
  */
 .filter('getSmallContent',function(){

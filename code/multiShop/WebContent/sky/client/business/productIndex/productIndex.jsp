@@ -53,7 +53,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</ul>
 				</div>
 				<div class="pindex-share">
-					<a href="javascript:void(0)"><i class="fa fa-star"></i>&nbsp;收藏商品</a>
+					<a href="javascript:void(0)" data-ng-class="{'active': productHeaderScope.collectedObj}" data-ng-click="productHeaderScope.toggleCollect()">
+						<i class="fa fa-star"></i>&nbsp;{{productHeaderScope.collectedObj?"已收藏":"收藏商品"}}
+					</a>
 					<a href="javascript:void(0)"><i class="fa fa-share-alt"></i>&nbsp;分享</a>
 				</div>
 			</div>
@@ -105,6 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<button data-ng-show="productInfo.status!=2" class="pro-down">商品已下架</button>
 					</div>
 				</div>
+				<p><a href="javascript:void(0)" data-ng-click="toShopPage()">点击进入店铺</a></p>
 				<p data-ng-show="productInfo.brief && productInfo.brief.length>0">简介：&nbsp;{{productInfo.brief}}</p>
 			</div>
 		</div>

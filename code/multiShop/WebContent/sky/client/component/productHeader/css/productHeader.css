@@ -28,7 +28,6 @@
 }
 .ph-head-box .name-box {
 	font-size: 20px;
-    line-height: 22px;
 }
 .ph-head-box .name-box .shop-name {
 	vertical-align: top;
@@ -37,6 +36,7 @@
 	*zoom: 1;
 }
 .ph-head-box label {
+	line-height: 16px;
 	font-size: 12px;
     margin: 5px;
     margin-left: 0px;
@@ -47,7 +47,6 @@
 }
 .ph-head-box label.recommend {
 	width: 40px;
-    line-height: 16px;
     font-size: 10px;
     -webkit-transform: scale(.83);
     background-color: #f4c985;
@@ -93,6 +92,9 @@
 }
 .ph-phone .pull-right a {
 	margin-right: 10px;
+}
+.ph-phone .pull-right a.active {
+	color: #ff8b00;
 }
 
 @media screen and (max-width: 760px) {
