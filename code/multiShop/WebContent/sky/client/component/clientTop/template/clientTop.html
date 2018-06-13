@@ -3,21 +3,21 @@
 	<div class="ct-top-fixed">
 		<div class="ct-top-left">
 			<span>欢迎来到&nbsp;{{systemName|showBlankValue}}！</span>
-			<div class="ct-top-item" data-ng-show="!currentUser">
+			<div class="ct-top-item" data-ng-show="!userInfo">
 				<span class="link" data-ng-click="openLoginPanel('login');">请登录</span>/
 				<span class="link" data-ng-click="openLoginPanel('register');">注册</span>
 			</div>
-			<div class="ct-top-item" data-ng-show="currentUser">
-				<span class="link">{{currentUser.username}}</span>/
+			<div class="ct-top-item" data-ng-show="userInfo">
+				<span class="link" data-ng-click="openMyPanel()">{{userInfo.name}}</span>/
 				<span class="link" data-ng-click="logout()">退出</span>
 			</div>
-			<div class="ct-top-item" data-ng-show="currentUser && tableName=='tb_product'">
+			<div class="ct-top-item" data-ng-show="userInfo && tableName=='tb_product'">
 				<span class="link" data-ng-click=""><i class="fa fa-shopping-cart"></i>&nbsp;购物车</span>
 			</div>
-			<div class="ct-top-item" data-ng-show="currentUser">
+			<div class="ct-top-item" data-ng-show="userInfo">
 				<span class="link" data-ng-click=""><i class="fa fa-star"></i>&nbsp;收藏夹</span>
 			</div>
-			<div class="ct-top-item" data-ng-show="currentUser">
+			<div class="ct-top-item" data-ng-show="userInfo">
 				<span class="link" data-ng-click=""><i class="fa fa-clock-o"></i>&nbsp;浏览记录</span>
 			</div>
 		</div>
@@ -83,7 +83,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="ct-bottom-item" data-ng-class="{'active': currentNav=='me'}" data-ng-click="clickNav('me')">
+		<div class="ct-bottom-item" data-ng-class="{'active': currentNav=='me'}" data-ng-click="openMyPanel()">
 			<i class="fa fa-user"></i>
 			<p>我的</p>
 		</div>
@@ -154,6 +154,9 @@
 					
 					<!-- 登录面板start -->
 					<form class="login-panel" data-ng-submit="login()" data-ng-show="loginNav=='login'">
+						<div class="login-top">
+							<span data-ng-show="errorMsg && errorMsg.length>0"><i class="fa fa-times-circle"></i>&nbsp;{{errorMsg}}</span>
+						</div>
 						<div class="login-row">
 							<div class="input-group">
 								<div class="login-label">
@@ -215,6 +218,103 @@
 		</div>
 	</div>
 	<!-- 注册登陆模态框 end -->
+	
+	<!-- 用户信息模态框 start -->
+	<div class="modal fade" id="userWinId" tabindex="-1" role="dialog" aria-labelledby="userWinLabel">
+		<div class="modal-dialog login-model-dialog">
+			<div class="modal-content login-model-content">
+				<div class="modal-header client-model-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">{{getUserHeader(userNav)}}</h4>
+				</div>
+				<div class="modal-body">
+					<!-- 用户信息面板start -->
+					<form class="user-panel" data-ng-submit="saveUserInfo()" data-ng-show="userNav=='user'">
+						<div class="login-top" data-ng-show="isEditUser">
+							<a href="javascript:void(0)" data-ng-click="triggerUserPanel('user', false)"><i class="fa fa-chevron-left"></i>&nbsp;返回</a>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<div class="user-label">用户名</div>
+								<div class="user-value">{{userInfo.id}}</div>
+							</div>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<div class="user-label">用户名字</div>
+								<div class="user-value" data-ng-show="!isEditUser">{{userInfo.name}}</div>
+								<input class="form-control" type="text" placeholder="输入用户名字" required="required" data-ng-show="isEditUser" data-ng-model="userInfo.name">
+							</div>
+						</div>
+						<div class="login-row" data-ng-show="userInfo.wechat && userInfo.wechat.length>0">
+							<div class="input-group">
+								<div class="user-label">微信号</div>
+								<div class="user-value">{{userInfo.wechat}}</div>
+							</div>
+						</div>
+						<div class="login-row" data-ng-show="userInfo.qq && userInfo.qq.length>0">
+							<div class="input-group">
+								<div class="user-label">QQ号</div>
+								<div class="user-value">{{userInfo.qq}}</div>
+							</div>
+						</div>
+						<div class="login-row" data-ng-show="userInfo.telephone && userInfo.telephone.length>0">
+							<div class="input-group">
+								<div class="user-label">手机号</div>
+								<div class="user-value">{{userInfo.telephone}}</div>
+							</div>
+						</div>
+						<div class="login-row" data-ng-show="isEditUser">
+							<button type="submit" class="btn login-btn">保&nbsp;&nbsp;&nbsp;&nbsp;存</button>
+						</div>
+						<div class="login-row" data-ng-show="!isEditUser">
+							<div class="input-group">
+								<small class="pull-right">
+									<a href="javascript:void(0)" data-ng-click="triggerUserPanel('user', true)">修改个人信息</a>
+									<a href="javascript:void(0)" data-ng-click="triggerUserPanel('password', false)">修改密码</a>
+									<a href="javascript:void(0)" data-ng-click="logout()">退出登录</a>
+								</small>
+							</div>
+						</div>
+						<div class="login-top">
+							<span data-ng-show="errorMsg && errorMsg.length>0"><i class="fa fa-times-circle"></i>&nbsp;{{errorMsg}}</span>
+						</div>
+					</form>
+					<!-- 用户信息面板end -->
+					
+					<!-- 密码面板start -->
+					<form class="password-panel" data-ng-submit="savePassword()" data-ng-show="userNav=='password'">
+						<div class="login-top">
+							<a href="javascript:void(0)" data-ng-click="triggerUserPanel('user', false)"><i class="fa fa-chevron-left"></i>&nbsp;返回</a>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<input class="form-control" type="password" placeholder="输入旧密码" required="required" data-ng-model="password.oldPasswd">
+							</div>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<input class="form-control" type="password" placeholder="设置新密码" required="required" data-ng-model="password.newPasswd">
+							</div>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<input class="form-control" type="password" placeholder="确认新密码" required="required" data-ng-model="password.confirmPasswd">
+							</div>
+						</div>
+						<div class="login-row">
+							<button type="submit" class="btn login-btn">保&nbsp;&nbsp;&nbsp;&nbsp;存</button>
+						</div>
+						<div class="login-top">
+							<span data-ng-show="errorMsg && errorMsg.length>0"><i class="fa fa-times-circle"></i>&nbsp;{{errorMsg}}</span>
+						</div>
+					</form>
+					<!-- 密码面板end -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 用户信息模态框 end -->
 	
 </div>
 

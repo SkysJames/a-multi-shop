@@ -376,9 +376,12 @@
 	min-height: 420px;
 }
 .login-panel {
-	margin-top: 50px;
+	margin-top: 20px;
 }
 .register-panel {
+	
+}
+.user-panel {
 	
 }
 .login-row {
@@ -406,6 +409,11 @@
 .login-top {
 	margin: 0 auto;
     width: 95%;
+    height: 20px;
+    line-height: 20px;
+}
+.login-top span {
+	color: #ff0000;
 }
 .login-top a {
 	font-size: 14px;
@@ -424,6 +432,19 @@
     color: #fff!important;
     background-color: #ff0000!important;
     outline: none;
+}
+.user-label {
+	display: table-cell;
+    vertical-align: middle;
+    width: 24%;
+    padding-right: 12px;
+    text-align: left;
+}
+.user-value {
+	display: table-cell;
+    vertical-align: middle;
+	width: 75%;
+	text-align: left;
 }
 
 

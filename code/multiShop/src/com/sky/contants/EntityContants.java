@@ -50,6 +50,7 @@ public class EntityContants {
 			actionMaps.put("client-index", "前台首页");
 			actionMaps.put("client-logout", "系统退出");
 			actionMaps.put("client-login", "前台登录");
+			actionMaps.put("user-client", "前台用户信息");
 			actionMaps.put("cart-client", "前台购物车");
 			actionMaps.put("prohistory-client", "前台收藏/历史记录");
 			actionMaps.put("message-client", "前台消息");

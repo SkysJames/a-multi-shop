@@ -27,6 +27,40 @@ angular.module('client-index.httpService',[])
 	};
 	
 	/**
+	 * 根据用户ID获取用户信息
+	 */
+	this.getUserById = function(userId){
+		var tempData={};
+		tempData.userId = userId;
+		var url = $contextPath + "/system/user-client!getUserById";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 修改用户个人信息
+	 */
+	this.editPerson = function(user){
+		var conditionJson = JSON.stringify(user);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/user-client!editPerson";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 修改密码
+	 */
+	this.editPersonPawd = function(userId, oldPasswd, newPasswd){
+		var tempData={};
+		tempData.userId = userId;
+		tempData.oldPasswd = oldPasswd;
+		tempData.newPasswd = newPasswd;
+		var url = $contextPath + "/system/user-client!editPersonPawd";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
 	 * 获取公告列表
 	 */
 	this.getAnnounceList = function(condition){

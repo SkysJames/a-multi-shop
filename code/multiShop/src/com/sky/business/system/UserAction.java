@@ -230,6 +230,10 @@ public class UserAction extends BaseAction {
 		try{
 			userService.editPersonPawd(userId, oldPasswd, newPasswd);
 			
+			LoginUser loginUser = sessionLoginUser();
+			loginUser.setUserPwd(newPasswd);
+			session.setAttribute("loginUser", loginUser);//更新session的loginUser值
+			
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
 			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功修改密码");
 		} catch (ServiceException e) {
