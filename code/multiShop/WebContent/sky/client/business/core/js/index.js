@@ -1,6 +1,6 @@
 angular.module('indexApp',["client-index.filter","client-index.httpService"].concat($commonDirectiveList).concat($directiveList))
-.controller("indexCtrl",['$timeout', '$scope', '$document', 'clientIndexHttpService', 
-function($timeout, $scope, $document, clientIndexHttpService){
+.controller("indexCtrl",['$timeout', '$interval', '$scope', '$document', 'clientIndexHttpService', 
+function($timeout, $interval, $scope, $document, clientIndexHttpService){
 	//系统轮播图片
 	$scope.slideList = $systemPicture==""?clientCommon.demoSliders:$systemPicture.split(",");
 	//系统轮播图片链接
@@ -162,6 +162,16 @@ function($timeout, $scope, $document, clientIndexHttpService){
 				$scope.loadMoreShop();
 			}
 		});
+		
+		//定时任务加载获取顶部的作用域
+		$scope.intervalTopScope = $interval(function(){
+			if(angular.element($('#clientTopId')).scope()){
+				//获取顶部页面的作用域
+				$scope.clientTopScope = angular.element($('#clientTopId')).scope();
+				//去掉定时任务
+				$interval.cancel($scope.intervalTopScope);
+			}
+		},500);
 	};
 	$document.ready($scope.initFunc);
 	

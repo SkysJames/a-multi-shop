@@ -1,6 +1,6 @@
 angular.module('shopSearchApp',["client-index.filter","client-index.httpService","indexHeader"].concat($commonDirectiveList).concat($directiveList))
-.controller("shopSearchCtrl",['$timeout', '$scope', '$document', 'clientIndexHttpService', 
-function($timeout, $scope, $document, clientIndexHttpService){
+.controller("shopSearchCtrl",['$timeout', '$interval', '$scope', '$document', 'clientIndexHttpService', 
+function($timeout, $interval, $scope, $document, clientIndexHttpService){
 	//店铺类型列表
 	$scope.typeList = [];
 	//二级店铺类型列表
@@ -191,6 +191,16 @@ function($timeout, $scope, $document, clientIndexHttpService){
 				$scope.loadMoreShop();
 			}
 		});
+		
+		//定时任务加载获取顶部的作用域
+		$scope.intervalTopScope = $interval(function(){
+			if(angular.element($('#clientTopId')).scope()){
+				//获取顶部页面的作用域
+				$scope.clientTopScope = angular.element($('#clientTopId')).scope();
+				//去掉定时任务
+				$interval.cancel($scope.intervalTopScope);
+			}
+		},500);
 	};
 	$document.ready($scope.initFunc);
 	

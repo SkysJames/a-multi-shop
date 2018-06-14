@@ -189,13 +189,13 @@ ul li {
 	text-align: left;
 	background: url(../img/s_li.png) no-repeat right bottom;
 }
-.ishop-con>h3 {
+.ishop-con h3 {
 	display: inline-block;
 	vertical-align: top;
 	position: relative;
 	margin-top: 5px;
     margin-bottom: 5px;
-	width: 100%;
+	width: 88%;
 	font-weight: bolder;
 	font-size: 16px;
 	color: #333;
@@ -220,6 +220,16 @@ ul li {
 .ishop-con p label i {
 	color: #ff0000;
 }
+.ishop-con-h {
+	position: relative;
+}
+.ishop-collected {
+	position: absolute;
+    right: 0px;
+    line-height: 27px;
+    color: #ff8b00;
+    font-size: 14px;
+}
 .ishop-content>ul>li:hover {
 	transform:translateY(-6px);
 	-webkit-transform:translateY(-6px);
@@ -228,7 +238,7 @@ ul li {
 	-webkit-box-shadow:0 26px 40px -24px rgba(0,36,100,.3);
 	-moz-box-shadow:0 26px 40px -24px rgba(0,36,100,.3);
 }
-.ishop-content>ul>li:hover .ishop-con>h3 {
+.ishop-content>ul>li:hover .ishop-con h3 {
 	color: #ff0000;
 }
 
@@ -341,12 +351,23 @@ ul li {
 	text-decoration: underline!important;
 }
 .shoppro-con p {
+	width: 75%;
     margin: 5px 0px;
     font-size: 12px;
     color: #999;
     overflow: hidden;
 	text-overflow:ellipsis;
 	white-space: nowrap;
+}
+.shoppro-bot {
+	position: relative;
+}
+.shoppro-collected {
+	position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 12px;
+    color: #ff8b00;
 }
 .shoppro-content>ul>li:hover {
 	border: 1px solid #ff0000;
@@ -427,12 +448,17 @@ ul li {
 		text-decoration: underline!important;
 	}
 	.shoppro-con p {
+		width: 100%;
 	    margin: 5px 0px;
 	    font-size: 12px;
 	    color: #999;
 	    overflow: hidden;
 		text-overflow:ellipsis;
 		white-space: nowrap;
+	}
+	.shoppro-collected {
+		right: auto;
+    		top: auto;
 	}
 	.shoppro-content>ul>li:hover {
 		border: none;

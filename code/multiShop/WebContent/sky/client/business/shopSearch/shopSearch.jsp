@@ -90,7 +90,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   				<li data-ng-repeat="item in shopList" data-ng-click="toPage('/home/shop-index?shopId='+item.id, true)">
   					<div class="ishop-img" style="background-image: url({{item.logoPathList|getImgByImgList}})"></div>
   					<div class="ishop-con">
-  						<h3 title="{{item.name | showBlankValue}}">{{item.name | showBlankValue}}</h3>
+  						<div class="ishop-con-h">
+	  						<h3 title="{{item.name | showBlankValue}}">{{item.name | showBlankValue}}</h3>
+	  						<span class="ishop-collected" title="已收藏" data-ng-show="item.id|getCollectedObj:clientTopScope.collectShopListBak"><i class="fa fa-star"></i></span>
+  						</div>
   						<p title="简介：{{item.brief | showBlankValue}}">简介：{{item.brief | showBlankValue}}</p>
   						<p title="评分：{{item.mark}}分">
   							评分：{{item.mark}}分

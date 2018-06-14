@@ -114,7 +114,7 @@ function($timeout, $interval, $scope, $sce, $filter,$document, clientIndexHttpSe
 				//去掉定时任务
 				$interval.cancel($scope.intervalHeaderScope);
 			}
-		},2000);
+		},500);
 		
 	};
 	$document.ready($scope.initFunc);

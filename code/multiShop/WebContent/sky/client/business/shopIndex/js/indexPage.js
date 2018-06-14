@@ -1,6 +1,6 @@
 angular.module('indexPage.module',[])
-.controller("indexPageCtrl",['$timeout', '$scope', '$routeParams', '$filter', '$document', "clientIndexHttpService", 
-function($timeout, $scope, $routeParams, $filter, $document, clientIndexHttpService){
+.controller("indexPageCtrl",['$timeout', '$interval', '$scope', '$routeParams', '$filter', '$document', "clientIndexHttpService", 
+function($timeout, $interval, $scope, $routeParams, $filter, $document, clientIndexHttpService){
 	//路由过来的参数
 	$scope.routeParams = $routeParams;
 	//根作用域
@@ -118,6 +118,16 @@ function($timeout, $scope, $routeParams, $filter, $document, clientIndexHttpServ
 				$scope.loadMoreProduct();
 			}
 		});
+		
+		//定时任务加载获取顶部的作用域
+		$scope.intervalTopScope = $interval(function(){
+			if(angular.element($('#clientTopId')).scope()){
+				//获取顶部页面的作用域
+				$scope.clientTopScope = angular.element($('#clientTopId')).scope();
+				//去掉定时任务
+				$interval.cancel($scope.intervalTopScope);
+			}
+		},500);
 	};
 	$document.ready($scope.initFunc);
 }]);

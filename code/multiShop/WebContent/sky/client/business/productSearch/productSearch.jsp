@@ -51,7 +51,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   							<label title="浏览量：{{item.clickCount}}">浏览量：{{item.clickCount}}</label>
   						</h3>
   						<a title="{{item.name | showBlankValue}}" href="javascript:void(0)">{{item.name | showBlankValue}}</a>
-  						<p title="{{item.shopName | showBlankValue}}">{{item.shopName | showBlankValue}}</p>
+  						<div class="shoppro-bot">
+	  						<p title="{{item.shopName | showBlankValue}}">{{item.shopName | showBlankValue}}</p>
+	  						<span class="shoppro-collected" data-ng-show="item.id|getCollectedObj:clientTopScope.collectProductListBak"><i class="fa fa-star"></i>&nbsp;已收藏</span>
+  						</div>
   					</div>
   				</li>
   			</ul>

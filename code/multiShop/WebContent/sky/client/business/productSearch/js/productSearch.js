@@ -1,6 +1,6 @@
 angular.module('productSearchApp',["client-index.filter","client-index.httpService","indexHeader"].concat($commonDirectiveList).concat($directiveList))
-.controller("productSearchCtrl",['$timeout', '$scope', '$document', 'clientIndexHttpService', 
-function($timeout, $scope, $document, clientIndexHttpService){
+.controller("productSearchCtrl",['$timeout', '$interval', '$scope', '$document', 'clientIndexHttpService', 
+function($timeout, $interval, $scope, $document, clientIndexHttpService){
 	//搜索条件对象
 	$scope.condition = {
 			pageNo		: 1,		//当前页码
@@ -70,7 +70,6 @@ function($timeout, $scope, $document, clientIndexHttpService){
 		.then(function(response){
 			var data = response.data;
 			$scope.typeList = data.list;
-			console.log($scope.typeList);
 		},function(err){
 			console.log(err);
 		});
@@ -121,6 +120,16 @@ function($timeout, $scope, $document, clientIndexHttpService){
 				$scope.loadMoreProduct();
 			}
 		});
+		
+		//定时任务加载获取顶部的作用域
+		$scope.intervalTopScope = $interval(function(){
+			if(angular.element($('#clientTopId')).scope()){
+				//获取顶部页面的作用域
+				$scope.clientTopScope = angular.element($('#clientTopId')).scope();
+				//去掉定时任务
+				$interval.cancel($scope.intervalTopScope);
+			}
+		},500);
 	};
 	$document.ready($scope.initFunc);
 	
