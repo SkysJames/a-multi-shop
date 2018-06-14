@@ -478,6 +478,7 @@
    	margin-bottom: 5px;
 	background: #fff;
     border: 1px solid #efefef;
+    cursor: pointer;
 	-webkit-transition: all .3s ease;
 	-moz-transition: all .3s ease;
 	-o-transition: all .3s ease;

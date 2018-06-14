@@ -2,6 +2,7 @@ package com.sky.business.system.service.impl;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -11,11 +12,13 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.sky.business.common.service.impl.BaseServiceImpl;
+import com.sky.business.common.vo.LoginUser;
 import com.sky.business.common.vo.ServiceException;
 import com.sky.business.system.dao.ProhistoryDao;
 import com.sky.business.system.entity.Prohistory;
 import com.sky.business.system.service.ProhistoryService;
 import com.sky.contants.CodeMescContants;
+import com.sky.contants.TableContants;
 import com.sky.util.CommonMethodUtil;
 
 /**
@@ -74,6 +77,27 @@ public class ProhistoryServiceImpl extends BaseServiceImpl implements Prohistory
 		}
 		
 		this.delete(prohistory);
+	}
+
+	@Override
+	public void saveHistoryByUser(LoginUser loginUser, String tableName, String objId) throws Exception {
+		Map<String,Object> obj = new HashMap<String, Object>();
+		
+		//链接
+		String href = "";
+		if(tableName.equals(TableContants.TABLE_SHOP)) {
+			href = "/home/shop-index?shopId=" + objId;
+		}else if(tableName.equals(TableContants.TABLE_PRODUCT)) {
+			href = "/home/product-index?productId=" + objId;
+		}
+		
+		obj.put("type", "1");//历史浏览类型
+		obj.put("objId", objId);
+		obj.put("tableName", tableName);
+		obj.put("userId", loginUser.getUserId());
+		obj.put("href", href);
+		
+		this.saveOrUpdate(obj);
 	}
 	
 }

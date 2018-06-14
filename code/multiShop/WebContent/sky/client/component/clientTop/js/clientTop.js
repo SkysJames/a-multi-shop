@@ -26,6 +26,8 @@ angular.module('clientTop',[])
 			$scope.userNav = "user";
 			//当前收藏面板的导航，shop-店铺面板，product-商品面板
 			$scope.collectNav = "shop";
+			//当前历史记录面板的导航，shop-店铺面板，product-商品面板
+			$scope.historyNav = "shop";
 			//登录对象
 			$scope.loginObj = {};
 			//注册对象
@@ -38,6 +40,26 @@ angular.module('clientTop',[])
 			$scope.errorMsg = "";
 			//是否编辑用户信息
 			$scope.isEditUser = false;
+			//历史浏览记录的店铺条件对象
+			$scope.hisShopCondition = {
+					pageNo		: 1,		//当前页码
+					pageSize		: 5,		//每页数据量
+					pageCount	: 1,
+					totalCount	: 0,
+					userId		: $currentUser?$currentUser.userId:"",
+					type			: "1",//历史浏览记录类型
+					tableName	: common.tableContants.TB_SHOP,//店铺
+			};
+			//历史浏览记录的商品条件对象
+			$scope.hisProCondition = {
+					pageNo		: 1,		//当前页码
+					pageSize		: 5,		//每页数据量
+					pageCount	: 1,
+					totalCount	: 0,
+					userId		: $currentUser?$currentUser.userId:"",
+					type			: "1",//历史浏览记录类型
+					tableName	: common.tableContants.TB_PRODUCT,//商品
+			};
 			
 			
 			/**
@@ -104,8 +126,34 @@ angular.module('clientTop',[])
 			 * 打开收藏面板
 			 */
 			$scope.openCollectPanel = function(){
-				$scope.triggerCollectPanel("shop");
-				$('#collectWinId').modal("show");
+				if($scope.isLogin()){
+					$scope.triggerCollectPanel("shop");
+					$('#collectWinId').modal("show");
+				}
+			};
+			
+			/**
+			 * 切换历史记录面板（店铺面板/商品面板）
+			 * 需要实时的
+			 */
+			$scope.triggerHistoryPanel = function(nav){
+				$scope.historyNav = nav;
+				
+				if(nav == "shop"){
+					$scope.pagedHisShopList();
+				}else if(nav == "product"){
+					$scope.pagedHisProList();
+				}
+			};
+			
+			/**
+			 * 打开历史记录面板
+			 */
+			$scope.openHistoryPanel = function(){
+				if($scope.isLogin()){
+					$scope.triggerHistoryPanel("shop");
+					$('#historyWinId').modal("show");
+				}
 			};
 			
 			/**
@@ -343,9 +391,9 @@ angular.module('clientTop',[])
 				};
 				
 				if(tableName==common.tableContants.TB_SHOP){
-					$scope.isLoadingColectedShop = true;
+					$scope.isLoadingCollectedShop = true;
 				}else if(tableName==common.tableContants.TB_PRODUCT){
-					$scope.isLoadingColectedProduct = true;
+					$scope.isLoadingCollectedProduct = true;
 				}
 				
 				clientIndexHttpService.getProhistoryList(condition)
@@ -355,7 +403,7 @@ angular.module('clientTop',[])
 						if(tableName==common.tableContants.TB_SHOP){
 							$scope.collectShopListBak = data.list;
 							$scope.collectShopPager = common.getPagerObj(data.list, 5);
-							$scope.isLoadingColectedShop = false;
+							$scope.isLoadingCollectedShop = false;
 							
 							//判断当前是否在已收藏的店铺页面
 							if(angular.element($('#shopHeaderId')).scope()){
@@ -364,7 +412,7 @@ angular.module('clientTop',[])
 						}else if(tableName==common.tableContants.TB_PRODUCT){
 							$scope.collectProductListBak = data.list;
 							$scope.collectProductPager = common.getPagerObj(data.list, 5);
-							$scope.isLoadingColectedProduct = false;
+							$scope.isLoadingCollectedProduct = false;
 							
 							//判断当前是否在已收藏的商品页面
 							if(angular.element($('#productHeaderId')).scope()){
@@ -382,7 +430,8 @@ angular.module('clientTop',[])
 			/**
 			 * 取消收藏，店铺/商品
 			 */
-			$scope.deleteCollect = function(collectedObj, tableName){
+			$scope.deleteCollect = function(collectedObj, tableName, event){
+				event.stopPropagation();
 				clientIndexHttpService.deleteProhistory(collectedObj)
 				.then(function(response){
 					var data = response.data;
@@ -397,8 +446,67 @@ angular.module('clientTop',[])
 				});
 			};
 			
-			//获取历史浏览记录列表
+			/**
+			 * 分页获取历史浏览记录的店铺列表
+			 */
+			$scope.pagedHisShopList = function(pageNo){
+				if(!$currentUser){
+					return;
+				}
+				
+				if(pageNo){
+					$scope.hisShopCondition.pageNo = pageNo;
+				}else{
+					$scope.hisShopCondition.pageNo = 1;
+				}
+				
+				$scope.isLoadingHisShop = true;
+				clientIndexHttpService.pagedProhistoryList($scope.hisShopCondition)
+				.then(function(response){
+					var data = response.data;
+					if(data.statusCode=="200"){
+						$scope.hisShopList = data.pager.resultList;
+						$scope.hisShopCondition.pageCount = data.pager.pageCount;
+						$scope.hisShopCondition.totalCount = data.pager.totalCount;
+						$scope.isLoadingHisShop = false;
+					}else{
+						common.triggerFailMesg(data.message);
+					}
+				},function(err){
+					console.log(err);
+				});
+			};
 			
+			/**
+			 * 分页获取历史浏览记录的商品列表
+			 */
+			$scope.pagedHisProList = function(pageNo){
+				if(!$currentUser){
+					return;
+				}
+				
+				if(pageNo){
+					$scope.hisProCondition.pageNo = pageNo;
+				}else{
+					$scope.hisProCondition.pageNo = 1;
+				}
+				
+				$scope.isLoadingHisProduct = true;
+				clientIndexHttpService.pagedProhistoryList($scope.hisProCondition)
+				.then(function(response){
+					var data = response.data;
+					if(data.statusCode=="200"){
+						$scope.hisProList = data.pager.resultList;
+						$scope.hisProCondition.pageCount = data.pager.pageCount;
+						$scope.hisProCondition.totalCount = data.pager.totalCount;
+						$scope.isLoadingHisProduct = false;
+					}else{
+						common.triggerFailMesg(data.message);
+					}
+				},function(err){
+					console.log(err);
+				});
+			};
 			
 			/**
 			 * 通过url打开页面

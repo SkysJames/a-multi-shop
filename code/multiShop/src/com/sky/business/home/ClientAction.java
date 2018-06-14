@@ -21,9 +21,11 @@ import com.sky.business.oplog.service.OplogService;
 import com.sky.business.shop.dao.ProductDao;
 import com.sky.business.shop.entity.Product;
 import com.sky.business.shop.service.ProductService;
+import com.sky.business.system.service.ProhistoryService;
 import com.sky.business.system.service.UserService;
 import com.sky.contants.CodeMescContants;
 import com.sky.contants.EntityContants;
+import com.sky.contants.TableContants;
 import com.sky.util.IpProcessUtil;
 
 /**
@@ -35,6 +37,9 @@ import com.sky.util.IpProcessUtil;
 public class ClientAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
+	
+	@Resource(name = "prohistoryService")
+	private ProhistoryService prohistoryService;
 	
 	@Resource(name = "userService")
 	private UserService userService;
@@ -144,11 +149,23 @@ public class ClientAction extends BaseAction {
 			return ERROR;
 		}
 		
-		Map<String, Object> condition = new HashMap<String, Object>();
-		condition.put("shopId", shopId);
-		Integer count = productService.getCount(productDao, Product.class, condition);
-		if(count==null || count==0) {
-			shopAbout = true;
+		try {
+			//判断是否存在商品
+			Map<String, Object> condition = new HashMap<String, Object>();
+			condition.put("shopId", shopId);
+			Integer count = productService.getCount(productDao, Product.class, condition);
+			if(count==null || count==0) {
+				shopAbout = true;
+			}
+			
+			//保存历史记录
+			LoginUser loginUser = super.sessionLoginUser();
+			if(loginUser != null) {
+				prohistoryService.saveHistoryByUser(loginUser, TableContants.TABLE_SHOP, shopId);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ERROR;
 		}
 		
 		return SUCCESS;
@@ -163,6 +180,17 @@ public class ClientAction extends BaseAction {
 		logger.info("进入前端商品详情页面");
 		
 		if(StringUtils.isBlank(productId)) {
+			return ERROR;
+		}
+		
+		try {
+			//保存历史记录
+			LoginUser loginUser = super.sessionLoginUser();
+			if(loginUser != null) {
+				prohistoryService.saveHistoryByUser(loginUser, TableContants.TABLE_PRODUCT, productId);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 			return ERROR;
 		}
 		

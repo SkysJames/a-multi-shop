@@ -15,10 +15,10 @@
 				<span class="link" data-ng-click=""><i class="fa fa-shopping-cart"></i>&nbsp;购物车</span>
 			</div>
 			<div class="ct-top-item" data-ng-show="userInfo">
-				<span class="link" data-ng-click="openCollectPanel()"><i class="fa fa-star"></i>&nbsp;收藏夹</span>
+				<span class="link" data-ng-click="openCollectPanel()"><i class="fa fa-star"></i>&nbsp;我的收藏</span>
 			</div>
 			<div class="ct-top-item" data-ng-show="userInfo">
-				<span class="link" data-ng-click=""><i class="fa fa-clock-o"></i>&nbsp;浏览记录</span>
+				<span class="link" data-ng-click="openHistoryPanel()"><i class="fa fa-history"></i>&nbsp;我的足迹</span>
 			</div>
 		</div>
 		<div class="ct-top-right">
@@ -73,10 +73,10 @@
 			<p>更多</p>
 			<ul class="ct-bottom-item-two">
 				<li>
-					<a href="javascript:void(0)" data-ng-click="openCollectPanel()"><i class="fa fa-star"></i>&nbsp;收藏夹</a>
+					<a href="javascript:void(0)" data-ng-click="openCollectPanel()"><i class="fa fa-star"></i>&nbsp;我的收藏</a>
 				</li>
 				<li>
-					<a href="javascript:void(0)"><i class="fa fa-clock-o"></i>&nbsp;浏览记录</a>
+					<a href="javascript:void(0)" data-ng-click="openHistoryPanel()"><i class="fa fa-history"></i>&nbsp;我的足迹</a>
 				</li>
 				<li>
 					<a href="javascript:void(0)"><i class="fa fa-edit"></i>&nbsp;评价</a>
@@ -91,8 +91,8 @@
 	<!-- 手机版底部栏end -->
 	
 	<!-- 侧边客服start -->
-	<div class="ct-right-fixed" data-ng-show="shopInfo">
-		<div class="ct-fixed-item ct-fixed-phone" data-ng-mouseover="mouseService(true)" data-ng-mouseleave="mouseService(false)">
+	<div class="ct-right-fixed">
+		<div class="ct-fixed-item ct-fixed-phone" data-ng-show="shopInfo" data-ng-mouseover="mouseService(true)" data-ng-mouseleave="mouseService(false)">
 			<i class="fa fa-wechat ct-service"></i>
 			<p>客服</p>
 			<div class="ct-phone">
@@ -322,7 +322,7 @@
 			<div class="modal-content login-model-content">
 				<div class="modal-header client-model-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">收藏夹</h4>
+					<h4 class="modal-title">我的收藏</h4>
 				</div>
 				<div class="modal-body">
 					<div class="collect-title">
@@ -333,19 +333,19 @@
 					<!-- 店铺面板start -->
 					<div class="collect-panel" data-ng-show="collectNav=='shop'">
 						<ul data-ng-show="collectShopPager.list && collectShopPager.list.length>0">
-							<li data-ng-repeat="item in collectShopPager.list">
-								<div class="collect-img" style="background-image: url({{item.shop.picPathList|getImgByImgList}})"></div>
+							<li data-ng-repeat="item in collectShopPager.list" data-ng-click="toPage(item.href, true)">
+								<div class="collect-img" style="background-image: url({{item.shop.logoPathList|getImgByImgList}})"></div>
 			  					<div class="collect-con">
 			  						<h3>
-			  							<a href="javascript:void(0)" data-ng-click="deleteCollect(item, 'tb_shop')">取消收藏</a>
+			  							<a href="javascript:void(0)" data-ng-click="deleteCollect(item, 'tb_shop', $event)">取消收藏</a>
 			  						</h3>
-			  						<a title="{{item.shop.name | showBlankValue}}" data-ng-click="toPage(item.href, false)" href="javascript:void(0)">{{item.shop.name | showBlankValue}}</a>
+			  						<a title="{{item.shop.name | showBlankValue}}" href="javascript:void(0)">{{item.shop.name | showBlankValue}}</a>
 			  						<p title="{{item.shop.brief | showBlankValue}}">{{item.shop.brief | showBlankValue}}</p>
 			  					</div>
 							</li>
 						</ul>
-						<loading-panel data-ng-show="isLoadingColectedShop" font-size="18"></loading-panel>
-						<nodata-panel data-ng-show="!isLoadingColectedShop && collectShopPager.list.length==0" font-size="18"></nodata-panel>
+						<loading-panel data-ng-show="isLoadingCollectedShop" font-size="18"></loading-panel>
+						<nodata-panel data-ng-show="!isLoadingCollectedShop && collectShopPager.list.length==0" font-size="18"></nodata-panel>
 						<common-pager class="common-pager" page-count="{{collectShopPager.pageCount}}" current-page="collectShopPager.pageNo" 
 								total-rows="collectShopPager.totalCount" to-page-call-back="pagedShopCollect(pageNo)"></common-pager>
 					</div>
@@ -354,20 +354,20 @@
 					<!-- 商品面板start -->
 					<div class="collect-panel" data-ng-show="collectNav=='product'">
 						<ul data-ng-show="collectProductPager.list && collectProductPager.list.length>0">
-							<li data-ng-repeat="item in collectProductPager.list">
+							<li data-ng-repeat="item in collectProductPager.list" data-ng-click="toPage(item.href, true)">
 								<div class="collect-img" style="background-image: url({{item.product.picPathList|getImgByImgList}})"></div>
 			  					<div class="collect-con">
 			  						<h3 title="{{item.product.price}}元">
 			  							<i class="fa fa-rmb"></i>&nbsp;{{item.product.price}}
-			  							<a href="javascript:void(0)" data-ng-click="deleteCollect(item, 'tb_product')">取消收藏</a>
+			  							<a href="javascript:void(0)" data-ng-click="deleteCollect(item, 'tb_product', $event)">取消收藏</a>
 			  						</h3>
-			  						<a title="{{item.product.name | showBlankValue}}" data-ng-click="toPage(item.href, false)" href="javascript:void(0)">{{item.product.name | showBlankValue}}</a>
+			  						<a title="{{item.product.name | showBlankValue}}" href="javascript:void(0)">{{item.product.name | showBlankValue}}</a>
 			  						<p title="{{item.product.brief | showBlankValue}}">{{item.product.brief | showBlankValue}}</p>
 			  					</div>
 							</li>
 						</ul>
-						<loading-panel data-ng-show="isLoadingColectedProduct" font-size="18"></loading-panel>
-						<nodata-panel data-ng-show="!isLoadingColectedProduct && collectProductPager.list.length==0" font-size="18"></nodata-panel>
+						<loading-panel data-ng-show="isLoadingCollectedProduct" font-size="18"></loading-panel>
+						<nodata-panel data-ng-show="!isLoadingCollectedProduct && collectProductPager.list.length==0" font-size="18"></nodata-panel>
 						<common-pager class="common-pager" page-count="{{collectProductPager.pageCount}}" current-page="collectProductPager.pageNo" 
 								total-rows="collectProductPager.totalCount" to-page-call-back="pagedProductCollect(pageNo)"></common-pager>
 					</div>
@@ -377,6 +377,64 @@
 		</div>
 	</div>
 	<!-- 收藏夹模态框 end -->
+	
+	<!-- 历史记录模态框 start -->
+	<div class="modal fade" id="historyWinId" tabindex="-1" role="dialog" aria-labelledby="historyWinLabel">
+		<div class="modal-dialog login-model-dialog">
+			<div class="modal-content login-model-content">
+				<div class="modal-header client-model-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">我的足迹</h4>
+				</div>
+				<div class="modal-body">
+					<div class="collect-title">
+						<a href="javascript:void(0)" data-ng-class="{'active': historyNav=='shop'}" data-ng-click="triggerHistoryPanel('shop')">店铺</a>
+						<a href="javascript:void(0)" data-ng-class="{'active': historyNav=='product'}" data-ng-click="triggerHistoryPanel('product')">商品</a>
+					</div>
+				
+					<!-- 店铺面板start -->
+					<div class="collect-panel" data-ng-show="historyNav=='shop'">
+						<ul data-ng-show="hisShopList && hisShopList.length>0">
+							<li data-ng-repeat="item in hisShopList" data-ng-click="toPage(item.href, true)">
+								<div class="collect-img" style="background-image: url({{item.shop.logoPathList|getImgByImgList}})"></div>
+			  					<div class="collect-con">
+			  						<a title="{{item.shop.name | showBlankValue}}" href="javascript:void(0)">{{item.shop.name | showBlankValue}}</a>
+			  						<p title="{{item.shop.brief | showBlankValue}}">{{item.shop.brief | showBlankValue}}</p>
+			  					</div>
+							</li>
+						</ul>
+						<loading-panel data-ng-show="isLoadingHisShop" font-size="18"></loading-panel>
+						<nodata-panel data-ng-show="!isLoadingHisShop && hisShopList.length==0" font-size="18"></nodata-panel>
+						<common-pager class="common-pager" page-count="{{hisShopCondition.pageCount}}" current-page="hisShopCondition.pageNo" 
+								total-rows="hisShopCondition.totalCount" to-page-call-back="pagedHisShopList(pageNo)"></common-pager>
+					</div>
+					<!-- 店铺面板end -->
+					
+					<!-- 商品面板start -->
+					<div class="collect-panel" data-ng-show="historyNav=='product'">
+						<ul data-ng-show="hisProList && hisProList.length>0">
+							<li data-ng-repeat="item in hisProList" data-ng-click="toPage(item.href, true)">
+								<div class="collect-img" style="background-image: url({{item.product.picPathList|getImgByImgList}})"></div>
+			  					<div class="collect-con">
+			  						<h3 title="{{item.product.price}}元">
+			  							<i class="fa fa-rmb"></i>&nbsp;{{item.product.price}}
+			  						</h3>
+			  						<a title="{{item.product.name | showBlankValue}}" href="javascript:void(0)">{{item.product.name | showBlankValue}}</a>
+			  						<p title="{{item.product.brief | showBlankValue}}">{{item.product.brief | showBlankValue}}</p>
+			  					</div>
+							</li>
+						</ul>
+						<loading-panel data-ng-show="isLoadingHisProduct" font-size="18"></loading-panel>
+						<nodata-panel data-ng-show="!isLoadingHisProduct && hisProList.length==0" font-size="18"></nodata-panel>
+						<common-pager class="common-pager" page-count="{{hisProCondition.pageCount}}" current-page="hisProCondition.pageNo" 
+								total-rows="hisProCondition.totalCount" to-page-call-back="pagedHisProList(pageNo)"></common-pager>
+					</div>
+					<!-- 商品面板end -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 历史记录模态框 end -->
 	
 </div>
 
