@@ -224,4 +224,28 @@ angular.module('client-index.httpService',[])
 		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
 	};
 	
+	/**
+	 * 添加评论
+	 */
+	this.addEvaluate = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/shop/evaluate-client!save";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 删除评论
+	 */
+	this.deleteEvaluate = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/shop/evaluate-client!delete";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
 });

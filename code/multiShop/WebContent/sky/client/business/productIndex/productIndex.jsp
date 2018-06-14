@@ -107,7 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<button data-ng-show="productInfo.status!=2" class="pro-down">商品已下架</button>
 					</div>
 				</div>
-				<p><a href="javascript:void(0)" data-ng-click="toShopPage()">点击进入店铺</a></p>
+				<p>{{shopInfo.name}}&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" data-ng-click="toShopPage()">点击进入店铺</a></p>
 				<p data-ng-show="productInfo.brief && productInfo.brief.length>0">简介：&nbsp;{{productInfo.brief}}</p>
 			</div>
 		</div>

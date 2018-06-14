@@ -4,13 +4,14 @@ angular.module('imagePanel',[])
 		restrict:'E',
 		scope : {
 			imagePanelId		: "@",//该图片面板的ID
+			currentImgIndex	: "@",//当前图片的序号
 			imagePathList	: "=",//图片路径列表
 		},
 		templateUrl : $contextPath +"/sky/common/component/imagePanel/template/imagePanel.html",
 		link : function(scope,element,attrs){
 			
 		},
-		controller : function($scope, $timeout, $filter, $document, serverIndexHttpService){
+		controller : function($scope, $timeout, $filter, $document){
 			//默认的图片
 			$scope.defaultImage = {
 					index	: -1,
@@ -46,7 +47,11 @@ angular.module('imagePanel',[])
 			 */
 			$scope.initImage = function(){
 				if($scope.imagePathList && $scope.imagePathList.length>0){
-					$scope.currentImage.index = 0;
+					if(undefined != $scope.currentImgIndex){
+						$scope.currentImage.index = parseInt($scope.currentImgIndex);
+					}else{
+						$scope.currentImage.index = 0;
+					}
 					$scope.currentImage.path = $scope.imagePathList[$scope.currentImage.index];
 				}
 			};

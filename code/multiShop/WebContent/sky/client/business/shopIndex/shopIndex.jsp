@@ -52,6 +52,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<slide-announce-model ans-win-id="shopAnsWinId" index-ans="indexAns"></slide-announce-model>
 	<!-- 公告消息模态框end -->
 	
+	<!-- 图片展示面板 start -->
+	<image-panel image-panel-id="{{imagePanelId}}" current-img-index="{{currentImgIndex}}" image-path-list="imagePathList"></image-panel>
+	<!-- 图片展示面板 end -->
+	
   </body>
   
   <!-- 后台基本js -->

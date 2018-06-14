@@ -60,6 +60,8 @@ angular.module('clientTop',[])
 					type			: "1",//历史浏览记录类型
 					tableName	: common.tableContants.TB_PRODUCT,//商品
 			};
+			//店铺评价的新增对象
+			$scope.shopEvalAdd = {};
 			
 			
 			/**
@@ -153,6 +155,19 @@ angular.module('clientTop',[])
 				if($scope.isLogin()){
 					$scope.triggerHistoryPanel("shop");
 					$('#historyWinId').modal("show");
+				}
+			};
+			
+			/**
+			 * 打开评价面板
+			 */
+			$scope.openEvaluatePanel = function(){
+				if($scope.isLogin()){
+					//添加的店铺评价对象
+					$scope.shopEvalAdd = {};
+					//错误信息
+					$scope.errorMsg = "";
+					$('#evaluateWinId').modal("show");
 				}
 			};
 			
@@ -327,7 +342,11 @@ angular.module('clientTop',[])
 			 */
 			$scope.mouseNav = function(nav, isOver){
 				if(nav=="more" && isOver){
-					$(".ct-bottom-item-two").css("top", "-125px");
+					if($scope.shopInfo){
+						$(".ct-bottom-item-two").css("top", "-125px");
+					}else{
+						$(".ct-bottom-item-two").css("top", "-85px");
+					}
 					$(".ct-bottom-item-two").fadeIn();
 				}else{
 					$(".ct-bottom-item-two").fadeOut();
@@ -506,6 +525,57 @@ angular.module('clientTop',[])
 				},function(err){
 					console.log(err);
 				});
+			};
+			
+			/**
+			 * 添加店铺评价
+			 */
+			$scope.addShopEvaluate = function(){
+				if(!$currentUser){
+					return;
+				}
+				
+				if(!$scope.isSaveShopEvaluate($scope.shopEvalAdd)){
+					$scope.errorMsg = "请按要求填写评价内容";
+					return;
+				}
+				
+				$scope.isLoadingAddShopEval = true;
+				clientIndexHttpService.addEvaluate($scope.shopEvalAdd)
+				.then(function(response){
+					var data = response.data;
+					if(data.statusCode=="200"){
+						$scope.isLoadingAddShopEval = false;
+						$('#evaluateWinId').modal("hide");
+					}else{
+						common.triggerFailMesg(data.message);
+					}
+				},function(err){
+					console.log(err);
+				});
+			};
+			
+			/**
+			 * 判断该用户对象是否符合保存的条件
+			 */
+			$scope.isSaveShopEvaluate = function(shopEvalAdd){
+				if(!shopEvalAdd){
+					return false;
+				}
+				
+				shopEvalAdd.userId = $currentUser.userId;//评价用户ID
+				shopEvalAdd.status = "1";//已发送未接收
+				shopEvalAdd.tableName = common.tableContants.TB_SHOP;//店铺表名
+				shopEvalAdd.objId = $scope.shopInfo.id;//被评价店铺ID
+				
+				if(!shopEvalAdd.mark || shopEvalAdd.mark==""){
+					return false;
+				}
+//				if(!shopEvalAdd.content || shopEvalAdd.content==""){
+//					return false;
+//				}
+				
+				return true;
 			};
 			
 			/**

@@ -50,7 +50,29 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	$scope.keywords = "";
 	//店铺信息
 	$scope.shopInfo = {};
+	//图片面板ID
+    $scope.imagePanelId = "imagePanelId";
+    //图片路径列表
+    $scope.imagePathList = [];
+    //当前图片序号
+    $scope.currentImgIndex = 0;
 	
+    
+    /**
+	 * 查看显示图片面板
+	 */
+	$scope.showImagePanel = function(imagePathList, imgIndex){
+		if(undefined != imgIndex){
+			$scope.currentImgIndex = imgIndex;
+		}
+		$scope.imagePathList = imagePathList;
+		$("#" + $scope.imagePanelId).modal("show");
+	  
+		var scope = angular.element($('#' + $scope.imagePanelId)).scope();
+		if(scope){
+			$timeout(scope.initImage, 100);
+		}
+	};
 	
 	/**
 	 * 当前页面跳到指定位置

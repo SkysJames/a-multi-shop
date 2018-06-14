@@ -18,6 +18,7 @@ function($timeout, $scope, $filter, $document, clientIndexHttpService){
 	//选中的导航
 	$scope.selectedNav = "evaluate";
 	
+	
 	/**
 	 * 选择过滤评分
 	 */
@@ -30,7 +31,6 @@ function($timeout, $scope, $filter, $document, clientIndexHttpService){
 	 * 过滤是否有图
 	 */
 	$scope.filterHasPic = function(){
-		console.log($scope.condition.hasPic);
 		$scope.pagedEvaluateList();
 	};
 	
@@ -56,6 +56,33 @@ function($timeout, $scope, $filter, $document, clientIndexHttpService){
 		},function(err){
 			console.log(err);
 		});
+	};
+	
+	/**
+	 * 添加店铺评价
+	 */
+	$scope.deleteEvaluate = function(eval){
+		if(!$currentUser){
+			return;
+		}
+		
+		if($currentUser.userId != eval.userId){
+			return;
+		}
+		
+		common.triggerAlertMesg("确定删除？", "", function(){}, function(){
+			clientIndexHttpService.deleteEvaluate(eval)
+			.then(function(response){
+				var data = response.data;
+				if(data && data.statusCode=="200"){
+					$scope.pagedEvaluateList();
+				}else{
+					common.triggerFailMesg(data.message);
+				}
+			},function(err){
+				console.log(err);
+			});
+		}, $scope);
 	};
 	
 	/**

@@ -255,6 +255,7 @@
     border: 1px solid #e2e2e2;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
+    cursor: pointer;
 }
 .ct-fixed-item>i {
 	font-size: 20px;
@@ -264,6 +265,9 @@
 }
 .ct-fixed-item .ct-service {
 	color: #00c424;
+}
+.ct-fixed-item .ct-evaluate {
+	color: #ff5400;
 }
 .ct-fixed-item:hover,.ct-fixed-item:active {
 	background-color: rgba(255,255,255,1);
@@ -549,6 +553,38 @@
 	white-space: nowrap;
 }
 
+.eval-row {
+	position: relative;
+	width: 100%;
+	margin: 6px 0px;
+}
+.eval-label {
+	position: relative;
+	vertical-align: top;
+	display: inline-block; /* 现代浏览器 +IE6、7 inline 元素 */  
+	*display: inline; /* IE6、7 block 元素 */  
+	*zoom: 1;
+	width: 68px;
+}
+.eval-value {
+	position: relative;
+	vertical-align: top;
+	display: inline-block; /* 现代浏览器 +IE6、7 inline 元素 */  
+	*display: inline; /* IE6、7 block 元素 */  
+	*zoom: 1;
+	width: 75%;
+}
+.eval-value label {
+	margin: 0px!important;
+	margin-right: 10px!important;
+    line-height: 22px;
+}
+.eval-value .need-tab {
+	position: relative;
+	top: 4px;
+    margin-left: 2px;
+}
+
 @media screen and (max-width: 760px) {
 	.ct-top-fixed {
 		display: none;
@@ -564,6 +600,10 @@
 	
 	.login-model-dialog {
 		width: auto;
+	}
+	
+	.ct-evaluate-item {
+		display: none;
 	}
 }
 

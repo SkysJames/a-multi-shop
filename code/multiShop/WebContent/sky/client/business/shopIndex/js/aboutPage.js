@@ -71,7 +71,7 @@ function($timeout, $interval, $scope, $sce, $filter, $document, clientIndexHttpS
 				//去掉定时任务
 				$interval.cancel($scope.intervalMap);
 			}
-		},2000);
+		},1000);
 		
 		//还原屏幕
 		$(".sh-phone").removeClass("sh-phone-scroll");

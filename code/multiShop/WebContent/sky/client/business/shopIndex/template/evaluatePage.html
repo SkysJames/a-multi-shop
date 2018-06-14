@@ -48,12 +48,13 @@
 						<div class="row">
 							<div class="col-xs-9 col-sm-10">
 								<p>{{item.content|showBlankValue}}</p>
-								<div data-ng-show="item.picPathList && item.picPathList.length>0">
-									<div class="superbox-list" data-ng-repeat="pic in item.picPathList" data-ng-click="showImagePanel(pic)">
-										<img data-ng-src="{{pic}}" alt="" class="superbox-img">
+								<div class="evalimg-module" data-ng-show="item.picPathList && item.picPathList.length>0">
+									<div class="imgbox-list" data-ng-repeat="pic in item.picPathList" data-ng-click="shopIndexScope.showImagePanel(item.picPathList, $index)">
+										<img style="background-image: url({{pic}})">
 									</div>
 								</div>
 								<small class="text-muted">{{item.createTime|formatDate}}</small>
+								<a class="eval-delete" href="javascript:void(0)" data-ng-show="item.userId|hasRightShow" data-ng-click="deleteEvaluate(item)">删除</a>
 							</div>
 							<div class="col-xs-3 col-sm-2 text-right">
 								<p>{{item.userName|showBlankValue}}</p>
@@ -64,12 +65,12 @@
 				</ul>
 				<nodata-panel data-ng-show="!isLoadingEvaluate && evaluateList.length==0" font-size="18"></nodata-panel>
 				<loading-panel data-ng-show="isLoadingEvaluate" font-size="18"></loading-panel>
-				<common-pager page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
+				<common-pager class="common-pager" page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
 					total-rows="condition.totalCount" to-page-call-back="pagedEvaluateList(pageNo)"></common-pager>
 			</div>
 			<!-- 评论列表end -->
 		</div>
 	</div>
 	<!-- 店铺评价主要内容end -->
-
+	
 </div>

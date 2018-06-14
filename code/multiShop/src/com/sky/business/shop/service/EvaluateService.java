@@ -28,6 +28,14 @@ public interface EvaluateService extends BaseService {
 	public Evaluate add(Map<String,Object> addObj) throws Exception;
 	
 	/**
+	 * 统计评分
+	 * @param eval
+	 * @return
+	 * @throws Exception
+	 */
+	public void statMark(Evaluate eval) throws Exception;
+	
+	/**
 	 * 删除评价
 	 * @param id
 	 * @throws Exception

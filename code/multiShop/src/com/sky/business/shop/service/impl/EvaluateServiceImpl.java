@@ -1,23 +1,29 @@
 package com.sky.business.shop.service.impl;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.sky.business.common.service.impl.BaseServiceImpl;
 import com.sky.business.common.vo.ServiceException;
 import com.sky.business.shop.dao.EvaluateDao;
 import com.sky.business.shop.entity.Evaluate;
+import com.sky.business.shop.entity.Shop;
 import com.sky.business.shop.service.EvaluateService;
 import com.sky.contants.CodeMescContants;
+import com.sky.contants.EvaluateContants;
 import com.sky.contants.FileContants;
+import com.sky.contants.TableContants;
 import com.sky.util.CommonMethodUtil;
 
 /**
@@ -105,7 +111,44 @@ public class EvaluateServiceImpl extends BaseServiceImpl implements EvaluateServ
 		evaluate.setCreateTime(new Timestamp(Calendar.getInstance().getTimeInMillis()));
 		
 		this.save(evaluate);
+		
+		if(evaluate.getStatus()!=null && evaluate.getStatus()>EvaluateContants.Status.NOSEND) {
+			//统计评分
+			this.statMark(evaluate);
+		}
+		
 		return evaluate;
+	}
+	
+	@Override
+	public void statMark(Evaluate eval) throws Exception {
+		Map<String, Object> condition = new HashMap<String, Object>();
+		String objId = eval.getObjId();
+		String tableName = eval.getTableName();
+		
+		condition.put("clientStatus", EvaluateContants.Status.NOSEND.toString());//已发送状态的评价
+		condition.put("objId", objId);
+		condition.put("tableName", tableName);
+		
+		if(TableContants.TABLE_SHOP.equals(tableName) && StringUtils.isNotBlank(objId)) {
+			Shop shop = this.findByID(Shop.class, objId);
+			
+			if(shop == null) {
+				throw new ServiceException(CodeMescContants.CodeContants.ERROR_INEXIST, "店铺评分统计" + CodeMescContants.MessageContants.ERROR_INEXIST);
+			}
+			
+			List<Evaluate> evaluateList = evaluateDao.getList(evaluateDao, Evaluate.class, condition);
+			Integer length = evaluateList.size();
+			BigDecimal allMark = new BigDecimal(0);
+			for(Evaluate e : evaluateList) {
+				allMark = allMark.add(e.getMark());
+			}
+			//统计的平均评价
+			BigDecimal avMark = allMark.divide(new BigDecimal(length), 1, BigDecimal.ROUND_HALF_UP);
+			
+			shop.setMark(avMark);
+			this.save(shop);
+		}
 		
 	}
 	
@@ -118,6 +161,11 @@ public class EvaluateServiceImpl extends BaseServiceImpl implements EvaluateServ
 		}
 		
 		this.delete(evaluate);
+		
+		if(evaluate.getStatus()!=null && evaluate.getStatus()>EvaluateContants.Status.NOSEND) {
+			//统计评分
+			this.statMark(evaluate);
+		}
 	}
 
 }

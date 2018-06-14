@@ -1,5 +1,6 @@
 package com.sky.util;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -293,6 +294,7 @@ public class DateUtil {
 //		System.out.println(c.get(Calendar.DAY_OF_WEEK));
 //		System.out.println(c.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY);
 //		System.out.println("2012/9/3 9:00".matches("\\d{4}/\\d{1,2}/\\d{1,2} \\d{1,2}:\\d{2}"));
-		System.out.println(convertDateStr("2011/1/13  10:51:00", "yyyy-MM-dd HH:mm:ss"));
+//		System.out.println(convertDateStr("2011/1/13  10:51:00", "yyyy-MM-dd HH:mm:ss"));
+		
 	}
 }

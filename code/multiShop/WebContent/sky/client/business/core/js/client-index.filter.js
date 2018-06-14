@@ -13,6 +13,20 @@ angular.module('client-index.filter',[])
 })
 
 /**
+ * 显示剩余可输入的字符长度
+ */
+.filter('getRemainLength',function(){
+	return function(hasString, allLength){
+		if(hasString && allLength){
+			var remainLength = allLength - hasString.length;
+			return (remainLength>0?remainLength:0);
+		}else{
+			return allLength;
+		}
+	};
+})
+
+/**
  * 获取关键字搜索类型
  */
 .filter('getKeyType',function(){
@@ -91,6 +105,18 @@ angular.module('client-index.filter',[])
 			}
 		}
 		return null;
+	};
+})
+
+/**
+ * 判断是否有权限显示
+ */
+.filter('hasRightShow',function(){
+	return function(userId){
+		if($currentUser && userId && $currentUser.userId == userId){
+			return true;
+		}
+		return false;
 	};
 })
 
