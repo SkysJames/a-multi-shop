@@ -143,6 +143,10 @@
 			<i class="fa fa-edit ct-evaluate"></i>
 			<p>评价</p>
 		</div>
+		<div class="ct-fixed-item ct-fixed-phone" data-ng-click="openFeedbackPanel()">
+			<i class="fa fa-envelope ct-feedback"></i>
+			<p>反馈</p>
+		</div>
 	</div>
 	<!-- 侧边客服end -->
 	
@@ -450,59 +454,61 @@
 				</div>
 				<div class="modal-body">
 					<form data-ng-submit="addShopEvaluate()">
-						<div class="eval-row">
-							<label class="eval-label">用户名字</label>
-							<div class="eval-value">{{userInfo.name|showBlankValue}}</div>
-						</div>
-						<div class="eval-row">
-							<label class="eval-label">评价店铺</label>
-							<div class="eval-value">{{shopInfo.name|showBlankValue}}</div>
-						</div>
-						<div class="eval-row">
-							<label class="eval-label">店铺评分</label>
-							<div class="eval-value">
-								<label class="radio radio-inline">
-									<input type="radio" class="radiobox" value="5" data-ng-model="shopEvalAdd.mark">
-									<span>5分</span>
-								</label>
-								<label class="radio radio-inline">
-									<input type="radio" class="radiobox" value="4" data-ng-model="shopEvalAdd.mark">
-									<span>4分</span>
-								</label>
-								<label class="radio radio-inline">
-									<input type="radio" class="radiobox" value="3" data-ng-model="shopEvalAdd.mark">
-									<span>3分</span>
-								</label>
-								<label class="radio radio-inline">
-									<input type="radio" class="radiobox" value="2" data-ng-model="shopEvalAdd.mark">
-									<span>2分</span>
-								</label>
-								<label class="radio radio-inline">
-									<input type="radio" class="radiobox" value="1" data-ng-model="shopEvalAdd.mark">
-									<span>1分</span>
-								</label>
-								<span class="need-tab">*</span>
+						<div class="eval-content">
+							<div class="eval-row">
+								<label class="eval-label">用户名字</label>
+								<div class="eval-value">{{userInfo.name|showBlankValue}}</div>
 							</div>
-						</div>
-						<div class="eval-row">
-							<label class="eval-label">评价内容</label>
-							<div class="eval-value">
-								<textarea class="form-control" rows="3" placeholder="评价内容" data-ng-model="shopEvalAdd.content"></textarea>
-								<div class="common-tip">剩余可输入{{shopEvalAdd.content|getRemainLength:250}}字</div>
+							<div class="eval-row">
+								<label class="eval-label">评价店铺</label>
+								<div class="eval-value">{{shopInfo.name|showBlankValue}}</div>
 							</div>
-						</div>
-						<div class="eval-row">
-							<label class="eval-label">图片上传</label>
-							<div class="eval-value">
-								<image-dropzone dropzone-id="shopEvalPictureId" max-files="5" image-path-list="shopEvalAdd.picPathList"></image-dropzone>
-								<div class="common-tip">上传的图片，最多5个</div>
+							<div class="eval-row">
+								<label class="eval-label">店铺评分</label>
+								<div class="eval-value">
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="5" data-ng-model="shopEvalAdd.mark">
+										<span>5分</span>
+									</label>
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="4" data-ng-model="shopEvalAdd.mark">
+										<span>4分</span>
+									</label>
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="3" data-ng-model="shopEvalAdd.mark">
+										<span>3分</span>
+									</label>
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="2" data-ng-model="shopEvalAdd.mark">
+										<span>2分</span>
+									</label>
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="1" data-ng-model="shopEvalAdd.mark">
+										<span>1分</span>
+									</label>
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="eval-row">
+								<label class="eval-label">评价内容</label>
+								<div class="eval-value eval-phone-value">
+									<textarea class="form-control" rows="3" placeholder="评价内容" data-ng-model="shopEvalAdd.content"></textarea>
+									<div class="common-tip">剩余可输入{{shopEvalAdd.content|getRemainLength:250}}字</div>
+								</div>
+							</div>
+							<div class="eval-row">
+								<label class="eval-label">图片上传</label>
+								<div class="eval-value eval-phone-value">
+									<image-dropzone dropzone-id="shopEvalPictureId" max-files="5" image-path-list="shopEvalAdd.picPathList"></image-dropzone>
+									<div class="common-tip">上传的图片，最多5个</div>
+								</div>
 							</div>
 						</div>
 						<div class="login-row">
-							<button type="submit" class="btn login-btn">保&nbsp;&nbsp;&nbsp;&nbsp;存</button>
+							<button type="submit" class="btn login-btn">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
 						</div>
 						<div class="login-top">
-							<span data-ng-show="isLoadingAddShopEval"><i class="fa fa-spin fa-spiner"></i>&nbsp;正在保存评价。。。</span>
+							<span data-ng-show="isLoadingAddShopEval"><i class="fa fa-spin fa-spiner"></i>&nbsp;正在提交。。。</span>
 							<span data-ng-show="errorMsg && errorMsg.length>0"><i class="fa fa-times-circle"></i>&nbsp;{{errorMsg}}</span>
 						</div>
 					</form>
@@ -511,6 +517,43 @@
 		</div>
 	</div>
 	<!-- 用户评价模态框 end -->
+	
+	<!-- 用户反馈模态框 start -->
+	<div class="modal fade" id="feedbackWinId" tabindex="-1" role="dialog" aria-labelledby="feedbackWinLabel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header client-model-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">我要评价</h4>
+				</div>
+				<div class="modal-body">
+					<form data-ng-submit="addFeedback()">
+						<div class="eval-content">
+							<div class="eval-row">
+								<label class="eval-label">用户名字</label>
+								<div class="eval-value">{{userInfo.name|showBlankValue}}</div>
+							</div>
+							<div class="eval-row">
+								<label class="eval-label">反馈内容</label>
+								<div class="eval-value eval-phone-value">
+									<textarea class="form-control" rows="6" placeholder="反馈内容" data-ng-model="feedbackAdd.content"></textarea>
+									<div class="common-tip">剩余可输入{{feedbackAdd.content|getRemainLength:250}}字<span class="need-tab">*</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="login-row">
+							<button type="submit" class="btn login-btn">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+						</div>
+						<div class="login-top">
+							<span data-ng-show="isLoadingAddFeedback"><i class="fa fa-spin fa-spiner"></i>&nbsp;正在提交。。。</span>
+							<span data-ng-show="errorMsg && errorMsg.length>0"><i class="fa fa-times-circle"></i>&nbsp;{{errorMsg}}</span>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 用户反馈模态框 end -->
 	
 </div>
 

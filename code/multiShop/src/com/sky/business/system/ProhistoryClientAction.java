@@ -19,7 +19,7 @@ import com.sky.contants.EntityContants;
 import com.sky.util.JsonUtil;
 
 /**
- * 收藏夹/历史记录action
+ * 收藏夹/历史记录action（前端登录）
  * @author Sky James
  *
  */

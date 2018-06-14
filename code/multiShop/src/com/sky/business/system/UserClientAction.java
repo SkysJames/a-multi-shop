@@ -19,7 +19,7 @@ import com.sky.contants.EntityContants;
 import com.sky.util.JsonUtil;
 
 /**
- * 前端的用户管理
+ * 前端的用户action（前端登录）
  * @author Sky James
  *
  */

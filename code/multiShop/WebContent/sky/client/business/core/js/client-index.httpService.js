@@ -248,4 +248,16 @@ angular.module('client-index.httpService',[])
 		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
 	};
 	
+	/**
+	 * 添加消息
+	 */
+	this.addMessage = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/message/message-client!save";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
 });

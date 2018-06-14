@@ -269,6 +269,9 @@
 .ct-fixed-item .ct-evaluate {
 	color: #ff5400;
 }
+.ct-fixed-item .ct-feedback {
+	color: #888;
+}
 .ct-fixed-item:hover,.ct-fixed-item:active {
 	background-color: rgba(255,255,255,1);
 }
@@ -553,10 +556,14 @@
 	white-space: nowrap;
 }
 
+.eval-content {
+	width: 95%;
+	margin: 0 auto;
+}
 .eval-row {
 	position: relative;
 	width: 100%;
-	margin: 6px 0px;
+	margin-bottom: 12px;
 }
 .eval-label {
 	position: relative;
@@ -604,6 +611,10 @@
 	
 	.ct-evaluate-item {
 		display: none;
+	}
+	
+	.eval-phone-value {
+		width: 100%;
 	}
 }
 

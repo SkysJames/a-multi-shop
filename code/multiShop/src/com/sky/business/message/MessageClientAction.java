@@ -1,4 +1,4 @@
-package com.sky.business.shop;
+package com.sky.business.message;
 
 import java.util.Map;
 
@@ -10,41 +10,41 @@ import org.apache.struts2.convention.annotation.InterceptorRefs;
 
 import com.sky.business.common.BaseAction;
 import com.sky.business.common.vo.ServiceException;
-import com.sky.business.shop.dao.EvaluateDao;
-import com.sky.business.shop.entity.Evaluate;
-import com.sky.business.shop.service.EvaluateService;
+import com.sky.business.message.dao.MessageDao;
+import com.sky.business.message.entity.Message;
+import com.sky.business.message.service.MessageService;
 import com.sky.contants.CodeMescContants;
 import com.sky.contants.EntityContants;
 import com.sky.util.JsonUtil;
 
 /**
- * 评论action（前端登录）
+ * 消息action（前端登录）
  * @author Sky James
  *
  */
 @InterceptorRefs({@InterceptorRef("clientLoginStack")})
-public class EvaluateClientAction extends BaseAction {
+public class MessageClientAction extends BaseAction {
 
 	private static final long serialVersionUID = 1L;
 
-	@Resource(name = "evaluateService")
-	private EvaluateService evaluateService;
+	@Resource(name = "messageService")
+	private MessageService messageService;
 	
-	@Resource(name = "evaluateDao")
-	private EvaluateDao evaluateDao;
+	@Resource(name = "messageDao")
+	private MessageDao messageDao;
 	
 	
 	/**
-	 * 添加评论
+	 * 添加消息
 	 * @return
 	 */
 	public String save(){
 		try{
-			Map<String,Object> evaluate = JsonUtil.getJsonToMap(conditionJson);
-			evaluateService.add(evaluate);
+			Map<String,Object> message = JsonUtil.getJsonToMap(conditionJson);
+			messageService.add(message);
 			
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功添加评论");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功添加消息");
 		} catch (ServiceException e) {
 			logger.error(e);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, e.getErrorCode());
@@ -57,28 +57,6 @@ public class EvaluateClientAction extends BaseAction {
 		return RESULT_MAP;
 	}
 	
-	/**
-	 * 根据评论的ID删除
-	 * @return
-	 */
-	public String delete(){
-		try{
-			Map<String,Object> evaluate = JsonUtil.getJsonToMap(conditionJson);
-			evaluateService.delete((String)evaluate.get("id"));
-			
-			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功删除评论");
-		} catch (ServiceException e) {
-			logger.error(e);
-			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, e.getErrorCode());
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, e.getErrorMsg());
-		} catch (Exception e) {
-			logger.error(ExceptionUtils.getStackTrace(e));
-			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
-		}
-		return RESULT_MAP;
-	}
 	
 	//Getters and Setters
 	@Override

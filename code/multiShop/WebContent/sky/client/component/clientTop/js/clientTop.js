@@ -62,6 +62,8 @@ angular.module('clientTop',[])
 			};
 			//店铺评价的新增对象
 			$scope.shopEvalAdd = {};
+			//用户反馈的新增对象
+			$scope.feedbackAdd = {};
 			
 			
 			/**
@@ -168,6 +170,19 @@ angular.module('clientTop',[])
 					//错误信息
 					$scope.errorMsg = "";
 					$('#evaluateWinId').modal("show");
+				}
+			};
+			
+			/**
+			 * 打开用户反馈面板
+			 */
+			$scope.openFeedbackPanel = function(){
+				if($scope.isLogin()){
+					//添加的反馈对象
+					$scope.feedbackAdd = {};
+					//错误信息
+					$scope.errorMsg = "";
+					$('#feedbackWinId').modal("show");
 				}
 			};
 			
@@ -295,7 +310,6 @@ angular.module('clientTop',[])
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode=="200"){
-						common.triggerSuccessMesg(data.message);
 						window.location.reload();
 					}else{
 						$scope.errorMsg = data.message;
@@ -313,7 +327,6 @@ angular.module('clientTop',[])
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode=="200"){
-						common.triggerSuccessMesg(data.message);
 						window.location.reload();
 					}else{
 						common.triggerFailMesg(data.message);
@@ -556,7 +569,7 @@ angular.module('clientTop',[])
 			};
 			
 			/**
-			 * 判断该用户对象是否符合保存的条件
+			 * 判断该对象是否符合保存的条件
 			 */
 			$scope.isSaveShopEvaluate = function(shopEvalAdd){
 				if(!shopEvalAdd){
@@ -571,9 +584,53 @@ angular.module('clientTop',[])
 				if(!shopEvalAdd.mark || shopEvalAdd.mark==""){
 					return false;
 				}
-//				if(!shopEvalAdd.content || shopEvalAdd.content==""){
-//					return false;
-//				}
+				
+				return true;
+			};
+			
+			/**
+			 * 添加反馈消息
+			 */
+			$scope.addFeedback = function(){
+				if(!$currentUser){
+					return;
+				}
+				
+				if(!$scope.isSaveFeedback($scope.feedbackAdd)){
+					$scope.errorMsg = "请按要求填写反馈内容";
+					return;
+				}
+				
+				$scope.isLoadingAddFeedback = true;
+				clientIndexHttpService.addMessage($scope.feedbackAdd)
+				.then(function(response){
+					var data = response.data;
+					if(data.statusCode=="200"){
+						$scope.isLoadingAddFeedback = false;
+						$('#feedbackWinId').modal("hide");
+					}else{
+						common.triggerFailMesg(data.message);
+					}
+				},function(err){
+					console.log(err);
+				});
+			};
+			
+			/**
+			 * 判断该对象是否符合保存的条件
+			 */
+			$scope.isSaveFeedback = function(feedbackAdd){
+				if(!feedbackAdd){
+					return false;
+				}
+				
+				feedbackAdd.fromUser = $currentUser.userId;//发送用户ID
+				feedbackAdd.toUser = "admin";//接收用户ID
+				feedbackAdd.status = "1";//已发送未接收
+				
+				if(!feedbackAdd.content || feedbackAdd.content==""){
+					return false;
+				}
 				
 				return true;
 			};
