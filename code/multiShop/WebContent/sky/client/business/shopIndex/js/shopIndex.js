@@ -102,7 +102,8 @@ function($timeout, $scope, $document, clientIndexHttpService){
 				$("title").text($scope.shopInfo.name);
 				clientIndexHttpService.addShopPopularity($scope.shopInfo.id);
 			}else{
-				common.triggerFailMesg("该店铺已不存在");
+				common.triggerFailMesg(response.data.message);
+				window.location.href = $contextPath;
 			}
 		});
 	};

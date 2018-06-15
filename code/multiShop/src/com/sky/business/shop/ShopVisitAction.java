@@ -1,5 +1,6 @@
 package com.sky.business.shop;
 
+import java.util.Calendar;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -88,9 +89,17 @@ public class ShopVisitAction extends BaseAction {
 		try{
 			Shop shop = shopService.findByID(Shop.class, shopId);
 			
+			if(shop.getOverTime()!=null && shop.getOverTime().before(Calendar.getInstance().getTime())) {
+				throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON, shop.getName() + "店铺已经到期");
+			}
+			
 			resultMap.put("shop", shop);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
 			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功获取店铺信息");
+		} catch (ServiceException se) {
+			logger.error(ExceptionUtils.getStackTrace(se));
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, se.getErrorCode());
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, se.getErrorMsg());
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getStackTrace(e));
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
