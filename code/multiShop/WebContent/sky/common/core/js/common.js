@@ -7,6 +7,7 @@ var common = {
 		 * 用户类型常量
 		 */
 		userContants		: {
+			userAdmin	: "admin",
 			userStatus	: {
 				UNUSING	: 0,//状态不可用
 				USING	: 1,//状态可用

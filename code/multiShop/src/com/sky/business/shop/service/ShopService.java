@@ -3,6 +3,7 @@ package com.sky.business.shop.service;
 import java.util.Map;
 
 import com.sky.business.common.service.BaseService;
+import com.sky.business.common.vo.LoginUser;
 import com.sky.business.shop.entity.Shop;
 
 /**
@@ -26,6 +27,14 @@ public interface ShopService extends BaseService {
 	 * @throws Exception
 	 */
 	public Shop add(Map<String,Object> addObj) throws Exception;
+	
+	/**
+	 * 添加店铺申请
+	 * @param addObj
+	 * @param loginUser
+	 * @throws Exception
+	 */
+	public LoginUser register(Map<String,Object> addObj, LoginUser loginUser) throws Exception;
 	
 	/**
 	 * 删除店铺

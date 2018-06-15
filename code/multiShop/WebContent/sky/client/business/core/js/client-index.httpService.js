@@ -167,6 +167,18 @@ angular.module('client-index.httpService',[])
 	};
 	
 	/**
+	 * 添加店铺申请
+	 */
+	this.registerShop = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/shop/shop-client!register";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
 	 * 获取商品列表
 	 */
 	this.getProductList = function(condition){

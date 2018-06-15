@@ -365,7 +365,7 @@ public class Shop implements Serializable {
 			List<User> uList = userService.findBy(User.class, "shopId", id);
 			
 			for(User u : uList) {
-				if(u.getRightgroups().indexOf(RightGroupContants.RIGHT_GROUP_SHOPKEEPER) > -1) {
+				if(u.getRightgroups()!=null && u.getRightgroups().indexOf(RightGroupContants.RIGHT_GROUP_SHOPKEEPER) > -1) {
 					shopKeeper = u;
 					break;
 				}

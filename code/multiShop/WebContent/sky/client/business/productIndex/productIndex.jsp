@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body id="productIndexId" data-ng-app="productIndexApp" data-ng-controller="productIndexCtrl">
   	<!-- 页面头部start -->
-	<client-top table-name="tb_product" shop-info="shopInfo"></client-top>
+	<client-top table-name="tb_product" shop-info="shopInfo" type-list="oneTypeList"></client-top>
   	<!-- 页面头部end -->
 	
 	<!-- 头部店铺名称start -->

@@ -14,12 +14,15 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.sky.business.common.service.impl.BaseServiceImpl;
+import com.sky.business.common.vo.LoginUser;
 import com.sky.business.common.vo.ServiceException;
 import com.sky.business.shop.dao.ShopDao;
 import com.sky.business.shop.entity.Shop;
 import com.sky.business.shop.service.ShopService;
+import com.sky.business.system.entity.User;
 import com.sky.contants.CodeMescContants;
 import com.sky.contants.FileContants;
+import com.sky.contants.RightGroupContants;
 import com.sky.contants.ShopContants;
 import com.sky.util.CommonMethodUtil;
 import com.sky.util.DateUtil;
@@ -94,6 +97,9 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		}
 		if(editObj.containsKey("remark")){
 			shop.setRemark((String)editObj.get("remark"));
+		}
+		if(editObj.containsKey("brief")){
+			shop.setBrief((String)editObj.get("brief"));
 		}
 		if(editObj.containsKey("status")){
 			Integer beforeStatus = shop.getStatus();
@@ -200,6 +206,9 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		if(addObj.containsKey("remark")){
 			shop.setRemark((String)addObj.get("remark"));
 		}
+		if(addObj.containsKey("brief")){
+			shop.setBrief((String)addObj.get("brief"));
+		}
 		if(addObj.containsKey("status")){
 			Integer lastStatus = CommonMethodUtil.getIntegerByObject(addObj.get("status"));
 			if(ShopContants.Status.USING==lastStatus) {
@@ -230,7 +239,34 @@ public class ShopServiceImpl extends BaseServiceImpl implements ShopService {
 		
 		this.save(shop);
 		return shop;
+	}
+	
+	@Override
+	public LoginUser register(Map<String, Object> addObj, LoginUser loginUser) throws Exception {
+		//判断该用户是否已有店铺
+		if(StringUtils.isNotBlank(loginUser.getShopId()) && StringUtils.isNotBlank(loginUser.getShopName())) {
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON, "您已有店铺，申请失败");
+		}
 		
+		//保存新增店铺
+		Shop shop = this.add(addObj);
+		
+		//更新当前登录用户的数据库信息（更新其店铺信息，以及角色）
+		User user = this.findByID(User.class, loginUser.getUserId());
+		user.setShopId(shop.getId());
+		if(StringUtils.isBlank(user.getRightgroups())) {
+			user.setRightgroups(RightGroupContants.RIGHT_GROUP_SHOPKEEPER);
+		}else if(user.getRightgroups().indexOf(RightGroupContants.RIGHT_GROUP_SHOPKEEPER) == -1) {
+			user.setRightgroups("," + RightGroupContants.RIGHT_GROUP_SHOPKEEPER);
+		}
+		this.update(user);
+		
+		//更新当前登录用户的loginUser信息
+		loginUser.setShopId(user.getShopId());
+		loginUser.setShopName(shop.getName());
+		loginUser.setShopStatus(shop.getStatus());
+		
+		return loginUser;
 	}
 	
 	@Override

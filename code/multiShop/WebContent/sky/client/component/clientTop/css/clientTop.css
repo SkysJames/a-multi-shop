@@ -572,6 +572,8 @@
 	*display: inline; /* IE6、7 block 元素 */  
 	*zoom: 1;
 	width: 68px;
+	margin: 0px;
+	line-height: 32px;
 }
 .eval-value {
 	position: relative;
@@ -580,6 +582,7 @@
 	*display: inline; /* IE6、7 block 元素 */  
 	*zoom: 1;
 	width: 75%;
+	line-height: 32px;
 }
 .eval-value label {
 	margin: 0px!important;

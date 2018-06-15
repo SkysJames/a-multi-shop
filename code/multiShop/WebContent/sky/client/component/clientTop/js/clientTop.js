@@ -6,7 +6,7 @@ angular.module('clientTop',[])
 			tableName	: '@',
 			keywords		: '=',
 			selectedType	: '=',
-			typeList		: '=',
+			typeList		: '=',//必传，若无则直接undifined的变量
 			shopInfo		: '=',
 		},
 		templateUrl : $contextPath +"/sky/client/component/clientTop/template/clientTop.html",
@@ -64,6 +64,8 @@ angular.module('clientTop',[])
 			$scope.shopEvalAdd = {};
 			//用户反馈的新增对象
 			$scope.feedbackAdd = {};
+			//店铺申请对象
+			$scope.shopRegister = {};
 			
 			
 			/**
@@ -183,6 +185,19 @@ angular.module('clientTop',[])
 					//错误信息
 					$scope.errorMsg = "";
 					$('#feedbackWinId').modal("show");
+				}
+			};
+			
+			/**
+			 * 打开店铺申请面板
+			 */
+			$scope.openShopRegisterPanel = function(){
+				if($scope.isLogin()){
+					//店铺申请对象
+					$scope.shopRegister = {};
+					//错误信息
+					$scope.errorMsg = "";
+					$('#shopRegisterWinId').modal("show");
 				}
 			};
 			
@@ -500,10 +515,10 @@ angular.module('clientTop',[])
 						$scope.hisShopList = data.pager.resultList;
 						$scope.hisShopCondition.pageCount = data.pager.pageCount;
 						$scope.hisShopCondition.totalCount = data.pager.totalCount;
-						$scope.isLoadingHisShop = false;
 					}else{
 						common.triggerFailMesg(data.message);
 					}
+					$scope.isLoadingHisShop = false;
 				},function(err){
 					console.log(err);
 				});
@@ -531,10 +546,10 @@ angular.module('clientTop',[])
 						$scope.hisProList = data.pager.resultList;
 						$scope.hisProCondition.pageCount = data.pager.pageCount;
 						$scope.hisProCondition.totalCount = data.pager.totalCount;
-						$scope.isLoadingHisProduct = false;
 					}else{
 						common.triggerFailMesg(data.message);
 					}
+					$scope.isLoadingHisProduct = false;
 				},function(err){
 					console.log(err);
 				});
@@ -558,11 +573,12 @@ angular.module('clientTop',[])
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode=="200"){
-						$scope.isLoadingAddShopEval = false;
+						common.triggerSuccessMesg(data.message);
 						$('#evaluateWinId').modal("hide");
 					}else{
-						common.triggerFailMesg(data.message);
+						$scope.errorMsg = data.message;
 					}
+					$scope.isLoadingAddShopEval = false;
 				},function(err){
 					console.log(err);
 				});
@@ -606,11 +622,12 @@ angular.module('clientTop',[])
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode=="200"){
-						$scope.isLoadingAddFeedback = false;
+						common.triggerSuccessMesg(data.message);
 						$('#feedbackWinId').modal("hide");
 					}else{
-						common.triggerFailMesg(data.message);
+						$scope.errorMsg = data.message;
 					}
+					$scope.isLoadingAddFeedback = false;
 				},function(err){
 					console.log(err);
 				});
@@ -625,10 +642,76 @@ angular.module('clientTop',[])
 				}
 				
 				feedbackAdd.fromUser = $currentUser.userId;//发送用户ID
-				feedbackAdd.toUser = "admin";//接收用户ID
-				feedbackAdd.status = "1";//已发送未接收
+				feedbackAdd.toUser = common.userContants.userAdmin;//接收用户ID
+				feedbackAdd.status = common.messageContants.status.NORECEIVE;//已发送未接收
 				
 				if(!feedbackAdd.content || feedbackAdd.content==""){
+					return false;
+				}
+				
+				return true;
+			};
+			
+			/**
+			 * 添加店铺申请
+			 */
+			$scope.addShopRegister = function(){
+				if(!$currentUser){
+					return;
+				}
+				
+				if(!$scope.isSaveShopRegister($scope.shopRegister)){
+					$scope.errorMsg = "请按要求填写店铺申请";
+					return;
+				}
+				
+				$scope.isLoadingShopRegister = true;
+				clientIndexHttpService.registerShop($scope.shopRegister)
+				.then(function(response){
+					var data = response.data;
+					if(data.statusCode=="200"){
+						common.triggerSuccessMesg(data.message);
+						$('#shopRegisterWinId').modal("hide");
+					}else{
+						$scope.errorMsg = data.message;
+					}
+					$scope.isLoadingShopRegister = false;
+				},function(err){
+					console.log(err);
+				});
+			};
+			
+			/**
+			 * 判断该对象是否符合保存的条件
+			 */
+			$scope.isSaveShopRegister = function(shopRegister){
+				if(!shopRegister){
+					return false;
+				}
+				
+				shopRegister.overTimeString = $("#overTimeId").val();//塞入过期时间
+				shopRegister.status = common.shopContants.status.NOAPPEOVE;//申请待审批
+				
+				if(!shopRegister.name || shopRegister.name==""){
+					return false;
+				}else if(shopRegister.name.length>35){
+					return false;
+				}
+				if(!shopRegister.remark || shopRegister.remark==""){
+					return false;
+				}else if(shopRegister.remark.length>50){
+					return false;
+				}
+				if(!shopRegister.shopType || shopRegister.shopType==""){
+					return false;
+				}
+				if(!shopRegister.overTimeString || shopRegister.overTimeString==""){
+					return false;
+				}
+				if(!shopRegister.address || shopRegister.address==""){
+					return false;
+				}
+				if(!shopRegister.phone || shopRegister.phone==""){
 					return false;
 				}
 				
@@ -653,9 +736,32 @@ angular.module('clientTop',[])
 			};
 			
 			/**
+			 * 初始化店铺类型列表
+			 */
+			$scope.initTypeList = function(){
+				var condition = {
+						tableName	: common.tableContants.TB_SHOP,	//店铺表名
+						parentId		: common.typetContants.rootParentId,//一级类别
+				};
+				
+				clientIndexHttpService.getTypeList(condition)
+				.then(function(response){
+					var data = response.data;
+					$scope.typeList = data.list;
+				},function(err){
+					console.log(err);
+				});
+			};
+			
+			/**
 			 * 初始化函数
 			 */
 			$scope.initFunc = function(){
+				//初始化类型列表
+				if(!$scope.typeList){
+					$scope.initTypeList();
+				}
+				
 				//获取用户信息
 				$scope.getUserInfo();
 				//获取店铺的收藏列表

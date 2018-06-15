@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body id="shopIndexId" data-ng-app="shopIndexApp" data-ng-controller="shopIndexCtrl">
   	<!-- 页面头部start -->
-	<client-top table-name="tb_product" shop-info="shopInfo"></client-top>
+	<client-top table-name="tb_product" shop-info="shopInfo" type-list="oneTypeList"></client-top>
   	<!-- 页面头部end -->
 	
 	<!-- 店铺名称，搜索框start -->

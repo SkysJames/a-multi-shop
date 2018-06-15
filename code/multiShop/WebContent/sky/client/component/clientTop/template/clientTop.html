@@ -28,6 +28,7 @@
 					<img alt="暂无图片" data-ng-src="{{wechatPic}}">
 				</div>
 			</div>
+			<span class="link" data-ng-click="openShopRegisterPanel()">店铺申请</span>
 			<span class="link" data-ng-click="toPage('/home/server-index')">商家中心</span>
 		</div>
 	</div>
@@ -554,6 +555,82 @@
 		</div>
 	</div>
 	<!-- 用户反馈模态框 end -->
+	
+	<!-- 店铺申请模态框 start -->
+	<div class="modal fade" id="shopRegisterWinId" tabindex="-1" role="dialog" aria-labelledby="shopRegisterWinLabel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header client-model-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">店铺申请</h4>
+				</div>
+				<div class="modal-body">
+					<form data-ng-submit="addShopRegister()">
+						<div class="eval-content">
+							<div class="eval-row">
+								<label class="eval-label">用户名字</label>
+								<div class="eval-value">{{userInfo.name|showBlankValue}}</div>
+							</div>
+							<div class="eval-row">
+								<label class="eval-label">店铺名称</label>
+								<div class="eval-value">
+									<input class="form-control" type="text" placeholder="店铺名字" required="required" data-ng-model="shopRegister.name">
+									<div class="common-tip">剩余可输入{{shopRegister.name|getRemainLength:35}}字<span class="need-tab">*</span></div>
+								</div>
+							</div>
+							<div class="eval-row">
+								<label class="eval-label">店铺类型</label>
+								<div class="eval-value">
+									<select class="form-control" ui-select2 data-ng-model="shopRegister.shopType">
+										<optgroup data-ng-repeat="typet in typeList" label="{{typet.name}}">
+											<option data-ng-repeat="item in typet.typetList" value="{{item.id}}">{{item.name}}</option>
+										</optgroup>
+									</select>
+								</div>
+								<span class="need-tab">*</span>
+							</div>
+							<div class="eval-row">
+								<label class="eval-label">联系电话</label>
+								<div class="eval-value">
+									<input class="form-control" type="text" placeholder="联系电话" required="required" data-ng-model="shopRegister.phone">
+								</div>
+								<span class="need-tab">*</span>
+							</div>
+							<div class="eval-row">
+								<label class="eval-label">店铺地址</label>
+								<div class="eval-value">
+									<input class="form-control" type="text" placeholder="店铺地址" required="required" data-ng-model="shopRegister.address">
+								</div>
+								<span class="need-tab">*</span>
+							</div>
+							<div class="eval-row">
+								<label class="eval-label">到期时间</label>
+								<div class="eval-value">
+									<input id="overTimeId" class="form-control" type="text" placeholder="到期时间" onclick="common.MydatePicker();">
+								</div>
+								<span class="need-tab">*</span>
+							</div>
+							<div class="eval-row">
+								<label class="eval-label">备注信息</label>
+								<div class="eval-value eval-phone-value">
+									<textarea class="form-control" rows="3" placeholder="备注信息" data-ng-model="shopRegister.remark"></textarea>
+									<div class="common-tip">剩余可输入{{shopRegister.remark|getRemainLength:50}}字<span class="need-tab">*</span></div>
+								</div>
+							</div>
+						</div>
+						<div class="login-row">
+							<button type="submit" class="btn login-btn">提&nbsp;&nbsp;&nbsp;&nbsp;交</button>
+						</div>
+						<div class="login-top">
+							<span data-ng-show="isLoadingShopRegister"><i class="fa fa-spin fa-spiner"></i>&nbsp;正在提交。。。</span>
+							<span data-ng-show="errorMsg && errorMsg.length>0"><i class="fa fa-times-circle"></i>&nbsp;{{errorMsg}}</span>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 店铺申请模态框 end -->
 	
 </div>
 

@@ -102,7 +102,7 @@
 										<tr>
 											<th>序号</th>
 											<th>名称</th>
-											<th>简介</th>
+											<th>店长</th>
 											<th>地址</th>
 											<th>类型</th>
 											<th>级别</th>
@@ -116,7 +116,7 @@
 										<tr data-ng-repeat="shop in shopList">
 											<td>{{$index + 1}}</td>
 											<td title="{{shop.name|showBlankValue}}">{{shop.name|showBlankValue}}</td>
-											<td title="{{shop.brief|showBlankValue}}">{{shop.brief|showBlankValue}}</td>
+											<td title="{{shop.shopKeeper.name|showBlankValue}}">{{shop.shopKeeper.name|showBlankValue}}</td>
 											<td title="{{shop.address|showBlankValue}}">{{shop.address|showBlankValue}}</td>
 											<td title="{{shop.shopTypeName|showBlankValue}}">{{shop.shopTypeName|showBlankValue}}</td>
 											<td title="{{shop.recommend|showRecommend}}">{{shop.recommend|showRecommend}}</td>
