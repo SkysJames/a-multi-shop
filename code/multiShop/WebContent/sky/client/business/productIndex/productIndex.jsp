@@ -78,7 +78,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<a href="javascript:void(0)" data-ng-click="toShopPage()">点击进入店铺</a>
 				</div>
 				<div class="pindex-row">
-					<button data-ng-show="productInfo.status==2"><i class="fa fa-cart-plus"></i>&nbsp;加入购物车</button>
+					<div class="cart-count">
+						<label class="cart-minus" data-ng-click="productInfo.buyNum = productInfo.buyNum - 1;"><i class="fa fa-minus"></i></label>
+						<input type="number" min="1" data-ng-model="productInfo.buyNum">
+						<label class="cart-plus" data-ng-click="productInfo.buyNum = productInfo.buyNum + 1;"><i class="fa fa-plus"></i></label>
+					</div>
+				</div>
+				<div class="pindex-row">
+					<button data-ng-show="productInfo.status==2" 
+						data-ng-click="clientTopScope.addCart(productInfo, productInfo.buyNum, $event);clientTopScope.addCartAnimate($event);">
+						<i class="fa fa-cart-plus"></i>&nbsp;加入购物车
+					</button>
 					<button data-ng-show="productInfo.status!=2" class="pro-down">商品已下架</button>
 				</div>
 			</div>
@@ -103,8 +113,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="pindex-price">
 					<i class="fa fa-rmb"></i>&nbsp;<span>{{productInfo.price}}</span>
 					<div class="pull-right">
-						<button data-ng-show="productInfo.status==2"><i class="fa fa-cart-plus"></i>&nbsp;加入购物车</button>
-						<button data-ng-show="productInfo.status!=2" class="pro-down">商品已下架</button>
+						<div class="cart-count" data-ng-show="!(productInfo|getCartCount:clientTopScope.cartList)">
+							<button data-ng-show="productInfo.status==2" data-ng-click="clientTopScope.addCart(productInfo, 1, $event);clientTopScope.addCartAnimate($event);"><i class="fa fa-cart-plus"></i>&nbsp;加入购物车</button>
+							<button data-ng-show="productInfo.status!=2" class="pro-down">商品已下架</button>
+						</div>
+						<div class="cart-count" data-ng-show="(productInfo|getCartCount:clientTopScope.cartList)">
+							<label class="cart-minus" data-ng-click="clientTopScope.editCartCount((productInfo|getCartInfo:clientTopScope.cartList), -1, $event)"><i class="fa fa-minus"></i></label>
+							<span>{{productInfo|getCartCount:clientTopScope.cartList}}</span>
+							<label class="cart-plus" data-ng-click="clientTopScope.editCartCount((productInfo|getCartInfo:clientTopScope.cartList), 1, $event);clientTopScope.addCartAnimate($event);"><i class="fa fa-plus"></i></label>
+						</div>
 					</div>
 				</div>
 				<p>{{shopInfo.name}}&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" data-ng-click="toShopPage()">点击进入店铺</a></p>

@@ -109,6 +109,55 @@ angular.module('client-index.filter',[])
 })
 
 /**
+ * 获取购物车相应商品的数量
+ */
+.filter('getCartCount',function(){
+	return function(product, cartList){
+		if(product && cartList){
+			for(var i=0,len=cartList.length; i<len; i++){
+				var cart = cartList[i];
+				if(cart.productId == product.id){
+					return cart.proNum;
+				}
+			}
+		}
+		return 0;
+	};
+})
+
+/**
+ * 获取购物车相应商品
+ */
+.filter('getCartInfo',function(){
+	return function(product, cartList){
+		if(product && cartList){
+			for(var i=0,len=cartList.length; i<len; i++){
+				var cart = cartList[i];
+				if(cart.productId == product.id){
+					return cart;
+				}
+			}
+		}
+		return null;
+	};
+})
+
+/**
+ * 获取购物车商品的金额总数
+ */
+.filter('getCartMoney',function(){
+	return function(cartList){
+		var sum = 0;
+		if(cartList){
+			for(var i=0,len=cartList.length; i<len; i++){
+				sum += cartList[i].product.price * cartList[i].proNum;
+			}
+		}
+		return sum;
+	};
+})
+
+/**
  * 判断是否有权限显示
  */
 .filter('hasRightShow',function(){

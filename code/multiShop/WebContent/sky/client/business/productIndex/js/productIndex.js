@@ -72,6 +72,8 @@ function($timeout, $interval, $scope, $sce, $filter,$document, clientIndexHttpSe
 				$scope.getShopInfo($scope.productInfo.shopId);
 				//增加浏览量
 				clientIndexHttpService.addProClickCount($scope.productInfo.id);
+				//设置商品的购买数量，默认为1
+				$scope.productInfo.buyNum = 1;
 				
 				$(".pindex-container").fadeIn();
 			}else{
@@ -106,6 +108,16 @@ function($timeout, $interval, $scope, $sce, $filter,$document, clientIndexHttpSe
 		//获取商品信息
 		$scope.getProductInfo(productId);
 		
+		//定时任务加载获取顶部的作用域
+		$scope.intervalTopScope = $interval(function(){
+			if(angular.element($('#clientTopId')).scope()){
+				//获取顶部页面的作用域
+				$scope.clientTopScope = angular.element($('#clientTopId')).scope();
+				//去掉定时任务
+				$interval.cancel($scope.intervalTopScope);
+			}
+		},500);
+		
 		//定时任务加载获取商品页面头部的作用域
 		$scope.intervalHeaderScope = $interval(function(){
 			if(angular.element($('#productHeaderId')).scope()){
@@ -115,7 +127,6 @@ function($timeout, $interval, $scope, $sce, $filter,$document, clientIndexHttpSe
 				$interval.cancel($scope.intervalHeaderScope);
 			}
 		},500);
-		
 	};
 	$document.ready($scope.initFunc);
 	

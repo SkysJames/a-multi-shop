@@ -57,7 +57,19 @@
   							<i class="fa fa-rmb"></i>&nbsp;{{item.price}}
   							<label title="浏览量：{{item.clickCount}}">浏览量：{{item.clickCount}}</label>
   						</h3>
-  						<a title="{{item.name | showBlankValue}}" href="javascript:void(0)">{{item.name | showBlankValue}}</a>
+  						<div class="shoppro-count shop-only-phone">
+  							<div class="cart-count" data-ng-show="!(item|getCartCount:clientTopScope.cartList)">
+	  							<label class="cart-plus" href="javascript:void(0)" data-ng-click="clientTopScope.addCart(item, 1, $event);clientTopScope.addCartAnimate($event);"><i class="fa fa-plus"></i></label>
+  							</div>
+  							<div class="cart-count" data-ng-show="item|getCartCount:clientTopScope.cartList">
+  								<label class="cart-minus" data-ng-click="clientTopScope.editCartCount((item|getCartInfo:clientTopScope.cartList), -1, $event)"><i class="fa fa-minus"></i></label>
+								<span>{{item|getCartCount:clientTopScope.cartList}}</span>
+								<label class="cart-plus" data-ng-click="clientTopScope.editCartCount((item|getCartInfo:clientTopScope.cartList), 1, $event);clientTopScope.addCartAnimate($event);"><i class="fa fa-plus"></i></label>
+  							</div>
+  						</div>
+  						<div class="shoppro-name">
+	  						<a title="{{item.name | showBlankValue}}" href="javascript:void(0)">{{item.name | showBlankValue}}</a>
+  						</div>
   						<div class="shoppro-bot">
 	  						<p title="{{item.shopName | showBlankValue}}">{{item.shopName | showBlankValue}}</p>
 	  						<span class="shoppro-collected" data-ng-show="item.id|getCollectedObj:clientTopScope.collectProductListBak"><i class="fa fa-star"></i>&nbsp;已收藏</span>

@@ -7,6 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.sky.business.shop.service.ProductService;
+import com.sky.util.BeanDefinedLocator;
 
 /**
  * 购物车
@@ -39,6 +45,12 @@ public class Cart implements Serializable {
 	
 	@Column(name="STATUS")
 	private Integer status;
+	
+	/**
+ 	 * 商品
+ 	 */
+ 	@Transient
+ 	private Product product; 
 	
     // Property accessors
 	public String getId() {
@@ -95,6 +107,18 @@ public class Cart implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Product getProduct() {
+		if(StringUtils.isNotBlank(this.productId)) {
+			ProductService productService = (ProductService)BeanDefinedLocator.getInstance().getBean("productService");
+			product = productService.findByID(Product.class, this.productId);
+		}
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 }

@@ -129,4 +129,9 @@ public class BaseServiceImpl implements BaseService {
 		return baseDao.getCount(dao, entity, condition);
 	}
 
+	@Override
+	public <T> void batchDelete(BaseDao dao, Class<T> entity, Map<String, Object> condition) throws Exception {
+		baseDao.batchDelete(dao, entity, condition);
+	}
+
 }

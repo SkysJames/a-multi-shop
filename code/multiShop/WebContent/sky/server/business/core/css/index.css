@@ -1,11 +1,4 @@
 @CHARSET "UTF-8";
-.my-hidden {
-	display: none;
-}
-.my-show {
-	display: block;
-}
-
 .breadcrumb>li {
 	text-shadow: none;
 }

@@ -12,7 +12,10 @@
 				<span class="link" data-ng-click="logout()">退出</span>
 			</div>
 			<div class="ct-top-item" data-ng-show="userInfo && tableName=='tb_product'">
-				<span class="link" data-ng-click=""><i class="fa fa-shopping-cart"></i>&nbsp;购物车</span>
+				<span class="link" data-ng-click="openCartPanel()">
+					<i class="fa fa-shopping-cart"></i>&nbsp;购物车
+					<em class="little-count my-hidden" data-ng-class="{'my-show':cartList && cartList.length>0}">{{cartList.length}}</em>
+				</span>
 			</div>
 			<div class="ct-top-item" data-ng-show="userInfo">
 				<span class="link" data-ng-click="openCollectPanel()"><i class="fa fa-star"></i>&nbsp;我的收藏</span>
@@ -64,8 +67,8 @@
 			<i class="fa fa-th-large"></i>
 			<p>分类</p>
 		</div>
-		<div class="ct-bottom-item" data-ng-class="{'active': currentNav=='cart'}" data-ng-click="clickNav('cart')" data-ng-show="tableName=='tb_product'">
-			<i class="fa fa-shopping-cart"></i>
+		<div id="bottomCartId" class="ct-bottom-item ct-bottom-cart" data-ng-class="{'active': currentNav=='cart'}" data-ng-click="openCartPanel()" data-ng-show="tableName=='tb_product'">
+			<i class="fa fa-shopping-cart"><em class="little-count my-hidden" data-ng-class="{'my-show':cartList && cartList.length>0}">{{cartList.length}}</em></i>
 			<p>购物车</p>
 		</div>
 		<div class="ct-bottom-item" data-ng-mouseover="mouseNav('more',true)" data-ng-mouseleave="mouseNav('more',false)"
@@ -81,6 +84,9 @@
 				</li>
 				<li>
 					<a href="javascript:void(0)" data-ng-show="shopInfo" data-ng-click="openEvaluatePanel()"><i class="fa fa-edit"></i>&nbsp;我要评价</a>
+				</li>
+				<li>
+					<a href="javascript:void(0)" data-ng-click="openFeedbackPanel()"><i class="fa fa-envelope"></i>&nbsp;反馈信息</a>
 				</li>
 			</ul>
 		</div>
@@ -140,11 +146,11 @@
 				</div>
 			</div>
 		</div>
-		<div class="ct-fixed-item ct-fixed-phone ct-evaluate-item" data-ng-show="shopInfo" data-ng-click="openEvaluatePanel()">
+		<div class="ct-fixed-item ct-fixed-phone shop-only-pc" data-ng-show="shopInfo" data-ng-click="openEvaluatePanel()">
 			<i class="fa fa-edit ct-evaluate"></i>
 			<p>评价</p>
 		</div>
-		<div class="ct-fixed-item ct-fixed-phone" data-ng-click="openFeedbackPanel()">
+		<div class="ct-fixed-item ct-fixed-phone shop-only-pc" data-ng-click="openFeedbackPanel()">
 			<i class="fa fa-envelope ct-feedback"></i>
 			<p>反馈</p>
 		</div>
@@ -525,7 +531,7 @@
 			<div class="modal-content">
 				<div class="modal-header client-model-header">
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					<h4 class="modal-title">我要评价</h4>
+					<h4 class="modal-title">用户反馈</h4>
 				</div>
 				<div class="modal-body">
 					<form data-ng-submit="addFeedback()">
@@ -631,6 +637,47 @@
 		</div>
 	</div>
 	<!-- 店铺申请模态框 end -->
+	
+	<!-- 购物车模态框 start -->
+	<div class="modal fade" id="cartWinId" tabindex="-1" role="dialog" aria-labelledby="cartWinLabel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header client-model-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title">购物车</h4>
+				</div>
+				<div class="modal-body">
+					<table class="table table-condensed table-hover">
+						<tr>
+							<th>商品名称</th>
+							<th>金额</th>
+							<th>数量</th>
+						</tr>
+						<tbody data-ng-show="!isLoadingCart && cartList && cartList.length>0">
+							<tr data-ng-repeat="item in cartList">
+								<td>{{item.product.name}}</td>
+								<td><i class="fa fa-rmb"></i>{{item.product.price * item.proNum}}</td>
+								<td>
+									<div class="cart-count">
+		  								<label class="cart-minus" data-ng-click="editCartCount(item, -1, $event)"><i class="fa fa-minus"></i></label>
+										<span>{{item.proNum}}</span>
+										<label class="cart-plus" data-ng-click="editCartCount(item, 1, $event)"><i class="fa fa-plus"></i></label>
+		  							</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" style="color: red">总金额：<i class="fa fa-rmb"></i>{{cartList|getCartMoney}}</td>
+								<td><a href="javascript:void(0)" data-ng-click="clearCart()">清空</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<loading-panel data-ng-show="isLoadingCart" font-size="18"></loading-panel>
+					<nodata-panel data-ng-show="!isLoadingCart && cartList.length==0" font-size="18"></nodata-panel>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 购物车模态框 end -->
 	
 </div>
 

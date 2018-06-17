@@ -126,4 +126,11 @@ public interface BaseService {
 	 */
 	public <T> Integer getCount(BaseDao dao, Class<T> entity, Map<String, Object> condition);
 	
+	/**
+	 * 根据条件批量删除
+	 * @param condition
+	 * @throws Exception
+	 */
+	public <T> void batchDelete(BaseDao dao, Class<T> entity, Map<String,Object> condition) throws Exception;
+	
 }

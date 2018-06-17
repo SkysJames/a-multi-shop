@@ -22,6 +22,7 @@
 	margin-right: 30px;
 }
 .ct-top-fixed span {
+	position: relative;
 	margin-left: 7px;
 	margin-right: 7px;
 }
@@ -137,8 +138,12 @@
 	border: none;
 }
 .ct-bottom-item i {
+	position: relative;
 	margin-top: 8px;
 	font-size: 24px;
+}
+.ct-bottom-cart>i {
+	width: 30px;
 }
 .ct-bottom-item p {
 	
@@ -332,7 +337,6 @@
 	cursor: pointer;
 }
 
-/*.ct-fixed-phone:hover .ct-phone {*/
 .ct-phone-show {
 	display: block;
 	animation: toright-animation .4s;
@@ -610,10 +614,6 @@
 	
 	.login-model-dialog {
 		width: auto;
-	}
-	
-	.ct-evaluate-item {
-		display: none;
 	}
 	
 	.eval-phone-value {

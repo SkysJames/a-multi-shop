@@ -5,6 +5,21 @@
 	padding: 0px;
 }
 
+.my-flyer {
+    height: 13px;
+    width: 13px;
+    border: none;
+	border-radius: 50%;
+    background: #ED1C24;
+}
+
+.my-hidden {
+	display: none;
+}
+.my-show {
+	display: block;
+}
+
 .common-pager {
 	bottom: 12px;
 }

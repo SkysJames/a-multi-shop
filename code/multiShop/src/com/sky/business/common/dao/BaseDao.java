@@ -140,4 +140,20 @@ public interface BaseDao {
 	 */
 	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition);
 	
+	/**
+	 * 根据条件批量删除
+	 * @param condition
+	 * @throws Exception
+	 */
+	public <T> void batchDelete(BaseDao dao, Class<T> entity, Map<String,Object> condition);
+	
+	/**
+	 * 封装删除语句hql
+	 * @param hqlBuffer
+	 * @param values
+	 * @param condition
+	 * @return
+	 */
+	public StringBuffer getDeleteHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition);
+	
 }

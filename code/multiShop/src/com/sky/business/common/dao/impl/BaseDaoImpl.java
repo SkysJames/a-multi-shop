@@ -169,6 +169,22 @@ public class BaseDaoImpl extends AbstractBaseDao implements BaseDao {
 	@Override
 	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
 		return hqlBuffer;
+	}
+
+	@Override
+	public <T> void batchDelete(BaseDao dao, Class<T> entity, Map<String, Object> condition) {
+		StringBuffer hqlBuffer = new StringBuffer("delete from ").append(entity.getName()).append(" where 1=1");
+		List<Object> values = new ArrayList<Object>();
+		
+		//封装hql语句
+		hqlBuffer = dao.getDeleteHql(hqlBuffer, values, condition);
+		
+		this.getBaseHibernateDao().executeUpdate(hqlBuffer.toString(), values.toArray());
 	};
+	
+	@Override
+	public StringBuffer getDeleteHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
+		return hqlBuffer;
+	}
 	
 }

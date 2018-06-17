@@ -6,6 +6,7 @@
 <!-- jquery -->
 <script type="text/javascript" src="${ contextPath }/resource/plugin/jquery/jquery-2.0.2.min.js"></script>
 <script type="text/javascript" src="${ contextPath }/resource/plugin/jquery/jquery-ui-1.10.3.min.js"></script>
+<script type="text/javascript" src="${ contextPath }/resource/plugin/jquery/jquery.fly.min.js"></script>
 
 <!-- bootstrap -->
 <script type="text/javascript" src="${ contextPath }/resource/plugin/bootstrap/js/bootstrap.min.js"></script>

@@ -272,4 +272,64 @@ angular.module('client-index.httpService',[])
 		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
 	};
 	
+	/**
+	 * 获取购物车列表
+	 */
+	this.getCartList = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/shop/cart-client!list";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 添加购物车
+	 */
+	this.addCart = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/shop/cart-client!save";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 编辑购物车
+	 */
+	this.editCart = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/shop/cart-client!edit";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 删除购物车
+	 */
+	this.deleteCart = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/shop/cart-client!delete";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 清空购物车
+	 */
+	this.batchDeleteCart = function(condition){
+		var conditionJson = JSON.stringify(condition);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/shop/cart-client!batchDelete";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
 });

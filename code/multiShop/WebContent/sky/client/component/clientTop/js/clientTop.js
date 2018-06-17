@@ -202,6 +202,15 @@ angular.module('clientTop',[])
 			};
 			
 			/**
+			 * 打开购物车面板
+			 */
+			$scope.openCartPanel = function(){
+				if($scope.isLogin()){
+					$('#cartWinId').modal("show");
+				}
+			};
+			
+			/**
 			 * 打开登录面板
 			 */
 			$scope.openLoginPanel = function(nav){
@@ -371,9 +380,9 @@ angular.module('clientTop',[])
 			$scope.mouseNav = function(nav, isOver){
 				if(nav=="more" && isOver){
 					if($scope.shopInfo){
-						$(".ct-bottom-item-two").css("top", "-125px");
+						$(".ct-bottom-item-two").css("top", "-165px");
 					}else{
-						$(".ct-bottom-item-two").css("top", "-85px");
+						$(".ct-bottom-item-two").css("top", "-125px");
 					}
 					$(".ct-bottom-item-two").fadeIn();
 				}else{
@@ -719,6 +728,190 @@ angular.module('clientTop',[])
 			};
 			
 			/**
+			 * 加入购物车的动画效果
+			 */
+			$scope.addCartAnimate = function(event){
+				var offset = $("#bottomCartId").offset(); 
+				
+				var flyer = $('<img class="my-flyer">'); 
+		        flyer.fly({ 
+		            start: { 
+		                left: event.pageX, //开始位置（必填）#fly元素会被设置成position: fixed 
+		                top: event.pageY //开始位置（必填） 
+		            }, 
+		            end: { 
+		                left: offset.left+10, //结束位置（必填） 
+		                top: offset.top+10, //结束位置（必填） 
+		                width: 0, //结束时宽度 
+		                height: 0 //结束时高度 
+		            }, 
+		            onEnd: function(){ //结束回调 
+		                this.destroy(); //移除dom
+		            }
+		        });
+			};
+			
+			/**
+			 * 获取购物车列表
+			 */
+			$scope.getCartList = function(){
+				if(!$currentUser){
+					return;
+				}
+				
+				var condition = {
+						userId	: $currentUser.userId,
+						status	: common.cartContants.status.UNSUBMIT,
+				};
+				
+				$scope.isLoadingCart = true;
+				clientIndexHttpService.getCartList(condition)
+				.then(function(response){
+					var data = response.data;
+					if(data.statusCode=="200"){
+						$scope.cartList = data.list;
+					}else{
+						common.triggerFailMesg(data.message);
+					}
+					$scope.isLoadingCart = false;
+				},function(err){
+					console.log(err);
+				});
+			};
+			
+			/**
+			 * 添加购物车
+			 */
+			$scope.addCart = function(product, proNum, event){
+				if(event){
+					event.stopPropagation();
+				}
+				
+				if(!$scope.isLogin() || !product){
+					return;
+				}
+				
+				//判断该商品是否已加在购物车上
+				var cart = $filter("getCartInfo")(product, $scope.cartList);
+				if(cart){
+					$scope.editCartCount(cart, proNum, event);
+					return;
+				}
+				
+				cart = {
+						productId	: product.id,
+						userId		: $currentUser.userId,
+						proNum		: proNum?proNum:1,
+						status		: common.cartContants.status.UNSUBMIT,
+				};
+				
+				$scope.isLoadingAddCart = true;
+				clientIndexHttpService.addCart(cart)
+				.then(function(response){
+					var data = response.data;
+					if(data.statusCode=="200"){
+						$scope.getCartList();
+					}else{
+						common.triggerFailMesg(data.message);
+					}
+					$scope.isLoadingAddCart = false;
+				},function(err){
+					console.log(err);
+				});
+			};
+			
+			/**
+			 * 添加/减少购物车商品数量
+			 */
+			$scope.editCartCount = function(cart, count, event){
+				if(event){
+					event.stopPropagation();
+				}
+				
+				if(!$scope.isLogin() || !cart){
+					return;
+				}
+				cart.proNum = cart.proNum + count;
+				
+				if(cart.proNum){
+					$scope.editCart(cart);
+				}else{
+					$scope.deleteCart(cart);
+				}
+				
+			};
+			
+			/**
+			 * 编辑购物车
+			 */
+			$scope.editCart = function(cart){
+				clientIndexHttpService.editCart(cart)
+				.then(function(response){
+					var data = response.data;
+					if(data.statusCode=="200"){
+//						$scope.getCartList();
+					}else{
+						common.triggerFailMesg(data.message);
+					}
+				},function(err){
+					console.log(err);
+				});
+			};
+			
+			/**
+			 * 删除购物车
+			 */
+			$scope.deleteCart = function(cart){
+				if(!$scope.isLogin()){
+					return;
+				}
+				
+				clientIndexHttpService.deleteCart(cart)
+				.then(function(response){
+					var data = response.data;
+					if(data.statusCode=="200"){
+						for(var i=0,len=$scope.cartList.length; i<len; i++){
+							if($scope.cartList[i].id == cart.id){
+								$scope.cartList.splice(i, 1);
+								break;
+							}
+						}
+//						$scope.getCartList();
+					}else{
+						common.triggerFailMesg(data.message);
+					}
+				},function(err){
+					console.log(err);
+				});
+			};
+			
+			/**
+			 * 清空购物车
+			 */
+			$scope.clearCart = function(){
+				if(!$scope.isLogin()){
+					return;
+				}
+				
+				var condition = {
+						userId	: $currentUser.userId,
+						status	: common.cartContants.status.UNSUBMIT,
+				};
+				
+				clientIndexHttpService.batchDeleteCart(condition)
+				.then(function(response){
+					var data = response.data;
+					if(data.statusCode=="200"){
+						$scope.getCartList();
+					}else{
+						common.triggerFailMesg(data.message);
+					}
+				},function(err){
+					console.log(err);
+				});
+			};
+			
+			/**
 			 * 通过url打开页面
 			 * isLocation true-本页面打开，false-新窗口打开
 			 */
@@ -764,6 +957,8 @@ angular.module('clientTop',[])
 				
 				//获取用户信息
 				$scope.getUserInfo();
+				//获取购物车列表
+				$scope.getCartList();
 				//获取店铺的收藏列表
 				$scope.getCollectList(common.tableContants.TB_SHOP);
 				//获取商品的收藏列表

@@ -110,6 +110,17 @@ var common = {
 		},
 		
 		/**
+		 * 购物车类型常量
+		 */
+		cartContants	: {
+			status	: {
+				UNSUBMIT		: "0",//为提交
+				UNCOMFIRM	: "1",//已提交未完结
+				COMFIRM		: "2",//已完结
+			}
+		},
+		
+		/**
 		 * 公用的消息提示音
 		 */
 		notifySound : function(){
