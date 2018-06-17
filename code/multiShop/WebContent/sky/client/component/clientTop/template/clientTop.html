@@ -14,7 +14,7 @@
 			<div class="ct-top-item" data-ng-show="userInfo && tableName=='tb_product'">
 				<span class="link" data-ng-click="openCartPanel()">
 					<i class="fa fa-shopping-cart"></i>&nbsp;购物车
-					<em class="little-count my-hidden" data-ng-class="{'my-show':cartList && cartList.length>0}">{{cartList.length}}</em>
+					<em class="little-count my-hidden" data-ng-class="{'my-show':cartList && cartList.length>0}">{{cartList | getCartAllCount}}</em>
 				</span>
 			</div>
 			<div class="ct-top-item" data-ng-show="userInfo">
@@ -68,7 +68,7 @@
 			<p>分类</p>
 		</div>
 		<div id="bottomCartId" class="ct-bottom-item ct-bottom-cart" data-ng-class="{'active': currentNav=='cart'}" data-ng-click="openCartPanel()" data-ng-show="tableName=='tb_product'">
-			<i class="fa fa-shopping-cart"><em class="little-count my-hidden" data-ng-class="{'my-show':cartList && cartList.length>0}">{{cartList.length}}</em></i>
+			<i class="fa fa-shopping-cart"><em class="little-count my-hidden" data-ng-class="{'my-show':cartList && cartList.length>0}">{{cartList | getCartAllCount}}</em></i>
 			<p>购物车</p>
 		</div>
 		<div class="ct-bottom-item" data-ng-mouseover="mouseNav('more',true)" data-ng-mouseleave="mouseNav('more',false)"

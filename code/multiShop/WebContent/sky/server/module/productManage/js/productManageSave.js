@@ -104,7 +104,7 @@ angular.module('productManageSave',[])
 					return false;
 				}
 				
-				if(product.brief.length>150){
+				if(product.brief && product.brief.length>150){
 					return false;
 				}
 				

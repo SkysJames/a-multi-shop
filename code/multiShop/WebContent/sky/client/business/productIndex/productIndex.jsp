@@ -99,8 +99,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="pindex-basic shop-only-phone">
 			<div class="pindex-phone-imgs">
 				<ul>
-					<li data-ng-repeat="item in productInfo.picPathList" data-ng-class="{'active': selectedImg==item}">
-						<img style="background-image: url({{item|getImgUrl}})">
+<!-- 					<li data-ng-repeat="item in productInfo.picPathList" data-ng-class="{'active': selectedImg==item}"> -->
+<!-- 						<img style="background-image: url({{item|getImgUrl}})"> -->
+<!-- 					</li> -->
+					<li class="active">
+						<img style="background-image: url({{selectedImg|getImgUrl}})">
 					</li>
 				</ul>
 			</div>

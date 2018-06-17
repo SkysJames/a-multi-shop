@@ -418,18 +418,17 @@ ul li {
 }
 .little-count {
 	font-size: 9px;
-    padding: 2px;
     position: absolute;
-    top: -8px;
-    right: -6px;
+    top: -7px;
+    right: -12px;
     text-decoration: none;
     font-style: normal;
     background: #ED1C24;
     color: #fff;
-    min-width: 13px;
+    width: 17px;
     border-radius: 50%;
-    max-height: 13px;
-    line-height: 8px;
+    height: 17px;
+    line-height: 17px;
     font-weight: 700;
     vertical-align: baseline;
     white-space: nowrap;

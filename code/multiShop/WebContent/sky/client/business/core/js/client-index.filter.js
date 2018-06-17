@@ -158,6 +158,21 @@ angular.module('client-index.filter',[])
 })
 
 /**
+ * 获取购物车商品的数量总数
+ */
+.filter('getCartAllCount',function(){
+	return function(cartList){
+		var allCount = 0;
+		if(cartList){
+			for(var i=0,len=cartList.length; i<len; i++){
+				allCount += cartList[i].proNum;
+			}
+		}
+		return allCount;
+	};
+})
+
+/**
  * 判断是否有权限显示
  */
 .filter('hasRightShow',function(){

@@ -11,6 +11,7 @@
     border: none;
 	border-radius: 50%;
     background: #ED1C24;
+    z-index: 99;
 }
 
 .my-hidden {

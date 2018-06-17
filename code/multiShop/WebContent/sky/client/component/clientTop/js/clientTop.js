@@ -731,7 +731,8 @@ angular.module('clientTop',[])
 			 * 加入购物车的动画效果
 			 */
 			$scope.addCartAnimate = function(event){
-				var offset = $("#bottomCartId").offset(); 
+				var offset = $("#bottomCartId").offset();
+				console.log(event, $("#bottomCartId").offset());
 				
 				var flyer = $('<img class="my-flyer">'); 
 		        flyer.fly({ 
