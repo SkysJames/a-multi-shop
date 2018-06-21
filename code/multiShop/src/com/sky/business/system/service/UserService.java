@@ -15,6 +15,14 @@ import com.sky.business.system.entity.User;
 public interface UserService extends BaseService {
 	
 	/**
+	 * 微信授权登录
+	 * @param userMap
+	 * @return
+	 * @throws Exception
+	 */
+	public LoginUser checkForLoginWechat(Map<String, Object> userMap, String ip) throws Exception;
+	
+	/**
 	 * 检验是否登录后台系统成功
 	 * @param loginUser
 	 * @return

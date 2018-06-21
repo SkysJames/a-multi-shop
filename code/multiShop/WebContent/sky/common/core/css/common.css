@@ -55,6 +55,8 @@
 }
 
 .common-tip {
+	text-align: left;
+    line-height: 16px;
 	color: #737373;
 }
 

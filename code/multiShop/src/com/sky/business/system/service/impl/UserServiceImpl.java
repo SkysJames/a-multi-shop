@@ -35,6 +35,45 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 	private UserDao userDao;
 	
 	@Override
+	public LoginUser checkForLoginWechat(Map<String, Object> userMap, String ip) throws Exception {
+		//用户信息
+		User user = null;
+		//微信公众号与用户的唯一标示
+		String openId = null;
+		
+		//判断openid是否存在
+		if(userMap!=null && userMap.containsKey("openid")) {
+			openId = (String)userMap.get("openid");
+		}else {
+			throw new Exception("openid is not exist");
+		}
+		
+		//根据openid获取数据库的用户信息
+		user = userDao.findByUnique(User.class, "wopenId", openId);
+		if(user == null) {
+			user = new User();
+			user.setId(openId);
+			user.setWopenId(openId);
+			user.setUserStatus(UserContants.UserStatus.USING);
+			user.setLoginStatus(UserContants.LoginStatus.OFFLINE);
+			user.setPasswd(UserContants.defaultPasswd);
+			user.setCreateTime(new Timestamp(new Date().getTime()));
+		}
+		user.setName((String)userMap.get("nickname"));
+		userDao.saveOrUpdate(user);
+		
+		//登录用户loginUser
+		LoginUser loginUser = new LoginUser();
+		loginUser.setUserId(user.getId());
+		loginUser.setUserPwd(user.getPasswd());
+		loginUser.setUserIp(ip);
+		//登录前台系统
+		loginUser = this.checkForLoginClient(loginUser);
+		
+		return loginUser;
+	}
+	
+	@Override
 	public LoginUser checkForLogin(LoginUser loginUser) throws Exception {
 		//验证数据库中是否存在该用户
 		User user = this.findByID(User.class, loginUser.getUserId());
@@ -313,5 +352,5 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		
 		this.update(user);
 	}
-	
+
 }

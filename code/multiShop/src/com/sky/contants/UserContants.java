@@ -6,6 +6,9 @@ package com.sky.contants;
  *
  */
 public class UserContants {
+	
+	public static final String defaultPasswd = "123456aB";
+	
 	/**
 	 * 系统用户ID
 	 */

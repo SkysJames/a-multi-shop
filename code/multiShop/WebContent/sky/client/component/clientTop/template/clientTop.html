@@ -285,9 +285,10 @@
 						<div class="login-row" data-ng-show="!isEditUser">
 							<div class="input-group">
 								<small class="pull-right">
-									<a href="javascript:void(0)" data-ng-click="triggerUserPanel('user', true)">修改个人信息</a>
+									<a href="javascript:localStorage.clear();location.reload();">清空缓存</a>
+									<a href="javascript:void(0)" data-ng-click="triggerUserPanel('user', true)" data-ng-show="!isWechat">修改个人信息</a>
 									<a href="javascript:void(0)" data-ng-click="triggerUserPanel('password', false)">修改密码</a>
-									<a href="javascript:void(0)" data-ng-click="logout()">退出登录</a>
+									<a href="javascript:void(0)" data-ng-click="logout()" data-ng-show="!isWechat">退出登录</a>
 								</small>
 							</div>
 						</div>
@@ -305,6 +306,9 @@
 						<div class="login-row">
 							<div class="input-group">
 								<input class="form-control" type="password" placeholder="输入旧密码" required="required" data-ng-model="password.oldPasswd">
+							</div>
+							<div class="input-group">
+								<div class="common-tip">默认初始密码：{{defaultPasswd}}</div>
 							</div>
 						</div>
 						<div class="login-row">

@@ -5,9 +5,16 @@ import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.apache.log4j.Logger;
 
 /**
  * 公共方法工具
@@ -15,7 +22,34 @@ import org.apache.commons.lang3.StringUtils;
  *
  */
 public class CommonMethodUtil {
+	
+	protected static Logger logger = Logger.getLogger(CommonMethodUtil.class);
 
+	/**
+	 * 根据url获取json类型的Map结果集
+	 * @param url
+	 * @return
+	 */
+	public static Map<String, Object> getJsonMapByUrl(String url) {
+		Map<String, Object> resultMap = null;
+		try {
+			DefaultHttpClient client = new DefaultHttpClient();
+			HttpGet httpGet = new HttpGet(url);
+			HttpResponse response;
+			response = client.execute(httpGet);
+			HttpEntity entity = response.getEntity();
+			
+			if(entity != null){
+				String result = EntityUtils.toString(entity,"utf-8");
+				resultMap = JsonUtil.getJsonToMap(result);
+			}
+			httpGet.releaseConnection();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return resultMap;
+	}
+	
 	/**
 	 * 将object转为Integer类型
 	 * @param object

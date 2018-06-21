@@ -76,6 +76,9 @@ public class User implements java.io.Serializable {
 	@Column(name="TELEPHONE", length=36)
 	private String telephone;
 	
+	@Column(name="WOPEN_ID", length=36)
+	private String wopenId;
+	
 	//店铺
 	@Transient
 	private Shop shop;
@@ -220,6 +223,14 @@ public class User implements java.io.Serializable {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+
+	public String getWopenId() {
+		return wopenId;
+	}
+
+	public void setWopenId(String wopenId) {
+		this.wopenId = wopenId;
 	}
 
 	public String getAllRights() {

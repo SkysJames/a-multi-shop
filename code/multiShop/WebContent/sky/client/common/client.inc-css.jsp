@@ -1,8 +1,10 @@
+<%@page import="com.sky.contants.UserContants"%>
 <%@page contentType="text/html; charset=UTF-8"%>
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="com.sky.util.SysParameterUtil" %>
 <%@page import="com.sky.contants.EntityContants" %>
 <%@page import="com.sky.util.JsonUtil" %>
+<%@page import="com.sky.contants.UserContants" %>
 <%
 	pageContext.setAttribute("contextPath", request.getContextPath());
 	
@@ -54,6 +56,11 @@
 	//默认百度地图经纬度
 	String defaultBmap = SysParameterUtil.getStringValue("default_bmap", "");
 	pageContext.setAttribute("defaultBmap", StringUtils.isNotBlank(defaultBmap)?defaultBmap:"113.273154,23.146502");
+	
+	//用户的默认初始密码
+	String defaultPasswd = UserContants.defaultPasswd;
+	pageContext.setAttribute("defaultPasswd", defaultPasswd);
+	
 %>
 <!-- 初始化全局参数 -->
 <script type="text/javascript">
@@ -76,6 +83,15 @@ var $qq = '${ qq }';//qq号码
 var $wechatPic = '${ wechatPic }';//微信公众号二维码
 var $serviceTime = '${ serviceTime }';//服务时间
 var $defaultBmaps = '${ defaultBmap }'.split(",");//默认百度地图经纬度
+var $defaultPasswd = '${ defaultPasswd }';//用户的默认初始密码
+
+var $isWechat = navigator.userAgent.toLowerCase().indexOf('micromessenger')>-1;//是否微信浏览器
+
+//是否需要页面跳转（是否微信浏览器）
+if(!$currentUser && $isWechat){
+	var currentUrl = window.location.href;
+	window.location.href = $contextPath + "/common/wechat!webLogin?reUrl=" + currentUrl;
+}
 </script>
 
 <!-- 导入外部插件 -->

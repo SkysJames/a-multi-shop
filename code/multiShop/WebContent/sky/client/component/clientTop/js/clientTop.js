@@ -14,6 +14,10 @@ angular.module('clientTop',[])
 			
 		},
 		controller : function($scope, $timeout, $filter, $document, clientIndexHttpService){
+			//是否为微信浏览器
+			$scope.isWechat = $isWechat;
+			//用户的默认初始密码
+			$scope.defaultPasswd = $defaultPasswd;
 			//系统名称
 			$scope.systemName = $systemName;
 			//微信二维码的url
