@@ -55,6 +55,7 @@
 }
 
 .common-tip {
+	margin-top: 2px;
 	text-align: left;
     line-height: 16px;
 	color: #737373;
@@ -112,6 +113,15 @@
 }
 .common-pro>small>span {
 	margin-right: 10px;
+}
+
+.radio-inline {
+	margin: 0px;
+	margin-right: 5px;
+}
+.radio-inline input[type="radio"] {
+	float: none;
+	margin-right: 8px;
 }
 
 .need-tab {

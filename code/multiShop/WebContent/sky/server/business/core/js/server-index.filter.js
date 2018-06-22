@@ -13,6 +13,23 @@ angular.module('server-index.filter',[])
 })
 
 /**
+ * 显示性别字符串
+ */
+.filter('getSex',function(){
+	return function(sex){
+		if(sex){
+			if(sex == "1"){
+				return "男";
+			}else if(sex == "2"){
+				return "女";
+			}
+		}
+		
+		return "未知";
+	};
+})
+
+/**
  * 显示剩余可输入的字符长度
  */
 .filter('getRemainLength',function(){

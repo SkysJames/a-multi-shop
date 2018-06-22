@@ -60,6 +60,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			user.setCreateTime(new Timestamp(new Date().getTime()));
 		}
 		user.setName((String)userMap.get("nickname"));
+		user.setSex((String)userMap.get("sex"));
 		userDao.saveOrUpdate(user);
 		
 		//登录用户loginUser
@@ -171,19 +172,11 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			throw new ServiceException(CodeMescContants.CodeContants.ERROR_INEXIST, CodeMescContants.MessageContants.ERROR_INEXIST);
 		}
 		
-		if(editUser.containsKey("name")){
-			user.setName((String)editUser.get("name"));
-			user.setName(user.getName().replaceAll("\"", "'"));
-		}
 		if(editUser.containsKey("passwd")){
 			user.setPasswd((String)editUser.get("passwd"));
 //			//md5加密密码，再存入数据库
 //			String pwdMd5 = EncryptArithmeticUtil.md5EncryptAll(editUser.getPasswd().getBytes("UTF-8"));
 //			user.setPasswd(pwdMd5);
-		}
-		if(editUser.containsKey("remark")){
-			user.setRemark((String)editUser.get("remark"));
-			user.setRemark(user.getRemark().replaceAll("\"", "'"));
 		}
 		if(editUser.containsKey("userStatus")){
 			user.setUserStatus(CommonMethodUtil.getIntegerByObject(editUser.get("userStatus")));
@@ -191,24 +184,14 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		if(editUser.containsKey("shopId")){
 			user.setShopId((String)editUser.get("shopId"));
 		}
-		if(editUser.containsKey("qq")){
-			user.setQq((String)editUser.get("qq"));
-			user.setQq(user.getQq().replaceAll("\"", "'"));
-		}
-		if(editUser.containsKey("wechat")){
-			user.setWechat((String)editUser.get("wechat"));
-			user.setWechat(user.getWechat().replaceAll("\"", "'"));
-		}
-		if(editUser.containsKey("telephone")){
-			user.setTelephone((String)editUser.get("telephone"));
-			user.setTelephone(user.getTelephone().replaceAll("\"", "'"));
-		}
 		if(editUser.containsKey("rights")){
 			user.setRights((String)editUser.get("rights"));
 		}
 		if(editUser.containsKey("rightgroups")){
 			user.setRightgroups((String)editUser.get("rightgroups"));
 		}
+		
+		user = this.packetUser(user, editUser);
 		
 		this.update(user);
 		
@@ -231,30 +214,13 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		newUser.setCreateTime(new Timestamp(new Date().getTime()));
 		newUser.setUserStatus(UserContants.UserStatus.USING);
 		newUser.setLoginStatus(UserContants.LoginStatus.OFFLINE);
-		newUser.setName((String)user.get("name"));
 		newUser.setPasswd((String)user.get("passwd"));
 		
-		if(user.containsKey("remark")){
-			newUser.setRemark((String)user.get("remark"));
-			newUser.setRemark(newUser.getRemark().replaceAll("\"", "'"));
-		}
 		if(user.containsKey("userStatus")){
 			newUser.setUserStatus(CommonMethodUtil.getIntegerByObject(user.get("userStatus")));
 		}
 		if(user.containsKey("shopId")){
 			newUser.setShopId((String)user.get("shopId"));
-		}
-		if(user.containsKey("qq")){
-			newUser.setQq((String)user.get("qq"));
-			newUser.setQq(newUser.getQq().replaceAll("\"", "'"));
-		}
-		if(user.containsKey("wechat")){
-			newUser.setWechat((String)user.get("wechat"));
-			newUser.setWechat(newUser.getWechat().replaceAll("\"", "'"));
-		}
-		if(user.containsKey("telephone")){
-			newUser.setTelephone((String)user.get("telephone"));
-			newUser.setTelephone(newUser.getTelephone().replaceAll("\"", "'"));
 		}
 		if(user.containsKey("rights")){
 			newUser.setRights((String)user.get("rights"));
@@ -262,6 +228,8 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		if(user.containsKey("rightgroups")){
 			newUser.setRightgroups((String)user.get("rightgroups"));
 		}
+		
+		newUser = this.packetUser(newUser, user);
 		
 		this.save(newUser);
 		return newUser;
@@ -297,26 +265,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			throw new ServiceException(CodeMescContants.CodeContants.ERROR_INEXIST, CodeMescContants.MessageContants.ERROR_INEXIST);
 		}
 		
-		if(editUser.containsKey("name")) {
-			user.setName((String)editUser.get("name"));
-			user.setName(user.getName().replaceAll("\"", "'"));
-		}
-		if(editUser.containsKey("remark")) {
-			user.setRemark((String)editUser.get("remark"));
-			user.setRemark(user.getRemark().replaceAll("\"", "'"));
-		}
-		if(editUser.containsKey("qq")){
-			user.setQq((String)editUser.get("qq"));
-			user.setQq(user.getQq().replaceAll("\"", "'"));
-		}
-		if(editUser.containsKey("wechat")){
-			user.setWechat((String)editUser.get("wechat"));
-			user.setWechat(user.getWechat().replaceAll("\"", "'"));
-		}
-		if(editUser.containsKey("telephone")){
-			user.setTelephone((String)editUser.get("telephone"));
-			user.setTelephone(user.getTelephone().replaceAll("\"", "'"));
-		}
+		user = this.packetUser(user, editUser);
 		
 		this.update(user);
 		loginUser.setUsername(user.getName());
@@ -351,6 +300,57 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 //		user.setPasswd(newPwdMd5);
 		
 		this.update(user);
+	}
+	
+	/**
+	 * 封装用户信息
+	 * @param user
+	 * @param userMap
+	 * @return
+	 */
+	private User packetUser(User user, Map<String,Object> userMap) {
+		if(user == null) {
+			return user;
+		}
+		
+		if(userMap.containsKey("name")) {
+			user.setName((String)userMap.get("name"));
+			if(user.getName()!=null) {
+				user.setName(user.getName().replaceAll("\"", "'"));
+			}
+		}
+		if(userMap.containsKey("remark")) {
+			user.setRemark((String)userMap.get("remark"));
+			if(user.getRemark()!=null) {
+				user.setRemark(user.getRemark().replaceAll("\"", "'"));
+			}
+		}
+		if(userMap.containsKey("qq")){
+			user.setQq((String)userMap.get("qq"));
+			if(user.getQq()!=null) {
+				user.setQq(user.getQq().replaceAll("\"", "'"));
+			}
+		}
+		if(userMap.containsKey("wechat")){
+			user.setWechat((String)userMap.get("wechat"));
+			if(user.getWechat()!=null) {
+				user.setWechat(user.getWechat().replaceAll("\"", "'"));
+			}
+		}
+		if(userMap.containsKey("telephone")){
+			user.setTelephone((String)userMap.get("telephone"));
+			if(user.getTelephone()!=null) {
+				user.setTelephone(user.getTelephone().replaceAll("\"", "'"));
+			}
+		}
+		if(userMap.containsKey("sex")){
+			user.setSex((String)userMap.get("sex"));
+		}
+		if(userMap.containsKey("birthdate")){
+			user.setBirthdate((String)userMap.get("birthdate"));
+		}
+		
+		return user;
 	}
 
 }

@@ -309,10 +309,17 @@ var common = {
 		},
 		
 		/**
-		 * 日期控件
+		 * 日期控件，精确到时间
 		 */
 		MydatePicker	: function(){
 			WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});
+		},
+		
+		/**
+		 * 日期控件，精确到日期
+		 */
+		MydatePickerDate	: function(){
+			WdatePicker({dateFmt:'yyyy-MM-dd'});
 		},
 		
 		/**

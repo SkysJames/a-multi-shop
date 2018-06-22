@@ -27,6 +27,29 @@
 							</td>
 						</tr>
 						<tr>
+							<td class="person-right-label">性别：</td>
+							<td data-ng-class="{'person-input' : isEdit}">
+								<span data-ng-show="!isEdit">{{currentUser.sex|getSex}}</span>
+								<div data-ng-show="isEdit">
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="1" data-ng-model="editUser.sex">
+										<span>男</span> 
+									</label>
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="2" data-ng-model="editUser.sex">
+										<span>女</span> 
+									</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="person-right-label">出生日期：</td>
+							<td data-ng-class="{'person-input' : isEdit}">
+								<span data-ng-show="!isEdit">{{currentUser.birthdate}}</span>
+								<input id="birthdateId" data-ng-show="isEdit" placeholder="出生日期" onclick="common.MydatePickerDate();">
+							</td>
+						</tr>
+						<tr>
 							<td class="person-right-label">手机号：</td>
 							<td data-ng-class="{'person-input' : isEdit}">
 								<span data-ng-show="!isEdit">{{currentUser.telephone}}</span>

@@ -41,6 +41,7 @@ angular.module('personPanel',[])
 			 */
 			$scope.showEditPerson = function(){
 				$scope.editUser = _.cloneDeep($scope.currentUser);
+				$("#birthdateId").val($scope.editUser.birthdate);
 				$scope.toggleEdit(true);
 			};
 			
@@ -48,6 +49,8 @@ angular.module('personPanel',[])
 			 * 编辑保存个人信息
 			 */
 			$scope.savePerson = function(){
+				$scope.editUser.birthdate = $("#birthdateId").val();
+				
 				$scope.savePersonWait = true;
 				serverIndexHttpService.editPerson($scope.editUser)
 				.then(function(response){

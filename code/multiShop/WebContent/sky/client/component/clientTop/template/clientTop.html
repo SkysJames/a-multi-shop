@@ -199,6 +199,17 @@
 								</small>
 							</div>
 						</div>
+						<div class="login-row login-short">
+							<div class="input-group">
+								<small class="pull-left">
+									<span>快捷登录：</span>
+									<span id="qqLoginBtn"></span>
+									<a href="javascript:void(0)" data-ng-click="qqLogin()">
+										<img data-ng-src="{{qqLoginBtn}}">
+									</a>
+								</small>
+							</div>
+						</div>
 					</form>
 					<!-- 登录面板end -->
 					
@@ -277,6 +288,30 @@
 							<div class="input-group">
 								<div class="user-label">手机号</div>
 								<div class="user-value">{{userInfo.telephone}}</div>
+							</div>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<div class="user-label">性别</div>
+								<div class="user-value" data-ng-show="!isEditUser">{{userInfo.sex|getSex}}</div>
+								<div class="user-value" data-ng-show="isEditUser">
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="1" data-ng-model="userInfo.sex">
+										<span>男</span> 
+									</label>
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="2" data-ng-model="userInfo.sex">
+										<span>女</span> 
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<div class="user-label">出生日期</div>
+								<div class="user-value" data-ng-show="!isEditUser">{{userInfo.birthdate}}</div>
+								<input id="birthdateId" class="form-control" type="text" placeholder="出生日期" 
+									onclick="common.MydatePickerDate();" data-ng-show="isEditUser">
 							</div>
 						</div>
 						<div class="login-row" data-ng-show="isEditUser">

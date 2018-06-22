@@ -22,6 +22,10 @@ angular.module('clientTop',[])
 			$scope.systemName = $systemName;
 			//微信二维码的url
 			$scope.wechatPic = $wechatPic;
+			//qq登录按钮图片url
+			$scope.qqLoginBtn = $qqLoginBtn;
+			//当前页面url
+			$scope.currentUrl = $currentUrl;
 			//当前导航（手机端底部）
 			$scope.currentNav = "index";
 			//当前登录面板的导航，login-登录面板，register-注册面板
@@ -123,6 +127,8 @@ angular.module('clientTop',[])
 				$scope.passwd = {};
 				//错误信息
 				$scope.errorMsg = "";
+				
+				$("#birthdateId").val($scope.userInfo.birthdate);
 			};
 			
 			/**
@@ -268,6 +274,8 @@ angular.module('clientTop',[])
 			 * 编辑保存个人信息
 			 */
 			$scope.saveUserInfo = function(){
+				$scope.userInfo.birthdate = $("#birthdateId").val();
+				
 				clientIndexHttpService.editPerson($scope.userInfo)
 				.then(function(response){
 					var data = response.data;

@@ -387,7 +387,6 @@
 	min-height: 420px;
 }
 .login-panel {
-	margin-top: 20px;
 }
 .register-panel {
 	
@@ -396,16 +395,16 @@
 	
 }
 .login-row {
-	margin-top: 20px;
+	margin-top: 16px;
     text-align: center;
-    line-height: 40px;
+    line-height: 36px;
 }
 .login-row .input-group {
 	margin: 0 auto;
 	width: 95%;
 }
 .login-row .input-group>input {
-	height: 40px;
+	height: 36px;
 }
 .login-row small {
 	line-height: 20px;
@@ -416,6 +415,19 @@
 }
 .login-row small>a:hover {
 	text-decoration: underline;
+}
+.login-short {
+	margin-top: 10px;
+	padding-top: 10px;
+	line-height: 24px;
+	border-top: 1px solid #eee;
+}
+.login-short small {
+	color: #888;
+}
+.login-short small>a {
+	margin-left: 5px;
+	margin-right: 10px;
 }
 .login-top {
 	margin: 0 auto;

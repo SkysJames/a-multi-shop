@@ -37,13 +37,19 @@ public class User implements java.io.Serializable {
 	@Column(name="PASSWD", length=64)
 	private String passwd;
 	
+	@Column(name="SEX", length=8)
+	private String sex;
+	
+	@Column(name="BIRTHDATE")
+	private String birthdate;
+	
 	@Column(name="SHOP_ID", length=36)
 	private String shopId;
 	
-	@Column(name="RIGHTS", length=4000)
+	@Column(name="RIGHTS")
 	private String rights;
 	
-	@Column(name="RIGHTGROUPS", length=4000)
+	@Column(name="RIGHTGROUPS")
 	private String rightgroups;
 	
 	@Column(name="USER_STATUS", nullable=false)
@@ -327,6 +333,22 @@ public class User implements java.io.Serializable {
 
 	public void setRightList(List<Right> rightList) {
 		this.rightList = rightList;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getBirthdate() {
+		return birthdate;
+	}
+
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
 	}
 
 }

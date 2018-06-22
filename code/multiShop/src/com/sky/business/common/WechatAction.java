@@ -88,7 +88,7 @@ public class WechatAction extends BaseAction {
 	}
 	
 	/**
-	 * 微信网页授权登录入口
+	 * 微信浏览器，授权登录入口
 	 * @return
 	 */
 	public void webLogin(){
