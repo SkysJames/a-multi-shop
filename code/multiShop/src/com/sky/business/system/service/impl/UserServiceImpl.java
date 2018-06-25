@@ -60,7 +60,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			user.setCreateTime(new Timestamp(new Date().getTime()));
 		}
 		user.setName((String)userMap.get("nickname"));
-		user.setSex((String)userMap.get("sex"));
+		user.setSex(CommonMethodUtil.getIntegerByObject(userMap.get("sex")));
 		userDao.saveOrUpdate(user);
 		
 		//登录用户loginUser
@@ -344,7 +344,7 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			}
 		}
 		if(userMap.containsKey("sex")){
-			user.setSex((String)userMap.get("sex"));
+			user.setSex(CommonMethodUtil.getIntegerByObject(userMap.get("sex")));
 		}
 		if(userMap.containsKey("birthdate")){
 			user.setBirthdate((String)userMap.get("birthdate"));
