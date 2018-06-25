@@ -78,6 +78,7 @@
 										<option value="">无</option>
 										<option data-ng-repeat="item in rightGroupAll" data-ng-show="item.id!='admin_rightgroup'" value="{{item.id}}">{{item.name}}</option>
 									</select>
+									<div class="common-tip">若用户角色为店员角色或店长角色，请在下面选取相应的店铺</div>
 								</div>
 							</div>
 							<div class="form-group" data-ng-show="user.shopId!='system'">

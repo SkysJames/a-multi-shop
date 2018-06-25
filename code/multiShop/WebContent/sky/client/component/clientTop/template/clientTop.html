@@ -199,7 +199,7 @@
 								</small>
 							</div>
 						</div>
-						<div class="login-row login-short">
+						<div class="login-row login-short" data-ng-show="false">
 							<div class="input-group">
 								<small class="pull-left">
 									<span>快捷登录：</span>
@@ -221,6 +221,11 @@
 						<div class="login-row">
 							<div class="input-group">
 								<input class="form-control" type="text" placeholder="用户名" data-ng-model="registerObj.userId">
+							</div>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<input class="form-control" type="text" placeholder="用户名称" data-ng-model="registerObj.userId">
 							</div>
 						</div>
 						<div class="login-row">
@@ -255,7 +260,7 @@
 				</div>
 				<div class="modal-body">
 					<!-- 用户信息面板start -->
-					<form class="user-panel" data-ng-submit="saveUserInfo()" data-ng-show="userNav=='user'">
+					<form class="user-panel" data-ng-submit="editUserInfo()" data-ng-show="userNav=='user'">
 						<div class="login-top" data-ng-show="isEditUser">
 							<a href="javascript:void(0)" data-ng-click="triggerUserPanel('user', false)"><i class="fa fa-chevron-left"></i>&nbsp;返回</a>
 						</div>

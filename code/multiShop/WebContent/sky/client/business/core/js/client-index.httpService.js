@@ -27,6 +27,18 @@ angular.module('client-index.httpService',[])
 	};
 	
 	/**
+	 * 申请注册
+	 */
+	this.registerUser = function(user){
+		var conditionJson = JSON.stringify(user);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/user-visit!add";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
 	 * 根据用户ID获取用户信息
 	 */
 	this.getUserById = function(userId){

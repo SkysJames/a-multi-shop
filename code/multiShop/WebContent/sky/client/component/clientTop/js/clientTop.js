@@ -271,9 +271,31 @@ angular.module('clientTop',[])
 			};
 			
 			/**
-			 * 编辑保存个人信息
+			 * 保存个人信息
 			 */
 			$scope.saveUserInfo = function(){
+				$scope.registerObj.birthdate = $("#registerBirthdateId").val();
+				
+				clientIndexHttpService.registerUser($scope.registerObj)
+				.then(function(response){
+					var data = response.data;
+					if(data.statusCode == "200"){
+						common.triggerSuccessMesg(data.message);
+						window.location.reload();
+					}else if(data.message){
+						$scope.errorMsg = data.message;
+					}else{
+						window.location.reload();
+					}
+				},function(err){
+					console.log(err);
+				});
+			};
+			
+			/**
+			 * 编辑保存个人信息
+			 */
+			$scope.editUserInfo = function(){
 				$scope.userInfo.birthdate = $("#birthdateId").val();
 				
 				clientIndexHttpService.editPerson($scope.userInfo)
@@ -282,8 +304,10 @@ angular.module('clientTop',[])
 					if(data.statusCode == "200"){
 						common.triggerSuccessMesg(data.message);
 						window.location.reload();
-					}else{
+					}else if(data.message){
 						$scope.errorMsg = data.message;
+					}else{
+						window.location.reload();
 					}
 				},function(err){
 					console.log(err);
@@ -301,8 +325,10 @@ angular.module('clientTop',[])
 						if(data.statusCode == "200"){
 							common.triggerSuccessMesg(data.message);
 							window.location.reload();
-						}else{
+						}else if(data.message){
 							$scope.errorMsg = data.message;
+						}else{
+							window.location.reload();
 						}
 					},function(err){
 						console.log(err);
@@ -347,8 +373,10 @@ angular.module('clientTop',[])
 					var data = response.data;
 					if(data.statusCode=="200"){
 						window.location.reload();
-					}else{
+					}else if(data.message){
 						$scope.errorMsg = data.message;
+					}else{
+						window.location.reload();
 					}
 				},function(err){
 					console.log(err);
@@ -364,8 +392,10 @@ angular.module('clientTop',[])
 					var data = response.data;
 					if(data.statusCode=="200"){
 						window.location.reload();
-					}else{
+					}else if(data.message){
 						common.triggerFailMesg(data.message);
+					}else{
+						window.location.reload();
 					}
 				},function(err){
 					console.log(err);
@@ -506,8 +536,10 @@ angular.module('clientTop',[])
 					if(data.statusCode=="200"){
 						//更新收藏列表
 						$scope.getCollectList(tableName);
-					}else{
+					}else if(data.message){
 						common.triggerFailMesg(data.message);
+					}else{
+						window.location.reload();
 					}
 				},function(err){
 					console.log(err);
@@ -536,8 +568,10 @@ angular.module('clientTop',[])
 						$scope.hisShopList = data.pager.resultList;
 						$scope.hisShopCondition.pageCount = data.pager.pageCount;
 						$scope.hisShopCondition.totalCount = data.pager.totalCount;
-					}else{
+					}else if(data.message){
 						common.triggerFailMesg(data.message);
+					}else{
+						window.location.reload();
 					}
 					$scope.isLoadingHisShop = false;
 				},function(err){
@@ -567,8 +601,10 @@ angular.module('clientTop',[])
 						$scope.hisProList = data.pager.resultList;
 						$scope.hisProCondition.pageCount = data.pager.pageCount;
 						$scope.hisProCondition.totalCount = data.pager.totalCount;
-					}else{
+					}else if(data.message){
 						common.triggerFailMesg(data.message);
+					}else{
+						window.location.reload();
 					}
 					$scope.isLoadingHisProduct = false;
 				},function(err){
@@ -596,8 +632,10 @@ angular.module('clientTop',[])
 					if(data.statusCode=="200"){
 						common.triggerSuccessMesg(data.message);
 						$('#evaluateWinId').modal("hide");
-					}else{
+					}else if(data.message){
 						$scope.errorMsg = data.message;
+					}else{
+						window.location.reload();
 					}
 					$scope.isLoadingAddShopEval = false;
 				},function(err){
@@ -645,8 +683,10 @@ angular.module('clientTop',[])
 					if(data.statusCode=="200"){
 						common.triggerSuccessMesg(data.message);
 						$('#feedbackWinId').modal("hide");
-					}else{
+					}else if(data.message){
 						$scope.errorMsg = data.message;
+					}else{
+						window.location.reload();
 					}
 					$scope.isLoadingAddFeedback = false;
 				},function(err){
@@ -693,8 +733,10 @@ angular.module('clientTop',[])
 					if(data.statusCode=="200"){
 						common.triggerSuccessMesg(data.message);
 						$('#shopRegisterWinId').modal("hide");
-					}else{
+					}else if(data.message){
 						$scope.errorMsg = data.message;
+					}else{
+						window.location.reload();
 					}
 					$scope.isLoadingShopRegister = false;
 				},function(err){
@@ -783,8 +825,10 @@ angular.module('clientTop',[])
 					var data = response.data;
 					if(data.statusCode=="200"){
 						$scope.cartList = data.list;
-					}else{
+					}else if(data.message){
 						common.triggerFailMesg(data.message);
+					}else{
+						window.location.reload();
 					}
 					$scope.isLoadingCart = false;
 				},function(err){
@@ -824,8 +868,10 @@ angular.module('clientTop',[])
 					var data = response.data;
 					if(data.statusCode=="200"){
 						$scope.getCartList();
-					}else{
+					}else if(data.message){
 						common.triggerFailMesg(data.message);
+					}else{
+						window.location.reload();
 					}
 					$scope.isLoadingAddCart = false;
 				},function(err){
@@ -863,8 +909,10 @@ angular.module('clientTop',[])
 					var data = response.data;
 					if(data.statusCode=="200"){
 //						$scope.getCartList();
-					}else{
+					}else if(data.message){
 						common.triggerFailMesg(data.message);
+					}else{
+						window.location.reload();
 					}
 				},function(err){
 					console.log(err);
@@ -890,8 +938,10 @@ angular.module('clientTop',[])
 							}
 						}
 //						$scope.getCartList();
-					}else{
+					}else if(data.message){
 						common.triggerFailMesg(data.message);
+					}else{
+						window.location.reload();
 					}
 				},function(err){
 					console.log(err);
@@ -916,8 +966,10 @@ angular.module('clientTop',[])
 					var data = response.data;
 					if(data.statusCode=="200"){
 						$scope.getCartList();
-					}else{
+					}else if(data.message){
 						common.triggerFailMesg(data.message);
+					}else{
+						window.location.reload();
 					}
 				},function(err){
 					console.log(err);
