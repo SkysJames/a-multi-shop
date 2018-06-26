@@ -101,6 +101,13 @@
 										<div class="common-tip">此处添加的链接，与轮播图片一一对应，如：https://www.baidu.com/</div>
 									</div>
 								</div>
+								<div class="form-group">
+									<label class="col-md-2 control-label">栏目名称：</label>
+									<div class="col-md-10 common-value" data-ng-show="!isEdit">{{systemInfo.system_column|showBlankValue}}</div>
+									<div class="col-md-10" data-ng-show="isEdit">
+										<input class="form-control" type="text" placeholder="栏目名称" data-ng-model="systemInfo.system_column">
+									</div>
+								</div>
 								
 								<div class="form-group">
 									<label class="col-md-2 control-label">公司名称：</label>

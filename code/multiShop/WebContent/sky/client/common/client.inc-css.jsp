@@ -23,6 +23,9 @@
 	String systemPictureHref = SysParameterUtil.getStringValue("system_picture_href", "");
 	pageContext.setAttribute("systemPictureHref", systemPictureHref);
 	
+	String systemColumn = SysParameterUtil.getStringValue("system_column", "");
+	pageContext.setAttribute("systemColumn", StringUtils.isNotBlank(systemColumn)?systemColumn:"推荐店铺");
+	
 	String companyName = SysParameterUtil.getStringValue("company_name", "");
 	pageContext.setAttribute("companyName", companyName);
 	

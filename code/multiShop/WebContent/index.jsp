@@ -39,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<!-- 推荐店铺start -->
   	<div class="index-commodel index-recommend">
   		<div class="ishop-header common-padding">
-  			<h2>推荐店铺</h2>
+  			<h2>${systemColumn }</h2>
   		</div>
   		<div class="ishop-content">
   			<ul>

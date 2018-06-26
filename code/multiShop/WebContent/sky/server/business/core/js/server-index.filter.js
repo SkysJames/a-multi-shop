@@ -30,6 +30,19 @@ angular.module('server-index.filter',[])
 })
 
 /**
+ * 是否为当前用户
+ */
+.filter('isCurrentUser',function(){
+	return function(userId){
+		if(userId && $currentUser && userId==$currentUser.userId){
+			return true;
+		}else{
+			return false;
+		}
+	};
+})
+
+/**
  * 显示剩余可输入的字符长度
  */
 .filter('getRemainLength',function(){
