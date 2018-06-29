@@ -9,10 +9,8 @@ import org.apache.struts2.convention.annotation.InterceptorRef;
 import org.apache.struts2.convention.annotation.InterceptorRefs;
 
 import com.sky.business.common.BaseAction;
-import com.sky.business.common.vo.LoginUser;
 import com.sky.business.common.vo.ServiceException;
 import com.sky.business.system.dao.UserDao;
-import com.sky.business.system.entity.User;
 import com.sky.business.system.service.UserService;
 import com.sky.contants.CodeMescContants;
 import com.sky.contants.EntityContants;
@@ -46,15 +44,37 @@ public class UserVisitAction extends BaseAction {
 	 * @return
 	 * @throws Exception
 	 */
-	public String add() throws Exception {
+	public String register() throws Exception {
 		try{
-			LoginUser loginUser = sessionLoginUser();
 			Map<String,Object> user = JsonUtil.getJsonToMap(conditionJson);
-			loginUser = userService.editPerson(user, loginUser);
-			session.setAttribute("loginUser", loginUser);//更新session的loginUser值
+			userService.add(user);
 			
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
-			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "成功修改个人用户信息");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "用户注册成功");
+		} catch (ServiceException e) {
+			logger.error(e);
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, e.getErrorCode());
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, e.getErrorMsg());
+		} catch (Exception e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, CodeMescContants.CodeContants.ERROR_COMMON);
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, CodeMescContants.MessageContants.ERROR_COMMON);
+		}
+		return RESULT_MAP;
+	}
+	
+	/**
+	 * 忘记密码
+	 * @return
+	 * @throws Exception
+	 */
+	public String forgetPasswd() throws Exception {
+		try{
+			Map<String,Object> user = JsonUtil.getJsonToMap(conditionJson);
+			userService.edit(user);
+			
+			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, "200");
+			resultMap.put(EntityContants.ResultMapContants.MESSAGE, "重置密码成功");
 		} catch (ServiceException e) {
 			logger.error(e);
 			resultMap.put(EntityContants.ResultMapContants.STATUS_CODE, e.getErrorCode());

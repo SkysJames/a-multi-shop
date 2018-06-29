@@ -42,6 +42,9 @@ Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('forum_logo', 'forum', '', 0, '论坛logo的url', 0);
 
+Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
+ Values ('user_addid', 'user', '10000', 0, '用于用户快捷登录或微信授权登录时，赋予用户的id', 1);
+
 Insert into tb_right (ID, NAME, TYPE)
  Values ('back_manage', '后台管理', 'back');
 Insert into tb_right (ID, NAME, TYPE)

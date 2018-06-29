@@ -2,6 +2,7 @@ package com.sky.util;
 
 import java.security.MessageDigest;
 import java.util.Arrays;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -73,6 +74,33 @@ public class WechatUtil {
         		e.printStackTrace();
         		return null;
         }
+	}
+	
+	/**
+	 * 微信网页授权登录，或微信快捷登录的第二步
+	 * 即回调函数所调用的内容
+	 * @param appid
+	 * @param appsecret
+	 * @param code
+	 * @return
+	 */
+	public static Map<String, Object> getUserInfoByWechat(String appid, String appsecret, String code) {
+		//通过code换取access_token
+		String tokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + appid
+				+ "&secret=" + appsecret
+				+ "&code=" + code
+				+ "&grant_type=authorization_code";
+		Map<String, Object> tokenMap = CommonMethodUtil.getJsonMapByUrl(tokenUrl);
+		String openid = (String)tokenMap.get("openid");
+		String access_token = (String)tokenMap.get("access_token");
+		
+		//拉取用户信息
+		String infoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="+access_token
+				+ "&openid="+openid
+				+ "&lang=zh_CN";
+		Map<String, Object> userMap = CommonMethodUtil.getJsonMapByUrl(infoUrl);
+		
+		return userMap;
 	}
 	
 }
