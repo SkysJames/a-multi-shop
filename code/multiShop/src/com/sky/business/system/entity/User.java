@@ -37,8 +37,8 @@ public class User implements java.io.Serializable {
 	@Column(name="PASSWD", length=64)
 	private String passwd;
 	
-	@Column(name="SEX")
-	private Integer sex;
+	@Column(name="SEX", length=8)
+	private String sex;
 	
 	@Column(name="BIRTHDATE")
 	private String birthdate;
@@ -335,11 +335,11 @@ public class User implements java.io.Serializable {
 		this.rightList = rightList;
 	}
 
-	public Integer getSex() {
+	public String getSex() {
 		return sex;
 	}
 
-	public void setSex(Integer sex) {
+	public void setSex(String sex) {
 		this.sex = sex;
 	}
 

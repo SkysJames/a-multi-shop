@@ -6,7 +6,6 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -50,26 +49,6 @@ public class CommonMethodUtil {
 		}
 		return resultMap;
 	}
-	
-	/**
-     * 获取随机字母数字组合
-     * @param length		字符串长度
-     * @return
-     */
-    public static String getRandomCharAndNumr(Integer length) {
-        String str = "";
-        Random random = new Random();
-        for (int i = 0; i < length; i++) {
-            boolean b = random.nextBoolean();
-            if (b) { // 字符串
-                // int choice = random.nextBoolean() ? 65 : 97; 取得65大写字母还是97小写字母
-                str += (char) (97 + random.nextInt(26));// 取得大写字母
-            } else { // 数字
-                str += String.valueOf(random.nextInt(10));
-            }
-        }
-        return str;
-    }
 	
 	/**
 	 * 将object转为Integer类型
@@ -221,11 +200,6 @@ public class CommonMethodUtil {
 		}
 		
 		return str;
-	}
-	
-	public static void main(String[] args) {
-		String a = getRandomCharAndNumr(1);
-		System.out.println(a);
 	}
 	
 }
