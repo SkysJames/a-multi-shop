@@ -5,6 +5,20 @@
 	padding: 0px;
 }
 
+.sky-icon {
+	background: url(../img/icon.png) no-repeat;
+    width: 22px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: -4px;
+}
+.qq.sky-icon {
+	background-position: -386px -29px;
+}
+.wechat.sky-icon {
+	background-position: -552px 0px;
+}
+
 .my-flyer {
     height: 13px;
     width: 13px;
@@ -56,9 +70,10 @@
 
 .common-tip {
 	margin-top: 2px;
-	text-align: left;
-    line-height: 16px;
-	color: #737373;
+    text-align: left;
+    font-size: 12px;
+    line-height: 12px;
+    color: #999;
 }
 
 .common-value {

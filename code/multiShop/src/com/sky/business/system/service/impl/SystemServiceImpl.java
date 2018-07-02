@@ -85,6 +85,9 @@ public class SystemServiceImpl extends BaseServiceImpl implements SystemService 
 		if(systemInfo.containsKey("system_name")) {
 			sysParameterService.saveValue("system_name", (String)systemInfo.get("system_name"));
 		}
+		if(systemInfo.containsKey("system_column")) {
+			sysParameterService.saveValue("system_column", (String)systemInfo.get("system_column"));
+		}
 		if(systemInfo.containsKey("company_name")) {
 			sysParameterService.saveValue("company_name", (String)systemInfo.get("company_name"));
 		}

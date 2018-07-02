@@ -23,7 +23,7 @@ create table tb_user
     ID              varchar(36) primary key comment '主键ID',
     NAME            varchar(100) not null comment '用户名称',               
     PASSWD          varchar(64) comment '用户密码',
-    SEX             varchar(2) comment '性别，1-男，2-女',
+    SEX             integer default 0 comment '性别，0-未知，1-男，2-女',
     BIRTHDATE       varchar(32) comment '出生日期',
     SHOP_ID         varchar(36) comment '店铺ID，system - 系统用户（如：管理员），为空则为普通用户',
     RIGHTS          varchar(2000) comment '用户权限，多个以,隔开',
