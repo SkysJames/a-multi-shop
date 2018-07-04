@@ -117,7 +117,7 @@
 											<td title="{{user.loginTime|formatDate}}">{{user.loginTime|formatDate}}</td>
 											<td>
 												<a href="javascript:void(0)" data-ng-click="togglePanel('edit', user)">编辑</a>
-												<a href="javascript:void(0)" data-ng-click="deleteUser(user)" data-ng-if="!(user.id|isCurrentUser)">删除</a>
+												<a href="javascript:void(0)" data-ng-click="deleteUser(user)">删除</a>
 											</td>
 										</tr>
 									</tbody>

@@ -22,7 +22,6 @@ import com.sky.contants.RightGroupContants;
 import com.sky.contants.ShopContants;
 import com.sky.contants.UserContants;
 import com.sky.util.CommonMethodUtil;
-import com.sky.util.SysParameterUtil;
 
 /**
  * 用户Service类
@@ -53,19 +52,15 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 		user = userDao.findByUnique(User.class, "wopenId", openId);
 		if(user == null) {
 			user = new User();
-			
-			//获取新增用户ID
-			String userId = this.getAddUserId(openId);
-			
-			user.setId(userId);
+			user.setId(openId);
 			user.setWopenId(openId);
 			user.setUserStatus(UserContants.UserStatus.USING);
 			user.setLoginStatus(UserContants.LoginStatus.OFFLINE);
 			user.setPasswd(UserContants.defaultPasswd);
 			user.setCreateTime(new Timestamp(new Date().getTime()));
-			user.setName((String)userMap.get("nickname"));
-			user.setSex(CommonMethodUtil.getIntegerByObject(userMap.get("sex")));
 		}
+		user.setName((String)userMap.get("nickname"));
+		user.setSex((String)userMap.get("sex"));
 		userDao.saveOrUpdate(user);
 		
 		//登录用户loginUser
@@ -349,41 +344,13 @@ public class UserServiceImpl extends BaseServiceImpl implements UserService {
 			}
 		}
 		if(userMap.containsKey("sex")){
-			user.setSex(CommonMethodUtil.getIntegerByObject(userMap.get("sex")));
+			user.setSex((String)userMap.get("sex"));
 		}
 		if(userMap.containsKey("birthdate")){
 			user.setBirthdate((String)userMap.get("birthdate"));
 		}
 		
 		return user;
-	}
-	
-	/**
-	 * 获取新增用户的ID
-	 * @return
-	 */
-	private String getAddUserId(String openId) {
-		if(StringUtils.isBlank(openId)) {
-			return null;
-		}
-		
-		String userId = openId.substring(openId.length()-8).toLowerCase();
-		User user = userDao.findByID(User.class, userId);
-		
-		int index = 0;//每轮的循环次数
-		int length = 1;//每轮的随机数字字母长度
-		while(user!=null) {
-			if(index >= 36) {
-				index = 0;
-				length++;
-			}
-			
-			userId = userId + CommonMethodUtil.getRandomCharAndNumr(length);
-			user = userDao.findByID(User.class, userId);
-			index++;
-		}
-		
-		return userId;
 	}
 
 }

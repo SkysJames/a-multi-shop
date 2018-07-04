@@ -22,6 +22,10 @@ angular.module('clientTop',[])
 			$scope.systemName = $systemName;
 			//微信二维码的url
 			$scope.wechatPic = $wechatPic;
+			//qq登录按钮图片url
+			$scope.qqLoginBtn = $qqLoginBtn;
+			//当前页面url
+			$scope.currentUrl = $currentUrl;
 			//当前导航（手机端底部）
 			$scope.currentNav = "index";
 			//当前登录面板的导航，login-登录面板，register-注册面板
@@ -34,8 +38,6 @@ angular.module('clientTop',[])
 			$scope.historyNav = "shop";
 			//登录对象
 			$scope.loginObj = {};
-			//忘记密码对象
-			$scope.forgetObj = {};
 			//注册对象
 			$scope.registerObj = {};
 			//当前登录的用户信息
@@ -83,8 +85,6 @@ angular.module('clientTop',[])
 						return "登录";
 					}else if(nav == "register"){
 						return  "注册";
-					}else if(nav == "forget"){
-						return  "忘记密码";
 					}
 				}
 			};
@@ -274,82 +274,17 @@ angular.module('clientTop',[])
 			};
 			
 			/**
-			 * 忘记密码
+			 * 保存个人信息
 			 */
-			$scope.forgetPasswd = function(){
-				$scope.forgetObj.birthdate = $("#forgetBirthdateId").val();
-				
-				var msg = $scope.getBeforeSavePasswd($scope.forgetObj);
-				if(msg){
-					$scope.errorMsg = msg;
-					return;
-				}
-				
-				clientIndexHttpService.forgetPasswd($scope.forgetObj)
-				.then(function(response){
-					var data = response.data;
-					if(data.statusCode == "200"){
-						common.triggerSuccessMesg(data.message);
-						$scope.triggerLoginPanel("login");
-					}else if(data.message){
-						$scope.errorMsg = data.message;
-					}else{
-						window.location.reload();
-					}
-				},function(err){
-					console.log(err);
-				});
-			};
-			
-			/**
-			 * 判断该对象是否符合保存的条件（注册登录用）
-			 */
-			$scope.getBeforeSavePasswd = function(forgetObj){
-				if(!forgetObj){
-					return "传入对象不能为空";
-				}
-				
-				if(!forgetObj.id || forgetObj.id==""){
-					return "用户名不能为空";
-				}
-				
-				if(!forgetObj.birthdate || forgetObj.birthdate==""){
-					return "请输入出生日期";
-				}
-				
-				if(!forgetObj.passwd || forgetObj.passwd=="" || !forgetObj.confirmPasswd || forgetObj.confirmPasswd==""){
-					return "登录密码不能为空";
-				}
-				
-				if(forgetObj.passwd!=forgetObj.confirmPasswd){
-					return "两次输入的密码不同";
-				}
-				
-				if(forgetObj.passwd.length < 8){
-					return "密码长度至少为8位";
-				}
-				
-				return null;
-			};
-			
-			/**
-			 * 添加注册用户信息
-			 */
-			$scope.registerUserInfo = function(){
+			$scope.saveUserInfo = function(){
 				$scope.registerObj.birthdate = $("#registerBirthdateId").val();
-				
-				var msg = $scope.getBeforeSaveUser($scope.registerObj);
-				if(msg){
-					$scope.errorMsg = msg;
-					return;
-				}
 				
 				clientIndexHttpService.registerUser($scope.registerObj)
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode == "200"){
 						common.triggerSuccessMesg(data.message);
-						$scope.triggerLoginPanel("login");
+						window.location.reload();
 					}else if(data.message){
 						$scope.errorMsg = data.message;
 					}else{
@@ -358,45 +293,6 @@ angular.module('clientTop',[])
 				},function(err){
 					console.log(err);
 				});
-			};
-			
-			/**
-			 * 判断该对象是否符合保存的条件（注册登录用）
-			 */
-			$scope.getBeforeSaveUser = function(userInfo){
-				if(!userInfo){
-					return "传入对象不能为空";
-				}
-				
-				if(!userInfo.id || userInfo.id==""){
-					return "用户名不能为空";
-				}
-				
-				if(!userInfo.name || userInfo.name==""){
-					return "用户名称不能为空";
-				}
-				
-				if(!userInfo.birthdate || userInfo.birthdate==""){
-					return "请输入出生日期";
-				}
-				
-				if(userInfo.sex==undefined || userInfo.sex==null){
-					return "请选择性别";
-				}
-				
-				if(!userInfo.passwd || userInfo.passwd=="" || !userInfo.confirmPasswd || userInfo.confirmPasswd==""){
-					return "登录密码不能为空";
-				}
-				
-				if(userInfo.passwd!=userInfo.confirmPasswd){
-					return "两次输入的密码不同";
-				}
-				
-				if(userInfo.passwd.length < 8){
-					return "密码长度至少为8位";
-				}
-				
-				return null;
 			};
 			
 			/**
@@ -417,30 +313,6 @@ angular.module('clientTop',[])
 				},function(err){
 					console.log(err);
 				});
-			};
-			
-			/**
-			 * 设置出生日期
-			 */
-			$scope.addBirthdate = function(){
-				$scope.userInfo.birthdate = $("#addBirthdateId").val();
-				$scope.editUserInfo();
-			};
-			
-			/**
-			 * 修改出生日期
-			 */
-			$scope.editBirthdate = function(){
-				var oldDate = $("#editOldDateId").val();
-				var newDate = $("#editNewDateId").val();
-				
-				if(oldDate != $scope.userInfo.birthdate){
-					$scope.errorMsg = "原始的出生日期输入错误";
-					return;
-				}
-				
-				$scope.userInfo.birthdate = newDate;
-				$scope.editUserInfo();
 			};
 			
 			/**
@@ -571,6 +443,9 @@ angular.module('clientTop',[])
 					$(".ct-phone").removeClass("ct-phone-show");
 				}
 			}
+			
+			//获取购物车列表
+			
 			
 			/**
 			 * 前端分页获取店铺收藏列表
@@ -1100,13 +975,6 @@ angular.module('clientTop',[])
 				},function(err){
 					console.log(err);
 				});
-			};
-			
-			/**
-			 * 快捷登录（qq或微信）
-			 */
-			$scope.quickLogin = function(url){
-				$scope.toPage(url + "?reUrl=" + $currentUrl, "true");
 			};
 			
 			/**
