@@ -337,45 +337,45 @@
 						<div class="login-row">
 							<div class="input-group">
 								<div class="user-label">用户名</div>
-								<div class="user-value">{{userInfo.id}}</div>
+								<div class="user-value">{{userObj.id}}</div>
 							</div>
 						</div>
 						<div class="login-row">
 							<div class="input-group">
 								<div class="user-label">用户名字</div>
-								<div class="user-value" data-ng-show="!isEditUser">{{userInfo.name}}</div>
-								<input class="form-control" type="text" placeholder="输入用户名字" required="required" data-ng-show="isEditUser" data-ng-model="userInfo.name">
+								<div class="user-value" data-ng-show="!isEditUser">{{userObj.name}}</div>
+								<input class="form-control" type="text" placeholder="输入用户名字" required="required" data-ng-show="isEditUser" data-ng-model="userObj.name">
 							</div>
 						</div>
-						<div class="login-row" data-ng-show="userInfo.wechat && userInfo.wechat.length>0">
+						<div class="login-row" data-ng-show="userObj.wechat && userObj.wechat.length>0">
 							<div class="input-group">
 								<div class="user-label">微信号</div>
-								<div class="user-value">{{userInfo.wechat}}</div>
+								<div class="user-value">{{userObj.wechat}}</div>
 							</div>
 						</div>
-						<div class="login-row" data-ng-show="userInfo.qq && userInfo.qq.length>0">
+						<div class="login-row" data-ng-show="userObj.qq && userObj.qq.length>0">
 							<div class="input-group">
 								<div class="user-label">QQ号</div>
-								<div class="user-value">{{userInfo.qq}}</div>
+								<div class="user-value">{{userObj.qq}}</div>
 							</div>
 						</div>
-						<div class="login-row" data-ng-show="userInfo.telephone && userInfo.telephone.length>0">
+						<div class="login-row" data-ng-show="userObj.telephone && userObj.telephone.length>0">
 							<div class="input-group">
 								<div class="user-label">手机号</div>
-								<div class="user-value">{{userInfo.telephone}}</div>
+								<div class="user-value">{{userObj.telephone}}</div>
 							</div>
 						</div>
 						<div class="login-row">
 							<div class="input-group">
 								<div class="user-label">性别</div>
-								<div class="user-value" data-ng-show="!isEditUser">{{userInfo.sex|getSex}}</div>
+								<div class="user-value" data-ng-show="!isEditUser">{{userObj.sex|getSex}}</div>
 								<div class="user-value" data-ng-show="isEditUser">
 									<label class="radio radio-inline">
-										<input type="radio" class="radiobox" value="1" data-ng-model="userInfo.sex">
+										<input type="radio" class="radiobox" value="1" data-ng-model="userObj.sex">
 										<span>男</span> 
 									</label>
 									<label class="radio radio-inline">
-										<input type="radio" class="radiobox" value="2" data-ng-model="userInfo.sex">
+										<input type="radio" class="radiobox" value="2" data-ng-model="userObj.sex">
 										<span>女</span> 
 									</label>
 								</div>
@@ -386,8 +386,8 @@
 								<div class="user-label">出生日期</div>
 								<div class="user-value">
 									<span>********</span>&nbsp;&nbsp;&nbsp;&nbsp;
-									<a href="javascript:void(0)" data-ng-if="!userInfo.birthdate || userInfo.birthdate.length==0" data-ng-click="triggerUserPanel('add_birthdate', false)">设置</a>
-									<a href="javascript:void(0)" data-ng-if="userInfo.birthdate && userInfo.birthdate.length>0" data-ng-click="triggerUserPanel('edit_birthdate', false)">修改</a>
+									<a href="javascript:void(0)" data-ng-if="!userObj.birthdate || userObj.birthdate.length==0" data-ng-click="triggerUserPanel('add_birthdate', false)">设置</a>
+									<a href="javascript:void(0)" data-ng-if="userObj.birthdate && userObj.birthdate.length>0" data-ng-click="triggerUserPanel('edit_birthdate', false)">修改</a>
 								</div>
 							</div>
 							<div class="input-group">
@@ -400,7 +400,7 @@
 						<div class="login-row" data-ng-show="!isEditUser" style="margin-top: 25px;">
 							<div class="input-group">
 								<small class="pull-right">
-									<a href="javascript:localStorage.clear();location.reload();">清空缓存</a>
+									<a href="javascript:common.clearCache();">清空缓存</a>
 									<a href="javascript:void(0)" data-ng-click="triggerUserPanel('user', true)">修改个人信息</a>
 									<a href="javascript:void(0)" data-ng-click="triggerUserPanel('password', false)">修改密码</a>
 									<a href="javascript:void(0)" data-ng-click="logout()" data-ng-show="!isWechat">退出登录</a>

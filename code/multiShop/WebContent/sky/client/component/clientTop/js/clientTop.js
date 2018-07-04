@@ -122,7 +122,7 @@ angular.module('clientTop',[])
 				$scope.userNav = nav;
 				$scope.isEditUser = isEditUser;
 				//用户信息
-				$scope.userInfo = _.cloneDeep($scope.userInfoBak);
+				$scope.userObj = _.cloneDeep($scope.userInfoBak);
 				//修改的密码对象;
 				$scope.passwd = {};
 				//错误信息
@@ -264,9 +264,12 @@ angular.module('clientTop',[])
 						}else{
 							common.triggerFailMesg(data.message);
 						}
+						console.log("当前用户存在：", $scope.userInfo);
 					},function(err){
 						console.log(err);
 					});
+				}else{
+					console.log("当前用户不存在：", $scope.userInfo);
 				}
 			};
 			
@@ -400,7 +403,7 @@ angular.module('clientTop',[])
 			 * 编辑保存个人信息
 			 */
 			$scope.editUserInfo = function(){
-				clientIndexHttpService.editPerson($scope.userInfo)
+				clientIndexHttpService.editPerson($scope.userObj)
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode == "200"){
