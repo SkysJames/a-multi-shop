@@ -47,11 +47,6 @@
 	font-size: 20px;
 	font-weight: bolder;
 }
-.cb-sysname img {
-	max-width: 80px;
-    max-height: 80px;
-    margin-right: 6px;
-}
 .cb-middle {
 	display: inline-block;
 	vertical-align: top;

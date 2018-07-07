@@ -251,32 +251,14 @@ var common = {
 				buttons:"[取消][确定]",
 			},function(ButtonPress,Value){
 				if(ButtonPress == "取消"){
-					if($scope){
-						$scope.$apply(function(){
-							navFunc();
-						});
-					}else{
+					$scope.$apply(function(){
 						navFunc();
-					}
+					});
 				}else if(ButtonPress == "确定"){
-					if($scope){
-						$scope.$apply(function(){
-							posFunc();
-						});
-					}else{
+					$scope.$apply(function(){
 						posFunc();
-					}
+					});
 				}
-			});
-		},
-		
-		/**
-		 * 清空缓存（弹出确认框）
-		 */
-		clearCache : function(){
-			common.triggerAlertMesg("清空缓存，可以让网页保持最新状态", "确定要清空缓存吗？", function(){}, function(){
-				localStorage.clear();
-				location.reload();
 			});
 		},
 		
