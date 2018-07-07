@@ -20,7 +20,7 @@ public class ShopDaoImpl extends BaseDaoImpl implements ShopDao {
 
 	@Override
 	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
-		String sort = "recommend desc,popularity desc";
+		String sort = "popularity desc";
 		
 		//排序
 		if(condition.containsKey("sort") && StringUtils.isNotBlank((String)condition.get("sort"))){

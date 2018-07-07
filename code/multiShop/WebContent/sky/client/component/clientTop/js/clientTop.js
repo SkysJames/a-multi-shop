@@ -122,7 +122,7 @@ angular.module('clientTop',[])
 				$scope.userNav = nav;
 				$scope.isEditUser = isEditUser;
 				//用户信息
-				$scope.userInfo = _.cloneDeep($scope.userInfoBak);
+				$scope.userObj = _.cloneDeep($scope.userInfoBak);
 				//修改的密码对象;
 				$scope.passwd = {};
 				//错误信息
@@ -361,12 +361,18 @@ angular.module('clientTop',[])
 			 * 判断该对象是否符合保存的条件（注册登录用）
 			 */
 			$scope.getBeforeSaveUser = function(userInfo){
+				var reg = /^[0-9a-zA-Z]+$/;
+				
 				if(!userInfo){
 					return "传入对象不能为空";
 				}
 				
 				if(!userInfo.id || userInfo.id==""){
 					return "用户名不能为空";
+				}
+				
+				if(!reg.test(userInfo.id)){
+					return "用户名只能为字母或数字";
 				}
 				
 				if(!userInfo.name || userInfo.name==""){
@@ -400,7 +406,7 @@ angular.module('clientTop',[])
 			 * 编辑保存个人信息
 			 */
 			$scope.editUserInfo = function(){
-				clientIndexHttpService.editPerson($scope.userInfo)
+				clientIndexHttpService.editPerson($scope.userObj)
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode == "200"){

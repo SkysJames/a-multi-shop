@@ -43,9 +43,9 @@ angular.module('indexHeader',[])
 			 */
 			$scope.toSearchPage = function(){
 				if($scope.tableName && $scope.tableName=="tb_shop"){
-					window.location.href = $contextPath + "/home/shop-search?keywords=" + $scope.keywords;
+					window.location.href = $contextPath + "/home/shop-search?keywords=" + encodeURI($scope.keywords);
 				}else if($scope.tableName && $scope.tableName=="tb_product"){
-					window.location.href = $contextPath + "/home/product-search?keywords=" + $scope.keywords;
+					window.location.href = $contextPath + "/home/product-search?keywords=" + encodeURI($scope.keywords);
 				}
 			};
 			

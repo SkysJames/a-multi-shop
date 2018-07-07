@@ -386,6 +386,7 @@ ul li {
 .cart-count label {
 	vertical-align: top;
 	margin: 0px;
+	font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
     font-size: 12px;
     border-radius: 20px;
     line-height: 20px;

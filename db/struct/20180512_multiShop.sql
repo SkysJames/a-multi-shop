@@ -40,6 +40,7 @@ create table tb_user
     WECHAT			varchar(36) comment '微信号',
     TELEPHONE		varchar(36) comment '手机号'
 );
+alter table tb_user add index idx_tb_user_ct_si(CREATE_TIME,SHOP_ID);
 
 
 /*
@@ -117,7 +118,7 @@ create table tb_message
     STATUS         	integer default 0 not null comment '状态：0 - 未发送；1 - 已发送未接收；2 - 已接收',
     HREF     		varchar(400) comment '对象链接'
 );
-alter table tb_message add index idx_tb_message_tu(TO_USER);
+alter table tb_message add index idx_tb_message_st_tu(SEND_TIME, TO_USER);
 
 
 /*
@@ -133,6 +134,7 @@ create table tb_type
     PARENT_ID       varchar(36) comment '父类型ID',
     SORT	        integer comment '排序'
 );
+alter table tb_type add index idx_tb_type_s_si(SORT, SHOP_ID);
 
 
 /*
@@ -163,6 +165,7 @@ create table tb_shop
     WECHAT_PIC		varchar(200) comment '微信公众号二维码，多个以,隔开',
     REMARK         	varchar(2000) comment '备注'
 );
+alter table tb_shop add index idx_tb_shop_p_s(POPULARITY);
 
 
 /*
@@ -181,7 +184,7 @@ create table tb_evaluate
     PICTURE         varchar(2000) comment '相关图片路径，多个以,隔开',
     STATUS         	integer default 0 not null comment '状态：0 - 未发送；1 - 已发送未接收；2 - 已接收'
 );
-alter table tb_evaluate add index idx_tb_evaluate_ct_tn_oi_s_m(CREATE_TIME,TABLE_NAME,OBJ_ID,STATUS,MARK);
+alter table tb_evaluate add index idx_tb_evaluate_ct_oi_m(CREATE_TIME,OBJ_ID,MARK);
 
 
 /*
@@ -204,9 +207,10 @@ create table tb_product
     CREATE_USER     varchar(36) comment '创建用户ID',               
     UPDATE_TIME     datetime comment '更新时间',                        
     UPDATE_USER     varchar(36) comment '更新用户ID',
-    STATUS			integer default 2 comment '状态：0-禁用；1-下架；2-上架'
+    STATUS			integer default 2 comment '状态：0-禁用；1-下架；2-上架',
+	SORT	        integer comment '排序'
 );
-alter table tb_product add index idx_tb_product_cc_s_si_pt(CLICK_COUNT,STATUS,SHOP_ID,PRO_TYPE);
+alter table tb_product add index idx_tb_product_s_si_pt(SORT,SHOP_ID,PRO_TYPE);
 
 
 /*
@@ -223,7 +227,7 @@ create table tb_cart
     UPDATE_TIME     datetime comment '更新时间',
     STATUS          integer default 0 comment '状态：0-未提交；1-已提交未完成；2-已完成'
 );
-alter table tb_cart add index idx_tb_cart_ui_s(USER_ID,STATUS);
+alter table tb_cart add index idx_tb_cart_ui_s(USER_ID);
 
 
 
@@ -244,7 +248,7 @@ create table tb_announce
     OVER_TIME		datetime comment '过期时间',
     STATUS 			integer default 1 comment '状态：0-禁用；1-启用'
 );
-alter table tb_announce add index idx_tb_announce_si(SHOP_ID);
+alter table tb_announce add index idx_tb_announce_ut_si(UPDATE_TIME, SHOP_ID);
 
 
 /*
@@ -262,7 +266,7 @@ create table tb_prohistory
     UPDATE_TIME     datetime comment '更新时间',
     HREF     		varchar(400) comment '对象链接'
 );
-alter table tb_prohistory add index idx_tb_prohistory_tn_ui(TABLE_NAME,USER_ID);
+alter table tb_prohistory add index idx_tb_prohistory_ui(USER_ID);
 
 
 /*

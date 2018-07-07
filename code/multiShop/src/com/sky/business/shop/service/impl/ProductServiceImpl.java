@@ -66,6 +66,9 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 		if(addObj.containsKey("status")){
 			product.setStatus(CommonMethodUtil.getIntegerByObject(addObj.get("status")));
 		}
+		if(addObj.containsKey("sort")){
+			product.setSort(CommonMethodUtil.getIntegerByObject(addObj.get("sort")));
+		}
 		if(addObj.containsKey("picPathList")){
 			//图片存放的目录
 			String picPath = FileContants.PRODUCT_FILE + File.separator + (String)addObj.get("name");
@@ -129,6 +132,9 @@ public class ProductServiceImpl extends BaseServiceImpl implements ProductServic
 		}
 		if(editObj.containsKey("status")){
 			product.setStatus(CommonMethodUtil.getIntegerByObject(editObj.get("status")));
+		}
+		if(editObj.containsKey("sort")){
+			product.setSort(CommonMethodUtil.getIntegerByObject(editObj.get("sort")));
 		}
 		if(editObj.containsKey("picPathList")) {
 			//图片存放的目录

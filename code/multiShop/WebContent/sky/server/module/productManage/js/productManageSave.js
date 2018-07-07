@@ -78,6 +78,11 @@ angular.module('productManageSave',[])
 					product.shopId = $currentUser.shopId;
 				}
 				
+				//商品排序
+				if(product.sort==undefined || product.sort==null){
+					product.sort = 99999;
+				}
+				
 				if(!product.name || product.name==""){
 					return false;
 				}else if(product.name.length>35){

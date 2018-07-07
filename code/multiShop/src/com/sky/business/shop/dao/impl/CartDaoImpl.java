@@ -20,13 +20,6 @@ public class CartDaoImpl extends BaseDaoImpl implements CartDao {
 
 	@Override
 	public StringBuffer getPackageHql(StringBuffer hqlBuffer, List<Object> values, Map<String, Object> condition) {
-		String sort = "productId asc";
-		
-		//排序
-		if(condition.containsKey("sort") && StringUtils.isNotBlank((String)condition.get("sort"))){
-			sort = (String)condition.get("sort");
-		}
-		
 		//商品id
 		if(condition.containsKey("productId") && StringUtils.isNotBlank((String)condition.get("productId"))){
 			hqlBuffer.append(" and productId = ? ");
@@ -44,8 +37,6 @@ public class CartDaoImpl extends BaseDaoImpl implements CartDao {
 			hqlBuffer.append(" and status = ? ");
 			values.add(CommonMethodUtil.getIntegerByObject(condition.get("status")));
 		}
-		
-		hqlBuffer.append(" order by ").append(sort);
 		
 		return hqlBuffer;
 	}
