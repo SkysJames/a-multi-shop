@@ -23,6 +23,9 @@
 	String systemPictureHref = SysParameterUtil.getStringValue("system_picture_href", "");
 	pageContext.setAttribute("systemPictureHref", systemPictureHref);
 	
+	String systemColumn = SysParameterUtil.getStringValue("system_column", "");
+	pageContext.setAttribute("systemColumn", StringUtils.isNotBlank(systemColumn)?systemColumn:"推荐店铺");
+	
 	String companyName = SysParameterUtil.getStringValue("company_name", "");
 	pageContext.setAttribute("companyName", companyName);
 	
@@ -84,7 +87,6 @@ var $wechatPic = '${ wechatPic }';//微信公众号二维码
 var $serviceTime = '${ serviceTime }';//服务时间
 var $defaultBmaps = '${ defaultBmap }'.split(",");//默认百度地图经纬度
 var $defaultPasswd = '${ defaultPasswd }';//用户的默认初始密码
-var $qqLoginBtn = $contextPath + "/sky/common/core/img/qq_login.png";//qq登录按钮图片url
 var $currentUrl = window.location.href;//当前页面url
 
 var $isWechat = navigator.userAgent.toLowerCase().indexOf('micromessenger')>-1;//是否微信浏览器

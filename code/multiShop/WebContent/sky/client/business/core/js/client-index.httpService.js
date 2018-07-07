@@ -34,7 +34,19 @@ angular.module('client-index.httpService',[])
 		var tempData={
 				'conditionJson'		: conditionJson,
 		};
-		var url = $contextPath + "/system/user-visit!add";
+		var url = $contextPath + "/system/user-visit!register";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 忘记密码
+	 */
+	this.forgetPasswd = function(user){
+		var conditionJson = JSON.stringify(user);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/system/user-visit!forgetPasswd";
 		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
 	};
 	

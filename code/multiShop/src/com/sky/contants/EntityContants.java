@@ -88,6 +88,7 @@ public class EntityContants {
 			methodMaps.put("list", "执行列表查询操作");
 			methodMaps.put("paged", "执行分页查询操作");
 			methodMaps.put("register", "申请操作");
+			methodMaps.put("forgetPasswd", "忘记密码操作");
 		}
 	}
 	

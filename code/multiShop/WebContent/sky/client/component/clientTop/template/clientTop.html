@@ -177,7 +177,7 @@
 								<div class="login-label">
 									<i class="fa fa-user"></i>
 								</div>
-								<input class="form-control" type="text" placeholder="输入用户名" data-ng-model="loginObj.userId">
+								<input class="form-control" type="text" placeholder="输入用户名" data-ng-model="loginObj.userId" required="required">
 							</div>
 						</div>
 						<div class="login-row">
@@ -185,7 +185,7 @@
 								<div class="login-label">
 									<i class="fa fa-lock"></i>
 								</div>
-								<input class="form-control" type="password" placeholder="输入密码" data-ng-model="loginObj.userPwd">
+								<input class="form-control" type="password" placeholder="输入密码" data-ng-model="loginObj.userPwd" required="required">
 							</div>
 						</div>
 						<div class="login-row">
@@ -195,17 +195,19 @@
 							<div class="input-group">
 								<small class="pull-right">
 									<a href="javascript:void(0)" data-ng-click="triggerLoginPanel('register')">免费注册</a>
-									<a href="javascript:void(0)">忘记密码</a>
+									<a href="javascript:void(0)" data-ng-click="triggerLoginPanel('forget')">忘记密码</a>
 								</small>
 							</div>
 						</div>
-						<div class="login-row login-short" data-ng-show="false">
+						<div class="login-row login-short">
 							<div class="input-group">
 								<small class="pull-left">
 									<span>快捷登录：</span>
-									<span id="qqLoginBtn"></span>
 									<a href="javascript:void(0)" data-ng-click="qqLogin()">
-										<img data-ng-src="{{qqLoginBtn}}">
+										<i class="sky-icon qq"></i>
+									</a>
+									<a href="javascript:void(0)" data-ng-click="quickLogin('/common/wechat!quickLogin')">
+										<i class="sky-icon wechat"></i>
 									</a>
 								</small>
 							</div>
@@ -214,36 +216,104 @@
 					<!-- 登录面板end -->
 					
 					<!-- 注册面板start -->
-					<div class="register-panel" data-ng-show="loginNav=='register'">
+					<form class="register-panel" data-ng-submit="registerUserInfo()" data-ng-show="loginNav=='register'">
 						<div class="login-top">
 							<a href="javascript:void(0)" data-ng-click="triggerLoginPanel('login')"><i class="fa fa-chevron-left"></i>&nbsp;返回登录</a>
 						</div>
 						<div class="login-row">
 							<div class="input-group">
-								<input class="form-control" type="text" placeholder="用户名" data-ng-model="registerObj.userId">
+								<input class="form-control" type="text" placeholder="用户名" data-ng-model="registerObj.id" required="required">
 							</div>
 						</div>
 						<div class="login-row">
 							<div class="input-group">
-								<input class="form-control" type="text" placeholder="用户名称" data-ng-model="registerObj.userId">
+								<input class="form-control" type="text" placeholder="用户名称" data-ng-model="registerObj.name" required="required">
 							</div>
 						</div>
 						<div class="login-row">
 							<div class="input-group">
-								<input class="form-control" type="password" placeholder="设置密码" data-ng-model="registerObj.password">
+								<input class="form-control" type="password" placeholder="设置密码" data-ng-model="registerObj.passwd" required="required">
+							</div>
+							<div class="input-group">
+								<div class="common-tip">密码长度至少为8位</div>
 							</div>
 						</div>
 						<div class="login-row">
 							<div class="input-group">
-								<input class="form-control" type="password" placeholder="确认密码" data-ng-model="registerObj.passwordSure">
+								<input class="form-control" type="password" placeholder="确认密码" data-ng-model="registerObj.confirmPasswd" required="required">
+							</div>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<div class="user-value">
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="1" data-ng-model="registerObj.sex">
+										<span>男</span> 
+									</label>
+									<label class="radio radio-inline">
+										<input type="radio" class="radiobox" value="2" data-ng-model="registerObj.sex">
+										<span>女</span> 
+									</label>
+								</div>
+							</div>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<input id="registerBirthdateId" class="form-control" type="text" placeholder="出生日期" onclick="common.MydatePickerDate();" required="required">
+							</div>
+							<div class="input-group">
+								<div class="common-tip">忘记密码时可根据出生日期找回</div>
 							</div>
 						</div>
 						
 						<div class="login-row">
-							<button type="button" class="btn login-btn">注&nbsp;&nbsp;&nbsp;&nbsp;册</button>
+							<button type="submit" class="btn login-btn">注&nbsp;&nbsp;&nbsp;&nbsp;册</button>
 						</div>
-					</div>
+						
+						<div class="login-top">
+							<span data-ng-show="errorMsg && errorMsg.length>0"><i class="fa fa-times-circle"></i>&nbsp;{{errorMsg}}</span>
+						</div>
+					</form>
 					<!-- 注册面板end -->
+					
+					<!-- 忘记密码面板start -->
+					<form class="register-panel" data-ng-submit="forgetPasswd()" data-ng-show="loginNav=='forget'">
+						<div class="login-top">
+							<a href="javascript:void(0)" data-ng-click="triggerLoginPanel('login')"><i class="fa fa-chevron-left"></i>&nbsp;返回登录</a>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<input class="form-control" type="text" placeholder="用户名" data-ng-model="forgetObj.id" required="required">
+							</div>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<input id="forgetBirthdateId" class="form-control" type="text" placeholder="出生日期" onclick="common.MydatePickerDate();" required="required">
+							</div>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<input class="form-control" type="password" placeholder="设置密码" data-ng-model="forgetObj.passwd" required="required">
+							</div>
+							<div class="input-group">
+								<div class="common-tip">密码长度至少为8位</div>
+							</div>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<input class="form-control" type="password" placeholder="确认密码" data-ng-model="forgetObj.confirmPasswd" required="required">
+							</div>
+						</div>
+						
+						<div class="login-row">
+							<button type="submit" class="btn login-btn">保&nbsp;&nbsp;&nbsp;&nbsp;存</button>
+						</div>
+						
+						<div class="login-top">
+							<span data-ng-show="errorMsg && errorMsg.length>0"><i class="fa fa-times-circle"></i>&nbsp;{{errorMsg}}</span>
+						</div>
+					</form>
+					<!-- 忘记密码面板end -->
 				</div>
 			</div>
 		</div>
@@ -311,7 +381,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="login-row">
+						<div class="login-row" data-ng-show="!isEditUser">
 							<div class="input-group">
 								<div class="user-label">出生日期</div>
 								<div class="user-value">
@@ -327,7 +397,7 @@
 						<div class="login-row" data-ng-show="isEditUser">
 							<button type="submit" class="btn login-btn">保&nbsp;&nbsp;&nbsp;&nbsp;存</button>
 						</div>
-						<div class="login-row" data-ng-show="!isEditUser">
+						<div class="login-row" data-ng-show="!isEditUser" style="margin-top: 25px;">
 							<div class="input-group">
 								<small class="pull-right">
 									<a href="javascript:localStorage.clear();location.reload();">清空缓存</a>
@@ -342,6 +412,58 @@
 						</div>
 					</form>
 					<!-- 用户信息面板end -->
+					
+					<!-- 设置出生日期面板start -->
+					<form class="user-panel" data-ng-submit="addBirthdate()" data-ng-show="userNav=='add_birthdate'">
+						<div class="login-top">
+							<a href="javascript:void(0)" data-ng-click="triggerUserPanel('user', false)"><i class="fa fa-chevron-left"></i>&nbsp;返回</a>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<div class="user-label">出生日期</div>
+								<div class="user-value">
+									<input id="addBirthdateId" class="form-control" type="text" placeholder="出生日期" onclick="common.MydatePickerDate();" required="required">
+								</div>
+							</div>
+						</div>
+						<div class="login-row">
+							<button type="submit" class="btn login-btn">保&nbsp;&nbsp;&nbsp;&nbsp;存</button>
+						</div>
+						<div class="login-top">
+							<span data-ng-show="errorMsg && errorMsg.length>0"><i class="fa fa-times-circle"></i>&nbsp;{{errorMsg}}</span>
+						</div>
+					</form>
+					<!-- 设置出生日期面板end -->
+					
+					<!-- 修改出生日期面板start -->
+					<form class="user-panel" data-ng-submit="editBirthdate()" data-ng-show="userNav=='edit_birthdate'">
+						<div class="login-top">
+							<a href="javascript:void(0)" data-ng-click="triggerUserPanel('user', false)"><i class="fa fa-chevron-left"></i>&nbsp;返回</a>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<div class="user-label">原始日期</div>
+								<div class="user-value">
+									<input id="editOldDateId" class="form-control" type="text" placeholder="原始日期" onclick="common.MydatePickerDate();" required="required">
+								</div>
+							</div>
+						</div>
+						<div class="login-row">
+							<div class="input-group">
+								<div class="user-label">更新日期</div>
+								<div class="user-value">
+									<input id="editNewDateId" class="form-control" type="text" placeholder="更新日期" onclick="common.MydatePickerDate();" required="required">
+								</div>
+							</div>
+						</div>
+						<div class="login-row">
+							<button type="submit" class="btn login-btn">保&nbsp;&nbsp;&nbsp;&nbsp;存</button>
+						</div>
+						<div class="login-top">
+							<span data-ng-show="errorMsg && errorMsg.length>0"><i class="fa fa-times-circle"></i>&nbsp;{{errorMsg}}</span>
+						</div>
+					</form>
+					<!-- 修改出生日期面板end -->
 					
 					<!-- 密码面板start -->
 					<form class="password-panel" data-ng-submit="savePassword()" data-ng-show="userNav=='password'">
@@ -359,6 +481,9 @@
 						<div class="login-row">
 							<div class="input-group">
 								<input class="form-control" type="password" placeholder="设置新密码" required="required" data-ng-model="password.newPasswd">
+							</div>
+							<div class="input-group">
+								<div class="common-tip">新密码的长度至少为8位</div>
 							</div>
 						</div>
 						<div class="login-row">

@@ -395,7 +395,7 @@
 	
 }
 .login-row {
-	margin-top: 16px;
+	margin-top: 12px;
     text-align: center;
     line-height: 36px;
 }
@@ -426,8 +426,8 @@
 	color: #888;
 }
 .login-short small>a {
-	margin-left: 5px;
-	margin-right: 10px;
+	margin-left: 3px;
+    margin-right: 3px;
 }
 .login-top {
 	margin: 0 auto;
