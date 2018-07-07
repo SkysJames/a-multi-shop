@@ -1,6 +1,7 @@
 @CHARSET "UTF-8";
 .client-top {
-	
+	position: absolute;
+	top: 0px;
 }
 .ct-top-fixed {
 	position: fixed;
@@ -244,7 +245,7 @@
 
 .ct-right-fixed {
 	position: fixed;
-	top: 50%;
+	top: 40%;
 	right: 0px;
 	margin-top: -70px;
 	z-index: 99;

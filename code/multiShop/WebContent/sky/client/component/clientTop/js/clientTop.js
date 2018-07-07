@@ -1130,6 +1130,20 @@ angular.module('clientTop',[])
 			};
 			
 			/**
+			 * 将滚动条滚动到指定位置，如 #id
+			 */
+			$scope.scrollTo = function(target){
+				common.scrollTo(target);
+			};
+			
+			/**
+			 * 是否显示回到顶部按钮
+			 */
+			$scope.isShowTop = function(){
+				return $(window).scrollTop() > 300;
+			};
+			
+			/**
 			 * 初始化店铺类型列表
 			 */
 			$scope.initTypeList = function(){
