@@ -1,0 +1,53 @@
+<!-- widget grid -->
+<section id="widget-grid">
+	<!-- row -->
+	<div class="row">
+		<!-- NEW WIDGET START -->
+		<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<!-- Widget ID (each widget will need unique ID)-->
+			<div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+				<!-- widget content -->
+				<div class="widget-body">
+					<form class="form-horizontal">
+						<fieldset>
+							<div class="form-group">
+								<label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">版块名称：</label>
+								<div class="col-md-10">
+									<input class="form-control" type="text" placeholder="版块名称" data-ng-model="section.name">
+									<span class="need-tab">*</span>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">简介：</label>
+								<div class="col-md-10">
+									<textarea class="form-control" rows="6" cols="" placeholder="版块简介" data-ng-model="section.brief"></textarea>
+								</div>
+							</div>
+						</fieldset>
+						<div class="form-actions">
+							<div class="row">
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<button class="btn btn-default common-save-btn" type="button" data-ng-click="$parent.togglePanel(null)">
+										返回
+									</button>
+									<button class="btn btn-primary common-save-btn" type="button" 
+										data-ng-show="$parent.saveType=='edit'" data-ng-disabled="isLoadingSave" data-ng-click="editSection(section)">
+										<i class="fa fa-save"></i>保存
+									</button>
+									<button class="btn btn-primary common-save-btn" type="button" 
+										data-ng-show="$parent.saveType=='save'" data-ng-disabled="isLoadingSave" data-ng-click="saveSection(section)">
+										<i class="fa fa-save"></i>保存
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- end widget -->
+		</article>
+		<!-- WIDGET END -->
+	</div>
+	<!-- end row -->
+</section>
+<!-- end widget grid -->

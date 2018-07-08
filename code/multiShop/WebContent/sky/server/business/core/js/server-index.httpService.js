@@ -589,4 +589,116 @@ angular.module('server-index.httpService',[])
 		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
 	};
 	
+	/**
+	 * 分页获取论坛版块列表
+	 */
+	this.pagedSectionList = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/bbstopic/section!paged";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 论坛版块编辑
+	 */
+	this.editBbsSection = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/bbstopic/section!edit";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 论坛版块新增
+	 */
+	this.saveBbsSection = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/bbstopic/section!save";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 论坛版块删除
+	 */
+	this.deleteBbsSection = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/bbstopic/section!delete";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	this.findAllSection = function(){
+		var url = $contextPath + "/bbstopic/section!findAllSection";
+		return $http({url : url, method : 'POST', data : null});		
+	}
+	
+	/**
+	 * 分页获取论坛主帖列表
+	 */
+	this.pagedTopicList = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/bbstopic/topic!paged";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 分页获取论坛回帖列表
+	 */
+	this.getChildrenTopicPaged = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/bbstopic/topic!getChildrenTopicPaged";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 论坛帖子编辑
+	 */
+	this.editBbsTopic = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/bbstopic/topic!edit";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 论坛帖子新增
+	 */
+	this.saveBbsTopic = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/bbstopic/topic!save";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
+	
+	/**
+	 * 论坛帖子删除
+	 */
+	this.deleteBbsTopic = function(obj){
+		var conditionJson = JSON.stringify(obj);
+		var tempData={
+				'conditionJson'		: conditionJson,
+		};
+		var url = $contextPath + "/bbstopic/topic!delete";
+		return $http({url : url, method : 'POST', data : $.param(tempData,true)});		
+	};
 });

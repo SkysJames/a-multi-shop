@@ -144,6 +144,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li data-ng-if="currentUser.allRights.indexOf('oplog_manage')>-1">
 					<a href="#/oplog"><i class="fa fa-lg fa-fw fa-calendar"></i> <span class="menu-item-parent">日志管理</span></a>
 				</li>
+				<li data-ng-if="currentUser.allRights.indexOf('oplog_manage')>-1">
+					<!--  <a href="#"><i class="fa fa-lg fa-fw fa-calendar"></i> <span class="menu-item-parent">论坛管理</span></a>-->
+					<a href="#"><i class="fa fa-lg fa-fw fa-comments-o"><em class="my-hidden" data-ng-class="{'my-show':(messageCount+reportCount)}">{{messageCount+reportCount}}</em></i> <span class="menu-item-parent">论坛管理</span></a>
+					<ul>
+						<li data-ng-if="currentUser.allRights.indexOf('bbs_manage')>-1">
+							<a href="#/bbssection">版块管理</a>
+						</li>
+						<li data-ng-if="currentUser.allRights.indexOf('bbs_manage')>-1">
+							<a href="#/bbstopic">帖子管理</a>
+						</li>
+					</ul>
+				</li>
 			</ul>
 		</nav>
 		<span class="minifyme"> <i class="fa fa-arrow-circle-left hit"></i> </span>

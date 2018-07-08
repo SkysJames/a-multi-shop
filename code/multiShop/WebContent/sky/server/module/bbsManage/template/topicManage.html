@@ -1,0 +1,176 @@
+<div class="index-container" data-ng-controller="topicManageCtrl">
+	
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark">
+				帖子管理
+				<span data-ng-show="saveType && saveType=='edit'">
+					> 编辑
+				</span>
+				<span data-ng-show="saveType && saveType=='save'">
+					> 新增主帖
+				</span>
+			</h1>
+		</div>
+		<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8 server-tools" data-ng-show="!saveType">
+			<div class="btn-group">
+				<a href="javascript:void(0);" data-toggle="tooltip" data-ng-click="togglePanel('save')"
+					data-placement="bottom" data-original-title="新增主帖" class="btn btn-default">
+					<strong><i class="fa fa-plus fa-lg"></i></strong>
+				</a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- widget grid -->
+	<section id="widget-grid" data-ng-show="!saveType">
+		<!-- row -->
+		<div class="row">
+			<!-- NEW WIDGET START -->
+			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<!-- Widget ID (each widget will need unique ID)-->
+				<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0" data-widget-editbutton="false">
+					<header>
+						<h2 title="过滤条件：">过滤条件：</h2>
+					</header>
+	
+					<!-- widget div-->
+					<div>
+						<!-- widget content -->
+						<div class="widget-body">
+							
+							<!-- 过滤条件 -->
+							<form class="common-form" data-ng-submit="pagedTopicList()">
+									<div class="input-group">
+										<label class="col-md-3 control-label">模糊搜索：</label>
+										<div class="col-md-9">
+											<input class="form-control" type="search" data-ng-model="condition.keywords" placeholder="主帖名称">
+											<div class="input-group-btn">
+												<button class="btn btn-default btn-primary" type="submit" title="搜索">
+													<i class="fa fa-search"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+									<div class="input-group">
+										<label class="col-md-3 control-label">发帖时间：</label>
+										<div class="col-md-9" title="选择时间段">
+											<input id="searchDateRangeId" class="form-control" type="text" placeholder="开始时间&nbsp;~&nbsp;结束时间" 
+												 date-range-picker options="dateRangePickerOptions" data-ng-model="rangeDate" /> 
+											<div class="input-group-btn">
+												<button class="btn btn-default btn-primary" type="button" title="选择时间" data-ng-click="showSearchDateRange();">
+													<i class="fa fa-calendar"></i>
+												</button>
+											</div>
+											<a href="javascript:void(0)" class="common-clear-date" data-ng-click="clearDate()">清空</a>
+										</div>
+									</div>
+							
+							</form>
+						
+							<div class="table-responsive">
+								<table id="mainTable" class="table table-bordered table-hover" style="table-layout:fixed">
+									<thead>
+										<tr>
+											<th style="width:5%;">序号</th>
+											<th style="width:10%;">所属版块</th>
+											<th style="width:15%;">标题名称</th>
+											<th style="width:30%;">内容</th>
+											<th style="width:10%;">发帖人</th>
+											<th style="width:15%;">发帖时间</th>
+											<th style="width:15%;">操作</th>
+										</tr>
+									</thead>
+									<tbody data-ng-show="!isLoadingMain" >
+										<tr data-ng-repeat="topic in resultList" data-ng-click="getChildrenTopicPaged(topic)">
+											<td>{{$index + 1}}</td>
+											<td title="{{topic.bbssection.name}}">{{topic.bbssection.name}}</td>
+											<td title="{{topic.topicName}}" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{{topic.topicName == null?'--':topic.topicName}}</td>
+											<td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" title="{{topic.content}}">{{topic.content}}</td>
+											<td title="{{topic.masterid}}">{{topic.masterid}}</td>
+											<td title="{{topic.createTime}}">{{topic.createTime|formatDate}}</td>
+										
+											<td>
+												<a href="javascript:void(0)" data-ng-click="togglePanel('edit', topic)">编辑</a>
+												<a href="javascript:void(0)" data-ng-click="deleteSection(topic)">删除</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+								<loading-panel data-ng-show="isLoadingMain" font-size="18"></loading-panel>
+								<nodata-panel data-ng-show="!isLoadingMain && resultList.length==0" font-size="18"></nodata-panel>
+							</div>
+							
+							<common-pager class="common-pager" page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
+								total-rows="condition.totalCount" to-page-call-back="pagedTopicList(pageNo)"></common-pager>
+							
+						
+						<h3 title="当前主帖名称：">当前主帖名称：
+							<span data-ng-show="children.parentTopicId">
+								{{parentTopicName}}
+							</span>
+						</h3>
+						<p><button class="btn btn-primary" data-ng-click="togglePanel('edit', topic)" data-ng-show="children.parentTopicId">
+							新建回帖
+						</button></p>
+						
+						<div class="table-responsive">
+								<table id="childrenTable" class="table table-bordered table-hover" style="table-layout:fixed">
+									<thead>
+										<tr>
+											<th style="width:5%;">序号</th>
+											<th style="width:40%;">回帖内容</th>
+											<th style="width:5%;">回复数</th>
+											<th style="width:5%;">点击数</th>
+											<th style="width:5%;">点赞数</th>
+											<th style="width:10%;">回帖人</th>
+											<th style="width:15%;">回帖时间</th>
+											<th style="width:15%;">操作</th>
+										</tr>
+									</thead>
+									<tbody data-ng-show="!isLoadingChildren" >
+										<tr data-ng-repeat="topic in childrenList">
+											<td>{{$index + 1}}</td>
+											<td style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;" title="{{topic.content}}">{{topic.content}}</td>
+											<td title="{{topic.replyCount}}">{{topic.replyCount}}</td>
+											<td title="{{topic.clickCount}}">{{topic.clickCount}}</td>
+											<td title="{{topic.likeNum}}">{{topic.likeNum}}</td>
+											<td title="{{topic.masterid}}">{{topic.masterid}}</td>
+											<td title="{{topic.createTime}}">{{topic.createTime|formatDate}}</td>
+											
+											<td>
+												<a href="javascript:void(0)" data-ng-click="togglePanel('edit', topic)">编辑</a>
+												<a href="javascript:void(0)" data-ng-click="deleteSection(topic)">删除</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+								<loading-panel data-ng-show="isLoadingChildren" font-size="18"></loading-panel>
+								<nodata-panel data-ng-show="!isLoadingChildren && childrenList.length==0" font-size="18"></nodata-panel>
+							</div>
+							
+							<common-pager class="common-pager" page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
+								total-rows="condition.totalCount" to-page-call-back="pagedTopicList(pageNo)"></common-pager>
+								
+								
+						</div>
+						<!-- end widget content -->
+					</div>
+					<!-- end widget div -->
+				</div>
+				<!-- end widget -->
+			</article>
+			<!-- WIDGET END -->
+		</div>
+		<!-- end row -->
+	</section>
+	<!-- end widget grid -->
+
+	<!-- 保存面板 start -->
+	<topic-manage-save data-ng-show="saveType" section="topicSave"></topic-manage-save>
+	<!-- 保存面板 end -->
+	
+</div>
+

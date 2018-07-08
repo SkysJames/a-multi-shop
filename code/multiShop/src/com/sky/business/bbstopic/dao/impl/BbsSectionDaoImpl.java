@@ -25,7 +25,7 @@ public class BbsSectionDaoImpl extends BaseDaoImpl implements BbsSectionDao{
 			values.add("%" + keywords + "%");
 		}
 		
-		//登录时间
+		//创建时间
 		if(condition.containsKey("updateTimeA") && StringUtils.isNotBlank((String)condition.get("updateTimeA"))
 				&& condition.containsKey("updateTimeZ") && StringUtils.isNotBlank((String)condition.get("updateTimeZ"))){
 			Date updateTimeA = DateUtil.convertStr2Date((String)condition.get("updateTimeA"));

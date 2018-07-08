@@ -7,6 +7,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.sky.business.bbstopic.service.BbsSectionService;
+import com.sky.business.shop.entity.Shop;
+import com.sky.business.shop.service.ShopService;
+import com.sky.contants.TopicContants;
+import com.sky.util.BeanDefinedLocator;
 
 /**
  * 论坛帖子
@@ -57,6 +64,10 @@ public class Bbstopic implements Serializable {
 	
 	@Column(name="STATUS")
 	private Integer status;
+	
+	//所属板块
+	@Transient
+	private Bbssection bbssection;
 	
     // Property accessors
 	public String getId() {
@@ -161,6 +172,19 @@ public class Bbstopic implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Bbssection getBbssection() {
+		if(this.bbssection == null && TopicContants.TOPIC_TYPE_REPLY.equals(this.topicType)) {
+			BbsSectionService bbsSectionService = (BbsSectionService)BeanDefinedLocator.getInstance().getBean("bbsSectionService");
+			bbssection = bbsSectionService.findByID(Bbssection.class, sectionId);
+		}
+		
+		return bbssection;
+	}
+
+	public void setBbssection(Bbssection bbssection) {
+		this.bbssection = bbssection;
 	}
 
 }
