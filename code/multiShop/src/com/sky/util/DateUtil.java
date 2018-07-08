@@ -289,12 +289,25 @@ public class DateUtil {
 		return dateStrList;
 	}
 	
+	/**
+	 * 获取当天0点0分0秒的时间
+	 * @return
+	 */
+	public static Date getInstanceDate() {
+		Calendar c = Calendar.getInstance();
+		
+		c.set(Calendar.HOUR_OF_DAY, 0);
+		c.set(Calendar.MINUTE, 0);
+		c.set(Calendar.SECOND, 0);
+		
+		return c.getTime();
+	}
+	
 	public static void main(String[] args) throws Exception {
 //		Calendar c = Calendar.getInstance();
 //		System.out.println(c.get(Calendar.DAY_OF_WEEK));
 //		System.out.println(c.get(Calendar.DAY_OF_WEEK) == Calendar.WEDNESDAY);
 //		System.out.println("2012/9/3 9:00".matches("\\d{4}/\\d{1,2}/\\d{1,2} \\d{1,2}:\\d{2}"));
 //		System.out.println(convertDateStr("2011/1/13  10:51:00", "yyyy-MM-dd HH:mm:ss"));
-		
 	}
 }

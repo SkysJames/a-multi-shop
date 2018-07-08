@@ -78,6 +78,11 @@ public class EvaluateServiceImpl extends BaseServiceImpl implements EvaluateServ
 	
 	@Override
 	public Evaluate add(Map<String,Object> addObj) throws Exception {
+		//判断是否可以对该对象添加评价
+		if(!this.isAdd(addObj)) {
+			return null;
+		}
+		
 		Evaluate evaluate = new Evaluate();
 		evaluate.setId(UUID.randomUUID().toString());
 		
@@ -166,6 +171,33 @@ public class EvaluateServiceImpl extends BaseServiceImpl implements EvaluateServ
 			//统计评分
 			this.statMark(evaluate);
 		}
+	}
+	
+	/**
+	 * 判断是否可以添加
+	 * @param addObj
+	 * @return
+	 */
+	private boolean isAdd(Map<String,Object> addObj) throws Exception {
+		if(!addObj.containsKey("userId")){
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON, "添加店铺评分：传入的用户ID不能为空");
+		}
+		if(!addObj.containsKey("objId")){
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON, "添加店铺评分：传入的对象ID不能为空");
+		}
+		if(!addObj.containsKey("tableName")){
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON, "添加店铺评分：传入的表名不能为空");
+		}
+		
+		String userId = (String) addObj.get("userId");
+		String objId = (String) addObj.get("objId");
+		String tableName = (String) addObj.get("tableName");
+		
+		if(evaluateDao.isEvaluated(userId, objId, tableName)) {
+			throw new ServiceException(CodeMescContants.CodeContants.ERROR_COMMON, "每个用户每天只能对同一家店铺评价一次");
+		}
+		
+		return true;
 	}
 
 }

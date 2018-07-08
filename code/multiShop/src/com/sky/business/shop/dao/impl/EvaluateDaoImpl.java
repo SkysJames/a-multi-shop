@@ -1,5 +1,7 @@
 package com.sky.business.shop.dao.impl;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.sky.business.common.dao.impl.BaseDaoImpl;
 import com.sky.business.shop.dao.EvaluateDao;
 import com.sky.util.CommonMethodUtil;
+import com.sky.util.DateUtil;
 
 /**
  * 评价Dao实现类
@@ -81,6 +84,29 @@ public class EvaluateDaoImpl extends BaseDaoImpl implements EvaluateDao {
 		hqlBuffer.append(" order by ").append(sort);
 		
 		return hqlBuffer;
+	}
+
+	@Override
+	public boolean isEvaluated(String userId, String objId, String tableName) {
+		StringBuffer hqlBuffer = new StringBuffer("select count(*) from Evaluate where 1=1 ");
+		List<Object> values = new ArrayList<Object>();
+		
+		hqlBuffer.append(" and userId = ?");
+		values.add(userId);
+		
+		hqlBuffer.append(" and objId = ?");
+		values.add(objId);
+		
+		hqlBuffer.append(" and tableName = ?");
+		values.add(tableName);
+		
+		Date today = DateUtil.getInstanceDate();
+		hqlBuffer.append(" and createTime > ?");
+		values.add(today);
+		
+		Integer count = this.getBaseHibernateDao().count(hqlBuffer.toString(), values.toArray());
+		 
+		return count>0;
 	}
 	
 }
