@@ -89,27 +89,6 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 	};
 	
 	/**
-	 * 保存消息
-	 */
-	$scope.editMessage = function(obj){
-		serverIndexHttpService.editMessage(obj)
-		.then(function(response){
-			var data = response.data;
-			
-			//初始化未读消息的数量
-			if(angular.element($('.server-index')).scope()){
-				angular.element($('.server-index')).scope().initMessageCount();
-			}
-			
-			if(data.statusCode!="200"){
-				common.triggerFailMesg(data.message);
-			}
-		},function(err){
-			console.log(err);
-		});
-	};
-	
-	/**
 	 * 删除消息
 	 */
 	$scope.deleteSection = function(section){

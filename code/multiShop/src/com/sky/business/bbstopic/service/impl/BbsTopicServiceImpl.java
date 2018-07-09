@@ -40,43 +40,50 @@ public class BbsTopicServiceImpl extends BaseServiceImpl implements BbsTopicServ
 			bbstopic.setTopicName((String)editObj.get("topicName"));
 		}
 		if(editObj.containsKey("content")){//帖子内容
-			bbstopic.setTopicName((String)editObj.get("content"));
-		}
-		if(editObj.containsKey("replyCount")){//回复数
-			bbstopic.setTopicName((String)editObj.get("replyCount"));
-		}
-		if(editObj.containsKey("clickCount")){//点击数
-			bbstopic.setTopicName((String)editObj.get("clickCount"));
-		}
-		if(editObj.containsKey("likeNum")){//点赞数
-			bbstopic.setTopicName((String)editObj.get("likeNum"));
+			bbstopic.setContent((String)editObj.get("content"));
 		}
 		this.update(bbstopic);
 	}
 	
 	@Override
 	public Bbstopic add(Map<String,Object> addObj) throws Exception {
+		
 		Bbstopic bbstopic = new Bbstopic();
 		bbstopic.setId(UUID.randomUUID().toString());
-		bbstopic.setClickCount(TopicContants.TOPIC_DEFAULT_NUM);
-		bbstopic.setLikeNum(TopicContants.TOPIC_DEFAULT_NUM);
-		bbstopic.setReplyCount(TopicContants.TOPIC_DEFAULT_NUM);
-		bbstopic.setTopicType(TopicContants.TOPIC_TYPE_MAIN);
-		bbstopic.setCreateTime(new Timestamp(Calendar.getInstance().getTimeInMillis()));
-		bbstopic.setStatus(TopicContants.TOPIC_STATUS_RECEIVED);
 		
 		if(addObj.containsKey("sectionId")){//版块ID
 			bbstopic.setSectionId((String)addObj.get("sectionId"));
 		}
-		if(addObj.containsKey("topicName")){//帖子标题
-			bbstopic.setTopicName((String)addObj.get("topicName"));
-		}
+		
 		if(addObj.containsKey("content")){//帖子内容
-			bbstopic.setTopicName((String)addObj.get("content"));
+			bbstopic.setContent((String)addObj.get("content"));
 		}
-		if(addObj.containsKey("toUser")){//帖子内容
-			bbstopic.setTopicMasterid((String)addObj.get("toUser"));
+		
+		if(addObj.containsKey("masterid")){//发帖人
+			bbstopic.setMasterid((String)addObj.get("masterid"));
 		}
+		
+		if(TopicContants.TOPIC_TYPE_MAIN == Integer.parseInt(addObj.get("topicType").toString())) {//主帖
+			bbstopic.setTopicType(TopicContants.TOPIC_TYPE_MAIN);
+			if(addObj.containsKey("topicName")){//帖子标题
+				bbstopic.setTopicName((String)addObj.get("topicName"));
+			}
+			
+		}else {
+			bbstopic.setTopicType(TopicContants.TOPIC_TYPE_REPLY);
+			if(addObj.containsKey("parentTopicId")){//父帖ID
+				bbstopic.setTopicId((String)addObj.get("parentTopicId"));
+			}
+			
+			if(addObj.containsKey("topicMasterid")){//父帖用户ID
+				bbstopic.setTopicMasterid((String)addObj.get("topicMasterid"));
+			}
+		}
+		bbstopic.setClickCount(TopicContants.TOPIC_DEFAULT_NUM);
+		bbstopic.setLikeNum(TopicContants.TOPIC_DEFAULT_NUM);
+		bbstopic.setReplyCount(TopicContants.TOPIC_DEFAULT_NUM);
+		bbstopic.setCreateTime(new Timestamp(Calendar.getInstance().getTimeInMillis()));
+		bbstopic.setStatus(TopicContants.TOPIC_STATUS_RECEIVED);
 		
 		this.save(bbstopic);
 		return bbstopic;

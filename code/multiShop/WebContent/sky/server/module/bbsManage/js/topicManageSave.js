@@ -3,7 +3,7 @@ topicSave.directive('topicManageSave',function(){//自定义指令
 	return {
 		restrict:'E',
 		scope : {
-			topic :"=",
+		
 		},
 		templateUrl : $contextPath +"/sky/server/module/bbsManage/template/topicManageSave.html",
 		link : function(scope,element,attrs){
@@ -20,20 +20,24 @@ topicSave.directive('topicManageSave',function(){//自定义指令
 			
 			
 			/**
-			 * 新增保存版块
+			 * 新增保存帖子
 			 */
-			$scope.saveTopic = function(topic){
-				if(!$scope.isSaveTopic(topic)){
+			$scope.saveTopic = function(saveCondition){
+				if(!$scope.isSaveTopic(saveCondition)){
 					common.triggerFailMesg("*为必填项");
 					return;
 				}
 				$scope.isLoadingSave = true;
-				serverIndexHttpService.saveBbsTopic(topic)
+				serverIndexHttpService.saveBbsTopic(saveCondition)
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode=="200" && data.message){
 						common.triggerSuccessMesg(data.message);
 						$scope.$parent.pagedTopicList();
+//						serverIndexHttpService.getChildrenTopicPaged($scope.$parent.children);
+						if($scope.$parent.saveType == 'childrenSave'){
+							$scope.$parent.getChildrenTopicPaged($scope.$parent.children);
+						}
 						$scope.$parent.togglePanel(null);
 					}else{
 						common.triggerFailMesg(data.message);
@@ -47,19 +51,23 @@ topicSave.directive('topicManageSave',function(){//自定义指令
 			/**
 			 * 编辑保存帖子
 			 */
-			$scope.editTopic = function(section){
-				if(!$scope.isSaveTopic(section)){
+			$scope.editTopic = function(saveCondition){
+				if(!$scope.isSaveTopic(saveCondition)){
 					common.triggerFailMesg("*为必填项");
 					return;
 				}
 				
 				$scope.isLoadingSave = true;
-				serverIndexHttpService.editBbsSection(section)
+				serverIndexHttpService.editBbsTopic(saveCondition)
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode=="200" && data.message){
 						common.triggerSuccessMesg(data.message);
 						$scope.$parent.pagedTopicList();
+//						serverIndexHttpService.getChildrenTopicPaged($scope.$parent.children);
+						if($scope.$parent.saveType == 'childrenSave'){
+							$scope.$parent.getChildrenTopicPaged($scope.$parent.children);
+						}
 						$scope.$parent.togglePanel(null);
 					}else{
 						common.triggerFailMesg(data.message);
@@ -73,15 +81,16 @@ topicSave.directive('topicManageSave',function(){//自定义指令
 			/**
 			 * 判断该用户对象是否符合保存的条件
 			 */
-			$scope.isSaveTopic = function(topic){
-				if(!topic){
+			$scope.isSaveTopic = function(saveCondition){
+				saveCondition.content = $scope.$parent.topicContentEditor.html();
+	
+				if(saveCondition.topicName==""){
 					return false;
 				}
-				if(!topic.topicName || topic.topicName==""){
+				if(saveCondition.content==""){
 					return false;
 				}
-				$scope.saveCondition = $scope.$parent.topicContentEditor.html();
-				if(!$scope.saveCondition.content || $scope.saveCondition.content==""){
+				if(saveCondition.sectionId==""){
 					return false;
 				}
 				return true;
@@ -108,13 +117,14 @@ topicSave.directive('topicManageSave',function(){//自定义指令
 			 * 初始化函数
 			 */
 			$scope.initFunc = function(){
+				console.error('children');
 				$scope.$parent.topicContentEditor = serverCommon.initKindEditor("#topicContent");
 				serverIndexHttpService.findAllSection()
 				.then(function(response){
 					var data = response.data;
 					if(data.statusCode=="200" && data.message){
-						$scope.sectionList = data.resultList;
-						$scope.saveCondition.sectionId = data.resultList[0].id;//默认选中
+						$scope.$parent.sectionList = data.resultList;
+						$scope.$parent.save.sectionId = data.resultList[0].id;//默认选中
 					}else{
 						common.triggerFailMesg(data.message);
 					}

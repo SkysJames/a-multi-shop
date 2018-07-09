@@ -36,7 +36,7 @@ public class Bbstopic implements Serializable {
 	private String masterid;
 	
 	@Column(name="TOPIC_TYPE")
-	private String topicType;
+	private Integer topicType;
 	
 	@Column(name="TOPIC_ID")
 	private String topicId;
@@ -94,11 +94,11 @@ public class Bbstopic implements Serializable {
 		this.masterid = masterid;
 	}
 
-	public String getTopicType() {
+	public Integer getTopicType() {
 		return topicType;
 	}
 
-	public void setTopicType(String topicType) {
+	public void setTopicType(Integer topicType) {
 		this.topicType = topicType;
 	}
 
@@ -175,7 +175,7 @@ public class Bbstopic implements Serializable {
 	}
 
 	public Bbssection getBbssection() {
-		if(this.bbssection == null && TopicContants.TOPIC_TYPE_REPLY.equals(this.topicType)) {
+		if(this.bbssection == null && TopicContants.TOPIC_TYPE_MAIN == this.topicType) {
 			BbsSectionService bbsSectionService = (BbsSectionService)BeanDefinedLocator.getInstance().getBean("bbsSectionService");
 			bbssection = bbsSectionService.findByID(Bbssection.class, sectionId);
 		}

@@ -92,7 +92,7 @@
 										
 											<td>
 												<a href="javascript:void(0)" data-ng-click="togglePanel('edit', topic)">编辑</a>
-												<a href="javascript:void(0)" data-ng-click="deleteSection(topic)">删除</a>
+												<a href="javascript:void(0)" data-ng-click="deleteTopic(topic)">删除</a>
 											</td>
 										</tr>
 									</tbody>
@@ -103,16 +103,16 @@
 							</div>
 							
 							<common-pager class="common-pager" page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
-								total-rows="condition.totalCount" to-page-call-back="pagedTopicList(pageNo)"></common-pager>
+								total-rows="condition.totalCount" to-page-call-back="getChildrenTopicPaged(pageNo)"></common-pager>
 							
 						
 						<h3 title="当前主帖名称：">当前主帖名称：
 							<span data-ng-show="children.parentTopicId">
-								{{parentTopicName}}
+								{{parentTopic.topicName}}
 							</span>
 						</h3>
-						<p><button class="btn btn-primary" data-ng-click="togglePanel('edit', topic)" data-ng-show="children.parentTopicId">
-							新建回帖
+						<p><button class="btn btn-primary" data-ng-click="togglePanel('childrenSave')" data-ng-show="children.parentTopicId">
+							新增回帖
 						</button></p>
 						
 						<div class="table-responsive">
@@ -141,7 +141,7 @@
 											
 											<td>
 												<a href="javascript:void(0)" data-ng-click="togglePanel('edit', topic)">编辑</a>
-												<a href="javascript:void(0)" data-ng-click="deleteSection(topic)">删除</a>
+												<a href="javascript:void(0)" data-ng-click="deleteTopic(topic)">删除</a>
 											</td>
 										</tr>
 									</tbody>

@@ -11,26 +11,25 @@
 					<form class="form-horizontal">
 						<fieldset>
 							<div class="form-group">
-								<label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">所属板块：</label>
+								<label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">所属版块：</label>
 								<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-									<select class="form-control" ui-select2 data-ng-model="saveCondition.sectionId">
-										<option data-ng-repeat="item in sectionList" value="{{item.id}}">{{item.name}}</option>
+									<select id="sectionId" class="form-control" ui-select2 data-ng-model="$parent.save.sectionId">
+										<option data-ng-repeat="item in $parent.sectionList" value="{{item.id}}">{{item.name}}</option>
 									</select>
 								<span class="need-tab">*</span>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">主帖标题：</label>
-								<div class="col-md-10">
-									<input class="form-control" type="text" placeholder="主帖标题" data-ng-model="saveCondition.topicName">
+								<label class="col-xs-2 col-sm-2 col-md-2 col-lg-2 control-label">{{$parent.saveType == 'childrenSave'?'所属主贴':'主帖标题'}}：</label>
+								<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+									<input id="topicName" class="form-control" type="text" placeholder="{{$parent.saveType == 'childrenSave'?'所属主贴':'主帖标题'}}" data-ng-model="$parent.save.topicName" >
 									<span class="need-tab">*</span>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-md-2 control-label">正文<span class="need-tab">*</span>：</label>
+								<label class="col-md-2 control-label">{{$parent.saveType == 'childrenSave'?'回帖内容':'正文'}}<span class="need-tab">*</span>：</label>
 								<div class="col-md-10">
 									<textarea id="topicContent"></textarea>
-									
 								</div>
 							</div>
 						</fieldset>
@@ -41,11 +40,11 @@
 										返回
 									</button>
 									<button class="btn btn-primary common-save-btn" type="button" 
-										data-ng-show="$parent.saveType=='edit'" data-ng-disabled="isLoadingSave" data-ng-click="editTopic(topic)">
+										data-ng-show="$parent.saveType=='edit'" data-ng-disabled="isLoadingSave" data-ng-click="editTopic($parent.save)">
 										<i class="fa fa-save"></i>保存
 									</button>
 									<button class="btn btn-primary common-save-btn" type="button" 
-										data-ng-show="$parent.saveType=='save'" data-ng-disabled="isLoadingSave" data-ng-click="saveTopic(topic)">
+										data-ng-show="$parent.saveType=='save' || $parent.saveType=='childrenSave'" data-ng-disabled="isLoadingSave" data-ng-click="saveTopic($parent.save)">
 										<i class="fa fa-save"></i>保存
 									</button>
 								</div>

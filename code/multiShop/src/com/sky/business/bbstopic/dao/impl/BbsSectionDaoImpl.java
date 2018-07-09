@@ -34,6 +34,8 @@ public class BbsSectionDaoImpl extends BaseDaoImpl implements BbsSectionDao{
 			values.add(updateTimeA);
 			values.add(updateTimeZ);
 		}
+		
+		hqlBuffer.append(" order by ").append("createTime asc");
 		return hqlBuffer;
 		
 	}

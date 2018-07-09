@@ -4,9 +4,9 @@ public class TopicContants {
 	/**
 	 * 帖子类型
 	 */
-	public static String TOPIC_TYPE_MAIN = "1";//主帖
+	public static int TOPIC_TYPE_MAIN = 1;//主帖
 	
-	public static String TOPIC_TYPE_REPLY = "2";//回帖
+	public static int TOPIC_TYPE_REPLY = 2;//回帖
 	
 	
 	/**
