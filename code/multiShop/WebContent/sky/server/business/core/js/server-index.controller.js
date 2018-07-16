@@ -74,7 +74,13 @@ angular.module('serverIndexApp',
 	$routeProvider.when("/oplog",{
 		templateUrl:$contextPath+'/sky/server/module/oplogManage/template/oplogManage.html',
 	});
-	
+	//论坛管理
+	$routeProvider.when("/bbssection",{
+		templateUrl:$contextPath+'/sky/server/module/bbsManage/template/sectionManage.html',
+	});
+	$routeProvider.when("/bbstopic",{
+		templateUrl:$contextPath+'/sky/server/module/bbsManage/template/topicManage.html',
+	});
 	$routeProvider.otherwise({
 		redirectTo: defaultUrl
     });

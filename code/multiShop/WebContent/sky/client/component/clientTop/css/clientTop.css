@@ -1,7 +1,6 @@
 @CHARSET "UTF-8";
 .client-top {
-	position: absolute;
-	top: 0px;
+	
 }
 .ct-top-fixed {
 	position: fixed;
@@ -245,7 +244,7 @@
 
 .ct-right-fixed {
 	position: fixed;
-	top: 40%;
+	top: 50%;
 	right: 0px;
 	margin-top: -70px;
 	z-index: 99;
@@ -396,7 +395,7 @@
 	
 }
 .login-row {
-	margin-top: 12px;
+	margin-top: 16px;
     text-align: center;
     line-height: 36px;
 }
@@ -427,8 +426,8 @@
 	color: #888;
 }
 .login-short small>a {
-	margin-left: 3px;
-    margin-right: 3px;
+	margin-left: 5px;
+	margin-right: 10px;
 }
 .login-top {
 	margin: 0 auto;

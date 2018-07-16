@@ -6,7 +6,6 @@ function($timeout, $scope, $filter, $document, $controller, serverIndexHttpServi
 	//查询条件
 	$scope.condition = {
 			tableName	: common.tableContants.TB_PRODUCT,
-			shopId		: $currentUser.shopId,
 			parentId		: common.typetContants.rootParentId,
 	};
 	

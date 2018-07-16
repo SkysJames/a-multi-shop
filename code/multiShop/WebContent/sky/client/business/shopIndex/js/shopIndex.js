@@ -130,7 +130,7 @@ function($timeout, $scope, $document, clientIndexHttpService){
 	/**
 	 * 获取店铺的商品类型列表
 	 */
-	$scope.getTypeList = function(){
+	$scope.getTypeList = function(shopId){
 		var condition = {
 				tableName	: common.tableContants.TB_PRODUCT,	//商品表名
 				parentId		: common.typetContants.rootParentId,//一级类别

@@ -122,7 +122,7 @@ public class ClientAction extends BaseAction {
 	 */
 	@Action(value = "shop-search", results = @Result(location = "/sky/client/business/shopSearch/shopSearch.jsp", params = {"keywords","${keywords}","type","${type}"}), interceptorRefs = {@InterceptorRef("visitorStack")})
 	public String shopSearch() {
-		logger.info("进入前端店铺搜索页面：" + keywords);
+		logger.info("进入前端店铺搜索页面");
 		return SUCCESS;
 	}
 	

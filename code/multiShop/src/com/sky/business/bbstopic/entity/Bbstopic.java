@@ -7,6 +7,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.sky.business.bbstopic.service.BbsSectionService;
+import com.sky.business.shop.entity.Shop;
+import com.sky.business.shop.service.ShopService;
+import com.sky.contants.TopicContants;
+import com.sky.util.BeanDefinedLocator;
 
 /**
  * 论坛帖子
@@ -29,7 +36,7 @@ public class Bbstopic implements Serializable {
 	private String masterid;
 	
 	@Column(name="TOPIC_TYPE")
-	private String topicType;
+	private Integer topicType;
 	
 	@Column(name="TOPIC_ID")
 	private String topicId;
@@ -58,6 +65,10 @@ public class Bbstopic implements Serializable {
 	@Column(name="STATUS")
 	private Integer status;
 	
+	//所属板块
+	@Transient
+	private Bbssection bbssection;
+	
     // Property accessors
 	public String getId() {
 		return id;
@@ -83,11 +94,11 @@ public class Bbstopic implements Serializable {
 		this.masterid = masterid;
 	}
 
-	public String getTopicType() {
+	public Integer getTopicType() {
 		return topicType;
 	}
 
-	public void setTopicType(String topicType) {
+	public void setTopicType(Integer topicType) {
 		this.topicType = topicType;
 	}
 
@@ -161,6 +172,19 @@ public class Bbstopic implements Serializable {
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+
+	public Bbssection getBbssection() {
+		if(this.bbssection == null && TopicContants.TOPIC_TYPE_MAIN == this.topicType) {
+			BbsSectionService bbsSectionService = (BbsSectionService)BeanDefinedLocator.getInstance().getBean("bbsSectionService");
+			bbssection = bbsSectionService.findByID(Bbssection.class, sectionId);
+		}
+		
+		return bbssection;
+	}
+
+	public void setBbssection(Bbssection bbssection) {
+		this.bbssection = bbssection;
 	}
 
 }

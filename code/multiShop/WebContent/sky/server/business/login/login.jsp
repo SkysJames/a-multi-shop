@@ -45,30 +45,21 @@ pageContext.setAttribute("systemIcon", StringUtils.isNotBlank(systemIcon)?system
 	    <div class="login-content">
 	    	<form action="${contextPath}/home/server-login" method="post">
 	    		<div class="login-error">
-				    <c:if test="${resultMap.message != null}">
-				    	<i class="fa fa-remove"></i>
-				    	<span>${resultMap.message}</span>
-				    </c:if>
-			    </div>
-		    
-		    	<div class="login-row">
-					<div class="input-group">
-						<div class="login-label">
-							<i class="fa fa-user"></i>
-						</div>
-						<input class="form-control" type="text" placeholder="输入用户名" name="loginUser.userId" required="required">
-					</div>
+			    <c:if test="${resultMap.message != null}">
+			    	<i class="fa fa-remove"></i>
+			    	<span>${resultMap.message}</span>
+			    </c:if>
+		    </div>
+	    		<div class="input-group">
+					<span class="input-group-span">帐号</span>
+					<input type="text" class="form-control input-group-in" name="loginUser.userId" placeholder="用户名" required>
 				</div>
-				<div class="login-row">
-					<div class="input-group">
-						<div class="login-label">
-							<i class="fa fa-lock"></i>
-						</div>
-						<input class="form-control" type="password" placeholder="输入密码" name="loginUser.userPwd" required="required">
-					</div>
+	    		<div class="input-group">
+					<span class="input-group-span">密码</span>
+					<input type="password" class="form-control input-group-in" name="loginUser.userPwd" placeholder="输入您的密码" required>
 				</div>
-				<div class="login-row">
-					<button type="submit" class="btn login-btn">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+				<div class="input-group">
+					<button class="btn input-group-btn" type="submit">立 即 登 录</button>
 				</div>
 	    	</form>
 	    </div>

@@ -77,9 +77,6 @@ public class Product  implements java.io.Serializable {
 	
 	@Column(name="STATUS")
     private Integer status;
-	
-	@Column(name="SORT")
-	private Integer sort;
 
     /************** 非持久化字段 start **************/
 	/**
@@ -266,14 +263,6 @@ public class Product  implements java.io.Serializable {
 
 	public void setProTypeName(String proTypeName) {
 		this.proTypeName = proTypeName;
-	}
-
-	public Integer getSort() {
-		return sort;
-	}
-
-	public void setSort(Integer sort) {
-		this.sort = sort;
 	}
    
 }

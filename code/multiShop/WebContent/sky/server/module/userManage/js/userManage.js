@@ -144,11 +144,6 @@ function($timeout, $scope, $rootScope, $filter, $document, serverIndexHttpServic
 	 * 删除用户
 	 */
 	$scope.deleteUser = function(user){
-		if(user.id == $currentUser.userId){
-			common.triggerFailMesg("自己不能删除自己");
-			return;
-		}
-		
 		common.triggerAlertMesg("确定要删除用户 " + user.name + "？", "", function(){}, function(){
 			serverIndexHttpService.deleteUser(user)
 			.then(function(response){

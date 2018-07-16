@@ -9,8 +9,6 @@ Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('system_picture', 'system', '', 0, '多商铺平台轮播图片的url，多个以,分隔', 0);
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('system_picture_href', 'system', '', 0, '多商铺平台轮播图片的链接，按顺序与图片对应，多个以,分隔', 0);
-Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
- Values ('system_column', 'system', '推荐店铺', 0, '系统栏目', 0);
 
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('company_name', 'system', '梦想蓝天网络科技', 0, '公司名称', 0);
@@ -41,9 +39,6 @@ Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('forum_icon', 'forum', '', 0, '论坛图标的url', 0);
 Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
  Values ('forum_logo', 'forum', '', 0, '论坛logo的url', 0);
-
-Insert into sys_parameter (NAME, TYPE, VALUE, VALUETYPE, DESCRIPTION, MUST)
- Values ('user_addid', 'user', '10000', 0, '用于用户快捷登录或微信授权登录时，赋予用户的id', 1);
 
 Insert into tb_right (ID, NAME, TYPE)
  Values ('back_manage', '后台管理', 'back');

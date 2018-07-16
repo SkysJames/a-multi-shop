@@ -22,6 +22,10 @@
 <script src="${contextPath }/sky/server/module/shopManage/js/shopListManageSave.js"></script>
 <script src="${contextPath }/sky/server/module/productManage/js/productManage.js"></script>
 <script src="${contextPath }/sky/server/module/productManage/js/productManageSave.js"></script>
+<script src="${contextPath }/sky/server/module/bbsManage/js/sectionManage.js"></script>
+<script src="${contextPath }/sky/server/module/bbsManage/js/sectionManageSave.js"></script>
+<script src="${contextPath }/sky/server/module/bbsManage/js/topicManage.js"></script>
+<script src="${contextPath }/sky/server/module/bbsManage/js/topicManageSave.js"></script>
 <script>
 $moduleList = [
 	'majorIndex.module',
@@ -37,5 +41,8 @@ $moduleList = [
 	'shopManage.module',
 	'shopListManage.module',
 	'productManage.module',
+	'sectionManage.module',
+	'topicManage.module'
+	
 ];
 </script>

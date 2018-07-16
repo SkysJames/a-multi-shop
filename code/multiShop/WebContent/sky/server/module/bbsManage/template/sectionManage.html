@@ -1,0 +1,119 @@
+<div class="index-container" data-ng-controller="sectionManageCtrl">
+	
+	<div class="row">
+		<div class="col-xs-12 col-sm-7 col-md-7 col-lg-4">
+			<h1 class="page-title txt-color-blueDark">
+				版块管理
+				<span data-ng-show="saveType && saveType=='edit'">
+					> 编辑
+				</span>
+				<span data-ng-show="saveType && saveType=='save'">
+					> 新增
+				</span>
+			</h1>
+		</div>
+		<div class="col-xs-12 col-sm-5 col-md-5 col-lg-8 server-tools" data-ng-show="!saveType">
+			<div class="btn-group">
+				<a href="javascript:void(0);" data-toggle="tooltip" data-ng-click="togglePanel('save')"
+					data-placement="bottom" data-original-title="新增" class="btn btn-default">
+					<strong><i class="fa fa-plus fa-lg"></i></strong>
+				</a>
+			</div>
+		</div>
+	</div>
+	
+	<!-- widget grid -->
+	<section id="widget-grid" data-ng-show="!saveType">
+		<!-- row -->
+		<div class="row">
+			<!-- NEW WIDGET START -->
+			<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<!-- Widget ID (each widget will need unique ID)-->
+				<div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-0" data-widget-editbutton="false">
+					<header>
+						<h2 title="过滤条件：{{filterText}}">过滤条件：{{filterText}}</h2>
+					</header>
+	
+					<!-- widget div-->
+					<div>
+						<!-- widget content -->
+						<div class="widget-body">
+							
+							<!-- 过滤条件 -->
+							<form class="common-form" data-ng-submit="pagedSectionList()">
+								<div class="input-group">
+									<label class="col-md-3 control-label">模糊搜索：</label>
+									<div class="col-md-9">
+										<input class="form-control" type="search" data-ng-model="condition.keywords" placeholder="版块名称">
+										<div class="input-group-btn">
+											<button class="btn btn-default btn-primary" type="submit" title="搜索">
+												<i class="fa fa-search"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="input-group">
+									<label class="col-md-3 control-label">创建时间：</label>
+									<div class="col-md-9" title="选择时间段">
+										<input id="searchDateRangeId" class="form-control" type="text" placeholder="开始时间&nbsp;~&nbsp;结束时间" 
+											 date-range-picker options="dateRangePickerOptions" data-ng-model="rangeDate" /> 
+										<div class="input-group-btn">
+											<button class="btn btn-default btn-primary" type="button" title="选择时间" data-ng-click="showSearchDateRange();">
+												<i class="fa fa-calendar"></i>
+											</button>
+										</div>
+										<a href="javascript:void(0)" class="common-clear-date" data-ng-click="clearDate()">清空</a>
+									</div>
+								</div>
+							</form>
+						
+							<div class="table-responsive">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th>序号</th>
+											<th>版块名称</th>
+											<th>简介</th>
+											<th>创建时间</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody data-ng-show="!isLoadingMessage">
+										<tr data-ng-repeat="section in sectionList">
+											<td>{{$index + 1}}</td>
+											<td title="{{section.name|showBlankValue}}">{{section.name|showBlankValue}}</td>
+											<td title="{{section.brief|showBlankValue}}">{{section.brief|showBlankValue}}</td>
+											<td title="{{section.createTime|formatDate}}">{{section.createTime|formatDate}}</td>
+											<td>
+												<a href="javascript:void(0)" data-ng-click="togglePanel('edit', section)">编辑</a>
+												<a href="javascript:void(0)" data-ng-click="deleteSection(section)">删除</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+								<loading-panel data-ng-show="isLoadingMessage" font-size="18"></loading-panel>
+								<nodata-panel data-ng-show="!isLoadingMessage && sectionList.length==0" font-size="18"></nodata-panel>
+							</div>
+							
+							<common-pager class="common-pager" page-count="{{condition.pageCount}}" current-page="condition.pageNo" 
+								total-rows="condition.totalCount" to-page-call-back="pagedSectionList(pageNo)"></common-pager>
+							
+						</div>
+						<!-- end widget content -->
+					</div>
+					<!-- end widget div -->
+				</div>
+				<!-- end widget -->
+			</article>
+			<!-- WIDGET END -->
+		</div>
+		<!-- end row -->
+	</section>
+	<!-- end widget grid -->
+	
+	<!-- 保存面板 start -->
+	<section-manage-save data-ng-show="saveType" section="sectionSave"></section-manage-save>
+	<!-- 保存面板 end -->
+	
+</div>
