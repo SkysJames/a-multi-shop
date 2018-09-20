@@ -1,5 +1,5 @@
 # a-multi-shop
-多商铺平台，请捐赠我们！  
+多商铺平台  
 
 成果：  
 1.有管理后台+前台产品的展示页面。  
@@ -25,9 +25,11 @@
 10.tomcat运行成功后，打开网页http://localhost:8080/multiShop ，即可到网站首页，若想到后台页面，可点右上角的商家中心。  
 
 用途：  
-1.此项目可以用来二次开发成真正可用的商业平台，担心高并发量？担心数据量？只需要在tomcat这一层面上加上nginx代理和在mysql这一层面上实现分布式数据即可。  
+1.此项目可以用来二次开发成真正可用的商业平台，担心高并发量？担心数据量？只需要在tomcat这一层面上加上nginx代理和在mysql这一层面上实现分布式数据库即可。  
 2.此项目也可以用在大学生们的毕业论文哦，只需将此项目拷贝下来，按照上面的步骤部署后，一个多商铺平台网站即可在您的计算机上跑起来了。  
 
 若此项目对您有所帮助，请捐赠下我们呗！谢谢各位支持哈！  
-![Image text](https://raw.githubusercontent.com/SkysJames/hello-world/master/images/my_epay.jpg) 
-![Image text](https://raw.githubusercontent.com/SkysJames/hello-world/master/images/my_wpay.jpg)
+![Image text](https://raw.githubusercontent.com/SkysJames/hello-world/master/images/my_epay.png) 
+![Image text](https://raw.githubusercontent.com/SkysJames/hello-world/master/images/my_wpay.png)
+
+如若有什么问题的话，可以将问题发邮件到此邮箱 szlxkjcompany@163.com ,记得标注联系方式哦！若是比较简单的问题的话，我就会直接回复邮件说明。
