@@ -29,4 +29,5 @@
 2.此项目也可以用在大学生们的毕业论文哦，只需将此项目拷贝下来，按照上面的步骤部署后，一个多商铺平台网站即可在您的计算机上跑起来了。  
 
 若此项目对您有所帮助，请捐赠下我们呗！谢谢各位支持哈！  
-
+![Image text](https://raw.githubusercontent.com/SkysJames/hello-world/master/images/my_epay.jpg) 
+![Image text](https://raw.githubusercontent.com/SkysJames/hello-world/master/images/my_wpay.jpg)
