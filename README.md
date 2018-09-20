@@ -12,7 +12,7 @@
 2.前端用到了angularjs、jQuery和bootstrap框架，后端用到了strust2、spring和hibernate框架，数据库是单库形式用mysql 5.7，服务器用tomcat 8.5。  
 
 项目搭建：  
-（注意，这里项目搭建需要有一点web项目搭建经验和eclipse使用经验的，一些比较基础的操作在本文中就没有提到，若看到不太懂的可以百度一下）
+（注意，这里项目搭建需要有一点web项目搭建经验和eclipse使用经验的，一些比较基础的操作在本文中就没有提到，若看到不太懂的可以百度一下）  
 1.需要下载jdk 1.8。  
 2.需要数据库mysql 5.7，并创建一个命名为multishop，编码为utf8的数据库。  
 3.需要下载tomcat 8.5。  
